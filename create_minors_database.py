@@ -1,4 +1,4 @@
-# Copied from ChatGPT: 
+# Consulted with ChatGPT: 
 import os
 import yaml
 from pymongo import MongoClient
@@ -15,7 +15,7 @@ for file in files:
 client = MongoClient('mongodb+srv://jschoenberg:TigerPlan123!@tigerplantest1.lmveo2u.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanTest1')
 db = client['TigerPlanTest1']
 
-# Transform and insert data into MongoDB
+#s Transform and insert data into MongoDB
 # db.create_collection('TestDB1AFS')
 collection = db['MinorsData']
 print(data)
