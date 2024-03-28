@@ -1,3 +1,12 @@
+Profile Page:
+1. This should be the page a student is led to the first time they log
+in
+2. They should be able to click on this page in the header any time they
+want to change their name or major
+3. Any time they input stuff into the name and major fields, update it
+in backend; always display the default value that is already in the 
+backend for a given field
+
 Students
 _________
 
@@ -33,4 +42,6 @@ page.
 6. When a student clicks on any other tab, that page should load in the
 data associated with the person's username; if there is no username,
 throw error
+
+
 

@@ -14,12 +14,13 @@ except Exception as e:
 def handle_student_login(username):
     try:
         # Check if student exists in the database
-                
+        first_time = False
         existing_student = students_collection.find_one({"netID": username})
         #print(existing_student)
         #print("find one worked!")
 
         if existing_student is None:
+            first_time = True
             #print("Student doesn't exist!")
              # If student doesn't exist, create a new student document
             new_student = {
@@ -31,10 +32,10 @@ def handle_student_login(username):
             }   
             students_collection.insert_one(new_student)
             #print("insert one worked!")
-        return True
+        return (True, first_time)
     except Exception as e:
         print("An error occurred while handling student login:", e)
-        return False
+        return (False, False)
 
 # Function to get student classes
 def get_student_classes(username):
@@ -66,7 +67,7 @@ def main():
         # create a loop of usernames
         for i in range(1, 10):
             username = "student" + str(i)
-            worked = handle_student_login(username)
+            worked,_ = handle_student_login(username)
             if worked:
                 print("Student login successful!")
                 student_classes = get_student_classes(username)
