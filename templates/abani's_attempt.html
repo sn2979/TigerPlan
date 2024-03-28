@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TigerPlan</title>
-<link rel="stylesheet" type="text/css" href="abani's_styles.css">
+<link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 </head>
 <body>
 
@@ -23,12 +23,12 @@
   <section id="main-content">
     <p>TigerPlan helps Princeton students find <br>minors that fit with their classes.</p>
     <div class="button-container">
-        <button onclick="location.href='login.html'">Login for your recommendations!</button>
+        <button onclick="location.href='\login'">Login for your recommendations!</button>
       </div>
   </section>
 
   <section id="class-board">
-    <img src="Class-Selection.png" alt="Class Selection" style="width: 300px;">
+    <img src="{{ url_for('static', filename='images/Class-Selection.png') }}" alt="Class Selection" style="width: 300px;">
     <h2>1. Build your Class Board</h2>
     <!-- Class cards would be populated here -->
   </section>
