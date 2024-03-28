@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
+
+/* Reset default browser styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  body {
+    font-size: 14px;
+    font-family: 'Roboto Serif', serif; /* Example font, update as needed */
+    background-color: #C8F6EB;
+  }
+  
+  .roboto {
+    font-family: 'Roboto Serif', serif; /* Ensure you have this font available */
+  }
+  
+  .caveat {
+    font-family: 'Caveat Brush', brush; /* Ensure you have this font available */
+  }
+
+  /* Header styles */
+  #header {
+    width: 100%;
+    height: 10vh;
+    background-color: #0FA3B1; /* Replace with the actual color code or image */
+    color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 5px;
+  }
+  
+  #header h1 {
+    font-size: 50px;
+    font-weight: normal;
+
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+  }
+  
+  nav ul li a {
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* Main content styles */
+  #main-content p {
+    font-size: 40px;
+    color: black;
+    text-align: center;
+    padding-top: 10vh; /* Adjust as needed */
+  }
+  
+  button {
+    background-color: #FF9B42; /* Adjust color code as needed */
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 32px;
+    border-radius: 30px;
+    font-family: 'Roboto Serif', serif;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.3s;
+  }
+  
+  .button-container {
+    display: flex;
+    padding: 20px;
+    justify-content: center; /* Centers horizontally in the flex container */
+    align-items: center; /* Centers vertically in the flex container */
+    height: 100%; /* You might need to set a specific height */
+  }
+  
+  button:hover {
+    background-color: darken(#FF9B42, 10%); /* You`ll need a preprocessor like SASS for this or just darken the color manually */
+}
+
+/* Section titles */
+#h2 {
+    font-size: 40px;
+    color: black; /* Adjust color as needed */
+    margin-bottom: 20px; /* Adjust spacing as needed */
+}
+
+/* Class board and progress sections */
+#class-board, #progress {
+margin-top: 20px; /* Adjust spacing as needed */
+margin-bottom: 20px;
+margin-left: 5vw;
+display: block;
+justify-content: center;
+}
+
+/* Minors notification */
+.minor-notification {
+background-color: #F7A072; /* Adjust color code as needed */
+border-radius: 18px;
+padding: 15px;
+font-size: 32px;
+color: black;
+box-shadow: 0px 2.5px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* Progress board styling */
+.progress-board div {
+    background-color: #F7A072; /* Adjust color code as needed */
+    border-radius: 9px;
+    padding: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 245px; /* Set the width */
+    height: 367px; /* Set the height */
+    box-sizing: border-box; /* Include padding and border in the box's dimensions */
+  }
+  
+
+.progress-board h3 {
+color: black;
+font-size: 35px;
+}
+
+.progress-board p {
+font-size: 22px;
+}
+
+.progress-board ul {
+list-style: none;
+}
+
+
+  
