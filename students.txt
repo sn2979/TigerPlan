@@ -1,0 +1,36 @@
+Students
+_________
+
+ID: netid of student
+Name: the name of student
+Classes: the classes from the classboard of the student (a collection of class strings)
+Recommendations: the latest recommended minors 
+Major: the major of a student
+_________
+
+Classes object: the classes information comes from the tigerapps API
+Minors object: will pull information from the yamls for the minors 
+regarding what a student has completed
+^ question for Creston
+
+Flow for a student through the app:
+1: Come to the home page
+2: Click on the "login for my recommendations button"
+3: Be directed to "your class board" page
+
+Internally what needs to happen?
+If a student clicks on login page, we receive their username.
+1. Check if the username is in the database
+2. If it is in the database, proceed with normal actions.
+3. If the username is not in the database, then create a new student in
+the database with empty attributes
+    3.a. Redirect the student to a welcome page that asks them to input
+    their name and their major
+4. Retrieve the data associated with a username that is necessary for the
+class board page, which would be the 'Classes' attribute. Render classes
+page.
+5. Send the student to their classboard page 
+6. When a student clicks on any other tab, that page should load in the
+data associated with the person's username; if there is no username,
+throw error
+
