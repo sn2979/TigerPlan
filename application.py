@@ -29,7 +29,7 @@ def index():
 @app.route('/login', methods=['GET'])
 def login():
     username = auth.authenticate()
-    html_code = flask.render_template("figma_classboard.html")
+    html_code = flask.render_template("figma_classboard.html", username = username)
 
     response = flask.make_response(html_code)
     return response
