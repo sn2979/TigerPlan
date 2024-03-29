@@ -11,23 +11,23 @@ except Exception as e:
     sys.exit(1)
 
 # Function to handle student login
-def handle_student_login(username):
+def handle_student_login(username, name, major):
     try:
         # Check if student exists in the database
         first_time = False
         existing_student = students_collection.find_one({"netID": username})
-        #print(existing_student)
-        #print("find one worked!")
+        print(existing_student)
+        print("find one worked!")
 
         if existing_student is None:
             first_time = True
-            #print("Student doesn't exist!")
+            print("Student doesn't exist!")
              # If student doesn't exist, create a new student document
             new_student = {
                 "netID": username,
-                "Name": "",
-                "Major": "",
-                "Classes": [],
+                "Name": name,
+                "Major": major,
+                "Classes": ["COS 333 <3 "],
                 "Recommendations": []
             }   
             students_collection.insert_one(new_student)
