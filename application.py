@@ -29,38 +29,63 @@ def index():
 @app.route('/login', methods=['GET'])
 def login():
     username = auth.authenticate()
-    html_code = flask.render_template("loginpage.html", username = username)
+    success, first_time = student_database.handle_student_login(username)
+    if success:
+        # Store the username in the session
+        flask.session['username'] = username
+        
+        if first_time:
+            print("First time login")
+            html_code = flask.render_template("loginpage.html", username=username)
+            response = flask.make_response(html_code)
+            return response
+        else:
+            print("Returning user")
+            return flask.redirect('/classboard') 
+    else:
+        # Handle authentication failure
+        return flask.abort(401)  # Unauthorized
 
-    response = flask.make_response(html_code)
-    return response
-    
+@app.route('/profile', methods=['POST'])
+def set_profile():
+    username = flask.session.get('username')
+    if username is None:
+        return flask.abort(401)
+    name = request.form.get('name')
+    major = request.form.get('major')
+    student_database.update_student_profile(username, name, major)
+    return flask.redirect('/classboard')
 
 @app.route('/logoutapp', methods=['GET'])
 def logoutapp():
+    flask.session.pop('username', None)  # Remove username from session
     return auth.logoutapp()
 
 @app.route('/logoutcas', methods=['GET'])
 def logoutcas():
+    flask.session.pop('username', None)  # Remove username from session
     return auth.logoutcas()
 
-#renamed route to something more descriptive and accurate
-@app.route('/classboard', methods=['POST'])
-def submit():
-    username = request.form['username']
-    name = request.form['name']
-    major = request.form['major']
+@app.route('/classboard', methods=['GET'])
+def classboard():
+    # Retrieve the username from the session
+    username = flask.session.get('username')
+    if username is None:
+        # Handle case where username is not in session (e.g., user not logged in)
+        return flask.abort(401)  # Unauthorized
     
-    success, first_time = student_database.handle_student_login(username,name,major)
-    classes = student_database.get_student_classes(username)
-    name = student_database.get_student_name(username)
-    if success:
-        print("inserted into database")
-        html_code = flask.render_template("figma_classboard.html", username = name, classes = classes)
+    try:
+        # Retrieve other data using the username from the session
+        classes = student_database.get_student_classes(username)
+        name = student_database.get_student_name(username)
+        
+        # Render the template with retrieved data
+        html_code = flask.render_template("figma_classboard.html", username=name, classes=classes)
         response = flask.make_response(html_code)
         return response
-    else:
-        #fix this later w a real error screen
-        html_code = flask.render_template("figma_classboard.html", username = "error")
-        response = flask.make_response(html_code)
-        return response
+    except Exception as e:
+        # Handle database retrieval or rendering errors
+        error_message = f"An error occurred: {str(e)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
 
