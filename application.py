@@ -50,7 +50,7 @@ def login():
 def set_profile():
     username = flask.session.get('username')
     if username is None:
-        return flask.abort(401)
+        flask.redirect('/login')
     name = request.form.get('name')
     major = request.form.get('major')
     student_database.update_student_profile(username, name, major)
@@ -72,7 +72,7 @@ def classboard():
     username = flask.session.get('username')
     if username is None:
         # Handle case where username is not in session (e.g., user not logged in)
-        return flask.abort(401)  # Unauthorized
+        return flask.redirect('/login')  # Unauthorized
     
     try:
         # Retrieve other data using the username from the session
