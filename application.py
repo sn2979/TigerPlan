@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import flask 
 from flask import request
-from student_database import handle_student_login, get_student_classes
+import student_database as student_database
 import dotenv
 import auth
 
@@ -43,17 +43,19 @@ def logoutapp():
 def logoutcas():
     return auth.logoutcas()
 
-@app.route('/submit', methods=['POST'])
+#renamed route to something more descriptive and accurate
+@app.route('/classboard', methods=['POST'])
 def submit():
     username = request.form['username']
     name = request.form['name']
     major = request.form['major']
     
-    success, first_time = handle_student_login(username,name,major)
-    classes = get_student_classes(username)
+    success, first_time = student_database.handle_student_login(username,name,major)
+    classes = student_database.get_student_classes(username)
+    name = student_database.get_student_name(username)
     if success:
         print("inserted into database")
-        html_code = flask.render_template("figma_classboard.html", username = username, classes = classes)
+        html_code = flask.render_template("figma_classboard.html", username = name, classes = classes)
         response = flask.make_response(html_code)
         return response
     else:

@@ -47,6 +47,16 @@ def get_student_classes(username):
     except Exception as e:
         print("An error occurred while getting student classes:", e)
         return []
+
+def get_student_name(username):
+    try:
+        existing_student = students_collection.find_one({"netID": username})
+        if existing_student is None:
+            raise Exception("Student not found")
+        return existing_student.get("Name", "")
+    except Exception as e:
+        print("An error occurred while getting student name:", e)
+        return ""
     
 # Function to update student classes
 def update_student_classes(username, classes):
