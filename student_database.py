@@ -11,7 +11,7 @@ except Exception as e:
     sys.exit(1)
 
 # Function to handle student login
-def handle_student_login(username):
+def handle_student_login(username, name, major):
     try:
         # Check if student exists in the database
         first_time = False
@@ -25,8 +25,8 @@ def handle_student_login(username):
              # If student doesn't exist, create a new student document
             new_student = {
                 "netID": username,
-                "Name": "",
-                "Major": "",
+                "Name": name,
+                "Major": major,
                 "Classes": [],
                 "Recommendations": []
             }   
