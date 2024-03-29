@@ -7,6 +7,10 @@ want to change their name or major
 in backend; always display the default value that is already in the 
 backend for a given field
 
+Class Board Page Version 1:
+1. Display the current classes that a student has on their board
+2. A search region to 
+
 Students
 _________
 

@@ -11,7 +11,7 @@ except Exception as e:
     sys.exit(1)
 
 # Function to handle student login
-def handle_student_login(username, name, major):
+def handle_student_login(username):
     try:
         # Check if student exists in the database
         first_time = False
@@ -25,8 +25,8 @@ def handle_student_login(username, name, major):
              # If student doesn't exist, create a new student document
             new_student = {
                 "netID": username,
-                "Name": name,
-                "Major": major,
+                "Name": "",
+                "Major": "",
                 "Classes": ["COS 333 <3 "],
                 "Recommendations": []
             }   
@@ -37,6 +37,18 @@ def handle_student_login(username, name, major):
         print("An error occurred while handling student login:", e)
         return (False, False)
 
+# Function to update student profile
+def update_student_profile(username, name, major):
+    try:
+        existing_student = students_collection.find_one({"netID": username})
+        if existing_student is None:
+            raise Exception("Student not found")
+        students_collection.update_one({"netID": username}, {"$set": {"Name": name, "Major": major}})
+        return True
+    except Exception as e:
+        print("An error occurred while updating student profile:", e)
+        return False
+    
 # Function to get student classes
 def get_student_classes(username):
     try:
@@ -47,6 +59,16 @@ def get_student_classes(username):
     except Exception as e:
         print("An error occurred while getting student classes:", e)
         return []
+
+def get_student_name(username):
+    try:
+        existing_student = students_collection.find_one({"netID": username})
+        if existing_student is None:
+            raise Exception("Student not found")
+        return existing_student.get("Name", "")
+    except Exception as e:
+        print("An error occurred while getting student name:", e)
+        return ""
     
 # Function to update student classes
 def update_student_classes(username, classes):
