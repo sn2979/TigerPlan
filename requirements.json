@@ -1,0 +1,63 @@
+[
+{
+    "class_list": {
+      "Foundational Courses/Above 300-level": ["ENV 304", "ENV 377"],
+      "Foundational Courses/Below 300-level": ["ENV 200A", ""],
+      "Elective Courses/Above 300-level": ["ENV 304", "CEE 304"],
+      "Elective Courses/Below 300-level": ["ENV 200A"]
+    },
+    "dependencies": {
+      "Foundational Courses/Above 300-level": "Foundational Courses",
+      "Foundational Courses/Below 300-level": "Foundational Courses",
+      "Elective Courses/Above 300-level": "Elective Courses",
+      "Elective Courses/Below 300-level": "Elective Courses",
+      "Foundational Courses": "",
+      "Elective Courses": ""
+    },
+    "subrequirements": {
+      "Foundational Courses/Above 300-level": [1, 2],
+      "Foundational Courses/Below 300-level": [1, 1],
+      "Elective Courses/Above 300-level": [2, 3],
+      "Elective Courses/Below 300-level": [1, 1],
+      "Foundational Courses": [2, 2],
+      "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+      "Foundational Courses/Above 300-level",
+      "Foundational Courses/Below 300-level",
+      "Elective Courses/Above 300-level",
+      "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+  }, {
+    "class_list": {
+      "Foundational Courses/Above 300-level": ["ENV 304", "ENV 377"],
+      "Foundational Courses/Below 300-level": ["ENV 200A"],
+      "Elective Courses/Above 300-level": ["ENV 304", "CEE 304"],
+      "Elective Courses/Below 300-level": ["ENV 200A"]
+    },
+    "dependencies": {
+      "Foundational Courses/Above 300-level": "Foundational Courses",
+      "Foundational Courses/Below 300-level": "Foundational Courses",
+      "Elective Courses/Above 300-level": "Elective Courses",
+      "Elective Courses/Below 300-level": "Elective Courses",
+      "Foundational Courses": "",
+      "Elective Courses": ""
+    },
+    "subrequirements": {
+      "Foundational Courses/Above 300-level": [1, 2],
+      "Foundational Courses/Below 300-level": [1, 1],
+      "Elective Courses/Above 300-level": [2, 3],
+      "Elective Courses/Below 300-level": [1, 1],
+      "Foundational Courses": [2, 2],
+      "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+      "Foundational Courses/Above 300-level",
+      "Foundational Courses/Below 300-level",
+      "Elective Courses/Above 300-level",
+      "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+  }
+]
