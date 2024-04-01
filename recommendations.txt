@@ -1,0 +1,90 @@
+The example of ENV
+# Specific class list
+class_list1 = {
+    'Foundational Courses/Above 300-level': ['ENV 304', 'ENV 377'],
+    'Foundational Courses/Below 300-level': ['ENV 200A'],
+    'Elective Courses/Above 300-level': ['ENV 304', CEE 304'],
+    'Elective Courses/Below 300-level': ['ENV 200A']
+}
+
+If you have less classes for a base requirement than the minimum, you 
+can never fulfill that requirement. If you have greater than the requirement
+the max size combos you can check is the maximum number of allowed
+classes for that requirement
+
+Possible combos to check:
+ENV 304, CEE 304-- fulfills no dependent requirements
+ENV 304, ENV 200A, CEE 304-- fulfills one dependent requirement
+ENV 304, ENV 200A, CEE 304, ENV 200A-- fulfills one dependent requirement
+ENV 377, ENV 304, CEE 304, ENV 200A -- fulfills one dependent requirement
+ENV 377, ENV 200A, ENV 304, CEE 304, ENV 200A-- fulfills all requirements
+
+curr_classes = {}
+
+for requirement in class_list:
+    curr_classes[requirement] = 
+
+
+
+class_list2 = {
+    'Foundational Courses/Above 300-level': ['ENV 377', 'ENV 318'],
+    'Foundational Courses/Below 300-level': [],
+    'Elective Courses/Above 300-level': ['CEE 304'],
+    'Elective Courses/Below 300-level': ['CEE 207', 'CLA 226']
+}
+
+class_list2 = {
+    'Foundational Courses/Above 300-level': [],
+    'Foundational Courses/Below 300-level': ['ENV 200A', 'ENV 200B'],
+    'Elective Courses/Above 300-level': ['CEE 304'],
+    'Elective Courses/Below 300-level': ['CEE 207', 'CLA 226']
+}
+
+dependencies = {
+    'Foundational Courses/Above 300-level': 'Foundational Courses',
+    'Foundational Courses/Below 300-level': 'Foundational Courses',
+    'Elective Courses/Above 300-level': 'Elective Courses',
+    'Elective Courses/Below 300-level': 'Elective Courses',
+    'Foundational Courses': '',
+    'Elective Courses': ''
+}
+
+subrequirements = {
+    'Foundational Courses/Above 300-level': [1, 2],
+    'Foundational Courses/Below 300-level': [0, 1],
+    'Elective Courses/Above 300-level': [2, 3],
+    'Elective Courses/Below 300-level': [0, 1],
+    'Foundational Courses': 2,
+    'Elective Courses': 3
+}
+
+-----------------------------------------------------
+
+The example of COS
+
+# Specific class list
+class_list = {
+    'Core/Introduction/Introductory Course': ['COS 126', 'ECE 115'],
+    'Core/Introduction/Integrated Science Curriculum': ['ISC 231', 'ISC 232']
+    'Core/Core Course': ['COS 226', 'COS 217'],
+    'Electives': ['COS 226', 'COS 217', 'COS 324']
+}
+
+
+dependencies = {
+    'Core/Introduction/Introductory Course': 'Core/Introduction',
+    'Core/Introduction/Integrated Science Curriculum': 'Core/Introduction',
+    'Core/Introduction': 'Core',
+    'Core/Core Course': 'Core',
+    'Core': '',
+    'Electives': ''
+}
+
+subrequirements = {
+    'Core/Introduction/Introductory Course': [0, 1],
+    'Core/Introduction/Integrated Science Curriculum': [0, 1],
+    'Core/Introduction': 1,
+    'Core/Core Course': 1,
+    'Core': 2,
+    'Electives': [0, 3]
+}
