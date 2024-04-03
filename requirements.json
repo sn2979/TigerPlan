@@ -24,13 +24,15 @@
       "Elective Courses": [3, 3]
     },
     "base_reqs": [
-      "Foundational Courses/Above 300-level",
-      "Foundational Courses/Below 300-level",
-      "Elective Courses/Above 300-level",
-      "Elective Courses/Below 300-level"
+      "Electives/Humanities",
+      "Electives/Social Sciences",
+      "Electives/Language",
+      "Electives/Cross-listed with AFS",
+      "Core"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
-  }, {
+    "dependent_reqs": ["Core", "Electives"]
+    }, 
+    {
     "class_list": {
         "Core": ["AMS 101"],
         "Electives": ["ASA *"],
@@ -56,7 +58,8 @@
       "Elective Courses/Below 300-level"
     ],
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
-  },  {
+    }, 
+    {
     "class_list": {
         "Language/Basic Language": ["CHI 1001", "CHI 1002", "CHI 101", "CHI 102", "CHI 103", "CHI 105", "CHI 107", "CHI 108"],
         "Language/Advanced Language": ["CHI 303", "CHI 304", "CHI 305", "CHI 306", "CHI 403", "CHI 404", "CHI 405", "CHI 406", "CHI 451"],
@@ -83,7 +86,8 @@
       "Elective Courses/Below 300-level"
     ],
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
-  },  {
+    },
+    {
     "class_list": {
         "Prerequisities": ["CLA *", "CLG 108", "LAT 108"],
         "Tracks/Classical Studies with a focal point/Basic Requirement": ["CLA 203", "CLA 212"],
@@ -146,7 +150,98 @@
       "Elective Courses/Below 300-level"
     ],
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
-  }, {
+    },    
+    {
+    "class_list": {
+        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
+        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
+        "Core/Core Course": ["COS 226", "COS 217"],
+        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+      },
+      "dependencies": {
+        "Core/Introduction/Introductory Course": ["Core/Introduction"],
+        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
+        "Core/Core Course": ["Core"],
+        "Electives": [""],
+        "Core/Introduction": ["Core"],
+        "Core": [""]
+      },
+    "subrequirements": {
+      "Foundational Courses/Above 300-level": [1, 2],
+      "Foundational Courses/Below 300-level": [1, 1],
+      "Elective Courses/Above 300-level": [2, 3],
+      "Elective Courses/Below 300-level": [1, 1],
+      "Foundational Courses": [2, 2],
+      "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+      "Foundational Courses/Above 300-level",
+      "Foundational Courses/Below 300-level",
+      "Elective Courses/Above 300-level",
+      "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },{
+    "class_list": {
+        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
+        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
+        "Core/Core Course": ["COS 226", "COS 217"],
+        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+      },
+      "dependencies": {
+        "Core/Introduction/Introductory Course": ["Core/Introduction"],
+        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
+        "Core/Core Course": ["Core"],
+        "Electives": [""],
+        "Core/Introduction": ["Core"],
+        "Core": [""]
+      },
+    "subrequirements": {
+      "Foundational Courses/Above 300-level": [1, 2],
+      "Foundational Courses/Below 300-level": [1, 1],
+      "Elective Courses/Above 300-level": [2, 3],
+      "Elective Courses/Below 300-level": [1, 1],
+      "Foundational Courses": [2, 2],
+      "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+      "Foundational Courses/Above 300-level",
+      "Foundational Courses/Below 300-level",
+      "Elective Courses/Above 300-level",
+      "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Core": ["GEO 102", "GEO 103", "GEO 202", "GEO 203", "GEO 361", 
+        "GEO 363", "GEO 369", "GEO 370", "GEO 416", "GEO 417", "GEO 425", 
+        "GEO 428", "GEO 470"],
+        "Capstone Electives": ["GEO 360", "GEO 361", "GEO 362", 
+        "GEO 363", "GEO 366", "GEO 367", "GEO 369", "GEO 370", "GEO 416", 
+        "GEO 417", "GEO 425", "GEO 428", "GEO 470"]
+        },
+        "dependencies": {
+        "Capstone Electives": [""],
+        "Core": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },    
+    {
     "class_list": {
       "Prerequisities/Mathematics/MAT 175": [ "MAT 175"],
       "Prerequisities/Mathematics/BSE Mathematics": ["MAT 201", "MAT 202"],
