@@ -38,7 +38,7 @@
         "Electives": ["ASA *"],
         "Advanced Seminar": ["AMS 403", "AMS 404", "AMS 406"]
       },
-      "dependencies": {
+    "dependencies": {
         "Core": [""],
         "Electives": [""],
         "Advanced Seminar": [""]
@@ -65,7 +65,7 @@
         "Language/Advanced Language": ["CHI 303", "CHI 304", "CHI 305", "CHI 306", "CHI 403", "CHI 404", "CHI 405", "CHI 406", "CHI 451"],
         "EAS or cognate": ["EAS *"]
       },
-      "dependencies": {
+    "dependencies": {
         "Language/Basic Language": ["Language"],
         "Language/Advanced Language": ["Language"],
         "EAS or cognate": [""],
@@ -120,7 +120,7 @@
         ["CLA *", "LAT *", "HUM *", "ART *", "ARC *", "HLS *", 
         "REL *", "PHI *", "CDH *", "PAW *"]
       },
-      "dependencies": {
+    "dependencies": {
         "Prerequisites": [""],
         "Tracks/Classical Studies with a focal point/Basic Requirement": ["Tracks/Classical Studies with a focal point"],
         "Tracks/Classical Studies with a focal point": ["Tracks"],
@@ -158,37 +158,7 @@
         "Core/Core Course": ["COS 226", "COS 217"],
         "Electives": ["COS 2*", "COS 3*", "COS 4*"]
       },
-      "dependencies": {
-        "Core/Introduction/Introductory Course": ["Core/Introduction"],
-        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
-        "Core/Core Course": ["Core"],
-        "Electives": [""],
-        "Core/Introduction": ["Core"],
-        "Core": [""]
-      },
-    "subrequirements": {
-      "Foundational Courses/Above 300-level": [1, 2],
-      "Foundational Courses/Below 300-level": [1, 1],
-      "Elective Courses/Above 300-level": [2, 3],
-      "Elective Courses/Below 300-level": [1, 1],
-      "Foundational Courses": [2, 2],
-      "Elective Courses": [3, 3]
-    },
-    "base_reqs": [
-      "Foundational Courses/Above 300-level",
-      "Foundational Courses/Below 300-level",
-      "Elective Courses/Above 300-level",
-      "Elective Courses/Below 300-level"
-    ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
-    },{
-    "class_list": {
-        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
-        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
-        "Core/Core Course": ["COS 226", "COS 217"],
-        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
-      },
-      "dependencies": {
+    "dependencies": {
         "Core/Introduction/Introductory Course": ["Core/Introduction"],
         "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
         "Core/Core Course": ["Core"],
@@ -221,7 +191,7 @@
         "GEO 363", "GEO 366", "GEO 367", "GEO 369", "GEO 370", "GEO 416", 
         "GEO 417", "GEO 425", "GEO 428", "GEO 470"]
         },
-        "dependencies": {
+    "dependencies": {
         "Capstone Electives": [""],
         "Core": [""]
         },
@@ -240,7 +210,133 @@
         "Elective Courses/Below 300-level"
     ],
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
-    },    
+    }, 
+    {
+    "class_list": {
+        "Coursework/Introductory": ["CWR 2*"],
+        "Coursework/Advanced": ["CWR 3*", "CWR 4*"]
+        },
+    "dependencies": {
+        "Coursework/Advanced": ["Coursework"],
+        "Coursework/Introductory": ["Coursework"],
+        "Coursework": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisities": ["DAN *"],
+        "Studio Course": ["DAN 204", "DAN 207", "DAN 208", "DAN 211", 
+        "DAN 215", "DAN 216", "DAN 221", "DAN 229", "DAN 301", 
+        "DAN 303", "DAN 305", "DAN 324", "DAN 326", "DAN 348", 
+        "DAN 351", "DAN 354", "DAN 401", "DAN 402", "DAN 408", 
+        "DAN 419A", "DAN 420A", "DAN 431", "DAN 432"],
+        "Seminar": ["DAN 215", "DAN 305", "DAN 308", "DAN 312", 
+        "DAN 314", "DAN 316", "DAN 317", "DAN 321", "DAN 325", 
+        "DAN 329", "DAN 348", "DAN 393", "DAN 406"],
+        "Electives": ["DAN *"]
+        },
+    "dependencies": {
+        "Prerequisites": [""],
+        "Electives": [""],
+        "Seminar": [""],
+        "Studio Course": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    }, 
+    {
+    "class_list": {
+        "Language/Basic Language": ["CHI 1*", "JPN 1*", "KOR 1*"],
+        "Language/Advanced Language": ["CHI 2*", "CHI 3*", "CHI 4*", 
+        "CHI 5*", "JPN 2*", "JPN 3*", "JPN 4*", "JPN 5*", "KOR 2*", 
+        "KOR 3*", "KOR 4*", "KOR 5*"],
+        "Content Requirement/Content Courses": ["EAS 1*", "EAS 3*", 
+        "EAS 4*", "EAS 5*", "POL 434", "SOC 307", "SPI 316"],
+        "Content Requirement/Content Courses (200-level)": ["EAS 2*"]
+        },
+    "dependencies": {
+        "Content Requirement/Content Courses (200-level)": ["Content Requirement"],
+        "Content Requirement/Content Courses": ["Content Requirement"],
+        "Content Requirement": [""],
+        "Language/Advanced Language": ["Language"],
+        "Language/Basic Language": ["Language"],
+        "Language": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
+        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
+        "Core/Core Course": ["COS 226", "COS 217"],
+        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+        },
+    "dependencies": {
+        "Core/Introduction/Introductory Course": ["Core/Introduction"],
+        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
+        "Core/Core Course": ["Core"],
+        "Electives": [""],
+        "Core/Introduction": ["Core"],
+        "Core": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },  
     {
     "class_list": {
       "Prerequisities/Mathematics/MAT 175": [ "MAT 175"],
