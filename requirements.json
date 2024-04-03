@@ -8,12 +8,12 @@
         "Electives/Cross-listed with AFS": ["AFS *"]
     },
     "dependencies": {
-      "Electives/Humanities": "Electives",
-      "Electives/Social Sciences": "Electives",
-      "Electives/Language": "Electives",
-      "Electives/Cross-listed with AFS": "Electives",
-      "Core": "",
-      "Electives": ""
+      "Electives/Humanities": ["Electives"],
+      "Electives/Social Sciences": ["Electives"],
+      "Electives/Language": ["Electives"],
+      "Electives/Cross-listed with AFS": ["Electives"],
+      "Core": [""],
+      "Electives": [""]
     },
     "subrequirements": {
       "Foundational Courses/Above 300-level": [1, 2],
@@ -37,9 +37,99 @@
         "Advanced Seminar": ["AMS 403", "AMS 404", "AMS 406"]
       },
       "dependencies": {
-        "Core": "",
-        "Electives": "",
-        "Advanced Seminar": ""
+        "Core": [""],
+        "Electives": [""],
+        "Advanced Seminar": [""]
+      },
+    "subrequirements": {
+      "Foundational Courses/Above 300-level": [1, 2],
+      "Foundational Courses/Below 300-level": [1, 1],
+      "Elective Courses/Above 300-level": [2, 3],
+      "Elective Courses/Below 300-level": [1, 1],
+      "Foundational Courses": [2, 2],
+      "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+      "Foundational Courses/Above 300-level",
+      "Foundational Courses/Below 300-level",
+      "Elective Courses/Above 300-level",
+      "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+  },  {
+    "class_list": {
+        "Language/Basic Language": ["CHI 1001", "CHI 1002", "CHI 101", "CHI 102", "CHI 103", "CHI 105", "CHI 107", "CHI 108"],
+        "Language/Advanced Language": ["CHI 303", "CHI 304", "CHI 305", "CHI 306", "CHI 403", "CHI 404", "CHI 405", "CHI 406", "CHI 451"],
+        "EAS or cognate": ["EAS *"]
+      },
+      "dependencies": {
+        "Language/Basic Language": ["Language"],
+        "Language/Advanced Language": ["Language"],
+        "EAS or cognate": [""],
+        "Language": [""]
+      },
+    "subrequirements": {
+      "Foundational Courses/Above 300-level": [1, 2],
+      "Foundational Courses/Below 300-level": [1, 1],
+      "Elective Courses/Above 300-level": [2, 3],
+      "Elective Courses/Below 300-level": [1, 1],
+      "Foundational Courses": [2, 2],
+      "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+      "Foundational Courses/Above 300-level",
+      "Foundational Courses/Below 300-level",
+      "Elective Courses/Above 300-level",
+      "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+  },  {
+    "class_list": {
+        "Prerequisities": ["CLA *", "CLG 108", "LAT 108"],
+        "Tracks/Classical Studies with a focal point/Basic Requirement": ["CLA 203", "CLA 212"],
+        "Tracks/Classical Studies with a focal point/Focal Point/Greek Language, Literature, and Culture": 
+        ["CLG 108", "CLG 2*", "CLG 3*", "CLG 4*", "CLG 5*",
+        "CLA 200", "CLA 205", "CLA 216", "CLA 217",
+        "CLA 303", "CLA 307", "CLA 313", "CLA 319", "CLA 326",
+        "CLA 330", "CLA 357", "CLA 400", "CLA 412", "CLA 414",
+        "CLA 502", "CLA 505", "CLA 506", "CLA 514", "CLA 515",
+        "CLA 531", "CLA 536", "CLA 569"],
+        "Tracks/Classical Studies with a focal point/Focal Point/Latin Language, Literature and Roman Culture Classics and Reception":
+        ["LAT 108", "LAT 2*", "LAT 3*", "LAT 4*", "LAT 5*",
+        "CLA 240", "CLA 260", "CLA 309", "CLA 422", "CLA 503", 
+        "CLA 534", "CLA 538", "CLA 542"],
+        "Tracks/Classical Studies with a focal point/Focal Point/Medicine, Science, and the Body":
+        ["CLA 226", "CLA 231", "CLA 313", "CLA 315", 
+        "CLA 329", "CLA 330", "CLA 338", "CLA 531"],
+        "Tracks/Classical Studies with a focal point/Relevant Course":
+        ["CLA *", "LAT *", "HUM *", "ART *", "ARC *", "HLS *", 
+        "REL *", "PHI *", "CDH *", "PAW *"],
+        "Tracks/Ancient History and Material Culture/History Survey":
+        ["CLA 216", "CLA 217", "CLA 218", "CLA 219"],
+        "Tracks/Ancient History and Material Culture/Track Requirement":
+        ["CLA 200", "CLA 202", "CLA 207", "CLA 216", "CLA 217", 
+        "CLA 218", "CLA 219", "CLA 223", "CLA 247", "CLA 309", 
+        "CLA 326", "CLA 343", "CLA 398", "CLA 412", "CLA 413", 
+        "CLA 414", "CLA 418", "CLA 520", "CLA 522", "CLA 524", 
+        "CLA 531", "CLA 536", "CLA 545", "CLA 547", "CLA 548"],
+        "Tracks/Ancient History and Material Culture/Relevant Course":
+        ["CLA *", "LAT *", "HUM *", "ART *", "ARC *", "HLS *", 
+        "REL *", "PHI *", "CDH *", "PAW *"]
+      },
+      "dependencies": {
+        "Prerequisites": [""],
+        "Tracks/Classical Studies with a focal point/Basic Requirement": ["Tracks/Classical Studies with a focal point"],
+        "Tracks/Classical Studies with a focal point": ["Tracks"],
+        "Tracks/Classical Studies with a focal point/Focal Point/Greek Language, Literature, and Culture": ["Tracks/Classical Studies with a focal point/Focal Point"],
+        "Tracks/Classical Studies with a focal point/Focal Point/Latin Language, Literature and Roman Culture Classics and Reception": ["Tracks/Classical Studies with a focal point/Focal Point"],
+        "Tracks/Classical Studies with a focal point/Focal Point/Medicine, Science, and the Body": ["Tracks/Classical Studies with a focal point/Focal Point"],
+        "Tracks/Classical Studies with a focal point/Focal Point": ["Tracks/Classical Studies with a focal point"],
+        "Tracks/Classical Studies with a focal point/Relevant Course": ["Tracks/Classical Studies with a focal point"],
+        "Tracks/Ancient History and Material Culture/History Survey": ["Tracks/Ancient History and Material Culture"],
+        "Tracks/Ancient History and Material Culture/Track Requirement": ["Tracks/Ancient History and Material Culture"],
+        "Tracks/Ancient History and Material Culture/Relevant Courses": ["Tracks/Ancient History and Material Culture"],
+        "Tracks/Ancient History and Material Culture": ["Tracks"],
+        "Tracks": [""]
       },
     "subrequirements": {
       "Foundational Courses/Above 300-level": [1, 2],
