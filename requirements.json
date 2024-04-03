@@ -1,10 +1,36 @@
 [
 {
     "class_list": {
-      "Foundational Courses/Above 300-level": ["ENV 304", "ENV 377"],
-      "Foundational Courses/Below 300-level": ["ENV 200A", ""],
-      "Elective Courses/Above 300-level": ["ENV 304", "CEE 304"],
-      "Elective Courses/Below 300-level": ["ENV 200A"]
+        "Foundational Courses/Above 300-level": [
+            "ENV 303", "ENV 304", "ENV 343", "ENV 354", "ENV 363",
+            "ENV 367", "ENV 377", "ENV 318", "ENV 334", "ENV 344",
+            "ENV 321", "ENV 365", "ENV 384", "ENV 417A", "ENV 417B",
+            "ENV 356", "ENV 362", "ENV 339", "ENV 394", "ENV 319", 
+            "ENV 350", "ENV 405"
+          ],
+        "Foundational Courses/Below 300-level": ["ENV 102A", "ENV 200A", 
+            "ENV 200B", "ENV 200C", "ENV 200D", "ENV 200E", "ENV 200F", 
+            "ENV 210A", "ENV 210B", "ENV 238"],
+        "Elective Courses/Above 300-level": [
+            "ENV 304", "CEE 304", "AMS 304", "AMS 354", "AMS 403", "AMS 415",
+            "ANT 322", "ANT 364", "ANT 387", "ANT 443", "ANT 446", "ANT 452",
+            "ARC 492", "ART 484", "CEE 306", "CEE 334", "CEE 392", "CEE 401",
+            "CEE 474", "CEE 518", "CEE 571", "CEE 586", "CEE 587", "CHM 544",
+            "ECO 355", "ECS 378", "ECS 389", "ECS 489", "ENE 318", "ENE 321",
+            "ENE 372", "ENE 431", "ENG 384", "ENV 302", "ENV 305", "ENV 310",
+            "ENV 316", "ENV 327", "ENV 330", "ENV 345", "ENV 347", "ENV 353",
+            "ENV 357", "ENV 363", "ENV 380", "ENV 381", "ENV 385", "ENV 428",
+            "ENV 448", "ENV 455", "ENV 460", "ENV 551", "ENV 596", "FRE 338",
+            "FRE 420", "GEO 360", "GEO 361", "GEO 363", "GEO 366", "GEO 369",
+            "GEO 370", "GEO 376", "GEO 416", "GEO 435", "GEO 470", "GEO 561",
+            "GER 521", "GER 523", "GER 530", "GHP 413", "GLS 340", "HIS 412",
+            "HIS 432", "MAE 328", "MAE 463", "MUS 334", "NES 366", "POL 586",
+            "POR 407", "SAS 355", "SOC 377", "STC 349", "THR 386", "URB 304",
+            "VIS 324" ],
+        "Elective Courses/Below 300-level": [
+            "ENV 200A", "ANT 214", "ANT 219", "ANT 245", "ARC 205", "CEE 207",
+            "CLA 226", "CLA 247", "ENE 202", "ENV 204", "ENV 212", "ENV 251",
+            "FRE 230", "GEO 202"]
     },
     "dependencies": {
       "Foundational Courses/Above 300-level": "Foundational Courses",
@@ -31,33 +57,54 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
   }, {
     "class_list": {
-      "Foundational Courses/Above 300-level": ["ENV 304", "ENV 377"],
-      "Foundational Courses/Below 300-level": ["ENV 200A"],
-      "Elective Courses/Above 300-level": ["ENV 304", "CEE 304"],
-      "Elective Courses/Below 300-level": ["ENV 200A"]
+      "Prerequisities/Mathematics/MAT 175": [ "MAT 175"],
+      "Prerequisities/Mathematics/BSE Mathematics": ["MAT 201", "MAT 202"],
+      "Prerequisities/Mathematics/EGR Mathematics": ["EGR 154", "EGR 156"],
+      "Prerequisities/Mathematics/Advanced Mathematics": ["MAT 203", "MAT 204"],
+      "Prerequisities/Microeconomics": ["ECO 300", "ECO 310"],
+      "Prerequisities/Probability and Statistics": ["ORF 245","ECO 202", "PSY 251", "SOC 301", "POL 345", "SPI 200"],
+      "Core Courses": ["ECO 362","ECO 263"],
+      "Electives/Financial Applications": [
+        "COS 473", "ECO 315", "ECO 325", "ECO 327", "ECO 342", "ECO 353",
+        "ECO 361", "ECO 416", "ECO 461", "ECO 462", "ECO 463", "ECO 464",
+        "ECO 465", "ECO 466", "ECO 467", "ECO 468", "ECO 469", "ECO 491",
+        "ECO 492", "ECO 493", "ECO 494", "EGR 395", "EGR 475", "EGR 491",
+        "ORF 335", "ORF 435", "ORF 445", "SPI 466", "SPI 524", "SPI 582"],
+    "Electives/General Methodology for Finance": [
+        "APC 350", "CEE 460", "COS 324", "COS 333", "COS 423", "COS 424",
+        "COS 432", "COS 436", "COS 445", "COS 461", "ECO 311", "ECO 312",
+        "ECO 313", "ECO 317", "ECO 365", "ECO 414", "ECO 418", "ECO 488",
+        "MAE 305", "MAE 306", "MAT 325", "MAT 330", "MAT 335", "MAT 385",
+        "MAT 486", "ORF 307", "ORF 309", "ORF 311", "ORF 335", "ORF 350",
+        "ORF 363", "ORF 401", "ORF 405", "ORF 409", "ORF 455", "SPI 340"]
     },
     "dependencies": {
-      "Foundational Courses/Above 300-level": "Foundational Courses",
-      "Foundational Courses/Below 300-level": "Foundational Courses",
-      "Elective Courses/Above 300-level": "Elective Courses",
-      "Elective Courses/Below 300-level": "Elective Courses",
-      "Foundational Courses": "",
-      "Elective Courses": ""
+        "Prerequisities/Mathematics/MAT 175": ["Prerequisities/Mathematics"],
+        "Prerequisities/Mathematics/BSE Mathematics": ["Prerequisities/Mathematics"],
+        "Prerequisities/Mathematics/EGR Mathematics": ["Prerequisities/Mathematics"],
+        "Prerequisities/Mathematics/Advanced Mathematics": ["Prerequisities/Mathematics"],
+        "Prerequisities/Microeconomics": ["Prerequisities"],
+        "Prerequisities/Probability and Statistics": ["Prerequisities"],
+        "Core Courses": [""],
+        "Electives/Financial Applications": ["Electives"],
+        "Electives/General Methodology for Finance": ["Electives"],
+        "Electives": [""],
+        "Prerequisites": [""]
     },
     "subrequirements": {
-      "Foundational Courses/Above 300-level": [1, 2],
-      "Foundational Courses/Below 300-level": [1, 1],
-      "Elective Courses/Above 300-level": [2, 3],
-      "Elective Courses/Below 300-level": [1, 1],
-      "Foundational Courses": [2, 2],
-      "Elective Courses": [3, 3]
+        "Prerequisities/Mathematics/MAT 175": [1, 1],
+        "Prerequisities/Mathematics/BSE Mathematics": [1, 1],
+        "Prerequisities/Mathematics/EGR Mathematics": [1, 1],
+        "Prerequisities/Mathematics/Advanced Mathematics": [1, 1],
+        "Prerequisities/Microeconomics": [1, 1],
+        "Prerequisities/Probability and Statistics": [1, 1],
+        "Core Courses": [2, 2],
+        "Electives/Financial Applications": [3, 3],
+        "Electives/General Methodology for Finance": [3, 3],
+        "Electives": [3, 3],
+        "Prerequisites": [2, 2]
     },
-    "base_reqs": [
-      "Foundational Courses/Above 300-level",
-      "Foundational Courses/Below 300-level",
-      "Elective Courses/Above 300-level",
-      "Elective Courses/Below 300-level"
-    ],
+    "base_reqs": [],
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
   }
 ]
