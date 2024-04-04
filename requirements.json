@@ -533,18 +533,10 @@
     },
     {
     "class_list": {
-        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
-        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
-        "Core/Core Course": ["COS 226", "COS 217"],
-        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+        "History Courses": ["HIS *"]
         },
     "dependencies": {
-        "Core/Introduction/Introductory Course": ["Core/Introduction"],
-        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
-        "Core/Core Course": ["Core"],
-        "Electives": [""],
-        "Core/Introduction": ["Core"],
-        "Core": [""]
+        "History Courses": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
@@ -564,18 +556,32 @@
     },    
     {
     "class_list": {
-        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
-        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
-        "Core/Core Course": ["COS 226", "COS 217"],
-        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+        "Gateway Seminar": ["HLS 222"],
+        "400-level Seminar": ["HLS 410", "HLS 430"],
+        "Breadth/History, Society, Religion": ["HLS 210", "HLS 212", 
+        "HLS 217", "HLS 222", "HLS 227", "HLS 240", "HLS 241", 
+        "HLS 251", "HLS 252", "HLS 303", "HLS 305", "HLS 322", 
+        "HLS 324", "HLS 335", "HLS 337", "HLS 340", "HLS 343", 
+        "HLS 345", "HLS 354", "HLS 358", "HLS 361", "HLS 363", 
+        "HLS 367", "HLS 369", "HLS 373", "HLS 428"],
+        "Breadth/Language, Literature, Philosophy": ["HLS 101", 
+        "HLS 102", "HLS 105", "HLS 107", "HLS 203", "HLS 208", 
+        "HLS 210", "HLS 211", "HLS 212", "HLS 217", "HLS 227", 
+        "HLS 240", "HLS 300", "HLS 302", "HLS 320", "HLS 322", 
+        "HLS 326", "HLS 338", "HLS 363", "HLS 367", "HLS 368", 
+        "HLS 434", "HLS 461"],
+        "Breadth/Visual and Material Culture, and Music": ["HLS 205", 
+        "HLS 206", "HLS 210", "HLS 217", "HLS 227", "HLS 228", 
+        "HLS 231", "HLS 240", "HLS 301", "HLS 316", "HLS 410", 
+        "HLS 430"]
         },
     "dependencies": {
-        "Core/Introduction/Introductory Course": ["Core/Introduction"],
-        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
-        "Core/Core Course": ["Core"],
-        "Electives": [""],
-        "Core/Introduction": ["Core"],
-        "Core": [""]
+        "Breadth/History, Society, Religion": ["Breadth"],
+        "Breadth/Language, Literature, Philosophy": ["Breadth"],
+        "Breadth/Visual and Material Culture, and Music": ["Breadth"],
+        "Breadth": [""],
+        "Gateway Seminar": [""],
+        "400-level Seminar": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
