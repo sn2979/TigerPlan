@@ -920,7 +920,7 @@
         "ECO 327", "ECO 416", "ECO 418", "COS 445", "ORF 405"]
         },
     "dependencies": {
-        "Prerequisites/Multivariable Calculu": ["Prerequisites"],
+        "Prerequisites/Multivariable Calculus": ["Prerequisites"],
         "Prerequisites/Linear Algebra": ["Prerequisites"],
         "Prerequisites": [""],
         "Elective Courses": [""],
@@ -989,19 +989,22 @@
     },
     {
     "class_list": {
-        "Prerequisite": ["LIN 201"],
-        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
-        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
-        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
-        "LIN 356"],
-        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
+        "Core Course": ["MUS 105"],
+        "Materials and Making Course": ["MUS 209B", "MUS 209A", 
+        "MUS 329", "MUS 319", "MUS 316", "MUS 312", "MUS 248", 
+        "MUS 210", "MUS 106", "MUS 345", "MUS 340", "MUS 314", 
+        "MUS 308", "MUS 106", "MUS 560", "MUS 204", "MUS 537", 
+        "MUS 528", "MUS 351", "MUS 310"],
+        "Culture and Criticism Course": ["MUS 230", "MUS 238", 
+        "MUS 248", "MUS 262", "MUS 203", "MUS 240", "MUS 223", 
+        "MUS 232", "MUS 242", "MUS 262", "MUS 203", "MUS 350"],
+        "Music Courses": ["MUS *"]
         },
     "dependencies": {
-        "Coursework/Methods Courses": ["Coursework"],
-        "Coursework/Core Courses": ["Coursework"],
-        "Prerequisite": [""],
-        "Coursework/Elective Courses": ["Coursework"],
-        "Coursework": [""]
+        "Core Course": [""],
+        "Materials and Making Course": [""],
+        "Culture and Criticism Course": [""],
+        "Music Courses": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
