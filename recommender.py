@@ -64,8 +64,10 @@ def _fulfill_base_reqs(combination, dependencies, base_reqs, dependent_reqs, sub
 
 # Function to check the max number of requirements fulfillable
 def max_reqs_fulfilled(combinations, dependencies, base_reqs, dependent_reqs, subrequirements):
+    # list of all combinations and the requirements they can fill
     reqs_fulfilled = []
-    # Iterate over reversed class_list and count fulfilled requirements
+    
+    # check each combination to see which requirements it fulfills
     for combination in combinations:
         reqs_fulfilled.append(_fulfill_base_reqs(combination, 
                           dependencies, 
@@ -107,10 +109,13 @@ if __name__ == '__main__':
     # testing ENV
     # Class list
     class_list = {
+        # class_list: ['COS 126', 'ECE 115', 'MAT 301', 'ANT 314', 'ENV 304', 'COS 217', 'COS 324']
         'Foundational Courses/Above 300-level': ['ENV 304', 'ENV 377'],
         'Foundational Courses/Below 300-level': ['ENV 200A'],
         'Elective Courses/Above 300-level': ['ENV 304', 'CEE 304'],
         'Elective Courses/Below 300-level': ['ENV 200A']
+
+        # class_list: {'Foundational Courses/Above 300-level': ['ENV 304'], 'Elective Courses/Above 300-level': ['ENV 304']}
     }
 
     # Dependencies
@@ -130,7 +135,7 @@ if __name__ == '__main__':
         'Elective Courses/Above 300-level': [2, 3],
         'Elective Courses/Below 300-level': [1, 1],
         'Foundational Courses': [2, 2],
-        'Elective Courses': [3,3]
+        'Elective Courses': [3, 3]
     }
     
     base_reqs = ['Foundational Courses/Above 300-level', 
@@ -202,7 +207,7 @@ if __name__ == '__main__':
     'Core/Introduction/Introductory Course': ['COS 126', 'ECE 115'],
     'Core/Introduction/Integrated Science Curriculum': ['ISC 231', 'ISC 232'],
     'Core/Core Course': ['COS 226', 'COS 217'],
-    'Electives': ['COS 226', 'COS 217', 'COS 324', 'COS 333', 'COS 340']
+    'Electives': ['COS 226', 'COS 217', 'COS 324']
     }
 
     # Dependencies
