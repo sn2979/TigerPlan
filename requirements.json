@@ -1024,6 +1024,241 @@
     },
     {
     "class_list": {
+        "Core Courses/Fundamentals": ["NEU 200", "NEU 201"],
+        "Core Courses/Introduction Course": ["NEU 202"],
+        "Electives/'Molecular/Cellular/Disease'": ["NEU 301", "NEU 331", 
+        "NEU 385", "NEU 400", "NEU 403", "NEU 413", "NEU 428", 
+        "NEU 430", "NEU 443", "NEU 447", "NEU 460", "NEU 475", 
+        "NEU 490", "NEU 501A", "ECE 452", "MOL 250", "MOL 433", 
+        "MOL 259", "MOL 460", "PHY 562", "PSY 207", "PSY 317", "QCB 515"],
+        "Electives/Circuits & Systems": ["NEU 200", "NEU 260", 
+        "NEU 301", "NEU 316", "NEU 325", "NEU 336", "NEU 385", 
+        "NEU 413", "NEU 420", "NEU 422", "NEU 427", "NEU 428", 
+        "NEU 460", "NEU 457", "NEU 501A", "NEU 502A", "PHY 562"],
+        "Electives/Neural Computation": ["NEU 330", "NEU 338", "NEU 340", 
+        "NEU 437", "NEU 443", "NEU 457", "NEU 499", "COS 226", "COS 343", 
+        "COS 402", "COS 429", "COS 324", "COS 302", "COS 424", "COS 485", 
+        "ECE 364", "ECE 452", "MAT 323", "PSY 360", "QCB 515"],
+        "Electives/Cognitive & Social Neuroscience": ["NEU 200", "NEU 306", 
+        "NEU 316", "NEU 330", "NEU 331", "NEU 337", "NEU 338", "NEU 340", 
+        "NEU 422", "NEU 499", "NEU 502A", "ECE 480", "PSY 248", "PSY 409"]
+        },
+    "dependencies": {
+        "Core Courses/Fundamentals": ["Core Courses"],
+        "Core Courses/Introduction Course": ["Core Courses"],
+        "Core Courses": [""],
+        "Electives": [""],
+        "Electives/'Molecular/Cellular/Disease'": ["Electives"],
+        "Electives/Circuits & Systems": ["Electives"],
+        "Electives/Neural Computation": ["Electives"],
+        "Electives/Cognitive & Social Neuroscience": ["Electives"]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisites": ["PHI *"],
+        "Core Courses/Above 200-level": ["PHI 3*", "PHI 4*", "PHI 5*"],
+        "Core Courses/200 level": ["PHI 2*"]
+        },
+    "dependencies": {
+        "Core Courses/Above 200-level": ["Core Courses"],
+        "Core Courses": [""],
+        "Prerequisites": [""],
+        "Core Courses/200 level": ["Core Courses"]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
+        },
+    "dependencies": {
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
+        },
+    "dependencies": {
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
+        },
+    "dependencies": {
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
+        },
+    "dependencies": {
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
+        },
+    "dependencies": {
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
         "Prerequisite": ["LIN 201"],
         "Coursework/Core Courses": ["LIN 301", "LIN 302", 
         "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
