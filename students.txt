@@ -9,7 +9,9 @@ backend for a given field
 
 Class Board Page Version 1:
 1. Display the current classes that a student has on their board
-2. A search region to 
+2. Have a search box for students to be able to search for classes
+(this requires API calls to the TigerApps courses API)
+3. Recommendations button
 
 Students
 _________
