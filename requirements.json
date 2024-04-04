@@ -946,19 +946,30 @@
     },
     {
     "class_list": {
-        "Prerequisite": ["LIN 201"],
-        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
-        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
-        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
-        "LIN 356"],
-        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
+        "General Physics/103-104 Sequence": ["PHY 103", "PHY 104"],
+        "General Physics/105-106 Sequence": ["PHY 105", "PHY 106"],
+        "General Chemistry/201-202 Sequence": ["CHM 201", "CHM 202"],
+        "General Chemistry/Chemistry Course": ["CHM 207", "CHM 215"],
+        "Mathematics": ["MAT 103", "MAT 104", "MAT 201", "MAT 202", 
+        "MAT 203", "MAT 204"],
+        "Thermodynamics": ["CBE 246", "CHM 306", "CHM 406", "ECE 342", 
+        "MAE 221", "PHY 301"],
+        "Materials": ["MSE 301", "CEE 364", "MAE 324"],
+        "Experimental Methods": ["MSE 302", "CHM 371", "ECE 308", "GEO 369"],
+        "Program Electives": ["MSE 3*", "MSE 4*"]
         },
     "dependencies": {
-        "Coursework/Methods Courses": ["Coursework"],
-        "Coursework/Core Courses": ["Coursework"],
-        "Prerequisite": [""],
-        "Coursework/Elective Courses": ["Coursework"],
-        "Coursework": [""]
+        "General Physics/103-104 Sequence": ["General Physics"],
+        "General Physics/105-106 Sequence": ["General Physics"],
+        "General Chemistry/201-202 Sequence": ["General Chemistry"],
+        "General Chemistry/Chemistry Course": ["General Chemistry"],
+        "Mathematics": [""],
+        "Thermodynamics": [""],
+        "General Physics": [""],
+        "General Chemistry": [""],
+        "Materials": [""],
+        "Experimental Methods": [""],
+        "Program Electives": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
