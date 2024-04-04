@@ -797,18 +797,232 @@
     },    
     {
     "class_list": {
-        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
-        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
-        "Core/Core Course": ["COS 226", "COS 217"],
-        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
         },
     "dependencies": {
-        "Core/Introduction/Introductory Course": ["Core/Introduction"],
-        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
-        "Core/Core Course": ["Core"],
-        "Electives": [""],
-        "Core/Introduction": ["Core"],
-        "Core": [""]
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Introductory Course/Single Course": ["MED 227 / HUM 227 / HIS 227 / HLS 227", 
+        "HIS 210", "ART 228"],
+        "Introductory Course/Humanities Sequence": ["HUM 216", "HUM 217"],
+        "Medieval Topics": ["ART 228", "ART 361", "CLA 565", "EAS 326", 
+        "GER 206", "HIS 205", "HIS 210", "HIS 344", "HIS 536", "HIS 544", 
+        "HUM 372", "MUS 338", "REL 251", "FRE 560"],
+        "Independent Work/400-level Course": ["ART 402 / HUM 406 / MED 402 / HLS 401",
+        "ART 430 / MED 430 / HLS 430",
+        "ART 478 / HIS 476 / HUM 476 / MED 476",
+        "CLA 565 / HLS 565 / MED 565",
+        "ENG 402 / MED 401",
+        "HIS 428 / HLS 428 / MED 428",
+        "HIS 462 / HUM 462 / MED 462",
+        "HIS 536 / HLS 536 / MED 536",
+        "HIS 544 / MED 544",
+        "HUM 402 / MED 403 / HIS 457",
+        "NES 502 / MED 502",
+        "NES 545 / MED 545 / REL 548 / JDS 545"]
+        },
+    "dependencies": {
+        "Introductory Course/Single Course": ["Introductory Course"],
+        "Introductory Course/Humanities Sequence": ["Introductory Course"],
+        "Independent Work/400-level Course": ["Independent Work"],
+        "Introductory Course": [""],
+        "Independent Work": [""],
+        "Medieval Topics": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Core Course": ["MUS 105"],
+        "Materials and Making Course": ["MUS 209B", "MUS 209A", 
+        "MUS 329", "MUS 319", "MUS 316", "MUS 312", "MUS 248", 
+        "MUS 210", "MUS 106", "MUS 345", "MUS 340", "MUS 314", 
+        "MUS 308", "MUS 106", "MUS 560", "MUS 204", "MUS 537", 
+        "MUS 528", "MUS 351", "MUS 310"],
+        "Culture and Criticism Course": ["MUS 230", "MUS 238", 
+        "MUS 248", "MUS 262", "MUS 203", "MUS 240", "MUS 223", 
+        "MUS 232", "MUS 242", "MUS 262", "MUS 203", "MUS 350"],
+        "Departmental Course": ["MPP *"],
+        "Elective": ["MUS *", "MPP *"]
+        },
+    "dependencies": {
+        "Core Course": [""],
+        "Materials and Making Course": [""],
+        "Culture and Criticism Course": [""],
+        "Departmental Course": [""],
+        "Elective": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisites/Multivariable Calculus": ["MAT 201", "ECO 201", "EGR 156", "MAT 203"],
+        "Prerequisites/Linear Algebra": ["MAT 202", "EGR 154", "MAT 204"],
+        "Prerequisites/Statistics": ["ECO 202", "ORF 245"],
+        "Core Courses/First Core Course": ["ECO 310", "ECO 311", "ECO 312"],
+        "Core Courses/Second Core Course": ["ECO 310", "ECO 311", "ECO 312"],
+        "Elective Courses": ["ECO 313", "ECO 315", "ECO 317", "ECO 323", 
+        "ECO 327", "ECO 416", "ECO 418", "COS 445", "ORF 405"]
+        },
+    "dependencies": {
+        "Prerequisites/Multivariable Calculu": ["Prerequisites"],
+        "Prerequisites/Linear Algebra": ["Prerequisites"],
+        "Prerequisites": [""],
+        "Elective Courses": [""],
+        "Core Courses/First Core Course": ["Core Courses"],
+        "Core Courses/Second Core Course": ["Core Courses"],
+        "Core Courses": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
+        },
+    "dependencies": {
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
+        },
+    "dependencies": {
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
+        },
+    "dependencies": {
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
