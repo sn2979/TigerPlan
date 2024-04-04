@@ -16,12 +16,12 @@
       "Electives": [""]
     },
     "subrequirements": {
-      "Foundational Courses/Above 300-level": [1, 2],
-      "Foundational Courses/Below 300-level": [1, 1],
-      "Elective Courses/Above 300-level": [2, 3],
-      "Elective Courses/Below 300-level": [1, 1],
-      "Foundational Courses": [2, 2],
-      "Elective Courses": [3, 3]
+        "Electives/Humanities": [],
+        "Electives/Social Sciences": ["Electives"],
+        "Electives/Language": ["Electives"],
+        "Electives/Cross-listed with AFS": ["Electives"],
+        "Core": [1, 1],
+        "Electives": [4, 4]
     },
     "base_reqs": [
       "Electives/Humanities",
