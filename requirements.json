@@ -687,18 +687,15 @@
     },
     {
     "class_list": {
-        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
-        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
-        "Core/Core Course": ["COS 226", "COS 217"],
-        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+        "Language Courses/Advanced Language": ["JPN 3*", "JPN 4*"],
+        "Language Courses/Basic Language": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
+        "EAS or cognate": ["EAS *"]
         },
     "dependencies": {
-        "Core/Introduction/Introductory Course": ["Core/Introduction"],
-        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
-        "Core/Core Course": ["Core"],
-        "Electives": [""],
-        "Core/Introduction": ["Core"],
-        "Core": [""]
+        "Language Courses/Advanced Language": ["Language Courses"],
+        "Language Courses/Basic Language": ["Language Courses"],
+        "Language Courses": [""],
+        "EAS or cognate": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
@@ -718,18 +715,14 @@
     },    
     {
     "class_list": {
-        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
-        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
-        "Core/Core Course": ["COS 226", "COS 217"],
-        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+        "Gateway Course": ["JRN 240", "JRN 260", "JRN 280"],
+        "Above 300-level": ["JRN 3*", "JRN 4*"],
+        "Journalism Related Courses": ["JRN *"]
         },
     "dependencies": {
-        "Core/Introduction/Introductory Course": ["Core/Introduction"],
-        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
-        "Core/Core Course": ["Core"],
-        "Electives": [""],
-        "Core/Introduction": ["Core"],
-        "Core": [""]
+        "Gateway Course": [""],
+        "Journalism Related Courses": [""],
+        "Above 300-level": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
