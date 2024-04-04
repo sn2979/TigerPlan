@@ -446,18 +446,47 @@
   },    
   {
     "class_list": {
-        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
-        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
-        "Core/Core Course": ["COS 226", "COS 217"],
-        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+        "Prerequisities/Foundations Prerequisite": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
+        "Prerequisities/Foundation Course": ["ANT 240", "GSS 201", 
+        "MOL 101", "MOL 211", "MOL 214", "SOC 217", "URB 201", 
+        "EEB 309", "EEB 314", "EEB 327", "EEB 328"],
+        "Prerequisities/Statistics Prerequisite": ["ECO 202", "ECO 302", 
+        "ECO 312", "MOL 290", "ORF 245", "ORF 405", "POL 345", 
+        "PSY 251", "SML 201", "SOC 301", "SPI 200"],
+        "Core Requirements": ["GHP 350", "GHP 351"],
+        "Electives/200-level": ["ANT 206", "ANT 219", "ANT 233", 
+        "ANT 238", "ANT 240", "ASA 238", "ASL 205", "CLA 227", 
+        "DAN 224", "ENE 202", "ENV 251", "FRE 240", "HIS 294", 
+        "LAS 229", "PSY 207", "SPA 204", "SPA 205"],
+        "Electives/Above 300-level": ["AAS 303", "AAS 314", "AAS 352", 
+        "AMS 305", "AMS 404", "ANT 313", "ANT 321", "ANT 339", 
+        "ANT 344", "ANT 360", "ANT 390", "ANT 446", "ANT 461", 
+        "ARC 492", "ART 361", "ART 491", "CBE 411", "CBE 430", 
+        "CBE 438", "CBE 442", "CEE 471", "CEE 311", "CEE 325", 
+        "CEE 334", "CHV 323", "CLA 326", "CLA 338", "COM 329", 
+        "EAS 418", "ECE 451", "ECE 452", "ECO 332", "ECO 355", 
+        "ECS 376", "EEB 308", "EEB 325", "EEB 327", "EEB 428", 
+        "EGR 277", "ENE 321", "ENG 359", "ENG 384", "ENV 302", 
+        "ENV 304", "ENV 305", "ENV 343", "FRE 240", "FRE 420", 
+        "GEO 360", "HIS 390", "HIS 393", "HIS 494", "HUM 315", 
+        "HUM 360", "ITA 319", "JDS 324", "LAS 308", "MOL 340", 
+        "MOL 405", "MOL 433", "MOL 445", "MOL 459", "MOL 460", 
+        "NES 301", "NEU 331", "NEU 385", "NEU 400", "NEU 420", 
+        "NEU 430", "NEU 447", "PHI 356", "PSY 317", "PSY 320", 
+        "PSY 332", "PSY 341", "QCB 311", "QCB 408", "QCB 455", 
+        "QCB 470", "REL 303", "REL 361", "SOC 249", "SPI 332", 
+        "SPI 335", "SPI 364", "SPI 368", "SPI 393", "SPI 394", 
+        "SPI 405", "VIS 301"]
         },
     "dependencies": {
-        "Core/Introduction/Introductory Course": ["Core/Introduction"],
-        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
-        "Core/Core Course": ["Core"],
-        "Electives": [""],
-        "Core/Introduction": ["Core"],
-        "Core": [""]
+        "Prerequisities/Foundations Prerequisite": ["Prerequisities"],
+        "Prerequisities/Foundation Course": ["Prerequisities"],
+        "Prerequisities/Statistics Prerequisite": ["Prerequisities"],
+        "Prerequisites": [""],
+        "Core Requirements": [""],
+        "Electives/200-level": ["Electives"],
+        "Electives/Above 300-level": ["Electives"],
+        "Electives": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
@@ -477,18 +506,14 @@
     },    
     {
     "class_list": {
-        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
-        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
-        "Core/Core Course": ["COS 226", "COS 217"],
-        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+        "Introductory Course": ["GSS 201"],
+        "Thematic Cluster Electives": ["GSS*"],
+        "Additional Elective": ["GSS 3*", "GSS 4*"]
         },
     "dependencies": {
-        "Core/Introduction/Introductory Course": ["Core/Introduction"],
-        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
-        "Core/Core Course": ["Core"],
-        "Electives": [""],
-        "Core/Introduction": ["Core"],
-        "Core": [""]
+        "Introductory Course": [""],
+        "Thematic Cluster Electives": [""],
+        "Additional Elective": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
