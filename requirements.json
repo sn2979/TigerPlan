@@ -601,6 +601,92 @@
     },
     {
     "class_list": {
+        "Core": ["HIS 390"],
+        "Selected Courses": ["EGR 277 / HIS 277", "HIS 290", "HIS 291", 
+        "HIS 292", "HIS 293", "HIS 294", "HIS 295", "HIS 297 / STC 297", 
+        "HIS 298", "AAS 352 / HIS 347", "ART 361 / HIS 355", 
+        "SPI 364 / HIS 368", "AAS 331 / HIS 382", "HIS 390", "HIS 392", 
+        "HIS 393", "HIS 394", "HIS 395", "HIS 396", "HIS 397", 
+        "HIS 398", "AMS 399 / HIS 399", "HIS 452", "GSS 426", 
+        "HIS 472", "HIS 481", "HIS 489", "HIS 491", "HIS 492", 
+        "HIS 493", "HIS 494", "HIS 495", "HIS 496", "HIS 497", 
+        "HIS 498", "HIS 499"],
+        "History Course": ["HIS *"],
+        "HOS, HIS or Cognate": ["HOS *", "HIS *"]
+        },
+    "dependencies": {
+        "HOS, HIS or Cognate": [""],
+        "Selected Courses": [""],
+        "History Course": [""],
+        "Core": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },    
+    {
+    "class_list": {
+        "Humanities Sequence/Western Culture I": ["HUM 216", "HUM 217"],
+        "Humanities Sequence/Western Culture II": ["HUM 218", "HUM 219"],
+        "Humanities Sequence/East Asian Humanities": ["HUM 233", "HUM 234"],
+        "Humanities Sequence/Near Eastern Humanities": ["HUM 247", "HUM 248"],
+        "Interdisciplinary Courses/Tradition and Transformation": ["COM 310 / ENG 390 / HUM 390", 
+        "HUM 216", "HUM 217", "HUM 218", "HUM 219", "HUM 230", 
+        "HUM 233", "HUM 234", "HUM 247", "HUM 248", "HUM 312", 
+        "HUM 412", "HUM 434", "MED 227 / HUM 227", "TRA 304 / HUM 333"],
+        "Interdisciplinary Courses/Global or Comparative Humanities": ["ART 361 / HUM 36", 
+        "CLA 212 / HUM 212", "COM 310 / HUM 312", "HUM 240", "HUM 290", 
+        "HUM 312", "HUM 335", "HUM 402", "HUM 423", "HUM 450", 
+        "HUM 470", "MED 227 / HUM 227", "TRA 304 / HUM 333"],
+        "Interdisciplinary Courses/Engaged or Public Humanities": ["HUM 315", 
+        "HUM 321", "HUM 339", "HUM 352", "HUM 353", "HUM 470", "SLA 368 / HUM 368"],
+        "Interdisciplinary Courses/Humanities and Sciences in Dialogue": ["ART 361 / HUM 361", 
+        "HUM 315", "HUM 365", "PSY 210 / HUM 210", "STC 297 / HUM 297"],
+        "Interdisciplinary Courses/Data and Culture": ["HUM 346", "HUM 475", "HUM 307 / ENG 277"]
+        },
+    "dependencies": {
+        "Interdisciplinary Courses/Tradition and Transformation": ["Interdisciplinary Courses"],
+        "Interdisciplinary Courses/Global or Comparative Humanities": ["Interdisciplinary Courses"],
+        "Interdisciplinary Courses/Engaged or Public Humanities": ["Interdisciplinary Courses"],
+        "Interdisciplinary Courses/Humanities and Sciences in Dialogue": ["Interdisciplinary Courses"],
+        "Interdisciplinary Courses/Data and Culture": ["Interdisciplinary Courses"],
+        "Interdisciplinary Courses": [""],
+        "Humanities Sequence/Western Culture I": ["Humanities Sequence"],
+        "Humanities Sequence/Western Culture II": ["Humanities Sequence"],
+        "Humanities Sequence/East Asian Humanities": ["Humanities Sequence"],
+        "Humanities Sequence/Near Eastern Humanities": ["Humanities Sequence"],
+        "Humanities Sequence": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
+    {
+    "class_list": {
         "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
         "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
         "Core/Core Course": ["COS 226", "COS 217"],
@@ -630,6 +716,37 @@
     ],
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },    
+    {
+    "class_list": {
+        "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
+        "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
+        "Core/Core Course": ["COS 226", "COS 217"],
+        "Electives": ["COS 2*", "COS 3*", "COS 4*"]
+        },
+    "dependencies": {
+        "Core/Introduction/Introductory Course": ["Core/Introduction"],
+        "Core/Introduction/Integrated Science Curriculum": ["Core/Introduction"],
+        "Core/Core Course": ["Core"],
+        "Electives": [""],
+        "Core/Introduction": ["Core"],
+        "Core": [""]
+        },
+    "subrequirements": {
+        "Foundational Courses/Above 300-level": [1, 2],
+        "Foundational Courses/Below 300-level": [1, 1],
+        "Elective Courses/Above 300-level": [2, 3],
+        "Elective Courses/Below 300-level": [1, 1],
+        "Foundational Courses": [2, 2],
+        "Elective Courses": [3, 3]
+    },
+    "base_reqs": [
+        "Foundational Courses/Above 300-level",
+        "Foundational Courses/Below 300-level",
+        "Elective Courses/Above 300-level",
+        "Elective Courses/Below 300-level"
+    ],
+    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    },
     {
     "class_list": {
         "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
