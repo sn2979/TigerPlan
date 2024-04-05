@@ -16,10 +16,10 @@
       "Electives": [""]
     },
     "subrequirements": {
-        "Electives/Humanities": [],
-        "Electives/Social Sciences": ["Electives"],
-        "Electives/Language": ["Electives"],
-        "Electives/Cross-listed with AFS": ["Electives"],
+        "Electives/Humanities": [1, 2],
+        "Electives/Social Sciences": [1, 2],
+        "Electives/Language": [1, 2],
+        "Electives/Cross-listed with AFS": [0, 1],
         "Core": [1, 1],
         "Electives": [4, 4]
     },
@@ -30,8 +30,9 @@
       "Electives/Cross-listed with AFS",
       "Core"
     ],
-    "dependent_reqs": ["Core", "Electives"]
+    "dependent_reqs": ["Electives"]
     }, 
+
     {
     "class_list": {
         "Core": ["AMS 101"],
@@ -44,20 +45,16 @@
         "Advanced Seminar": [""]
       },
     "subrequirements": {
-      "Foundational Courses/Above 300-level": [1, 2],
-      "Foundational Courses/Below 300-level": [1, 1],
-      "Elective Courses/Above 300-level": [2, 3],
-      "Elective Courses/Below 300-level": [1, 1],
-      "Foundational Courses": [2, 2],
-      "Elective Courses": [3, 3]
+      "Core": [1, 1],
+      "Electives": [3, 3],
+      "Advanced Seminar": [1, 1]
     },
     "base_reqs": [
-      "Foundational Courses/Above 300-level",
-      "Foundational Courses/Below 300-level",
-      "Elective Courses/Above 300-level",
-      "Elective Courses/Below 300-level"
+      "Core",
+      "Electives",
+      "Advanced Seminar"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": []
     }, 
     {
     "class_list": {
@@ -72,20 +69,17 @@
         "Language": [""]
       },
     "subrequirements": {
-      "Foundational Courses/Above 300-level": [1, 2],
-      "Foundational Courses/Below 300-level": [1, 1],
-      "Elective Courses/Above 300-level": [2, 3],
-      "Elective Courses/Below 300-level": [1, 1],
-      "Foundational Courses": [2, 2],
-      "Elective Courses": [3, 3]
+      "Language": [6, 6],
+      "Language/Basic Language": [1, 4],
+      "Language/Advanced Language": [1, 6],
+      "EAS or cognate": [1, 1]
     },
     "base_reqs": [
-      "Foundational Courses/Above 300-level",
-      "Foundational Courses/Below 300-level",
-      "Elective Courses/Above 300-level",
-      "Elective Courses/Below 300-level"
+      "Language/Basic Language",
+      "Language/Advanced Language",
+      "EAS or cognate"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Language"]
     },
     {
     "class_list": {
@@ -131,25 +125,42 @@
         "Tracks/Classical Studies with a focal point/Relevant Course": ["Tracks/Classical Studies with a focal point"],
         "Tracks/Ancient History and Material Culture/History Survey": ["Tracks/Ancient History and Material Culture"],
         "Tracks/Ancient History and Material Culture/Track Requirement": ["Tracks/Ancient History and Material Culture"],
-        "Tracks/Ancient History and Material Culture/Relevant Courses": ["Tracks/Ancient History and Material Culture"],
+        "Tracks/Ancient History and Material Culture/Relevant Course": ["Tracks/Ancient History and Material Culture"],
         "Tracks/Ancient History and Material Culture": ["Tracks"],
         "Tracks": [""]
       },
     "subrequirements": {
-      "Foundational Courses/Above 300-level": [1, 2],
-      "Foundational Courses/Below 300-level": [1, 1],
-      "Elective Courses/Above 300-level": [2, 3],
-      "Elective Courses/Below 300-level": [1, 1],
-      "Foundational Courses": [2, 2],
-      "Elective Courses": [3, 3]
+        "Prerequisites": [1, 1],
+        "Tracks": [1, 1],
+        "Tracks/Classical Studies with a focal point": [3, 3],
+        "Tracks/Classical Studies with a focal point/Basic Requirement": [1, 1],
+        "Tracks/Classical Studies with a focal point/Focal Point": [1, 1],
+        "Tracks/Classical Studies with a focal point/Focal Point/Greek Language, Literature, and Culture": [2, 2],
+        "Tracks/Classical Studies with a focal point/Focal Point/Latin Language, Literature and Roman Culture Classics and Reception": [2, 2],
+        "Tracks/Classical Studies with a focal point/Focal Point/Medicine, Science, and the Body": [2, 2],
+        "Tracks/Classical Studies with a focal point/Relevant Course": [1, 1],
+        "Tracks/Ancient History and Material Culture": [3, 3],
+        "Tracks/Ancient History and Material Culture/History Survey": [2, 2],
+        "Tracks/Ancient History and Material Culture/Track Requirement": [2, 2],
+        "Tracks/Ancient History and Material Culture/Relevant Course": [1, 1]
     },
     "base_reqs": [
-      "Foundational Courses/Above 300-level",
-      "Foundational Courses/Below 300-level",
-      "Elective Courses/Above 300-level",
-      "Elective Courses/Below 300-level"
+        "Prerequisites",
+        "Tracks/Classical Studies with a focal point/Basic Requirement",
+        "Tracks/Classical Studies with a focal point/Focal Point/Greek Language, Literature, and Culture",
+        "Tracks/Classical Studies with a focal point/Focal Point/Latin Language, Literature and Roman Culture Classics and Reception",
+        "Tracks/Classical Studies with a focal point/Focal Point/Medicine, Science, and the Body",
+        "Tracks/Classical Studies with a focal point/Relevant Course",
+        "Tracks/Ancient History and Material Culture/History Survey",
+        "Tracks/Ancient History and Material Culture/Track Requirement",
+        "Tracks/Ancient History and Material Culture/Relevant Course"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": [
+        "Tracks", 
+        "Tracks/Classical Studies with a focal point", 
+        "Tracks/Classical Studies with a focal point/Focal Point", 
+        "Tracks/Ancient History and Material Culture"
+    ]
     },    
     {
     "class_list": {
@@ -167,49 +178,44 @@
         "Core": [""]
       },
     "subrequirements": {
-      "Foundational Courses/Above 300-level": [1, 2],
-      "Foundational Courses/Below 300-level": [1, 1],
-      "Elective Courses/Above 300-level": [2, 3],
-      "Elective Courses/Below 300-level": [1, 1],
-      "Foundational Courses": [2, 2],
-      "Elective Courses": [3, 3]
+        "Core/Introduction/Introductory Course": [1, 1],
+        "Core/Introduction/Integrated Science Curriculum": [4, 4],
+        "Core/Core Course": [1, 1],
+        "Electives": [3,3],
+        "Core/Introduction": [1, 1],
+        "Core": [2, 2]
     },
     "base_reqs": [
-      "Foundational Courses/Above 300-level",
-      "Foundational Courses/Below 300-level",
-      "Elective Courses/Above 300-level",
-      "Elective Courses/Below 300-level"
+        "Core/Introduction/Introductory Course",
+        "Core/Introduction/Integrated Science Curriculum",
+        "Core/Core Course",
+        "Electives"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Core", "Core/Introduction"]
     },
     {
     "class_list": {
-        "Core": ["GEO 102", "GEO 103", "GEO 202", "GEO 203", "GEO 361", 
+        "Coursework/Core": ["GEO 102", "GEO 103", "GEO 202", "GEO 203", "GEO 361", 
         "GEO 363", "GEO 369", "GEO 370", "GEO 416", "GEO 417", "GEO 425", 
         "GEO 428", "GEO 470"],
-        "Capstone Electives": ["GEO 360", "GEO 361", "GEO 362", 
+        "Coursework/Capstone Electives": ["GEO 360", "GEO 361", "GEO 362", 
         "GEO 363", "GEO 366", "GEO 367", "GEO 369", "GEO 370", "GEO 416", 
         "GEO 417", "GEO 425", "GEO 428", "GEO 470"]
         },
     "dependencies": {
-        "Capstone Electives": [""],
-        "Core": [""]
+        "Coursework/Capstone Electives": [""],
+        "Coursework/Core": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Coursework/Capstone Electives": [2, 4],
+        "Coursework/Core": [1, 3],
+        "Coursework": [5, 5]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Coursework/Captstone Electives",
+        "Coursework/Core"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Coursework"]
     }, 
     {
     "class_list": {
@@ -222,12 +228,9 @@
         "Coursework": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Coursework/Advanced": [1, 3],
+        "Coursework/Introductory": [1, 5],
+        "Coursework": [5, 5]
     },
     "base_reqs": [
         "Foundational Courses/Above 300-level",
@@ -257,20 +260,18 @@
         "Studio Course": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Prerequisites": [2, 2],
+        "Electives": [1, 1],
+        "Seminar": [1, 1],
+        "Studio Course": [1, 1]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Prerequisites",
+        "Electives",
+        "Seminar",
+        "Studio Course"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": []
     }, 
     {
     "class_list": {
@@ -291,20 +292,20 @@
         "Language": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Content Requirement/Content Courses (200-level)": [1, 3],
+        "Content Requirement/Content Courses": [1, 2],
+        "Content Requirement": [3, 3],
+        "Language/Advanced Language": [1, 4],
+        "Language/Basic Language": [1, 2],
+        "Language": [4, 1]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Content Requirement/Content Courses (200-level)",
+        "Content Requirement/Content Courses",
+        "Language/Advanced Language",
+        "Language/Basic Language"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Content Requirement", "Language"]
     },
     {
     "class_list": {
@@ -321,20 +322,15 @@
         "Coursework": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Coursework/Seminars": [1, 5],
+        "Coursework/English Courses": [1, 3],
+        "Coursework": [5, 5]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Coursework/Seminars",
+        "Coursework/EnglishCourses"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Coursework"]
     }, 
     {
     "class_list": {
@@ -1182,15 +1178,19 @@
     },
     {
     "class_list": {
-        "Language Requirement": ["HIN 107", "URB 107", "SAN 107"],
-        "Core Course": [""],
-        "Elective Courses": ["ANT *", "COM *", "ENG *", "ECO *",
-        "HIS *", "NES *", "POL *", "REL *", "SPI *", "SAS *"]
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
         },
     "dependencies": {
-        "Language Requirement": [""],
-        "Core Courses": [""],
-        "Elective Courses": [""]
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
@@ -1210,15 +1210,19 @@
     },
     {
     "class_list": {
-        "First Requirement": ["RUS 107", "RUS 108"],
-        "Second Requirement": ["RUS 207", "RUS 3*"],
-        "Department Courses": ["RUS 208", "RUS 3*", "RUS 4*", "SLA 2*", 
-        "SLA 3*", "SLA 4*"]
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
         },
     "dependencies": {
-        "First Requirement": [""],
-        "Second Requirement": [""],
-        "Department Courses": [""]
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
@@ -1238,19 +1242,19 @@
     },
     {
     "class_list": {
-        "Statistics": ["ECO 202", "ORF 245", "POL 345", "PSY 251", "SPI 200"],
-        "Machine Learning": ["COS 324", "COS 424", "ECE 364", "ECE 435", "MAT 490", "ORF 350"],
-        "Electives": ["COS 429", "COS 484", "COS 485", "ORF 418", 
-        "SOC 306", "ECE 434", "MAT 385", "ORF 309", "ORF 363", 
-        "AST 303", "CEE 460", "ECO 302", "ECO 312", "ECO 313", 
-        "ECO 491", "ECE 382", "ECE 480", "GEO 422", "MAE 345", 
-        "NEU 330", "ORF 405", "ORF 473", "POL 346", "PSY 360", 
-        "PSY 454", "QCB 408", "QCB 455", "SOC 400"]
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
         },
     "dependencies": {
-        "Statistics": [""],
-        "Machine Learning": [""],
-        "Electives": [""]
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
@@ -1270,31 +1274,19 @@
     },
     {
     "class_list": {
-        "Introduction": ["THR 101"],
-        "Additional Courses": ["THR *", "MTD *"],
-        "Electives": ["THR *", "MTD *", "DAN *", "MUS *"],
-        "Dramaturgical": ["AMS 403", "ATL 499", "DAN 305", "ENG 314", 
-        "ENG 319", "FRE 390", "GSS 337", "THR 308", "THR 316", 
-        "THR 355", "COM 212", "DAN 206", "DAN 208", "DAN 357", 
-        "ENG 354", "ENG 357", "FRE 228", "HUM 321", "HUM 352", 
-        "THR 223", "THR 300", "THR 313", "THR 350", "ENG 354", 
-        "ENG 407", "FRE 390", "HUM 340", "MTD 348", "MUS 350", 
-        "MUS 357", "THR 220", "THR 359", "THR 391", "THR 400", 
-        "THR 416", "VIS 354", "AMS 317", "DAN 310", "DAN 393", 
-        "ECS 362", "FRE 228", "HIN 305", "LAS 308", "MTD 202", 
-        "MUS 334", "THR 316", "THR 402", "THR 405", "VIS 354", 
-        "CLA 227", "DAN 215", "ENG 318", "ENG 361", "ENG 409", 
-        "FRE 390", "GSS 322", "ITA 314", "MUS 350", "THR 205", 
-        "THR 302", "THR 347", "THR 350", "THR 391", "THR 400", 
-        "ENG 319", "FRE 392", "HUM 352", "MTD 217", "THR 203", 
-        "THR 205", "THR 300", "THR 305", "THR 376", "THR 402", 
-        "FRE 389", "MTD 333", "THR 353"]
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
         },
     "dependencies": {
-        "Introduction": [""],
-        "Additional Courses": [""],
-        "Electives": [""],
-        "Dramaturgical": [""]
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
@@ -1314,84 +1306,19 @@
     },
     {
     "class_list": {
-        "Core Coursework/Core Courses": ["TRA 200", "TRA 400"],
-        "Core Coursework/Additional Courses/Cross-listed by TRA": ["TRA 2*", "TRA 3*", "TRA 4*"],
-        "Core Coursework/Additional Courses/Upper-Level Course on Translation between Languages": ["SPA 380", "FRE 407", "ARA 308", "CWR 206", "CWR 306"],
-        "Core Coursework/Additional Courses/Understanding of Translation": ["ANT 326", "COM 236", "HIS 397", "ITA 300", "LIN 201", "NES 398", "PHI 317"]
+        "Prerequisite": ["LIN 201"],
+        "Coursework/Core Courses": ["LIN 301", "LIN 302", 
+        "LIN 303", "LIN 306", "PHI 334 / LIN 334"],
+        "Coursework/Methods Courses": ["LIN 210", "LIN 310", "LIN 355", 
+        "LIN 356"],
+        "Coursework/Elective Courses": ["LIN 2*", "LIN 3*", "LIN 4*", "LIN 5*"]
         },
     "dependencies": {
-        "Core Coursework/Additional Courses/Cross-listed by TRA": ["Core Coursework/Additional Courses"],
-        "Core Coursework/Additional Courses/Upper-Level Course on Translation between Languages": ["Core Coursework/Additional Courses"],
-        "Core Coursework/Additional Courses": ["Core Coursework"],
-        "Core Coursework/Additional Courses/Understanding of Translation": ["Core Coursework/Additional Courses"],
-        "Core Coursework": [""]
-        },
-    "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
-    },
-    "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
-    ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
-    },
-    {
-    "class_list": {
-        "Core Coursework/Studio Courses": ["VIS 3*", "VIS 4*"],
-        "Core Coursework/Artist and Studio": ["VIS 392"],
-        "Core Coursework/Exhibition Issues and Methods": ["VIS 416"],
-        "Core Coursework/Art and Archaeology": ["ART *"],
-        "Core Coursework/Elective": ["ART *", "VIS *"]
-        },
-    "dependencies": {
-        "Core Coursework": [""],
-        "Core Coursework/Studio Courses": ["Core Coursework"],
-        "Core Coursework/Artist and Studio": ["Core Coursework"],
-        "Core Coursework/Exhibition Issues and Methods": ["Core Coursework"],
-        "Core Coursework/Art and Archaeology": ["Core Coursework"],
-        "Core Coursework/Elective": ["Core Coursework"]
-        },
-    "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
-    },
-    "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
-    ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
-    },
-    {
-    "class_list": {
-        "Core Coursework/Introduction": ["PHI 202"],
-        "Core Coursework/Political Theory Courses": ["POL 210", "SPI 370", 
-        "POL 301", "POL 302", "POL 303", "POL 305", "POL 306", "POL 307", 
-        "POL 309", "POL 313"],
-        "Core Coursework/'Junior/Senior Seminar'": ["HIS 427", "CHV 479", 
-        "POL 403", "POL 477", "CHV 390", "CHV 395", "POL 471", "POL 474", 
-        "CHV 478", "PHI 380", "CHV 367", "CHV 390", "POL 403", "POL 418", 
-        "HIS 427", "PHI 411", "REL 394"],
-        "Thematic Courses": ["PHI *", "POL *", "HIS *", "REL *", "CHV *"]
-        },
-    "dependencies": {
-        "Core Coursework/Introduction": ["Core Coursework/Additional Courses"],
-        "Core Coursework/Political Theory Courses": ["Core Coursework/Additional Courses"],
-        "Core Coursework/'Junior/Senior Seminar'": ["Core Coursework"],
-        "Thematic Courses": [""],
-        "Core Coursework": [""]
+        "Coursework/Methods Courses": ["Coursework"],
+        "Coursework/Core Courses": ["Coursework"],
+        "Prerequisite": [""],
+        "Coursework/Elective Courses": ["Coursework"],
+        "Coursework": [""]
         },
     "subrequirements": {
         "Foundational Courses/Above 300-level": [1, 2],
