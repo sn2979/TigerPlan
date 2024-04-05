@@ -138,4 +138,25 @@ list-style: none;
 }
 
 
+.photo-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Distribute items evenly */
+  align-items: center;
+  align-content: space-between
+  height: 100vh; /* Adjust as needed */
+}
+
+.photo-container img {
+  max-width: calc(100% / 3 - 10px); /* Calculate one-third of the container width and leave some space */
+  height: auto; /* Maintain aspect ratio */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Distribute items evenly */
+  align-items: center;
+  align-content: space-between
+  height: 100vh; /* Adjust as needed */
+}
+
+
   

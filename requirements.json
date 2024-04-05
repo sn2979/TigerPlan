@@ -1,6 +1,6 @@
 [
     {
-    "name":{"AFS"},
+    "name":"AFS",
     "class_list": {
         "Core": ["AFS 2*", "AFS 3*"],
         "Electives/Humanities": ["AAS *", "AFS *", "AMS *", "ART *", "ASA *", "CLA *", "CLG *", "COM *", "CWR *", "DAN *", "EAS *", "ENG *", "ECS *", "GER *", "GSS *", "HIS *", "HUM *", "JDS *", "LAO *", "LAS *", "LIN *", "MED *", "MUS *", "NES *", "PHI *", "REL *", "SLA *", "SPA *", "THR *", "TPP *", "URB *", "VIS *"],
@@ -34,7 +34,7 @@
     "dependent_reqs": ["Core", "Electives"]
     }, 
     {
-    "name":{"ASA"},
+    "name":"ASA",
     "class_list": {
         "Core": ["AMS 101"],
         "Electives": ["ASA *"],
@@ -62,7 +62,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     }, 
     {
-    "name":{"CHI"},
+    "name":"CHI",
     "class_list": {
         "Language/Basic Language": ["CHI 1001", "CHI 1002", "CHI 101", "CHI 102", "CHI 103", "CHI 105", "CHI 107", "CHI 108"],
         "Language/Advanced Language": ["CHI 303", "CHI 304", "CHI 305", "CHI 306", "CHI 403", "CHI 404", "CHI 405", "CHI 406", "CHI 451"],
@@ -91,7 +91,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"CLA"},
+    "name":"CLA",
     "class_list": {
         "Prerequisities": ["CLA *", "CLG 108", "LAT 108"],
         "Tracks/Classical Studies with a focal point/Basic Requirement": ["CLA 203", "CLA 212"],
@@ -156,7 +156,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },    
     {
-    "name":{"COS"},
+    "name":"COS",
     "class_list": {
         "Core/Introduction/Introductory Course": ["COS 126", "ECE 115"],
         "Core/Introduction/Integrated Science Curriculum": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
@@ -188,7 +188,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-     "name":{"CS"},
+     "name":"CS",
     "class_list": {
         "Core": ["GEO 102", "GEO 103", "GEO 202", "GEO 203", "GEO 361", 
         "GEO 363", "GEO 369", "GEO 370", "GEO 416", "GEO 417", "GEO 425", 
@@ -218,7 +218,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     }, 
     {
-    "name":{"CWR"},
+    "name":"CWR",
     "class_list": {
         "Coursework/Introductory": ["CWR 2*"],
         "Coursework/Advanced": ["CWR 3*", "CWR 4*"]
@@ -245,7 +245,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"DAN"},
+    "name":"DAN",
     "class_list": {
         "Prerequisities": ["DAN *"],
         "Studio Course": ["DAN 204", "DAN 207", "DAN 208", "DAN 211", 
@@ -281,7 +281,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     }, 
     {
-    "name":{"EAS"},
+    "name":"EAS",
     "class_list": {
         "Language/Basic Language": ["CHI 1*", "JPN 1*", "KOR 1*"],
         "Language/Advanced Language": ["CHI 2*", "CHI 3*", "CHI 4*", 
@@ -316,7 +316,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"ENG"},
+    "name":"ENG",
     "class_list": {
         "Coursework/Seminars": ["ENG 256", "ENG 300", "ENG 305", 
         "ENG 306", "ENG 310", "ENG 311", "ENG 312", "ENG 331", 
@@ -347,7 +347,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     }, 
     {
-    "name":{"ENV"},
+    "name":"ENV",
     "class_list": {
         "Foundational Courses/Above 300-level": ["ENV 303", "ENV 304", 
         "ENV 343", "ENV 354", "ENV 363", "ENV 367", "ENV 377", 
@@ -404,7 +404,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     }, 
     {
-    "name":{"FIN"},
+    "name":"FIN",
     "class_list": {
       "Prerequisities/Mathematics/MAT 175": [ "MAT 175"],
       "Prerequisities/Mathematics/BSE Mathematics": ["MAT 201", "MAT 202"],
@@ -457,7 +457,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
   },    
   {
-    "name":{"GHP"},
+    "name":"GHP",
     "class_list": {
         "Prerequisities/Foundations Prerequisite": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
         "Prerequisities/Foundation Course": ["ANT 240", "GSS 201", 
@@ -518,7 +518,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },    
     {
-    "name":{"GSS"},
+    "name":"GSS",
     "class_list": {
         "Introductory Course": ["GSS 201"],
         "Thematic Cluster Electives": ["GSS*"],
@@ -546,7 +546,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"HIS"},
+    "name":"HIS",
     "class_list": {
         "History Courses": ["HIS *"]
         },
@@ -570,7 +570,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },    
     {
-    "name":{"HLS"},
+    "name":"HLS",
     "class_list": {
         "Gateway Seminar": ["HLS 222"],
         "400-level Seminar": ["HLS 410", "HLS 430"],
@@ -616,7 +616,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"HSTM"},
+    "name":"HSTM",
     "class_list": {
         "Core": ["HIS 390"],
         "Selected Courses": ["EGR 277 / HIS 277", "HIS 290", "HIS 291", 
@@ -654,7 +654,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },    
     {
-    "name":{"HUM"},
+    "name":"HUM",
     "class_list": {
         "Humanities Sequence/Western Culture I": ["HUM 216", "HUM 217"],
         "Humanities Sequence/Western Culture II": ["HUM 218", "HUM 219"],
@@ -704,7 +704,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"JPN"},
+    "name":"JPN",
     "class_list": {
         "Language Courses/Advanced Language": ["JPN 3*", "JPN 4*"],
         "Language Courses/Basic Language": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
@@ -733,7 +733,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },    
     {
-    "name":{"JRN"},
+    "name":"JRN",
     "class_list": {
         "Gateway Course": ["JRN 240", "JRN 260", "JRN 280"],
         "Above 300-level": ["JRN 3*", "JRN 4*"],
@@ -761,7 +761,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"KOR"},
+    "name":"KOR",
     "class_list": {
         "Language Courses/Advanced Language": ["KOR 3*", "KOR 4*"],
         "Language Courses/Basic Language": ["KOR 1*", "KOR 2*"],
@@ -790,7 +790,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"LAO"},
+    "name":"LAO",
     "class_list": {
         "Required Course": ["AMS 101"],
         "Breadth": ["LAO *"],
@@ -818,7 +818,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },    
     {
-    "name":{"LIN"},
+    "name":"LIN",
     "class_list": {
         "Prerequisite": ["LIN 201"],
         "Coursework/Core Courses": ["LIN 301", "LIN 302", 
@@ -851,7 +851,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"MED"},
+    "name":"MED",
     "class_list": {
         "Introductory Course/Single Course": ["MED 227 / HUM 227 / HIS 227 / HLS 227", 
         "HIS 210", "ART 228"],
@@ -897,7 +897,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"MPP"},
+    "name":"MPP",
     "class_list": {
         "Core Course": ["MUS 105"],
         "Materials and Making Course": ["MUS 209B", "MUS 209A", 
@@ -935,7 +935,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"MQE"},
+    "name":"MQE",
     "class_list": {
         "Prerequisites/Multivariable Calculus": ["MAT 201", "ECO 201", "EGR 156", "MAT 203"],
         "Prerequisites/Linear Algebra": ["MAT 202", "EGR 154", "MAT 204"],
@@ -971,7 +971,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"MSE"},
+    "name":"MSE",
     "class_list": {
         "General Physics/103-104 Sequence": ["PHY 103", "PHY 104"],
         "General Physics/105-106 Sequence": ["PHY 105", "PHY 106"],
@@ -1015,7 +1015,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"MUS"},
+    "name":"MUS",
     "class_list": {
         "Core Course": ["MUS 105"],
         "Materials and Making Course": ["MUS 209B", "MUS 209A", 
@@ -1051,7 +1051,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"NEU"},
+    "name":"NEU",
     "class_list": {
         "Core Courses/Fundamentals": ["NEU 200", "NEU 201"],
         "Core Courses/Introduction Course": ["NEU 202"],
@@ -1099,7 +1099,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-     "name":{"PHI"},
+     "name":"PHI",
     "class_list": {
         "Prerequisites": ["PHI *"],
         "Core Courses/Above 200-level": ["PHI 3*", "PHI 4*", "PHI 5*"],
@@ -1128,7 +1128,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"RES"},
+    "name":"RES",
     "class_list": {
         "History and Social Sciences": ["NES 362", "NES 364 / REL 399", 
         "POL 360", "POL 374", "POL 432", "POL 433", "SLA 338 / ANT 338", 
@@ -1212,7 +1212,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"SAS"},
+    "name":"SAS",
     "class_list": {
         "Language Requirement": ["HIN 107", "URB 107", "SAN 107"],
         "Core Course": [""],
@@ -1241,7 +1241,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"SLA"},
+    "name":"SLA",
     "class_list": {
         "First Requirement": ["RUS 107", "RUS 108"],
         "Second Requirement": ["RUS 207", "RUS 3*"],
@@ -1270,7 +1270,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"SML"},
+    "name":"SML",
     "class_list": {
         "Statistics": ["ECO 202", "ORF 245", "POL 345", "PSY 251", "SPI 200"],
         "Machine Learning": ["COS 324", "COS 424", "ECE 364", "ECE 435", "MAT 490", "ORF 350"],
@@ -1303,7 +1303,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"TMT"},
+    "name":"TMT",
     "class_list": {
         "Introduction": ["THR 101"],
         "Additional Courses": ["THR *", "MTD *"],
@@ -1348,7 +1348,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"TRA"},
+    "name":"TRA",
     "class_list": {
         "Core Coursework/Core Courses": ["TRA 200", "TRA 400"],
         "Core Coursework/Additional Courses/Cross-listed by TRA": ["TRA 2*", "TRA 3*", "TRA 4*"],
@@ -1379,7 +1379,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"VIS"},
+    "name":"VIS",
     "class_list": {
         "Core Coursework/Studio Courses": ["VIS 3*", "VIS 4*"],
         "Core Coursework/Artist and Studio": ["VIS 392"],
@@ -1412,7 +1412,7 @@
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
     },
     {
-    "name":{"VPL"},
+    "name":"VPL",
     "class_list": {
         "Core Coursework/Introduction": ["PHI 202"],
         "Core Coursework/Political Theory Courses": ["POL 210", "SPI 370", 

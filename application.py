@@ -19,7 +19,7 @@ app.secret_key = os.environ['APP_SECRET_KEY']
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-    html_code = flask.render_template("abani's_attempt.html")
+    html_code = flask.render_template("homepage.html")
     response = flask.make_response(html_code)
     return response
 
