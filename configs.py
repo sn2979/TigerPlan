@@ -16,6 +16,9 @@ class Configs:
         self.EVENTS_EVENTS="/events/events"
         self.REFRESH_TOKEN_URL="https://api.princeton.edu:443/token"
         self._refreshToken(grant_type="client_credentials")
+        self.DATABASE_URL="mongodb+srv://tigerplan333:TigerPlan123!@tig\
+            erplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority\
+            &appName=TigerPlanData"
 
     def _refreshToken(self, **kwargs):
         req = requests.post(
