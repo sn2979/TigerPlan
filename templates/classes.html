@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TigerPlan</title>
+</head>
+<body>
+
+    <div id="header">
+        <h1><span class="roboto">Tiger</span><span class="caveat">Plan</span></h1>
+      <nav>
+        <ul>
+          <li><a href="#">Your Recommendations</a></li>
+          <li><a href="/classes.html">Your Classes</a></li>
+          <li><a href="#">About TigerPlan</a></li>
+        </ul>
+      </nav>
+    </div>
+
+<main>
+  <section id="class-selection">
+    <div class="class-container">
+      <div class="class" draggable="true" id="cos333">COS 333</div>
+      <div class="class" draggable="true" id="cos445">COS 445</div>
+      <!-- Add more classes as necessary -->
+    </div>
+  </section>
+
+  <section id="class-board">
+    <div class="board">
+      <!-- Classes will be dropped here -->
+    </div>
+  </section>
+
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+  const classes = document.querySelectorAll('.class');
+  const board = document.querySelector('.board');
+
+  classes.forEach((klass) => {
+    klass.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', klass.id);
+    });
+  });
+
+  board.addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
+
+  board.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const id = e.dataTransfer.getData('text');
+    const draggableElement = document.getElementById(id);
+    const clone = draggableElement.cloneNode(true);
+    board.appendChild(clone);
+  });
+});
+
+</script>
+
+</body>
+</html>
