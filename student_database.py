@@ -1,14 +1,34 @@
 import sys
+import os
+import queue
 from pymongo import MongoClient
 
+#-----------------------------------------------------------------------
+# _DATABASE_URL = os.environ['DATABASE_URL'] # = mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData
+_connection_pool = queue.Queue()
+
+def _get_connection():
+    try:
+        conn = _connection_pool.get(block=False)
+    except queue.Empty:
+        # conn = MongoClient(_DATABASE_URL)
+        conn = MongoClient("mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData")
+    return conn
+
+def _put_connection(conn):
+    _connection_pool.put(conn)
+
+#-----------------------------------------------------------------------
 try:
-    client = MongoClient('mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData')
+    client = _get_connection()
     db = client['TigerPlanData']
     students_collection = db['StudentsData']
     print("Connected to MongoDB successfully!")
 except Exception as e:
     print("Failed to connect to MongoDB:", e, file=sys.stderr)
     sys.exit(1)
+finally:
+    _put_connection(client)
 
 # Function to handle student login
 def handle_student_login(username):
