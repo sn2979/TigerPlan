@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TigerPlan</title>
+<link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
+</head>
+<body>
+
+<div id="header">
+    <h1><span class="roboto">Tiger</span><span class="caveat">Plan</span></h1>
+  <nav>
+    <ul>
+      <li><a href="#">Your Recommendations</a></li>
+      <li><a href="/classes.html">Your Classes</a></li>
+      <li><a href="#">About TigerPlan</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main>
+  <section id="main-content">
+    <p>TigerPlan helps Princeton students find <br>minors that fit with their classes.</p>
+    <div class="button-container">
+        <button onclick="location.href='\login'">Login for your recommendations!</button>
+      </div>
+  </section>
+
+  <div class="container">
+    <div class="section" id="class-board">
+      <img src="static/images/Class Selection.png" alt="Class Selection">
+      <h2 class="roboto">1. Build your Class Board</h2>
+      <!-- Class cards would be populated here -->
+    </div>
+  
+    <div class="section" id="minors">
+      <img src="static/images/Recommendation Card.png" alt="Recommendation Card">
+      <h2 class="roboto">2. View your Best Minors</h2>
+    </div>
+  
+    <div class="section" id="progress">
+      <img src="static/images/Progress Card.png" alt="Progress Card">
+      <h2 class="roboto">3. See Your Progress</h2>
+    </div>
+  </div>
+  
+</main>
+
+</body>
+</html>

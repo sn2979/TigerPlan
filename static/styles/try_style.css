@@ -88,9 +88,10 @@
 
 /* Section titles */
 #h2 {
+    font-family: 'Roboto Serif', serif;
     font-size: 40px;
-    color: black; /* Adjust color as needed */
-    margin-bottom: 20px; /* Adjust spacing as needed */
+    color: black; 
+    margin-bottom: 20px;
 }
 
 /* Class board and progress sections */
@@ -143,7 +144,7 @@ list-style: none;
   flex-wrap: wrap;
   justify-content: space-between; /* Distribute items evenly */
   align-items: center;
-  align-content: space-between
+  align-content: space-between;
   height: 100vh; /* Adjust as needed */
 }
 
@@ -154,9 +155,35 @@ list-style: none;
   flex-wrap: wrap;
   justify-content: space-between; /* Distribute items evenly */
   align-items: center;
-  align-content: space-between
+  align-content: space-between;
   height: 100vh; /* Adjust as needed */
 }
+
+.container {
+  display: flex;
+  justify-content: space-between; /* Even spacing between the sections */
+}
+
+.section {
+  display: flex;
+  flex-direction: column; /* Stack image and text vertically */
+  align-items: center; /* Center items horizontally */
+  flex-basis: 33.333%; /* Divide container into three equal parts */
+  text-align: center; /* Center text */
+  margin: 0 10px; /* Add margin for spacing, adjust as necessary */
+}
+
+.section img {
+  max-height: 500px; /* Adjust as needed to make all images the same height */
+  max-width: 300px; /* This will maintain the aspect ratio of the images */
+  object-fit: cover; /* This will ensure the images are fully visible within the defined dimensions */
+}
+
+h2.roboto {
+  font-family: 'Roboto', serif; /* This sets the font to Roboto with a serif fallback */
+  font-weight: normal; /* This makes sure the text is not bold */
+}
+
 
 
   
