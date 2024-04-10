@@ -80,7 +80,7 @@ def classboard():
         name = student_database.get_student_name(username)
         
         # Render the template with retrieved data
-        html_code = flask.render_template("classes.html", username=name, classes=classes)
+        html_code = flask.render_template("classboard.html", username=name, classes=classes)
         response = flask.make_response(html_code)
         return response
     except Exception as e:
