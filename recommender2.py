@@ -1,20 +1,144 @@
 from itertools import product, combinations
+class Node:
+    def __init__(self, name, parent=None, classes_needed=0):
+        self.name = name
+        self.children = []
+        self.node_type = 'AND'
+        self.classes_needed = classes_needed
+        self.classes_taken = 0
+        self.parent = parent
+    
+    def get_children(self):
+        return self.children
+    
+    def get_parent(self):
+        return self.parent
+    
+    def get_name(self):
+        return self.name
+    
+    def get_node_type(self):
+        return self.node_type
+    
+    def get_classes_needed(self):
+        return self.classes_needed
+    
+    def get_classes_taken(self):
+        return self.classes_taken
 
+    def add_child(self, child_node):
+        self.children.append(child_node)
+
+    def compute_classes_needed(self):
+        if self.children:
+            self.classes_needed = sum(child.compute_classes_needed() for child in self.children)
+        return self.classes_needed
+
+    def compute_classes_taken(self):
+        if self.children:
+            self.classes_taken = sum(child.compute_classes_taken() for child in self.children)
+        return self.classes_taken
+
+    def update_classes_needed(self):
+        for child in self.children:
+            child.update_classes_needed()
+        self.compute_classes_needed()
+
+
+class OrNode(Node):
+    def __init__(self, name):
+        super().__init__(name)
+        self.node_type = 'OR'
+
+    def compute_classes_needed(self):
+        if self.children:
+            max_classes_needed = max(child.compute_classes_needed() for child in self.children)
+            return max_classes_needed
+        return 0  # OrNode itself doesn't have a specific classes_needed
+
+    def compute_classes_taken(self):
+        if self.children:
+            max_fraction = max(child.compute_classes_taken() / child.classes_needed for child in self.children)
+            self.classes_taken = int(max_fraction * self.classes_needed)
+        return self.classes_taken
+
+
+def create_tree(subrequirements, parent=None):
+    # Create the root node for CLA minor
+    cla = Node('CLA', parent)
+
+    # Create the Prerequisites node under CLA
+    prerequisites = Node('Prerequisites', parent=cla, classes_needed=subrequirements.get('Prerequisites', 0))
+    cla.add_child(prerequisites)
+
+    # Create the Tracks (OR node) under CLA
+    tracks = Node('Tracks', parent=cla)
+
+    # Create Classical Track (AND node) under Tracks
+    classical = Node('Classical Track', parent=tracks)
+
+    # Create Basic Requirements (AND node) under Classical Track
+    basic_reqs = Node('Basic Requirements', parent=classical, classes_needed=subrequirements.get('Basic Requirements', 0))
+    classical.add_child(basic_reqs)
+
+    # Create Subtracks (OR node) under Classical Track
+    subtracks = Node('Subtracks', parent=classical)
+
+    # Create Greek (OR node) under Subtracks
+    greek = Node('Greek', parent=subtracks)
+    greek_4 = Node('Greek 4 and Relevant 4', parent=greek)
+    greek_4.add_child(Node('Greek 4', parent=greek_4, classes_needed=subrequirements.get('Greek 4', 0)))
+    greek_4.add_child(Node('Relevant Courses', parent=greek_4, classes_needed=subrequirements.get('Relevant Courses', 0)))
+    greek.add_child(greek_4)
+    greek.add_child(Node('Greek 5', parent=greek, classes_needed=subrequirements.get('Greek 5', 0)))
+    subtracks.add_child(greek)
+
+    # Create Latin (OR node) under Subtracks
+    latin = Node('Latin', parent=subtracks)
+    latin_4 = Node('Latin 4 and Relevant 4', parent=latin)
+    latin_4.add_child(Node('Latin 4', parent=latin_4, classes_needed=subrequirements.get('Latin 4', 0)))
+    latin_4.add_child(Node('Relevant Courses', parent=latin_4, classes_needed=subrequirements.get('Relevant Courses', 0)))
+    latin.add_child(latin_4)
+    latin.add_child(Node('Latin 5', parent=latin, classes_needed=subrequirements.get('Latin 5', 0)))
+    subtracks.add_child(latin)
+
+    # Create Medicine (OR node) under Subtracks
+    medicine = Node('Medicine', parent=subtracks)
+    medicine_4 = Node('Medicine 4 and Relevant 4', parent=medicine)
+    medicine_4.add_child(Node('Medicine 4', parent=medicine_4, classes_needed=subrequirements.get('Medicine 4', 0)))
+    medicine_4.add_child(Node('Relevant Courses', parent=medicine_4, classes_needed=subrequirements.get('Relevant Courses', 0)))
+    medicine.add_child(medicine_4)
+    medicine.add_child(Node('Medicine 5', parent=medicine, classes_needed=subrequirements.get('Medicine 5', 0)))
+    subtracks.add_child(medicine)
+
+    # Add Subtracks under Classical Track
+    classical.add_child(subtracks)
+
+    # Add Classical Track under Tracks
+    tracks.add_child(classical)
+
+    # Create Ancient History Track (AND node) under Tracks
+    ancient = Node('Ancient History Track', parent=tracks)
+    ancient.add_child(Node('Historical Survey', parent=ancient, classes_needed=subrequirements.get('Historical Survey', 0)))
+    ancient.add_child(Node('Track Requirements', parent=ancient, classes_needed=subrequirements.get('Track Requirements', 0)))
+    ancient.add_child(Node('Relevant Courses', parent=ancient, classes_needed=subrequirements.get('Relevant Courses', 0)))
+
+    # Add Ancient History Track under Tracks
+    tracks.add_child(ancient)
+
+    # Add Tracks under CLA
+    cla.add_child(tracks)
+
+    # Update classes_needed recursively
+    cla.update_classes_needed()
+
+    return cla
+    
 def generate_combinations(class_list, subrequirements):
     #print("Generating combinations...")
     # Generate all possible combinations of classes
     all_combinations = {}
     for category, classes in class_list.items():
-        #print(f"Category: {category}, Classes: {classes}")
-        '''# Get the minimum and maximum number of classes required for this category
-        min_classes = 0
-        max_classes = subrequirements[category]
-        #print(f"Min classes: {min_classes}, Max classes: {max_classes}")
-
-        # Generate combinations of classes for this category
-        category_combinations = []
-        for r in range(min_classes, max_classes + 1):
-            category_combinations.extend(combinations(classes, r))'''
         
         # Determine the number of classes required for this category
         num_required_classes = min(len(classes), subrequirements[category])
@@ -32,18 +156,59 @@ def generate_combinations(class_list, subrequirements):
     for category, combo in all_combinations.items():
         print(f"{category}: {combo}")
     
-    # Create a list of lists from the dictionary values
-    combination_lists = list(all_combinations.values())
+    all_combinations_product = list(product(*list(all_combinations.values())))
 
-    # Generate product of combinations from all categories
-    all_combinations_product = list(product(*combination_lists))
-    
-    # Filter out duplicate versions and combinations where a class occurs more than once
-    '''filtered_combinations = []
+    # Transform combinations into list of dictionaries
+    combined_combinations = []
     for combo in all_combinations_product:
-        if combo not in filtered_combinations:
-            filtered_combinations.append(combo)'''
-    return all_combinations_product
+        category_map = {}
+        for idx, (category, combos) in enumerate(all_combinations.items()):
+            category_map[category] = combo[idx]
+        combined_combinations.append(category_map)
+
+    return all_combinations_product, combined_combinations
+
+def traverse_tree(node, combination_dict, used):
+    # Base case: child node with no children
+    if node.get_children() == []:
+        # Get classes taken for this requirement
+
+        # First section checks to make sure if the parent is an AND node, 
+        # the classes are not repeated
+        combination = combination_dict.get(node.get_name(), [])
+        taken = len(combination)
+        for course in combination:
+            if course in used:
+                taken -= 1
+            else:
+                if node.get_parent().get_node_type() == 'AND':
+                    used.add(course)
+        node.classes_taken = taken
+        return used
+
+    # Recursive case: node with children
+    # CLA 219, CLA 212
+    for child_node in node.get_children():
+        used = traverse_tree(child_node, combination_dict, used)
+    
+    # Compute classes taken for this node
+    node.compute_classes_taken()
+
+def find_best_combination(root_node, all_combinations):
+    best_fraction = 0
+    best_combination = None
+
+    for combination_dict in all_combinations:
+        # Traverse the tree with the current combination
+        _, _, fraction_completion = traverse_tree(root_node, combination_dict)
+
+        # Update best combination based on fraction of completion
+        if fraction_completion > best_fraction:
+            best_fraction = fraction_completion
+            best_combination = combination_dict
+
+    return best_combination, best_fraction
+
 
 '''def _fulfill_base_reqs(combination, dependencies, base_reqs, dependent_reqs, subrequirements):
     fulfilled_requirements = {requirement: {'classes': [], 'count': 0} for requirement in dependencies}
@@ -231,7 +396,6 @@ if __name__ == '__main__':
     class_list = {
         "Prerequisities": ["CLA 219", "CLA 212", "CLG 108"],
         "Basic Requirements": ["CLA 212"],
-        "Greek and Relevant 4": [],
         "Greek 4": [],
         "Relevant Courses": ['CLA 219', 'CLA 212', 'CLA 247', 'LAT 336', 'LAT 333', 'LAT 315'],
         "Greek 5": [],
@@ -246,7 +410,6 @@ if __name__ == '__main__':
     subrequirements = {
         "Prerequisities": 1,
         "Basic Requirements": 1,
-        "Greek and Relevant 4": 4,
         "Greek 4": 4,
         "Relevant Courses": 1,
         "Greek 5": 5,
@@ -260,8 +423,12 @@ if __name__ == '__main__':
 
     # Combinations
     # Print all combinations
-    all_combinations = generate_combinations(class_list, subrequirements)
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
      # Print all combinations
     for i, combination in enumerate(all_combinations, start=1):
         print(f"Combination {i}: {combination}")
 
+    for i, combo in enumerate(dict_combinations, start=1):
+        print(f"Combination {i}:")
+        for category, selected_class in combo.items():
+            print(f"  {category}: {selected_class}")
