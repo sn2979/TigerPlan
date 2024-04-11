@@ -199,6 +199,7 @@ function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data)); // Append the dragged element to the drop target.
+  document.querySelector('#drop-area p').style.display = 'none'; // Hide the text when dragging over.
 }
 
 // Add the 'drag' attribute and event listener to your draggable elements
