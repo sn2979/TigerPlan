@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 import flask 
 from flask import request
-import student_database as student_database
-import course_database
+import database_files.student_database as student_database
 import dotenv
 import auth
 
