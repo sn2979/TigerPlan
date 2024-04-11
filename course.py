@@ -7,10 +7,10 @@
 
 class Course:
 
-    def __init__(self, author, title, price):
-        self._author = author
+    def __init__(self, num, title, courseid):
+        self._author = num
         self._title = title
-        self._price = price
+        self._price = courseid
 
     def get_author(self):
         return self._author
@@ -27,11 +27,14 @@ class Course:
 #-----------------------------------------------------------------------
 
 def _test():
+    '''
     book = Book('Kernighan', 'The Practice of Programming', 40.74)
     print(book.get_author())
     print(book.get_title())
     print(book.get_price())
     print(book.to_tuple())
+    '''
+    
 
 if __name__ == '__main__':
     _test()
