@@ -1,3 +1,4 @@
+import itertools
 from itertools import product, combinations
 class Node:
     def __init__(self, name, parent=None, classes_needed=0):
@@ -29,38 +30,36 @@ class Node:
     def add_child(self, child_node):
         self.children.append(child_node)
 
-    def compute_classes_needed(self):
+    def compute_classes_taken_needed(self):
         if self.children:
-            self.classes_needed = sum(child.compute_classes_needed() for child in self.children)
-        return self.classes_needed
-
-    def compute_classes_taken(self):
-        if self.children:
-            self.classes_taken = sum(child.compute_classes_taken() for child in self.children)
-        return self.classes_taken
-
-    def update_classes_needed(self):
-        for child in self.children:
-            child.update_classes_needed()
-        self.compute_classes_needed()
+            winner = []
+            self.classes_taken = sum(child.classes_taken for child in self.children)
+            self.classes_needed = sum(child.classes_needed for child in self.children)
+            winner = [child.name for child in self.children if child.classes_taken > 0]
+        return self.classes_taken, self.classes_needed, winner
 
 
 class OrNode(Node):
-    def __init__(self, name):
+    def __init__(self, name, parent=None, classes_needed=0):
         super().__init__(name)
         self.node_type = 'OR'
+        self.classes_needed = classes_needed
+        self.classes_taken = 0
+        self.parent = parent
 
-    def compute_classes_needed(self):
+    def compute_classes_taken_needed(self):
         if self.children:
-            max_classes_needed = max(child.compute_classes_needed() for child in self.children)
-            return max_classes_needed
-        return 0  # OrNode itself doesn't have a specific classes_needed
-
-    def compute_classes_taken(self):
-        if self.children:
-            max_fraction = max(child.compute_classes_taken() / child.classes_needed for child in self.children)
-            self.classes_taken = int(max_fraction * self.classes_needed)
-        return self.classes_taken
+            max_fraction = 0
+            for child in self.children:
+                fraction = child.classes_taken / child.classes_needed
+                winner = []
+                if fraction >= max_fraction:
+                    max_fraction = fraction
+                    self.classes_taken = int(max_fraction * child.classes_needed)
+                    self.classes_needed = child.classes_needed
+                    winner.append(child.name)
+                    
+        return self.classes_taken, self.classes_needed, winner
 
 
 def create_tree(subrequirements, parent=None):
@@ -72,7 +71,7 @@ def create_tree(subrequirements, parent=None):
     cla.add_child(prerequisites)
 
     # Create the Tracks (OR node) under CLA
-    tracks = Node('Tracks', parent=cla)
+    tracks = OrNode('Tracks', parent=cla)
 
     # Create Classical Track (AND node) under Tracks
     classical = Node('Classical Track', parent=tracks)
@@ -82,10 +81,10 @@ def create_tree(subrequirements, parent=None):
     classical.add_child(basic_reqs)
 
     # Create Subtracks (OR node) under Classical Track
-    subtracks = Node('Subtracks', parent=classical)
+    subtracks = OrNode('Subtracks', parent=classical)
 
     # Create Greek (OR node) under Subtracks
-    greek = Node('Greek', parent=subtracks)
+    greek = OrNode('Greek', parent=subtracks)
     greek_4 = Node('Greek 4 and Relevant 4', parent=greek)
     greek_4.add_child(Node('Greek 4', parent=greek_4, classes_needed=subrequirements.get('Greek 4', 0)))
     greek_4.add_child(Node('Relevant Courses', parent=greek_4, classes_needed=subrequirements.get('Relevant Courses', 0)))
@@ -94,7 +93,7 @@ def create_tree(subrequirements, parent=None):
     subtracks.add_child(greek)
 
     # Create Latin (OR node) under Subtracks
-    latin = Node('Latin', parent=subtracks)
+    latin = OrNode('Latin', parent=subtracks)
     latin_4 = Node('Latin 4 and Relevant 4', parent=latin)
     latin_4.add_child(Node('Latin 4', parent=latin_4, classes_needed=subrequirements.get('Latin 4', 0)))
     latin_4.add_child(Node('Relevant Courses', parent=latin_4, classes_needed=subrequirements.get('Relevant Courses', 0)))
@@ -103,7 +102,7 @@ def create_tree(subrequirements, parent=None):
     subtracks.add_child(latin)
 
     # Create Medicine (OR node) under Subtracks
-    medicine = Node('Medicine', parent=subtracks)
+    medicine = OrNode('Medicine', parent=subtracks)
     medicine_4 = Node('Medicine 4 and Relevant 4', parent=medicine)
     medicine_4.add_child(Node('Medicine 4', parent=medicine_4, classes_needed=subrequirements.get('Medicine 4', 0)))
     medicine_4.add_child(Node('Relevant Courses', parent=medicine_4, classes_needed=subrequirements.get('Relevant Courses', 0)))
@@ -129,9 +128,6 @@ def create_tree(subrequirements, parent=None):
     # Add Tracks under CLA
     cla.add_child(tracks)
 
-    # Update classes_needed recursively
-    cla.update_classes_needed()
-
     return cla
     
 def generate_combinations(class_list, subrequirements):
@@ -152,9 +148,9 @@ def generate_combinations(class_list, subrequirements):
         #print(f"Category combinations: {category_combinations}")
         all_combinations[category] = category_combinations
 
-    print("All combinations:")
+    '''print("All combinations:")
     for category, combo in all_combinations.items():
-        print(f"{category}: {combo}")
+        print(f"{category}: {combo}")'''
     
     all_combinations_product = list(product(*list(all_combinations.values())))
 
@@ -168,7 +164,8 @@ def generate_combinations(class_list, subrequirements):
 
     return all_combinations_product, combined_combinations
 
-def traverse_tree(node, combination_dict, used):
+def traverse_tree(node, combination_dict, 
+                  subrequirements, used, winning_classes={}):
     # Base case: child node with no children
     if node.get_children() == []:
         # Get classes taken for this requirement
@@ -184,104 +181,73 @@ def traverse_tree(node, combination_dict, used):
                 if node.get_parent().get_node_type() == 'AND':
                     used.add(course)
         node.classes_taken = taken
-        return used
+        node.clases_needed = subrequirements.get(node.get_name(), 0)
+        '''print(f"Classes taken for {node.get_name()}: {node.classes_taken}")
+        print(f"Classes needed for {node.get_name()}: {node.classes_needed}")
+        print()'''
+        return used, node.classes_taken, node.classes_needed, node.classes_taken / node.classes_needed, winning_classes
 
     # Recursive case: node with children
-    # CLA 219, CLA 212
+    curr_used = used.copy()
     for child_node in node.get_children():
-        used = traverse_tree(child_node, combination_dict, used)
+        curr_used, _, _, _ , _= traverse_tree(child_node, combination_dict, 
+                             subrequirements, set(curr_used))
+        '''print(f"Used at {node.get_name()}: {curr_used}")
+        print()'''
     
     # Compute classes taken for this node
-    node.compute_classes_taken()
+    _, _, winner = node.compute_classes_taken_needed()
+    if winner:
+        for requirement in winner:
+            print(f"Winner: {requirement}")
+            for course in combination_dict.get(requirement, []):
+                winners = set(list(itertools.chain.from_iterable(winning_classes.values())))
+                print(f"Winners: {winners}")
+                print()
+                if course not in winners:
+                    if requirement not in winning_classes:
+                        winning_classes[requirement] = [course]
+                    else:
+                        winning_classes[requirement].append(course)
+        
+        print(f"Winning classes: {winning_classes}")
+        print()
 
-def find_best_combination(root_node, all_combinations):
+    '''print(f"Classes taken for {node.get_name()}: {node.classes_taken}")
+    print(f"Classes needed for {node.get_name()}: {node.classes_needed}")
+    print()'''
+
+    return used, node.classes_taken, node.classes_needed, node.classes_taken / node.classes_needed, winning_classes
+
+def find_best_combination(root_node, all_combinations, 
+                                                subrequirements):
     best_fraction = 0
     best_combination = None
+    taken_needed = None
 
     for combination_dict in all_combinations:
+        #print(f"Combination: {combination_dict}")
         # Traverse the tree with the current combination
-        _, _, fraction_completion = traverse_tree(root_node, combination_dict)
+        used = set()
+        _, taken, needed, fraction_completion, winning_classes = traverse_tree(root_node, 
+                                                  combination_dict,
+                                                  subrequirements,
+                                                  used)
+        
+        #print(f"Fraction of completion: {fraction_completion}")
 
         # Update best combination based on fraction of completion
         if fraction_completion > best_fraction:
             best_fraction = fraction_completion
             best_combination = combination_dict
-
-    return best_combination, best_fraction
-
-
-'''def _fulfill_base_reqs(combination, dependencies, base_reqs, dependent_reqs, subrequirements):
-    fulfilled_requirements = {requirement: {'classes': [], 'count': 0} for requirement in dependencies}
-    
-    def fulfill_dependency(dependency, units, classes):
-        if fulfilled_requirements[dependency]['count'] + units <= subrequirements[dependency][1]:
-            fulfilled_requirements[dependency]['count'] += units
-            fulfilled_requirements[dependency]['classes'].extend(classes)
-        else:
-            return
-        dependent_dependency = dependencies.get(dependency, '')
-        if dependent_dependency in dependent_reqs:
-            fulfill_dependency(dependent_dependency, units, classes)
-        return
-    
-    for i, base_req in enumerate(combination):
-        if base_req:
-            classes = base_req
-            fulfilled_requirements[base_reqs[i]]['count'] += len(base_req)
-            fulfilled_requirements[base_reqs[i]]['classes'].extend(classes)
-            
-            dependency = dependencies.get(base_reqs[i], '')
-            if dependency in dependent_reqs:
-                if subrequirements[base_reqs[i]][1] - subrequirements[base_reqs[i]][0] == 0:
-                    units = 1
-                else:
-                    units = len(base_req)
-                fulfill_dependency(dependency, units, classes)
-                
-    return fulfilled_requirements
-
-# Function to check the max number of requirements fulfillable
-def max_reqs_fulfilled(combinations, dependencies, base_reqs, dependent_reqs, subrequirements):
-    # list of all combinations and the requirements they can fill
-    reqs_fulfilled = []
-    
-    # check each combination to see which requirements it fulfills
-    for combination in combinations:
-        reqs_fulfilled.append(_fulfill_base_reqs(combination, 
-                          dependencies, 
-                          base_reqs,
-                          dependent_reqs,
-                          subrequirements))
-    print("Requirements fulfilled:")
-    for index, fulfilled in enumerate(reqs_fulfilled, start=1):
-        print(f"Combination {index}:")
-        for requirement, info in fulfilled.items():
-            print(f"\t{requirement}:")
-            print(f"\t\tClasses: {info['classes']}")
-            print(f"\t\tCount: {info['count']}")
-    main_reqs = [req for req in dependencies if dependencies[req] == '']
-    closest = [0, {}, {}]
-    champ_dist = float('inf')
-    count = 0
-    for fulfilled in reqs_fulfilled:
-        mains_dist = 0
-        mains_filled = 0
-        class_fit_req = {req: [] for req in main_reqs}
-
-        for req in main_reqs:
-            # distance between main requirements being fulfilled
-            mains_dist += subrequirements[req][1] - fulfilled[req]['count']
-            # print(f"Distance from main requirements at {count}:", mains_dist)
-
-            if fulfilled[req]['count'] == subrequirements[req][1]:
-                mains_filled += 1
-                class_fit_req[req] = fulfilled[req]['classes']
+            taken_needed = (taken, needed)
         
-        if mains_dist < champ_dist:
-            champ_dist = mains_dist
-            closest = [mains_filled, class_fit_req, fulfilled]
-        count += 1
-    return closest'''
+        # remove duplicates from winning classes after flattening
+        '''winning_classes = [course for sublist in winning_classes for course in sublist]
+        winning_classes = list(set(winning_classes))'''
+
+    return best_combination, best_fraction, taken_needed, winning_classes
+
 
 if __name__ == '__main__':
     '''# testing ENV
@@ -294,16 +260,6 @@ if __name__ == '__main__':
         'Elective Courses/Below 300-level': ['ENV 200A']
 
         # class_list: {'Foundational Courses/Above 300-level': ['ENV 304'], 'Elective Courses/Above 300-level': ['ENV 304']}
-    }
-
-    # Dependencies
-    dependencies = {
-        'Foundational Courses/Above 300-level': 'Foundational Courses',
-        'Foundational Courses/Below 300-level': 'Foundational Courses',
-        'Elective Courses/Above 300-level': 'Elective Courses',
-        'Elective Courses/Below 300-level': 'Elective Courses',
-        'Foundational Courses': '',
-        'Elective Courses': ''
     }
 
     # Subrequirements
@@ -394,7 +350,7 @@ if __name__ == '__main__':
 
     
     class_list = {
-        "Prerequisities": ["CLA 219", "CLA 212", "CLG 108"],
+        "Prerequisites": ["CLA 219", "CLA 212", "CLG 108"],
         "Basic Requirements": ["CLA 212"],
         "Greek 4": [],
         "Relevant Courses": ['CLA 219', 'CLA 212', 'CLA 247', 'LAT 336', 'LAT 333', 'LAT 315'],
@@ -408,7 +364,7 @@ if __name__ == '__main__':
     }
 
     subrequirements = {
-        "Prerequisities": 1,
+        "Prerequisites": 1,
         "Basic Requirements": 1,
         "Greek 4": 4,
         "Relevant Courses": 1,
@@ -424,11 +380,63 @@ if __name__ == '__main__':
     # Combinations
     # Print all combinations
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
-     # Print all combinations
-    for i, combination in enumerate(all_combinations, start=1):
+    # Define all_combinations as a list of dictionaries
+    dict_combinations = [
+        {
+            "Prerequisites": ["CLA 219"],
+            "Basic Requirements": ["CLA 212"],
+            "Greek 4": [],
+            "Relevant Courses": ['LAT 315'],
+            "Greek 5": [],
+            "Latin 4": ["LAT 336", "LAT 333", "LAT 315"],
+            "Latin 5": ["LAT 336", "LAT 333", "LAT 315"],
+            "Medicine 5": [],
+            "Medicine 4": [],
+            "Historical Survey": ["CLA 219"],
+            "Track Requirements": []
+        },
+        {
+            "Prerequisites": ["CLA 219"],
+            "Basic Requirements": ["CLA 212"],
+            "Greek 4": [],
+            "Relevant Courses": ['CLA 247'],
+            "Greek 5": [],
+            "Latin 4": ["LAT 336", "LAT 333", "LAT 315"],
+            "Latin 5": ["LAT 336", "LAT 333", "LAT 315"],
+            "Medicine 5": [],
+            "Medicine 4": [],
+            "Historical Survey": ["CLA 219"],
+            "Track Requirements": []
+        },
+        {
+            "Prerequisites": ["CLA 219"],
+            "Basic Requirements": ["CLA 212"],
+            "Greek 4": [],
+            "Relevant Courses": ['CLA 219'],
+            "Greek 5": [],
+            "Latin 4": ["LAT 336", "LAT 333", "LAT 315"],
+            "Latin 5": [],
+            "Medicine 5": [],
+            "Medicine 4": [],
+            "Historical Survey": [],
+            "Track Requirements": []
+        }
+    ]
+    # Print all combinations
+    '''for i, combination in enumerate(all_combinations, start=1):
         print(f"Combination {i}: {combination}")
 
     for i, combo in enumerate(dict_combinations, start=1):
         print(f"Combination {i}:")
         for category, selected_class in combo.items():
-            print(f"  {category}: {selected_class}")
+            print(f"  {category}: {selected_class}")'''
+    
+    # Create the tree
+    cla = create_tree(subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, winning_classes = find_best_combination(cla, dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(f"Winning classes: {winning_classes}")
