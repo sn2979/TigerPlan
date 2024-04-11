@@ -2,6 +2,7 @@
 import flask 
 from flask import request
 import student_database as student_database
+import course_database
 import dotenv
 import auth
 
@@ -14,7 +15,8 @@ dotenv.load_dotenv()
 app.secret_key = os.environ['APP_SECRET_KEY']
 
 '''
-
+#note to do https 
+#note to do encryption w ajax (lecture 4/11)
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
@@ -120,3 +122,45 @@ def about():
     html_code = flask.render_template("about.html", username = username)
     response = flask.make_response(html_code)
     return response
+
+#route to a testing page; delete later
+@app.route('/test', methods=['GET'])
+def test():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    html_code = flask.render_template("tester.html", username = username)
+    response = flask.make_response(html_code)
+    return response
+
+@app.route('/searchresults', methods=['GET'])
+def search_results():
+    
+    author = flask.request.args.get('author')
+    if author is None:
+        author = ''
+    author = author.strip()
+
+    if author == '':
+        books = []
+    else:
+        books = database.get_books(author) # Exception handling omitted
+
+    html_code = flask.render_template('books.html', books=books)
+    response = flask.make_response(html_code)
+    #return response
+    
+    
+    
+    
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    html_code = flask.render_template("tester.html", username = username)
+    response = flask.make_response(html_code)
+    return response
+
