@@ -428,6 +428,7 @@
         "Prerequisities/Mathematics/BSE Mathematics": ["Prerequisities/Mathematics"],
         "Prerequisities/Mathematics/EGR Mathematics": ["Prerequisities/Mathematics"],
         "Prerequisities/Mathematics/Advanced Mathematics": ["Prerequisities/Mathematics"],
+        "Prerequisities/Mathematics": ["Prerequisities"],
         "Prerequisities/Microeconomics": ["Prerequisities"],
         "Prerequisities/Probability and Statistics": ["Prerequisities"],
         "Core Courses": [""],
@@ -438,18 +439,32 @@
     },
     "subrequirements": {
         "Prerequisities/Mathematics/MAT 175": [1, 1],
-        "Prerequisities/Mathematics/BSE Mathematics": [1, 1],
-        "Prerequisities/Mathematics/EGR Mathematics": [1, 1],
-        "Prerequisities/Mathematics/Advanced Mathematics": [1, 1],
+        "Prerequisities/Mathematics/BSE Mathematics": [2, 2],
+        "Prerequisities/Mathematics/EGR Mathematics": [2, 2],
+        "Prerequisities/Mathematics/Advanced Mathematics": [2, 2],
+        "Prerequisites/Mathematics":[1,1],
         "Prerequisities/Microeconomics": [1, 1],
         "Prerequisities/Probability and Statistics": [1, 1],
         "Core Courses": [2, 2],
-        "Electives/Financial Applications": [3, 3],
-        "Electives/General Methodology for Finance": [3, 3],
+        "Electives/Financial Applications": [1, 2],
+        "Electives/General Methodology for Finance": [1, 2],
         "Electives": [3, 3],
-        "Prerequisites": [2, 2]
+        "Prerequisites": [3, 3]
     },
-    "base_reqs": [],
+    "base_reqs": [
+        "Prerequisities/Mathematics/MAT 175",
+        "Prerequisities/Mathematics/BSE Mathematics",
+        "Prerequisities/Mathematics/EGR Mathematics",
+        "Prerequisities/Mathematics/Advanced Mathematics": ["Prerequisities/Mathematics"],
+        "Prerequisities/Mathematics": ["Prerequisities"],
+        "Prerequisities/Microeconomics": ["Prerequisities"],
+        "Prerequisities/Probability and Statistics": ["Prerequisities"],
+        "Core Courses": [""],
+        "Electives/Financial Applications": ["Electives"],
+        "Electives/General Methodology for Finance": ["Electives"],
+        "Electives": [""],
+        "Prerequisites": [""]
+    ],
     "dependent_reqs": ["Foundational Courses", "Elective Courses"]
   },    
   {
@@ -498,20 +513,24 @@
         "Electives": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Prerequisities/Foundations Prerequisite": [1,1],
+        "Prerequisities/Foundation Course": [1,1],
+        "Prerequisities/Statistics Prerequisite": [1,1],
+        "Prerequisites": [3,3],
+        "Core Requirements": [2,2],
+        "Electives/200-level": [0,2],
+        "Electives/Above 300-level": [2,4],
+        "Electives": [4,4]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Prerequisities/Foundations Prerequisite",
+        "Prerequisities/Foundation Course",
+        "Prerequisities/Statistics Prerequisite",
+        "Core Requirements",
+        "Electives/200-level",
+        "Electives/Above 300-level",
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Prerequisites", "Electives"]
     },    
     {
     "name":"GSS",
@@ -526,20 +545,16 @@
         "Additional Elective": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Introductory Course": [1,1],
+        "Thematic Cluster Electives": [3,3],
+        "Additional Elective": [1,1]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Introductory Course",
+        "Thematic Cluster Electives",
+        "Additional Elective"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": []
     },
     {
     "name":"HIS",
@@ -550,20 +565,12 @@
         "History Courses": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "History Courses":[5,5]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "History Courses"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": []
     },    
     {
     "name":"HLS",
@@ -596,20 +603,21 @@
         "400-level Seminar": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Breadth/History, Society, Religion": [1,1],
+        "Breadth/Language, Literature, Philosophy": [1,1],
+        "Breadth/Visual and Material Culture, and Music": [1,1],
+        "Breadth": [3,3],
+        "Gateway Seminar": [1,1],
+        "400-level Seminar": [1,1]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Breadth/History, Society, Religion",
+        "Breadth/Language, Literature, Philosophy",
+        "Breadth/Visual and Material Culture, and Music",
+        "Gateway Seminar",
+        "400-level Seminar"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Breadth"]
     },
     {
     "name":"HSTM",
@@ -634,20 +642,18 @@
         "Core": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "HOS, HIS or Cognate": [1,1],
+        "Selected Courses": [2,2],
+        "History Course": [1,1],
+        "Core": [1,1]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "HOS, HIS or Cognate",
+        "Selected Courses",
+        "History Course",
+        "Core"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": []
     },    
     {
     "name":"HUM",
@@ -675,6 +681,19 @@
         "Interdisciplinary Courses/Global or Comparative Humanities": ["Interdisciplinary Courses"],
         "Interdisciplinary Courses/Engaged or Public Humanities": ["Interdisciplinary Courses"],
         "Interdisciplinary Courses/Humanities and Sciences in Dialogue": ["Interdisciplinary Courses"],
+        "Interdisciplinary Courses/Data and Culture": [0,3],
+        "Interdisciplinary Courses": [4,4],
+        "Humanities Sequence/Western Culture I": [0,1],
+        "Humanities Sequence/Western Culture II": [0,1],
+        "Humanities Sequence/East Asian Humanities": [0,1],
+        "Humanities Sequence/Near Eastern Humanities": [0,1],
+        "Humanities Sequence": [1,1]
+        },
+    "subrequirements": {
+        "Interdisciplinary Courses/Tradition and Transformation": ["Interdisciplinary Courses"],
+        "Interdisciplinary Courses/Global or Comparative Humanities": ["Interdisciplinary Courses"],
+        "Interdisciplinary Courses/Engaged or Public Humanities": ["Interdisciplinary Courses"],
+        "Interdisciplinary Courses/Humanities and Sciences in Dialogue": ["Interdisciplinary Courses"],
         "Interdisciplinary Courses/Data and Culture": ["Interdisciplinary Courses"],
         "Interdisciplinary Courses": [""],
         "Humanities Sequence/Western Culture I": ["Humanities Sequence"],
@@ -682,14 +701,6 @@
         "Humanities Sequence/East Asian Humanities": ["Humanities Sequence"],
         "Humanities Sequence/Near Eastern Humanities": ["Humanities Sequence"],
         "Humanities Sequence": [""]
-        },
-    "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
     },
     "base_reqs": [
         "Foundational Courses/Above 300-level",
@@ -703,7 +714,7 @@
     "name":"JPN",
     "class_list": {
         "Language Courses/Advanced Language": ["JPN 3*", "JPN 4*"],
-        "Language Courses/Basic Language": ["ISC 231", "ISC 232", "ISC 233", "ISC 234"],
+        "Language Courses/Basic Language": ["JPN *"],
         "EAS or cognate": ["EAS *"]
         },
     "dependencies": {
@@ -713,20 +724,17 @@
         "EAS or cognate": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Language Courses/Advanced Language": [2,6],
+        "Language Courses/Basic Language": [0,4],
+        "Language Courses": [6,6],
+        "EAS or cognate": [1,1]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Language Courses/Advanced Language": ["Language Courses"],
+        "Language Courses/Basic Language": ["Language Courses"],
+        "EAS or cognate": [""]
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Language Courses"]
     },    
     {
     "name":"JRN",
@@ -741,20 +749,16 @@
         "Above 300-level": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Gateway Course": [1,1],
+        "Journalism Related Courses": [2,2],
+        "Above 300-level": [2,2]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Gateway Course",
+        "Journalism Related Courses",
+        "Above 300-level"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": []
     },
     {
     "name":"KOR",
@@ -770,20 +774,17 @@
         "EAS or cognate": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Language Courses/Advanced Language":[2,6],
+        "Language Courses/Basic Language": [0,4],
+        "Language Courses": [6,6],
+        "EAS or cognate": [1,1]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Language Courses/Advanced Language",
+        "Language Courses/Basic Language",
+        "EAS or cognate",
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Language Courses"]
     },
     {
     "name":"LAO",
@@ -798,20 +799,16 @@
         "Required Course": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Breadth": [1,1],
+        "Advanced Seminar in American Studies": [3,3],
+        "Required Course": [1,1]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Breadth",
+        "Advanced Seminar in American Studies",
+        "Required Course"
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": []
     },    
     {
     "name":"LIN",
@@ -831,20 +828,19 @@
         "Coursework": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Coursework/Methods Courses": [1,1],
+        "Coursework/Core Courses": [1,1],
+        "Prerequisite": [1,1],
+        "Coursework/Elective Courses": [2,2],
+        "Coursework": [4,4]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Coursework/Methods Courses": [1,1],
+        "Coursework/Core Courses": [1,1],
+        "Prerequisite": [1,1],
+        "Coursework/Elective Courses": [2,2],
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Coursework"]
     },
     {
     "name":"MED",
@@ -877,20 +873,22 @@
         "Medieval Topics": [""]
         },
     "subrequirements": {
-        "Foundational Courses/Above 300-level": [1, 2],
-        "Foundational Courses/Below 300-level": [1, 1],
-        "Elective Courses/Above 300-level": [2, 3],
-        "Elective Courses/Below 300-level": [1, 1],
-        "Foundational Courses": [2, 2],
-        "Elective Courses": [3, 3]
+        "Introductory Course/Single Course": [0,1],
+        "Introductory Course/Humanities Sequence": [0,1],
+        "Independent Work/400-level Course": [0,1],
+        "Independent Work/Final Project": [0,1],
+        "Introductory Course": [1,1],
+        "Independent Work": [1,1],
+        "Medieval Topics": [3,3]
     },
     "base_reqs": [
-        "Foundational Courses/Above 300-level",
-        "Foundational Courses/Below 300-level",
-        "Elective Courses/Above 300-level",
-        "Elective Courses/Below 300-level"
+        "Introductory Course/Single Course": [0,1],
+        "Introductory Course/Humanities Sequence": [0,1],
+        "Independent Work/400-level Course": [0,1],
+        "Independent Work/Final Project": [0,1],
+        "Medieval Topics": [3,3]
     ],
-    "dependent_reqs": ["Foundational Courses", "Elective Courses"]
+    "dependent_reqs": ["Introductory Course","Independent Work"]
     },
     {
     "name":"MPP",

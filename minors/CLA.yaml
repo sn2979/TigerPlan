@@ -123,7 +123,7 @@ req_list:
           - CLA 534
           - CLA 538
           - CLA 542
-      - name: Medicine, Science, and the Body
+      - name: Medicine, Science, and the Body                 
         max_counted: 1
         min_needed: 2
         explanation:
@@ -155,7 +155,7 @@ req_list:
         - ARC *
         - HLS *
         - REL *
-        - PHI *
+        - PHI *56
         - CDH *
         - PAW *
   - name: Ancient History and Material Culture
