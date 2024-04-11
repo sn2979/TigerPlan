@@ -41,7 +41,7 @@ def get_user_info():
         return True, username, classes
     except Exception as e:
         # Handle database retrieval or rendering errors
-        return False, e, None
+        return False, e, []
         
 #-----------------------------------------------------------------------
 #Routes for authentication. 

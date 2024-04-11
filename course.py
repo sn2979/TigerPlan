@@ -7,22 +7,22 @@
 
 class Course:
 
-    def __init__(self, num, title, courseid):
-        self._author = num
+    def __init__(self, dept, num, title):
+        self._num = num
         self._title = title
-        self._price = courseid
+        self._dept = dept
+    
+    def get_dept(self):
+        return self._dept
 
-    def get_author(self):
-        return self._author
+    def get_num(self):
+        return self._num
 
     def get_title(self):
         return self._title
 
-    def get_price(self):
-        return self._price
-
     def to_tuple(self):
-        return (self._author, self._title, self._price)
+        return (self._dept, self._num, self._title)
 
 #-----------------------------------------------------------------------
 
