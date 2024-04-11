@@ -24,6 +24,26 @@ def index():
     return response
 
 #-----------------------------------------------------------------------
+#username and classes retrieval 
+def get_user_info():
+     # Retrieve the username from the session
+    username = flask.session.get('username')
+    if username is None:
+        # Handle case where username is not in session (e.g., user not logged in)
+        return flask.redirect('/login')  # Unauthorized
+    
+    try:
+        # Retrieve other data using the username from the session
+        classes = student_database.get_student_classes(username)
+        name = student_database.get_student_name(username)
+        if name == '': 
+            name = username
+        return True, username, classes
+    except Exception as e:
+        # Handle database retrieval or rendering errors
+        return False, e, None
+        
+#-----------------------------------------------------------------------
 #Routes for authentication. 
 
 @app.route('/login', methods=['GET'])
@@ -68,24 +88,35 @@ def logoutcas():
 
 @app.route('/classboard', methods=['GET'])
 def classboard():
-    # Retrieve the username from the session
-    username = flask.session.get('username')
-    if username is None:
-        # Handle case where username is not in session (e.g., user not logged in)
-        return flask.redirect('/login')  # Unauthorized
-    
-    try:
-        # Retrieve other data using the username from the session
-        classes = student_database.get_student_classes(username)
-        name = student_database.get_student_name(username)
-        
-        # Render the template with retrieved data
-        html_code = flask.render_template("classboard.html", username=name, classes=classes)
-        response = flask.make_response(html_code)
-        return response
-    except Exception as e:
-        # Handle database retrieval or rendering errors
-        error_message = f"An error occurred: {str(e)}"
+    success, username, classes = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
 
+    html_code = flask.render_template("classboard.html", username = username, classes = classes)
+    response = flask.make_response(html_code)
+    return response
+    
 
+@app.route('/recommend', methods=['GET'])
+def recommend():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    
+    html_code = flask.render_template("recommend.html", username = username)
+    response = flask.make_response(html_code)
+    return response 
+
+@app.route('/about', methods=['GET'])
+def about():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    html_code = flask.render_template("about.html", username = username)
+    response = flask.make_response(html_code)
+    return response

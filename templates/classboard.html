@@ -95,16 +95,8 @@ body {
 </head>
 <body>
 
-    <div id="header">
-      <h1><a href="/index" class="custom-link"><span class="roboto">Tiger</span><span class="caveat">Plan</span></a></h1>
-      <nav>
-        <ul>
-          <li><a href="#">Your Recommendations</a></li>
-          <li><a href="/classboard"><strong>Your Classes</strong></a></li>
-          <li><a href="#">About TigerPlan</a></li>
-        </ul>
-      </nav>
-    </div>
+  {% set username = username %}
+  {% include 'header.html' %}
 
 <main>
   <section id="main-content">
