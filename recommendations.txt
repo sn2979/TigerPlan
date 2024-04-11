@@ -15,7 +15,8 @@ classes for that requirement
 Possible combos to check:
 ENV 304, CEE 304-- fulfills no dependent requirements
 ENV 304, ENV 200A, CEE 304-- fulfills one dependent requirement
-ENV 304, ENV 200A, CEE 304, ENV 200A-- fulfills one dependent requirement
+ENV 304, ENV 
+200A, CEE 304, ENV 200A-- fulfills one dependent requirement
 ENV 377, ENV 304, CEE 304, ENV 200A -- fulfills one dependent requirement
 ENV 377, ENV 200A, ENV 304, CEE 304, ENV 200A-- fulfills all requirements
 
