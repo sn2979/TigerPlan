@@ -184,6 +184,9 @@ h2.roboto {
   font-weight: normal; /* This makes sure the text is not bold */
 }
 
-
+.custom-link {
+  text-decoration: none; /* This removes the underline */
+  color: inherit; /* This will make the text use the color of its parent elements, or you can set a specific color */
+}
 
   

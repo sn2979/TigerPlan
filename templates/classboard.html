@@ -4,61 +4,214 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TigerPlan</title>
+<style> * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+#right-container {
+  width: 65%; /* Adjust based on your layout */
+  float: left; /* If you are using a float-based layout */
+  /* For Flexbox, you'd adjust accordingly */
+}
+
+#drop-area {
+  min-height: 450px; /* Minimum height to allow for easy dropping */
+  background-color: #EFEFEF; /* A neutral color, differentiate it from the draggable area */
+  border: 2px dashed #CCCCCC; /* A dashed border to indicate it's droppable */
+  border-radius: 5px; /* Match your design's border radius */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Space from the top of the container */
+}
+
+#drop-area p {
+  color: #666666; /* A light text color that's easy on the eyes */
+  font-size: 20px; /* Large enough to be easily readable */
+}
+
+#left-container {
+  width: 30%; /* Adjust width as necessary */
+  background-color: #0FA3B1; /* For contrast against the class items */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  overflow: hidden; /* Ensures child elements stay within the rounded corners */
+  margin-right: 20px; /* Spacing between this container and whatever is to the right */
+  margin-left: 20px; /* Spacing between this container and whatever is to the right */
+  float: left; /* Align it to the left */
+}
+
+#class-search {
+  width: 100%; /* Full width of the container */
+  padding: 10px; /* Padding for aesthetic spacing inside the input */
+  border: none; /* Removes border */
+  border-bottom: 1px solid #ccc; /* Adds a light border to the bottom edge */
+  font-size: 16px; /* Increases font size for readability */
+}
+
+#class-list {
+  padding: 10px; /* Padding inside the container around the class items */
+}
+
+body {
+  background-color: #C8F6EB;
+  font-family: 'Roboto Serif', serif;
+}
+
+#container {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.course {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #F7A072;
+  border-radius: 5px;
+  cursor: move; /* Indicate draggable items */
+}
+
+.course h2, .course p {
+  margin: 0;
+}
+
+.custom-link {
+  text-decoration: none; /* This removes the underline */
+  color: inherit; /* This will make the text use the color of its parent elements, or you can set a specific color */
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+</style>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 </head>
 <body>
 
     <div id="header">
-        <h1><span class="roboto">Tiger</span><span class="caveat">Plan</span></h1>
+      <h1><a href="/index" class="custom-link"><span class="roboto">Tiger</span><span class="caveat">Plan</span></a></h1>
       <nav>
         <ul>
           <li><a href="#">Your Recommendations</a></li>
-          <li><a href="/classboard">Your Classes</a></li>
+          <li><a href="/classboard"><strong>Your Classes</strong></a></li>
           <li><a href="#">About TigerPlan</a></li>
         </ul>
       </nav>
     </div>
 
 <main>
+  <section id="main-content">
+    <p><span class="roboto">What's </span><span class="caveat">your </span><span class="roboto">best minor?</span></p>
+  </section>
+  <p><center>Search for your classes and drag them to your class board!</center></p>
+  <br>
   <section id="class-selection">
-    <div class="class-container">
-      <div class="class" draggable="true" id="cos333">COS 333</div>
-      <div class="class" draggable="true" id="cos445">COS 445</div>
-      <!-- Add more classes as necessary -->
+    <div id="left-container">
+      <input type="text" id="class-search" placeholder="Search classes...">
+      <div id="class-list">
+        <div class="course" draggable="true" id="cos333">
+          <h2>COS 333</h2>
+          <p>Advanced Programming Techniques</p>
+        </div>
+        <div class="course" draggable="true" id="cos445">
+          <h2>COS 445</h2>
+          <p>Economics and Computing</p>
+        </div>
+        <div class="course" draggable="true" id="cos217">
+          <h2>COS 217</h2>
+          <p>Introduction to Programming Systems</p>
+        </div>
+        <div class="course" draggable="true" id="cos324">
+          <h2>COS 324</h2>
+          <p>Introduction to Machine Learning</p>
+        </div>
+        <!-- Repeat for each class -->
+      </div>
     </div>
   </section>
 
-  <section id="class-board">
-    <div class="board">
-      <!-- Classes will be dropped here -->
+  <div id="right-container">
+    <div id="drop-area" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <p>Drag your classes here</p>
     </div>
-  </section>
+  </div>
 
 </main>
 
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-  const classes = document.querySelectorAll('.class');
-  const board = document.querySelector('.board');
+  const draggables = document.querySelectorAll('.course');
 
-  classes.forEach((klass) => {
-    klass.addEventListener('dragstart', (e) => {
-      e.dataTransfer.setData('text/plain', klass.id);
+  draggables.forEach(draggable => {
+    draggable.addEventListener('dragstart', () => {
+      draggable.classList.add('dragging');
+    });
+
+    draggable.addEventListener('dragend', () => {
+      draggable.classList.remove('dragging');
     });
   });
 
-  board.addEventListener('dragover', (e) => {
+  const container = document.getElementById('container');
+
+  container.addEventListener('dragover', (e) => {
     e.preventDefault();
+    const afterElement = getDragAfterElement(container, e.clientY);
+    const draggable = document.querySelector('.dragging');
+    if (afterElement == null) {
+      container.appendChild(draggable);
+    } else {
+      container.insertBefore(draggable, afterElement);
+    }
   });
 
-  board.addEventListener('drop', (e) => {
-    e.preventDefault();
-    const id = e.dataTransfer.getData('text');
-    const draggableElement = document.getElementById(id);
-    const clone = draggableElement.cloneNode(true);
-    board.appendChild(clone);
-  });
+  function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('.course:not(.dragging)')];
+
+    return draggableElements.reduce((closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+  }
 });
+
+function allowDrop(ev) {
+  ev.preventDefault(); // This allows for dropping.
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id); // Set the drag data to the element's ID.
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data)); // Append the dragged element to the drop target.
+  document.querySelector('#drop-area p').style.display = 'none'; // Hide the text when dragging over.
+}
+
+// Add the 'drag' attribute and event listener to your draggable elements
+document.querySelectorAll('.course').forEach(function(course) {
+  course.setAttribute('draggable', true);
+  course.addEventListener('dragstart', drag);
+});
+
+// Make sure to add the `drop` and `dragover` event listeners to your droppable area
+document.getElementById('drop-area').addEventListener('dragover', allowDrop);
+document.getElementById('drop-area').addEventListener('drop', drop);
+
 
 </script>
 
