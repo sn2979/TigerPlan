@@ -45,7 +45,7 @@ def get_term_info_for_subject(term, subj):
     )
     return term_info
 
-def get_courses_json_list(term_info):
+def get_courses_json_list(term_info, subj):
     courses = []
     if term_info is not None:
         if term_info["term"] is not None:
@@ -70,6 +70,19 @@ def get_courses_json_list(term_info):
             return None
     else:
         return None
+
+def input_all_items_into_db(data):
+    try: 
+        with MongoClient('mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/') as client:
+            print("Connecting to database")
+            db = client['TigerPlanData']
+            collection = db['CoursesData']
+            print(f"Connected to collection")
+            collection.insert_many(data)
+    except Exception as ex: 
+        print("blah")
+        print(ex, file=sys.stderr)
+        sys.exit(1)
 
 def input_term_subj_into_db(data):
     try: 
@@ -96,22 +109,26 @@ if __name__ == "__main__":
 
     subjs = get_all_subjects()
     terms = get_all_terms()
+    all_jsons = []
     for subj in subjs:
         for term in terms:
             print(f"Adding {subj} courses for term {term}")
             term_info = get_term_info_for_subject(term, subj)
-            courses_json_list = get_courses_json_list(term_info)
+            courses_json_list = get_courses_json_list(term_info, subj)
                 # print(courses_json_list)
             if courses_json_list is not None:
-                input_term_subj_into_db(courses_json_list)
+                for course in courses_json_list:
+                    all_jsons.append(course)
             else:
                 print(f"No courses in {subj} in term {term}")
-    # subj = "ASL"
+    input_all_items_into_db(all_jsons)
+    # subj = "COS"
     # term = 1214
     # term_info = get_term_info_for_subject(term, subj)
     # if term_info is not None:
     #     courses_json_list = get_courses_json_list(term_info)
     #     if courses_json_list is not None:
-    #         input_term_subj_into_db(courses_json_list)
+    #         print(courses_json_list)
+    #         # input_term_subj_into_db(courses_json_list)
     #     else: 
     #         print(f"No courses in {subj} in term {term}")

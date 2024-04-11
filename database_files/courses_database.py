@@ -57,8 +57,9 @@ def search_courses(search_query):
             these_courses.append(main_course)
             for cross in cross_listings:
                 cross_course = (cross['subject'], cross['catalog_number'])
-                unique_courses_set.add(cross_course)  # Add cross-listed course
-                these_courses.append(cross_course)
+                if cross_course not in unique_courses_set: 
+                    unique_courses_set.add(cross_course)  # Add cross-listed course
+                    these_courses.append(cross_course)
             all_courses.append(these_courses)
     # Convert dictionary values to list of lists
 
@@ -66,7 +67,7 @@ def search_courses(search_query):
 
 
 # Example usage: Searching for courses matching a query
-search_query = "ENV226"  # Example search query (can be any sequence of letters/numbers)
+search_query = "ANT378"  # Example search query (can be any sequence of letters/numbers)
 matching_courses = search_courses(search_query)
 # Print matching courses
 if matching_courses:
