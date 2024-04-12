@@ -146,14 +146,16 @@ def search_results():
 
     if course == '':
         result = []
-    else:
-        #let's do more exception handling with database on backend too later
-        try:
-            result = courses_database.search_courses(course) 
-            html_code = flask.render_template('course.html', courses=result)
-            response = flask.make_response(html_code)
-            return response
-        except Exception as e:
-            error_message = f"An error occurred: {str(e)}"
-            return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+   
+    #let's do more exception handling with database on backend too later
+    try:
+        result = courses_database.search_courses(course) 
+        if result is None: 
+            result = []
+        html_code = flask.render_template('course.html', courses=result)
+        response = flask.make_response(html_code)
+        return response
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
 

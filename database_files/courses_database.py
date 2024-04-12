@@ -2,7 +2,6 @@ import sys
 import os
 import queue
 from pymongo import MongoClient
-from .course import Course
 
 #-----------------------------------------------------------------------
 # _DATABASE_URL = os.environ['DATABASE_URL'] # = mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData
@@ -113,7 +112,7 @@ def search_courses(search_query):
 
 
 # Example usage: Searching for courses matching a query
-search_query = "EGR126"  # Example search query (can be any sequence of letters/numbers)
+search_query = "M"  # Example search query (can be any sequence of letters/numbers)
 matching_courses = search_courses(search_query)
 # Print matching courses
 if matching_courses:
