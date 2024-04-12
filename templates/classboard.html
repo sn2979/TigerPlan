@@ -20,7 +20,9 @@
   background-color: #EFEFEF; /* A neutral color, differentiate it from the draggable area */
   border: 2px dashed #CCCCCC; /* A dashed border to indicate it's droppable */
   border-radius: 5px; /* Match your design's border radius */
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px; /* Spacing between grid items */
   justify-content: center;
   align-items: center;
   margin-top: 20px; /* Space from the top of the container */
@@ -108,19 +110,19 @@ body {
     <div id="left-container">
       <input type="text" id="class-search" placeholder="Search classes...">
       <div id="class-list">
-        <div class="course" draggable="true" id="cos333">
+        <div class="course" draggable="true" ondragstart="drag(event)" id="cos333">
           <h2>COS 333</h2>
           <p>Advanced Programming Techniques</p>
         </div>
-        <div class="course" draggable="true" id="cos445">
+        <div class="course" draggable="true" ondragstart="drag(event)" id="cos445">
           <h2>COS 445</h2>
           <p>Economics and Computing</p>
         </div>
-        <div class="course" draggable="true" id="cos217">
+        <div class="course" draggable="true" ondragstart="drag(event)"id="cos217">
           <h2>COS 217</h2>
           <p>Introduction to Programming Systems</p>
         </div>
-        <div class="course" draggable="true" id="cos324">
+        <div class="course" draggable="true" ondragstart="drag(event)" id="cos324">
           <h2>COS 324</h2>
           <p>Introduction to Machine Learning</p>
         </div>
@@ -131,15 +133,72 @@ body {
 
   <div id="right-container">
     <div id="drop-area" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p>Drag your classes here</p>
+      <center id="placeholder"><p>Drag your classes here</p></center>
     </div>
   </div>
 
 </main>
 
 <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-  const draggables = document.querySelectorAll('.course');
+  function displayMessage(ev) {
+    // Check if the drop area has the placeholder message
+    dropArea = document.getElementById('drop-area');
+    console.log(`Drop area: ${dropArea.innerHTML}`);
+    console.log(`Drop area child 0: ${dropArea.children[0]}`)
+    if (dropArea.children[0].id === 'placeholder') {
+      console.log(`Placeholder found!`);
+      // remove the placeholder message
+      dropArea.removeChild(dropArea.children[0]);
+    }
+    else {
+      if (dropArea.children.length === 0) {
+        // add the placeholder message
+        console.log(`Placeholder not found!`);
+        dropArea.innerHTML = '<center><p id="placeholder">Drag your classes here</p></center>';
+      }
+    }
+  }
+
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+    displayMessage();
+    console.log('Dislay message called');
+  }
+  //document.addEventListener('DOMContentLoaded', (event) => {
+//});
+  /*const draggables = document.querySelectorAll('.course');
+  const dropArea = document.getElementById('drop-area');
+
+    // Function to check and display message if drop area is empty
+  function checkEmptyDropArea() {
+    const dragMessageElement = document.getElementById('drag-message');
+
+    if (dropArea.children.length === 0) {
+      console.log(`Children are of length ${dropArea.children.length}`);
+      if (!dragMessageElement) {
+        // Add the message if it doesn't exist
+        dropArea.innerHTML = '<center><p id="drag-message">Drag your classes here</p></center>';
+      }
+    } else {
+      // Clear the message if drop area has classes and the message exists
+      if (dragMessageElement) {
+        dropArea.removeChild(dragMessageElement);
+      }
+    }
+  }
+
+  // Check and display message initially when page loads
+  checkEmptyDropArea();
 
   draggables.forEach(draggable => {
     draggable.addEventListener('dragstart', () => {
@@ -148,22 +207,27 @@ body {
 
     draggable.addEventListener('dragend', () => {
       draggable.classList.remove('dragging');
+      // Check if drop area is empty after dragging ends
+      if (dropArea.children.length === 0) {
+        // Check and display message after dragging ends
+      checkEmptyDropArea();
+      }
     });
   });
 
-  const container = document.getElementById('container');
+  const container = document.getElementById('left-container');
 
   container.addEventListener('dragover', (e) => {
     e.preventDefault();
     const afterElement = getDragAfterElement(container, e.clientY);
     const draggable = document.querySelector('.dragging');
-    if (afterElement == null) {
-      console.log("here1")
+    //if (afterElement == null) {
+      console.log("here3")
       container.appendChild(draggable);
-    } else {
-      console.log("here2")
-      container.insertBefore(draggable, afterElement);
-    }
+    //} else {
+      //console.log("here2")
+      //container.insertBefore(draggable, afterElement);
+    //}
   });
 
   function getDragAfterElement(container, y) {
@@ -190,10 +254,33 @@ function drag(ev) {
 }
 
 function drop(ev) {
+  console.log(`Dropped called!`)
   ev.preventDefault();
+
+  console.log(`Default prevented!`)
+
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data)); // Append the dragged element to the drop target.
-  document.querySelector('#drop-area p').style.display = 'none'; // Hide the text when dragging over.
+  
+  console.log(`Element appended! ${data}`)
+  console.log(`Element appended! ${ev.target.innerHTML}`)
+  // Create a new container for the dropped element (to maintain the grid layout)
+  const newCourseContainer = document.createElement('div');
+  newCourseContainer.draggable = true;
+  newCourseContainer.id = data;
+
+  console.log(`New container created! ${newCourseContainer}`);
+
+  // Copy the content of the dragged element into the new container
+  newCourseContainer.innerHTML = ev.target.innerHTML;
+
+  console.log(`Content copied! ${newCourseContainer.innerHTML}`);
+
+  // Append the new container to the drop area
+  ev.target.appendChild(newCourseContainer);
+  console.log(`Child appended`);
+  // Check and display message after dropping
+  console.log(`drag message cleared`);
 }
 
 // Add the 'drag' attribute and event listener to your draggable elements
@@ -204,7 +291,7 @@ document.querySelectorAll('.course').forEach(function(course) {
 
 // Make sure to add the `drop` and `dragover` event listeners to your droppable area
 document.getElementById('drop-area').addEventListener('dragover', allowDrop);
-document.getElementById('drop-area').addEventListener('drop', drop);
+document.getElementById('drop-area').addEventListener('drop', drop);*/
 
 
 </script>

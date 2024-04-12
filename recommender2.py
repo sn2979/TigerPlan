@@ -123,7 +123,7 @@ def find_best_combination(key, all_combinations, subrequirements):
         if needed - taken < difference:
             '''if fraction_completion == best_fraction and (needed - taken) >= difference:
                 continue'''
-            best_fraction = fraction_completion
+            #best_fraction = fraction_completion
             difference =  needed - taken
             best_combination = combination_dict
             taken_needed = (taken, needed)

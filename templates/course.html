@@ -1,5 +1,5 @@
 {% for course in courses: %}
-   <div class="course" draggable="true" id="courseId">
+   <div class="course" draggable="true" id="{{course['dept_num']}}">
       <h2>{{course["dept_num"]}}</h2>
       <p>{{course["title"]}}</p>
    </div>
