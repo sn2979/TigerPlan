@@ -66,13 +66,13 @@ def traverse_tree(node, combination_dict,
         return used, node.classes_taken, node.classes_needed, node.classes_taken / node.classes_needed, node.class_list#, winning_classes
 
     # print node's children
-    for child in node.get_children():
-        print(f"Node: {child.get_name()}")
+    '''for child in node.get_children():
+        print(f"Node: {child.get_name()}")'''
 
     # Recursive case: node with children
     for child_node in node.get_children():
-        print(f"Used at {child_node.get_name()}: {node.class_list}")
-        print()
+        '''print(f"Used at {child_node.get_name()}: {node.class_list}")
+        print()'''
         curr_used, _, _, _, class_list = traverse_tree(child_node, combination_dict, 
                              subrequirements, set(node.class_list))
         if node.get_node_type() == 'AND':
@@ -83,23 +83,8 @@ def traverse_tree(node, combination_dict,
 
     if node.get_node_type() == 'OR':
         if winner:
-            print(f"Winner: {winner.get_name()}")
+            #print(f"Winner: {winner.get_name()}")
             node.class_list.extend(winner.class_list)
-    '''if winner:
-        for requirement in winner:
-            print(f"Winner: {requirement}")
-            for course in combination_dict.get(requirement, []):
-                winners = set(list(itertools.chain.from_iterable(winning_classes.values())))
-                print(f"Winners: {winners}")
-                print()
-                if course not in winners:
-                    if requirement not in winning_classes:
-                        winning_classes[requirement] = [course]
-                    else:
-                        winning_classes[requirement].append(course)
-        
-        print(f"Winning classes: {winning_classes}")
-        print()'''
 
     '''print(f"Classes taken for {node.get_name()}: {node.classes_taken}")
     print(f"Classes needed for {node.get_name()}: {node.classes_needed}")
@@ -107,17 +92,17 @@ def traverse_tree(node, combination_dict,
 
     return used, node.classes_taken, node.classes_needed, node.classes_taken / node.classes_needed, node.class_list # , winning_classes
 
-def find_best_combination(all_combinations, subrequirements):
+def find_best_combination(key, all_combinations, subrequirements):
     best_fraction = 0
     best_combination = None
     taken_needed = None
 
     for combination_dict in all_combinations:
-        print(f"Combination: {combination_dict}")
+        #print(f"Combination: {combination_dict}")
         # Traverse the tree with the current combination
-        env = minors.create_cla_tree(subrequirements)
+        root_node = minors.create_tree(key, subrequirements)
         used = set()
-        _, taken, needed, fraction_completion, class_list = traverse_tree(env, 
+        _, taken, needed, fraction_completion, class_list = traverse_tree(root_node, 
                                                   combination_dict,
                                                   subrequirements,
                                                   used)
@@ -144,7 +129,7 @@ def find_best_combination(all_combinations, subrequirements):
 if __name__ == '__main__':
     # testing ENV
     # Class list
-    '''class_list = {
+    class_list = {
         # class_list: ['COS 126', 'ECE 115', 'MAT 301', 'ANT 314', 'ENV 304', 'COS 217', 'COS 324']
         'Foundation Above 300 2': ['ENV 304', 'ENV 377'],
         'Foundation Above 300 1': ['ENV 304', 'ENV 377'],
@@ -169,7 +154,7 @@ if __name__ == '__main__':
     # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
 
-    dict_combinations = [
+    '''dict_combinations = [
         {
             'Foundation Above 300 2': ['ENV 304', 'ENV 377'],
             'Foundation Above 300 1': ['ENV 304'],
@@ -193,16 +178,16 @@ if __name__ == '__main__':
         print(f"Combination {i}: {combination}")
 
     # Create the ENV tree
-    env = minors.create_cla_tree(subrequirements)
+    env = minors.create_cla_tree(subrequirements)'''
 
-    best_combination, best_fraction, classes_taken_needed = find_best_combination(dict_combinations, subrequirements)
+    best_combination, best_fraction, classes_taken_needed = find_best_combination('ENV', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
     
     '''# testing COS
     # Class list
-    ''' class_list = {
+    class_list = {
     'Core/Introduction/Introductory Course': ['COS 126', 'ECE 115'],
     'Core/Introduction/Integrated Science Curriculum': ['ISC 231', 'ISC 232'],
     'Core/Core Course': ['COS 226', 'COS 217'],
@@ -285,7 +270,7 @@ if __name__ == '__main__':
     # Print all combinations
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
     # Define all_combinations as a list of dictionaries
-    '''dict_combinations = [
+    dict_combinations = [
         {
             "Prerequisites": ["CLA 219"],
             "Basic Requirements": ["CLA 212"],
@@ -325,7 +310,7 @@ if __name__ == '__main__':
             "Historical Survey": [],
             "Track Requirements": []
         }
-    ]'''
+    ]
     # Print all combinations
     '''for i, combination in enumerate(all_combinations, start=1):
         print(f"Combination {i}: {combination}")
@@ -334,12 +319,9 @@ if __name__ == '__main__':
         print(f"Combination {i}:")
         for category, selected_class in combo.items():
             print(f"  {category}: {selected_class}")'''
-    
-    # Create the tree
-    cla = minors.create_cla_tree(subrequirements)
 
     # Find the best combination
-    best_combination, best_fraction, classes_taken_needed = find_best_combination(dict_combinations, subrequirements)
+    best_combination, best_fraction, classes_taken_needed = find_best_combination('CLA', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")

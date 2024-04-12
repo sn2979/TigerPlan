@@ -62,7 +62,13 @@ class OrNode(Node):
                     winner = child
         return self.classes_taken, self.classes_needed, winner
 
-
+def create_tree(key, subrequirements):
+    if key == 'CLA':
+        return create_cla_tree(subrequirements)
+    elif key == 'ENV':
+        return create_env_tree(subrequirements)
+    else:
+        return None
 def create_cla_tree(subrequirements, parent=None):
     # Create the root node for CLA minor
     cla = Node('CLA', parent)
