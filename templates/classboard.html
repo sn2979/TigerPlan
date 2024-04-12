@@ -158,8 +158,10 @@ body {
     const afterElement = getDragAfterElement(container, e.clientY);
     const draggable = document.querySelector('.dragging');
     if (afterElement == null) {
+      console.log("here1")
       container.appendChild(draggable);
     } else {
+      console.log("here2")
       container.insertBefore(draggable, afterElement);
     }
   });
