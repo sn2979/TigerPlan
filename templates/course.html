@@ -1,5 +1,7 @@
 {% for course in courses: %}
-   <strong>{{course["dept_num"]}}</strong>:
-   {{course["title"]}}
-   <br>
+   <div class="course" draggable="true" id="cos217">
+      <h2>{{course["dept_num"]}}</h2>
+      <p>{{course["title"]}}</p>
+   </div>
+   
 {% endfor %}

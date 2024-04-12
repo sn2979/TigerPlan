@@ -111,10 +111,85 @@ body {
     </div>
   </section>
 
-  <script>
 
-    'use strict';
+  <div id="right-container">
+    <div id="drop-area" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <p>Drag your classes here</p>
+    </div>
+  </div>
 
+</main>
+
+<script>
+
+  'use strict';
+
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+  const draggables = document.querySelectorAll('.course');
+
+  draggables.forEach(draggable => {
+    draggable.addEventListener('dragstart', () => {
+      draggable.classList.add('dragging');
+    });
+
+    draggable.addEventListener('dragend', () => {
+      draggable.classList.remove('dragging');
+    });
+  });
+
+  const container = document.getElementById('container');
+
+  container.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    const afterElement = getDragAfterElement(container, e.clientY);
+    const draggable = document.querySelector('.dragging');
+    if (afterElement == null) {
+      container.appendChild(draggable);
+    } else {
+      container.insertBefore(draggable, afterElement);
+    }
+  });
+
+  function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('.course:not(.dragging)')];
+
+    return draggableElements.reduce((closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+  }
+});
+
+function allowDrop(ev) {
+  ev.preventDefault(); // This allows for dropping.
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id); // Set the drag data to the element's ID.
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data)); // Append the dragged element to the drop target.
+  document.querySelector('#drop-area p').style.display = 'none'; // Hide the text when dragging over.
+}
+
+// Add the 'drag' attribute and event listener to your draggable elements
+document.querySelectorAll('.course').forEach(function(course) {
+  course.setAttribute('draggable', true);
+  course.addEventListener('dragstart', drag);
+});
+
+// Make sure to add the `drop` and `dragover` event listeners to your droppable area
+document.getElementById('drop-area').addEventListener('dragover', allowDrop);
+document.getElementById('drop-area').addEventListener('drop', drop);
 
     function handleResponse() {
        if (this.status !== 200) {
