@@ -116,7 +116,7 @@ def find_best_combination(key, all_combinations, subrequirements):
         #print(f"Fraction of completion: {fraction_completion}")
 
         # Update best combination based on fraction of completion
-        if (needed - taken) < difference and fraction_completion > best_fraction:
+        if (needed - taken) < difference and fraction_completion >= best_fraction:
             best_fraction = fraction_completion
             difference =  needed - taken
             best_combination = combination_dict
