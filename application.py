@@ -150,7 +150,6 @@ def search_results():
         #let's do more exception handling with database on backend too later
         try:
             result = courses_database.search_courses(course) 
-            print(result[0])
             html_code = flask.render_template('course.html', courses=result)
             response = flask.make_response(html_code)
             return response

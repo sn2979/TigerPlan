@@ -107,12 +107,7 @@ def search_courses(search_query):
         finally:
             _put_connection(client)
         
-        result = []
-        for course in all_courses:
-                course = Course(course["dept_num"],course["title"])
-                print(course.get_deptnum())
-                result.append(course)
-        return result
+        return all_courses
     else:
         return None
 
