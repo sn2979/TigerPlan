@@ -119,9 +119,10 @@ def find_best_combination(key, all_combinations, subrequirements):
         #print(f"Fraction of completion: {fraction_completion}")
 
         # Update best combination based on fraction of completion
-        if fraction_completion >= best_fraction:
-            if fraction_completion == best_fraction and (needed - taken) >= difference:
-                continue
+        # fraction_completion >= best_fraction
+        if needed - taken < difference:
+            '''if fraction_completion == best_fraction and (needed - taken) >= difference:
+                continue'''
             best_fraction = fraction_completion
             difference =  needed - taken
             best_combination = combination_dict
@@ -205,7 +206,7 @@ if __name__ == '__main__':
     # Subrequirements
     subrequirements = {
         "Intro Course": 1,
-        "ISC": 2,
+        "ISC": 4,
         "Core Course": 1,
         "Electives": 3
     }
