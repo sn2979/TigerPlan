@@ -33,10 +33,12 @@
 
   #left-container {
     width: 30%; /* Adjust width as necessary */
+    height: 500px;
     background-color: #0FA3B1; /* For contrast against the class items */
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-    overflow: hidden; /* Ensures child elements stay within the rounded corners */
+    /*  overflow: hidden; Ensures child elements stay within the rounded corners */
+    overflow-y: auto; 
     margin-right: 20px; /* Spacing between this container and whatever is to the right */
     margin-left: 20px; /* Spacing between this container and whatever is to the right */
     float: left; /* Align it to the left */
