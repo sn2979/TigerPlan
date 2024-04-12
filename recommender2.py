@@ -34,6 +34,9 @@ def generate_combinations(class_list, subrequirements):
         for idx, (category, combos) in enumerate(all_combinations.items()):
             category_map[category] = combo[idx]
         combined_combinations.append(category_map)
+    
+    combined_combinations = combined_combinations[1:]
+    all_combinations_product = all_combinations_product[1:]
 
     return all_combinations_product, combined_combinations
 
@@ -116,7 +119,9 @@ def find_best_combination(key, all_combinations, subrequirements):
         #print(f"Fraction of completion: {fraction_completion}")
 
         # Update best combination based on fraction of completion
-        if (needed - taken) < difference and fraction_completion >= best_fraction:
+        if fraction_completion >= best_fraction:
+            if fraction_completion == best_fraction and (needed - taken) >= difference:
+                continue
             best_fraction = fraction_completion
             difference =  needed - taken
             best_combination = combination_dict
@@ -156,7 +161,6 @@ if __name__ == '__main__':
     
     # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
-    dict_combinations = dict_combinations[1:]
 
     '''dict_combinations = [
         {
@@ -212,7 +216,7 @@ if __name__ == '__main__':
 
         # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
-    dict_combinations = dict_combinations[1:]
+
     # Find the best combination
     best_combination, best_fraction, classes_taken_needed = find_best_combination('COS', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
@@ -252,7 +256,7 @@ if __name__ == '__main__':
     # Combinations
     # Print all combinations
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
-    dict_combinations = dict_combinations[1:]
+
     # Define all_combinations as a list of dictionaries
     '''dict_combinations = [
         {
@@ -343,7 +347,6 @@ if __name__ == '__main__':
 
     # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
-    dict_combinations = dict_combinations[1:]
     
     # Find the best combination
     best_combination, best_fraction, classes_taken_needed = find_best_combination('FIN', dict_combinations, subrequirements)
@@ -377,7 +380,6 @@ if __name__ == '__main__':
 
     # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
-    dict_combinations = dict_combinations[1:]
 
     # Find the best combination
     best_combination, best_fraction, classes_taken_needed = find_best_combination('LIN', dict_combinations, subrequirements)
