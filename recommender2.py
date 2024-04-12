@@ -1,6 +1,7 @@
 import itertools
 from itertools import product, combinations
 import minor_trees as minors
+import math
     
 def generate_combinations(class_list, subrequirements):
     #print("Generating combinations...")
@@ -94,6 +95,7 @@ def traverse_tree(node, combination_dict,
 
 def find_best_combination(key, all_combinations, subrequirements):
     best_fraction = 0
+    difference = math.inf
     best_combination = None
     taken_needed = None
 
@@ -102,7 +104,7 @@ def find_best_combination(key, all_combinations, subrequirements):
         # Traverse the tree with the current combination
         root_node = minors.create_tree(key, subrequirements)
         used = set()
-        _, taken, needed, fraction_completion, class_list = traverse_tree(root_node, 
+        _, taken, needed, fraction_completion, _ = traverse_tree(root_node, 
                                                   combination_dict,
                                                   subrequirements,
                                                   used)
@@ -114,8 +116,9 @@ def find_best_combination(key, all_combinations, subrequirements):
         #print(f"Fraction of completion: {fraction_completion}")
 
         # Update best combination based on fraction of completion
-        if fraction_completion > best_fraction:
+        if (needed - taken) < difference and fraction_completion > best_fraction:
             best_fraction = fraction_completion
+            difference =  needed - taken
             best_combination = combination_dict
             taken_needed = (taken, needed)
         
@@ -153,6 +156,7 @@ if __name__ == '__main__':
     
     # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+    dict_combinations = dict_combinations[1:]
 
     '''dict_combinations = [
         {
@@ -202,16 +206,13 @@ if __name__ == '__main__':
         "Electives": 3
     }
 
-    # Generate all combinations of classes
-    all_combinations = generate_combinations(class_list, subrequirements)
-
     # Print all combinations
     '''for i, combination in enumerate(all_combinations, start=1):
         print(f"Combination {i}: {combination}")'''
 
         # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
-
+    dict_combinations = dict_combinations[1:]
     # Find the best combination
     best_combination, best_fraction, classes_taken_needed = find_best_combination('COS', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
@@ -237,13 +238,13 @@ if __name__ == '__main__':
     subrequirements = {
         "Prerequisites": 1,
         "Basic Requirements": 1,
-        "Greek 4": 4,
+        "Greek 4": 2,
         "Relevant Courses": 1,
-        "Greek 5": 5,
-        "Latin 4": 4,
-        "Latin 5": 5,
-        "Medicine 5": 5,
-        "Medicine 4": 4,
+        "Greek 5": 3,
+        "Latin 4": 2,
+        "Latin 5": 3,
+        "Medicine 5": 3,
+        "Medicine 4": 2,
         "Historical Survey": 2,
         "Track Requirements": 2
     }
@@ -251,6 +252,7 @@ if __name__ == '__main__':
     # Combinations
     # Print all combinations
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+    dict_combinations = dict_combinations[1:]
     # Define all_combinations as a list of dictionaries
     '''dict_combinations = [
         {
@@ -341,6 +343,7 @@ if __name__ == '__main__':
 
     # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+    dict_combinations = dict_combinations[1:]
     
     # Find the best combination
     best_combination, best_fraction, classes_taken_needed = find_best_combination('FIN', dict_combinations, subrequirements)
@@ -374,6 +377,7 @@ if __name__ == '__main__':
 
     # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+    dict_combinations = dict_combinations[1:]
 
     # Find the best combination
     best_combination, best_fraction, classes_taken_needed = find_best_combination('LIN', dict_combinations, subrequirements)
