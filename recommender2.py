@@ -185,58 +185,40 @@ if __name__ == '__main__':
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
     
-    '''# testing COS
+    # testing COS
     # Class list
     class_list = {
-    'Core/Introduction/Introductory Course': ['COS 126', 'ECE 115'],
-    'Core/Introduction/Integrated Science Curriculum': ['ISC 231', 'ISC 232'],
-    'Core/Core Course': ['COS 226', 'COS 217'],
+    'Intro Course': ['COS 126', 'ECE 115'],
+    'ISC': ['ISC 231', 'ISC 232'],
+    'Core Course': ['COS 226', 'COS 217'],
     'Electives': ['COS 226', 'COS 217', 'COS 324']
-    }
-
-    # Dependencies
-    dependencies = {
-    'Core/Introduction/Introductory Course': 'Core/Introduction',
-    'Core/Introduction/Integrated Science Curriculum': 'Core/Introduction',
-    'Core/Introduction': 'Core',
-    'Core/Core Course': 'Core',
-    'Core': '',
-    'Electives': ''
     }
 
     # Subrequirements
     subrequirements = {
-    'Core/Introduction/Introductory Course': [1, 1], # [min number of courses needed to fulfill requirement, max number of courses that can be used to fulfill requirement]
-    'Core/Introduction/Integrated Science Curriculum': [4, 4],
-    'Core/Introduction': [1, 1],
-    'Core/Core Course': [1, 1],
-    'Core': [2,2],
-    'Electives': [3, 3]
+        "Intro Course": 1,
+        "ISC": 2,
+        "Core Course": 1,
+        "Electives": 3
     }
-    
-    base_reqs = ['Core/Introduction/Introductory Course', 
-                    'Core/Introduction/Integrated Science Curriculum', 
-                    'Core/Core Course', 
-                    'Electives']
-    dependent_reqs = ['Core/Introduction', 'Core']
 
     # Generate all combinations of classes
     all_combinations = generate_combinations(class_list, subrequirements)
 
     # Print all combinations
-    for i, combination in enumerate(all_combinations, start=1):
-        print(f"Combination {i}: {combination}")
+    '''for i, combination in enumerate(all_combinations, start=1):
+        print(f"Combination {i}: {combination}")'''
 
-    # Check the maximum number of requirements fulfillable
-    max_fulfilled = max_reqs_fulfilled(all_combinations, dependencies, base_reqs, dependent_reqs, subrequirements)
-    print(f"Maximum number of requirements fulfillable: {max_fulfilled[0]}")
-    print(f"Classes that fulfill the requirements: {max_fulfilled[1]}")
-    print("Requirements fulfilled:")
-    for requirement, info in max_fulfilled[2].items():
-        print(f"\t{requirement}:")
-        print(f"\t\tClasses: {info['classes']}")
-        print(f"\t\tCount: {info['count']}")'''
+        # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
 
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed = find_best_combination('COS', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+
+    # testing CLA
     
     class_list = {
         "Prerequisites": ["CLA 219", "CLA 212", "CLG 108"],
@@ -270,7 +252,7 @@ if __name__ == '__main__':
     # Print all combinations
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
     # Define all_combinations as a list of dictionaries
-    dict_combinations = [
+    '''dict_combinations = [
         {
             "Prerequisites": ["CLA 219"],
             "Basic Requirements": ["CLA 212"],
@@ -312,7 +294,7 @@ if __name__ == '__main__':
         }
     ]
     # Print all combinations
-    '''for i, combination in enumerate(all_combinations, start=1):
+    for i, combination in enumerate(all_combinations, start=1):
         print(f"Combination {i}: {combination}")
 
     for i, combo in enumerate(dict_combinations, start=1):
@@ -322,6 +304,46 @@ if __name__ == '__main__':
 
     # Find the best combination
     best_combination, best_fraction, classes_taken_needed = find_best_combination('CLA', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+
+    # testing FIN
+    # Class list
+    class_list = {
+        'MAT 175': [],
+        'Advanced Math': [],
+        'BSE Math': ['MAT 201', 'MAT 202'],
+        'EGR': [],
+        'Micro': ['ECO 300'],
+        'Probability/Stats': ['ORF 245'],
+        'Core': [],
+        'Finanical Applications 1': [],
+        'Finanical Applications 2': [],
+        'General Electives 1': [],
+        'General Electives 2': []
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'MAT 175': 1,
+        'Advanced Math': 1,
+        'BSE Math': 2,
+        'EGR': 1,
+        'Micro': 1,
+        'Probability/Stats': 1,
+        'Core': 1,
+        'Finanical Applications 1': 1,
+        'Finanical Applications 2': 2,
+        'General Electives 1': 1,
+        'General Electives 2': 2
+    }
+
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+    
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed = find_best_combination('FIN', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")

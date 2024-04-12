@@ -67,6 +67,10 @@ def create_tree(key, subrequirements):
         return create_cla_tree(subrequirements)
     elif key == 'ENV':
         return create_env_tree(subrequirements)
+    elif key == 'COS':
+        return create_cos_tree(subrequirements)
+    elif key == 'FIN':
+        return create_fin_tree(subrequirements)
     else:
         return None
 def create_cla_tree(subrequirements, parent=None):
@@ -181,3 +185,102 @@ def create_env_tree(subrequirements, parent=None):
     electives.add_child(e_1_above_1_below)
 
     return env
+
+def create_cos_tree(subrequirements, parent=None):\
+    # Create the root node for COS minor
+    cos = Node('COS', parent)
+
+    # Create the Elective node under COS
+    cos.add_child(Node('Electives', parent=cos, classes_needed=subrequirements.get('Electives', 0)))
+
+    # Create the Core node under COS
+    core = Node('Core', parent=cos)
+
+    # Create the Intro node under Core
+    intro = OrNode('Intro', parent=core)
+    intro.add_child(Node('Intro Course', parent=intro, classes_needed=subrequirements.get('Intro Course', 0)))
+    intro.add_child(Node('ISC', parent=intro, classes_needed=subrequirements.get('ISC', 0)))
+    core.add_child(intro)
+
+    # Create the Core Course node under Core
+    core.add_child(Node('Core Course', parent=core, classes_needed=subrequirements.get('Core Course', 0)))
+    cos.add_child(core)
+
+    return cos
+
+def create_fin_tree(subrequirements, parent=None):
+    # Create the root node for FIN minor
+    fin = Node('FIN', parent)
+
+    ''' subrequirements = {
+        'MAT 175': 1,
+        'Advanced Math': 1,
+        'BSE Math': 2,
+        'EGR': 1,
+        'Micro': 1,
+        'Probability/Stats': 1,
+        'Core': 1,
+        'Finanical Applications 1': 1,
+        'Finanical Applications 2': 2,
+        'General Electives 1': 1,
+        'General Electives 2': 2
+    }'''
+
+    # Create Prerequisites node under FIN
+    prerequisites = Node('Prerequisites', parent=fin)
+    prerequisites.add_child(Node('Probability/Stats', 
+                                 parent=prerequisites, 
+                                 classes_needed=subrequirements.get('Probability/Stats', 0)))
+    prerequisites.add_child(Node('Micro',
+                                 parent=prerequisites,
+                                 classes_needed=subrequirements.get('Micro', 0)))
+    math = OrNode('Math', parent=prerequisites)
+    math.add_child(Node('MAT 175',
+                        parent=math,
+                        classes_needed=subrequirements.get('MAT 175', 0)))
+    math.add_child(Node('Advanced Math',
+                        parent=math,
+                        classes_needed=subrequirements.get('Advanced Math', 0)))
+    math.add_child(Node('BSE Math',
+                        parent=math,
+                        classes_needed=subrequirements.get('BSE Math', 0)))
+    math.add_child(Node('EGR',
+                        parent=math,
+                        classes_needed=subrequirements.get('EGR', 0)))
+    
+    prerequisites.add_child(math)
+    fin.add_child(prerequisites)
+
+    # Add Core under FIN
+    fin.add_child(Node('Core', parent=fin, classes_needed=subrequirements.get('Core', 0)))
+
+    # Add Electives under FIN
+    electives = Node('Electives', parent=fin)
+    electives.add_child(Node('Finanical Applications 1',
+                             parent=electives,
+                             classes_needed=subrequirements.get('Finanical Applications 1', 0)))
+    
+    electives_choices = OrNode('Elective Choices', parent=electives)
+    electives_choices.add_child(Node('Finanical Applications 2',
+                                     parent=electives_choices,
+                                     classes_needed=subrequirements.get('Finanical Applications 2', 0)))
+    fin_1_gen_1 = Node('Finanical Applications 1 and General Electives 1',
+                       parent=electives_choices)
+    fin_1_gen_1.add_child(Node('Finanical Applications 1',
+                              parent=fin_1_gen_1,
+                              classes_needed=subrequirements.get('Finanical Applications 1', 0)))
+    fin_1_gen_1.add_child(Node('General Electives 1',
+                              parent=fin_1_gen_1,
+                              classes_needed=subrequirements.get('General Electives 1', 0)))
+    electives_choices.add_child(fin_1_gen_1)
+    electives_choices.add_child(Node('General Electives 2',
+                                     parent=electives_choices,
+                                     classes_needed=subrequirements.get('General Electives 2', 0)))
+    electives.add_child(electives_choices)
+    fin.add_child(electives)
+
+    return fin
+    
+
+
+    
