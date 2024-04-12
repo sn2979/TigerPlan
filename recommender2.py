@@ -332,7 +332,7 @@ if __name__ == '__main__':
         'EGR': 1,
         'Micro': 1,
         'Probability/Stats': 1,
-        'Core': 1,
+        'Core': 2,
         'Finanical Applications 1': 1,
         'Finanical Applications 2': 2,
         'General Electives 1': 1,
@@ -344,6 +344,39 @@ if __name__ == '__main__':
     
     # Find the best combination
     best_combination, best_fraction, classes_taken_needed = find_best_combination('FIN', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+
+    # testing LIN
+    # Class list
+
+    class_list = {
+        'Prerequisites': ['LIN 201'],
+        'Core Courses 1': ['LIN 301'],
+        'Core Courses 2': ['LIN 301'],
+        'Methods 1': ['LIN 210'],
+        'Methods 2': ['LIN 210'],
+        'Electives 1': ['LIN 201', 'LIN 210', 'LIN 301', 'LIN 214', 'LIN 205'],
+        'Electives 2': ['LIN 201', 'LIN 210', 'LIN 301', 'LIN 214', 'LIN 205']
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'Prerequisites': 1,
+        'Core Courses 1': 1,
+        'Core Courses 2': 2,
+        'Methods 1': 1,
+        'Methods 2': 2,
+        'Electives 1': 1,
+        'Electives 2': 2
+    }
+
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed = find_best_combination('LIN', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")

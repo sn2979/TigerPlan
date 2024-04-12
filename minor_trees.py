@@ -71,8 +71,11 @@ def create_tree(key, subrequirements):
         return create_cos_tree(subrequirements)
     elif key == 'FIN':
         return create_fin_tree(subrequirements)
+    elif key == 'LIN':
+        return create_lin_tree(subrequirements)
     else:
         return None
+    
 def create_cla_tree(subrequirements, parent=None):
     # Create the root node for CLA minor
     cla = Node('CLA', parent)
@@ -212,20 +215,6 @@ def create_fin_tree(subrequirements, parent=None):
     # Create the root node for FIN minor
     fin = Node('FIN', parent)
 
-    ''' subrequirements = {
-        'MAT 175': 1,
-        'Advanced Math': 1,
-        'BSE Math': 2,
-        'EGR': 1,
-        'Micro': 1,
-        'Probability/Stats': 1,
-        'Core': 1,
-        'Finanical Applications 1': 1,
-        'Finanical Applications 2': 2,
-        'General Electives 1': 1,
-        'General Electives 2': 2
-    }'''
-
     # Create Prerequisites node under FIN
     prerequisites = Node('Prerequisites', parent=fin)
     prerequisites.add_child(Node('Probability/Stats', 
@@ -280,6 +269,85 @@ def create_fin_tree(subrequirements, parent=None):
     fin.add_child(electives)
 
     return fin
+
+def create_lin_tree(subrequirements, parent=None):
+    '''    # Subrequirements
+    subrequirements = {
+        'Prerequisites': 1,
+        'Core Courses 1': 1,
+        'Core Courses 2': 2,
+        'Methods 1': 1,
+        'Methods 2': 2,
+        'Electives 1': 1,
+        'Electives 2': 2
+    }'''
+
+    # Create the root node for LIN minor
+    lin = Node('LIN', parent)
+
+    # Create Prerequisites node under LIN
+    lin.add_child(Node('Prerequisites', 
+                                 parent=lin, 
+                                 classes_needed=subrequirements.get('Prerequisites', 0)))
+    
+    # Create Coursework Node under LIN
+    coursework = Node('Coursework', parent=lin)
+    coursework.add_child(Node('Core Courses 1',
+                                 parent=coursework, 
+                                 classes_needed=subrequirements.get('Core Courses 1', 0)))
+    coursework.add_child(Node('Methods 1',
+                                 parent=coursework, 
+                                 classes_needed=subrequirements.get('Methods 1', 0)))
+    
+    # Create Elective Combos Node under LIN
+    elective_combos = OrNode('Elective Combos', parent=coursework)
+    elective_combos.add_child(Node('Core Courses 2',
+                                 parent=elective_combos, 
+                                 classes_needed=subrequirements.get('Core Courses 2', 0)))
+    elective_combos.add_child(Node('Methods 2',
+                                 parent=elective_combos, 
+                                 classes_needed=subrequirements.get('Methods 2', 0)))
+    elective_combos.add_child(Node('Electives 2',
+                                 parent=elective_combos, 
+                                 classes_needed=subrequirements.get('Electives 2', 0)))
+    
+    core_method = Node('Core Courses 1 and Methods 1',
+                       parent=elective_combos)
+    core_method.add_child(Node('Core Courses 1',
+                              parent=core_method,
+                              classes_needed=subrequirements.get('Core Courses 1', 0)))
+    core_method.add_child(Node('Methods 1',
+                              parent=core_method,
+                              classes_needed=subrequirements.get('Methods 1', 0)))
+    elective_combos.add_child(core_method)
+
+    core_elective = Node('Core Courses 1 and Electives 1',
+                       parent=elective_combos)
+    core_elective.add_child(Node('Core Courses 1',
+                              parent=core_elective,
+                              classes_needed=subrequirements.get('Core Courses 1', 0)))
+    core_elective.add_child(Node('Electives 1',
+                              parent=core_elective,
+                              classes_needed=subrequirements.get('Electives 1', 0)))
+    elective_combos.add_child(core_elective)
+
+    method_elective = Node('Methods 1 and Electives 1',
+                       parent=elective_combos)
+    method_elective.add_child(Node('Methods 1',
+                              parent=method_elective,
+                              classes_needed=subrequirements.get('Methods 1', 0)))
+    method_elective.add_child(Node('Electives 1',
+                              parent=method_elective,
+                              classes_needed=subrequirements.get('Electives 1', 0)))
+    elective_combos.add_child(method_elective)
+
+    coursework.add_child(elective_combos)
+    lin.add_child(coursework)
+
+    return lin
+                         
+
+
     
 
 
