@@ -2,6 +2,7 @@ import sys
 import os
 import queue
 from pymongo import MongoClient
+import re
 
 #-----------------------------------------------------------------------
 # _DATABASE_URL = os.environ['DATABASE_URL'] # = mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData
@@ -20,6 +21,21 @@ def _put_connection(conn):
 
 #-----------------------------------------------------------------------
 # Connect to MongoDB
+# Define a function to determine the sorting key
+def sorting_key(course):
+    # Extract the dept_num from the course dictionary
+    dept_num = course['dept_num']
+    
+    # Regex pattern to match "Subject" or "Subject + ' ' + course_num"
+    pattern = fr"{search_query}\s?\d*"
+
+    # Check if the dept_num matches the regex pattern
+    match = re.search(pattern, dept_num, re.IGNORECASE)
+    
+    # Return False if there is a match, so that matching items come first
+    # Return True if there is no match, so that non-matching items come later
+    return not bool(match)
+
 
 def search_courses(search_query):
     if len(search_query) >= 3:
@@ -68,14 +84,14 @@ def search_courses(search_query):
             sys.exit(1)
         finally:
             _put_connection(client)
-        
+        all_courses.sort(key=sorting_key)
         return all_courses
     else:
         return None
 
 
 # Example usage: Searching for courses matching a query
-search_query = "c os"  # Example search query (can be any sequence of letters/numbers)
+search_query = "spi"  # Example search query (can be any sequence of letters/numbers)
 matching_courses = search_courses(search_query)
 # Print matching courses
 if matching_courses:
