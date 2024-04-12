@@ -353,12 +353,12 @@ if __name__ == '__main__':
 
     class_list = {
         'Prerequisites': ['LIN 201'],
-        'Core Courses 1': ['LIN 301'],
-        'Core Courses 2': ['LIN 301'],
-        'Methods 1': ['LIN 210'],
-        'Methods 2': ['LIN 210'],
-        'Electives 1': ['LIN 201', 'LIN 210', 'LIN 301', 'LIN 214', 'LIN 205'],
-        'Electives 2': ['LIN 201', 'LIN 210', 'LIN 301', 'LIN 214', 'LIN 205']
+        'Core Courses 1': [],
+        'Core Courses 2': [],
+        'Methods 1': [],
+        'Methods 2': [],
+        'Electives 1': ['LIN 201', 'LIN 214', 'LIN 205'],
+        'Electives 2': ['LIN 201', 'LIN 214', 'LIN 205']
     }
 
     # Subrequirements
