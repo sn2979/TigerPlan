@@ -90,13 +90,36 @@ def get_student_name(username):
         print("An error occurred while getting student name:", e)
         return ""
     
-# Function to update student classes
-def update_student_classes(username, classes):
+# deprecated version
+'''def update_student_classes(username, classes):
     try:
         existing_student = students_collection.find_one({"netID": username})
         if existing_student is None:
             raise Exception("Student not found")
         students_collection.update_one({"netID": username}, {"$set": {"Classes": classes}})
+        return True
+    except Exception as e:
+        print("An error occurred while updating student classes:", e)
+        return False'''
+
+# Function to update student classes
+def update_student_classes(username, classes_to_add=None, classes_to_remove=None):
+    try:
+        existing_student = students_collection.find_one({"netID": username})
+        if existing_student is None:
+            raise Exception("Student not found")
+        
+        update_query = {}
+        
+        if classes_to_add:
+            update_query["$addToSet"] = {"Classes": {"$each": classes_to_add}}
+        
+        if classes_to_remove:
+            update_query["$pull"] = {"Classes": {"$in": classes_to_remove}}
+        
+        if update_query:
+            students_collection.update_one({"netID": username}, update_query)
+        
         return True
     except Exception as e:
         print("An error occurred while updating student classes:", e)
@@ -120,6 +143,17 @@ def main():
         update_student_classes("student2", ["COS 333", "COS 226", "COS 217"])
         student_classes = get_student_classes("student2")
         print("Updated classes for student:", student_classes)
+
+        # Update student classes by removing some classes
+        update_student_classes("student2", classes_to_remove=["COS 333"])
+        student_classes = get_student_classes("student2")
+        print("Updated classes for student:", student_classes)
+
+        # Update student classes by adding some classes
+        update_student_classes("student2", classes_to_add=["COS 333"])
+        student_classes = get_student_classes("student2")
+        print("Updated classes for student:", student_classes)
+
     except Exception as e:
         print("An error occurred:", e)
 
