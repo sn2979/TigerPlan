@@ -105,13 +105,14 @@ def search_courses(search_query):
             sys.exit(1)
         finally:
             _put_connection(client)
+        
         return all_courses
     else:
         return None
 
 
 # Example usage: Searching for courses matching a query
-search_query = "COS"  # Example search query (can be any sequence of letters/numbers)
+search_query = "M"  # Example search query (can be any sequence of letters/numbers)
 matching_courses = search_courses(search_query)
 # Print matching courses
 if matching_courses:

@@ -2,6 +2,7 @@
 import flask 
 from flask import request
 import database_files.student_database as student_database
+import database_files.courses_database as courses_database
 import dotenv
 import auth
 
@@ -120,3 +121,41 @@ def about():
     html_code = flask.render_template("about.html", username = username)
     response = flask.make_response(html_code)
     return response
+
+
+
+#route to a testing page; delete later
+@app.route('/test', methods=['GET'])
+def test():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    html_code = flask.render_template("tester.html", username = username)
+    response = flask.make_response(html_code)
+    return response
+
+@app.route('/searchresults', methods=['GET'])
+def search_results():
+    
+    course = flask.request.args.get('course')
+    if course is None:
+        course = ''
+    course = course.strip()
+
+    if course == '':
+        result = []
+   
+    #let's do more exception handling with database on backend too later
+    try:
+        result = courses_database.search_courses(course) 
+        if result is None: 
+            result = []
+        html_code = flask.render_template('course.html', courses=result)
+        response = flask.make_response(html_code)
+        return response
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
