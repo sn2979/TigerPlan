@@ -89,7 +89,7 @@ def input_term_subj_into_db(data):
         with MongoClient('mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/') as client:
             print("Connecting to database")
             db = client['TigerPlanData']
-            collection = db['CoursesData']
+            collection = db['CoursesDataTest']
             print(f"Connected to collection")
             for item in data:
             # Check if a document with the same catalog_number exists for the dept_name
