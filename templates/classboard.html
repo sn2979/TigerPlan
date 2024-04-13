@@ -16,16 +16,27 @@
 }
 
 #drop-area {
-  min-height: 450px; /* Minimum height to allow for easy dropping */
-  background-color: #EFEFEF; /* A neutral color, differentiate it from the draggable area */
-  border: 2px dashed #CCCCCC; /* A dashed border to indicate it's droppable */
-  border-radius: 5px; /* Match your design's border radius */
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px; /* Spacing between grid items */
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px; /* Space from the top of the container */
+  min-height: 450px;
+  max-height: 450px; /* Set the maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  background-color: #EFEFEF;
+  border: 2px dashed #CCCCCC;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap; /* Enable wrapping of items */
+  justify-content: space-between; /* Distribute items evenly between columns */
+}
+
+.grid-item {
+  width: calc(50% - 10px); /* Calculate width for two columns with gap */
+  height: 100px; /* Set a fixed height for each item */
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: #F7A072;
+  border-radius: 5px;
+  cursor: move;
+  box-sizing: border-box;
 }
 
 #drop-area p {
@@ -34,11 +45,13 @@
 }
 
 #left-container {
+  min-height: 450px;
+  max-height: 450px; /* Set the maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
   width: 30%; /* Adjust width as necessary */
   background-color: #0FA3B1; /* For contrast against the class items */
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-  overflow: hidden; /* Ensures child elements stay within the rounded corners */
   margin-right: 20px; /* Spacing between this container and whatever is to the right */
   margin-left: 20px; /* Spacing between this container and whatever is to the right */
   float: left; /* Align it to the left */
@@ -110,21 +123,37 @@ body {
     <div id="left-container">
       <input type="text" id="class-search" placeholder="Search classes...">
       <div id="class-list">
-        <div class="course" draggable="true" ondragstart="drag(event)" id="cos333">
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos333">
           <h2>COS 333</h2>
           <p>Advanced Programming Techniques</p>
         </div>
-        <div class="course" draggable="true" ondragstart="drag(event)" id="cos445">
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos445">
           <h2>COS 445</h2>
           <p>Economics and Computing</p>
         </div>
-        <div class="course" draggable="true" ondragstart="drag(event)"id="cos217">
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)"id="cos217">
           <h2>COS 217</h2>
           <p>Introduction to Programming Systems</p>
         </div>
-        <div class="course" draggable="true" ondragstart="drag(event)" id="cos324">
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos324">
           <h2>COS 324</h2>
           <p>Introduction to Machine Learning</p>
+        </div>
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos226">
+          <h2>COS 226</h2>
+          <p>Data Structures and Algorithms</p>
+        </div>
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos126">
+          <h2>COS 126</h2>
+          <p>Introduction to Computer Science</p>
+        </div>
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos316">
+          <h2>COS 316</h2>
+          <p>Systems and Networking</p>
+        </div>
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos471">
+          <h2>COS 471</h2>
+          <p>DeFi</p>
         </div>
         <!-- Repeat for each class -->
       </div>
@@ -140,11 +169,11 @@ body {
 </main>
 
 <script>
+  'use strict';
   function displayMessage(ev) {
     // Check if the drop area has the placeholder message
-    dropArea = document.getElementById('drop-area');
-    console.log(`Drop area: ${dropArea.innerHTML}`);
-    console.log(`Drop area child 0: ${dropArea.children[0]}`)
+    let dropArea = document.getElementById('drop-area');
+    
     if (dropArea.children[0].id === 'placeholder') {
       console.log(`Placeholder found!`);
       // remove the placeholder message
@@ -169,10 +198,29 @@ body {
 
   function drop(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
+  
+    // Get the ID of the dragged element
+    let data = ev.dataTransfer.getData("text");
+    let dropArea = document.getElementById('drop-area');
+    for (let i = 0; i < dropArea.children.length; i++) {
+      if (dropArea.children[i].id === data) {
+        // If the course is already in the drop area, don't add it again
+        return;
+      }
+    }
+    
+    // Create a new grid item container for the dropped course
+    const newCourseContainer = document.createElement('div');
+    newCourseContainer.classList.add('grid-item')
+    newCourseContainer.id = data;
+    
+    // Copy the content of the dragged course into the new container
+    const originalCourse = document.getElementById(data);
+    newCourseContainer.innerHTML = originalCourse.innerHTML;
+    
+    // Append the new grid item container to the drop area
+    dropArea.appendChild(newCourseContainer);
     displayMessage();
-    console.log('Dislay message called');
   }
   //document.addEventListener('DOMContentLoaded', (event) => {
 //});
