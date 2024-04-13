@@ -3,15 +3,16 @@
     
 {% include 'header.html' %}
 <body>
-     <form action="/profile" method="POST">
+     <form action="/update_profile" method="POST">
         <input type="hidden" id="username" name="username" value="{{ username }}"><br><br>
 
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
-        <label for="major">Major: (optional)</label>
+        <label for="major">Major: </label>
         <input type="text" id="major" name="major" required><br><br>
 
-        <!--{% comment %} <input type="submit" value="Submit"> {% endcomment %}-->
+         <input type="submit" value="Submit">
     </form>
+</body>
 

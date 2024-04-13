@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TigerPlan</title>
+        <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
+    <style>
+        form {
+            width: 450px;
+            height: 280px;
+            margin: 20px;
+            background-color: #EDDEA4;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            width: 450;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #F7A072;
+            color: #FFFFFF;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            font-family: 'Roboto Serif', serif; /* Example font, update as needed */
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333333;
+            font-family: 'Roboto Serif', serif; /* Example font, update as needed */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #FF884D;
+        }
+
+        .profile h1 {
+            margin: 20px;
+            text-align: center;
+            color: #333333;
+            font-family: 'Roboto Serif'
+        }
+
+        h3 {
+            margin: 20px;
+            text-align: center;
+            color: #666666;
+            font-family: 'Roboto Serif', serif; /* Example font, update as needed */
+        }
+    </style>
+    </head>
+    
+{% include 'header.html' %}
+
+    <body>
+        <center class="profile">
+            <h1>Your Profile</h1>
+            <h3>Update your profile here!</h3>
+            <form action="/update_profile" method="POST">
+                <input type="hidden" id="username" name="username" value="{{ username }}"><br><br>
+
+                <label for="name">Name:</label>
+                <input placeholder="{{name}}" type="text" id="name" name="name"><br><br>
+
+                <label for="major">Major: </label>
+                <input placeholder="{{major}}" type="text" id="major" name="major"><br><br>
+
+                <input type="submit" value="Submit">
+            </form>
+        </center>
+    </body>
+</html>

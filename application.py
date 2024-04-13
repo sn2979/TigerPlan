@@ -67,13 +67,30 @@ def login():
         # Handle authentication failure
         return flask.abort(401)  # Unauthorized
 
-@app.route('/profile', methods=['POST'])
+@app.route('/profile', methods=['GET'])
+def profile():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message)
+    name = student_database.get_student_name(username)
+    major = student_database.get_student_major(username)
+    html_code = flask.render_template("profile.html", username=username
+                                      , name=name, major=major)
+    response = flask.make_response(html_code)
+    return response
+
+@app.route('/update_profile', methods=['POST'])
 def set_profile():
     username = flask.session.get('username')
     if username is None:
         flask.redirect('/login')
     name = request.form.get('name')
+    if name == '':
+        name = student_database.get_student_name(username)
     major = request.form.get('major')
+    if major == '':
+        major = student_database.get_student_major(username)
     student_database.update_student_profile(username, name, major)
     return flask.redirect('/classboard')
 
