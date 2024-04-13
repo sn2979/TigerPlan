@@ -199,13 +199,14 @@ body {
 
   function drop_area(ev) {
     ev.preventDefault();
+    console.log(`Drop area called!`);
   
     // Get the ID of the dragged element
     let data = ev.dataTransfer.getData("text");
     let dropArea = document.getElementById('drop-area');
     for (let i = 0; i < dropArea.children.length; i++) {
       let id = data + '-container';
-      if (dropArea.children[i].id === id) {
+      if (dropArea.children[i].id === id || data.includes('container')) {
         // If the course is already in the drop area, don't add it again
         return;
       }
