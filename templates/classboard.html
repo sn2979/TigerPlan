@@ -122,7 +122,7 @@ body {
   <p><center>Search for your classes and drag them to your class board!</center></p>
   <br>
   <section id="class-selection">
-    <div id="left-container">
+    <div id="left-container" ondrop="drop(event)" ondragover="allowDrop(event)">
       <input type="text" id="class-input" placeholder="Search classes...">
       <div id="class-list">
         <!--<div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos333">
@@ -172,20 +172,22 @@ body {
 
 <script>
   'use strict';
-  function displayMessage(ev) {
+  function displayMessage() {
     // Check if the drop area has the placeholder message
     let dropArea = document.getElementById('drop-area');
-    
-    if (dropArea.children[0].id === 'placeholder') {
-      console.log(`Placeholder found!`);
-      // remove the placeholder message
-      dropArea.removeChild(dropArea.children[0]);
+    console.log(`Drop area has ${dropArea.children.length} children`)
+
+    if (dropArea.children.length === 0) {
+      // add the placeholder message
+      console.log(`Placeholder not found!`);
+      dropArea.innerHTML = '<center id="placeholder"><p>Drag your classes here</p></center>';
     }
     else {
-      if (dropArea.children.length === 0) {
-        // add the placeholder message
-        console.log(`Placeholder not found!`);
-        dropArea.innerHTML = '<center><p id="placeholder">Drag your classes here</p></center>';
+      console.log(`Child 0 id is ${dropArea.children[0].id}`)
+      if (dropArea.children[0].id === 'placeholder') {
+        console.log(`Placeholder found!`);
+        // remove the placeholder message
+        dropArea.removeChild(dropArea.children[0]);
       }
     }
   }
@@ -239,172 +241,52 @@ body {
     var data = ev.dataTransfer.getData("text");
     let dropArea = document.getElementById('drop-area');
     dropArea.removeChild(document.getElementById(data));
-    //ev.target.appendChild(document.getElementById(data));
+    displayMessage();
   }
 
   function handleResponse() {
-        if (this.status !== 200) {
-            alert('Error: Failed to fetch data from server');
-            return;
-        }
-        let resultsDiv = document.getElementById('class-list');
-        console.log(this.responseText);
-        resultsDiv.innerHTML = this.responseText;
-      }
-
-      function handleError() {
+    if (this.status !== 200) {
         alert('Error: Failed to fetch data from server');
-      }
-
-      let request = null;
-
-      function getResults() {
-        let courseInput = document.getElementById('class-input');
-        let course = courseInput.value;
-        let encodedCourse = encodeURIComponent(course);
-        let url = '/searchresults?course=' + encodedCourse;
-        if (request !== null)
-            request.abort();
-        request = new XMLHttpRequest();
-        request.onload = handleResponse;
-        request.onerror = handleError;
-        request.open('GET', url);
-        request.send();
-      }
-
-      let timer = null;
-
-      function debouncedGetResults() {
-        clearTimeout(timer);
-        timer = setTimeout(getResults, 500);
-      }
-
-      function setup() {
-        let courseInput = document.getElementById('class-input');
-        courseInput.addEventListener('input', debouncedGetResults);
-      }
-
-      document.addEventListener('DOMContentLoaded', setup);
-  //document.addEventListener('DOMContentLoaded', (event) => {
-//});
-  /*const draggables = document.querySelectorAll('.course');
-  const dropArea = document.getElementById('drop-area');
-
-    // Function to check and display message if drop area is empty
-  function checkEmptyDropArea() {
-    const dragMessageElement = document.getElementById('drag-message');
-
-    if (dropArea.children.length === 0) {
-      console.log(`Children are of length ${dropArea.children.length}`);
-      if (!dragMessageElement) {
-        // Add the message if it doesn't exist
-        dropArea.innerHTML = '<center><p id="drag-message">Drag your classes here</p></center>';
-      }
-    } else {
-      // Clear the message if drop area has classes and the message exists
-      if (dragMessageElement) {
-        dropArea.removeChild(dragMessageElement);
-      }
+        return;
     }
+    let resultsDiv = document.getElementById('class-list');
+    console.log(this.responseText);
+    resultsDiv.innerHTML = this.responseText;
   }
 
-  // Check and display message initially when page loads
-  checkEmptyDropArea();
-
-  draggables.forEach(draggable => {
-    draggable.addEventListener('dragstart', () => {
-      draggable.classList.add('dragging');
-    });
-
-    draggable.addEventListener('dragend', () => {
-      draggable.classList.remove('dragging');
-      // Check if drop area is empty after dragging ends
-      if (dropArea.children.length === 0) {
-        // Check and display message after dragging ends
-      checkEmptyDropArea();
-      }
-    });
-  });
-
-  const container = document.getElementById('left-container');
-
-  container.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    const afterElement = getDragAfterElement(container, e.clientY);
-    const draggable = document.querySelector('.dragging');
-    //if (afterElement == null) {
-      console.log("here3")
-      container.appendChild(draggable);
-    //} else {
-      //console.log("here2")
-      //container.insertBefore(draggable, afterElement);
-    //}
-  });
-
-  function getDragAfterElement(container, y) {
-    const draggableElements = [...container.querySelectorAll('.course:not(.dragging)')];
-
-    return draggableElements.reduce((closest, child) => {
-      const box = child.getBoundingClientRect();
-      const offset = y - box.top - box.height / 2;
-      if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child };
-      } else {
-        return closest;
-      }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
+  function handleError() {
+    alert('Error: Failed to fetch data from server');
   }
-});
 
-function allowDrop(ev) {
-  ev.preventDefault(); // This allows for dropping.
-}
+  let request = null;
 
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id); // Set the drag data to the element's ID.
-}
+  function getResults() {
+    let courseInput = document.getElementById('class-input');
+    let course = courseInput.value;
+    let encodedCourse = encodeURIComponent(course);
+    let url = '/searchresults?course=' + encodedCourse;
+    if (request !== null)
+        request.abort();
+    request = new XMLHttpRequest();
+    request.onload = handleResponse;
+    request.onerror = handleError;
+    request.open('GET', url);
+    request.send();
+  }
 
-function drop(ev) {
-  console.log(`Dropped called!`)
-  ev.preventDefault();
+  let timer = null;
 
-  console.log(`Default prevented!`)
+  function debouncedGetResults() {
+    clearTimeout(timer);
+    timer = setTimeout(getResults, 500);
+  }
 
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data)); // Append the dragged element to the drop target.
-  
-  console.log(`Element appended! ${data}`)
-  console.log(`Element appended! ${ev.target.innerHTML}`)
-  // Create a new container for the dropped element (to maintain the grid layout)
-  const newCourseContainer = document.createElement('div');
-  newCourseContainer.draggable = true;
-  newCourseContainer.id = data;
+  function setup() {
+    let courseInput = document.getElementById('class-input');
+    courseInput.addEventListener('input', debouncedGetResults);
+  }
 
-  console.log(`New container created! ${newCourseContainer}`);
-
-  // Copy the content of the dragged element into the new container
-  newCourseContainer.innerHTML = ev.target.innerHTML;
-
-  console.log(`Content copied! ${newCourseContainer.innerHTML}`);
-
-  // Append the new container to the drop area
-  ev.target.appendChild(newCourseContainer);
-  console.log(`Child appended`);
-  // Check and display message after dropping
-  console.log(`drag message cleared`);
-}
-
-// Add the 'drag' attribute and event listener to your draggable elements
-document.querySelectorAll('.course').forEach(function(course) {
-  course.setAttribute('draggable', true);
-  course.addEventListener('dragstart', drag);
-});
-
-// Make sure to add the `drop` and `dragover` event listeners to your droppable area
-document.getElementById('drop-area').addEventListener('dragover', allowDrop);
-document.getElementById('drop-area').addEventListener('drop', drop);*/
-
-
+  document.addEventListener('DOMContentLoaded', setup);
 </script>
 
 </body>
