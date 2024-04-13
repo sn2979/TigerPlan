@@ -57,7 +57,7 @@
   float: left; /* Align it to the left */
 }
 
-#class-search {
+#class-input {
   width: 95%; /* Full width of the container */
   padding: 10px; /* Padding for aesthetic spacing inside the input */
   border: none; /* Removes border */
@@ -122,9 +122,9 @@ body {
   <br>
   <section id="class-selection">
     <div id="left-container">
-      <input type="text" id="class-search" placeholder="Search classes...">
+      <input type="text" id="class-input" placeholder="Search classes...">
       <div id="class-list">
-        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos333">
+        <!--<div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos333">
           <h2>COS 333</h2>
           <p>Advanced Programming Techniques</p>
         </div>
@@ -155,7 +155,7 @@ body {
         <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos471">
           <h2>COS 471</h2>
           <p>DeFi</p>
-        </div>
+        </div>-->
         <!-- Repeat for each class -->
       </div>
     </div>
@@ -236,6 +236,50 @@ body {
     dropArea.removeChild(document.getElementById(data));
     //ev.target.appendChild(document.getElementById(data));
   }
+
+  function handleResponse() {
+        if (this.status !== 200) {
+            alert('Error: Failed to fetch data from server');
+            return;
+        }
+        let resultsDiv = document.getElementById('class-list');
+        console.log(this.responseText);
+        resultsDiv.innerHTML = this.responseText;
+      }
+
+      function handleError() {
+        alert('Error: Failed to fetch data from server');
+      }
+
+      let request = null;
+
+      function getResults() {
+        let courseInput = document.getElementById('class-input');
+        let course = courseInput.value;
+        let encodedCourse = encodeURIComponent(course);
+        let url = '/searchresults?course=' + encodedCourse;
+        if (request !== null)
+            request.abort();
+        request = new XMLHttpRequest();
+        request.onload = handleResponse;
+        request.onerror = handleError;
+        request.open('GET', url);
+        request.send();
+      }
+
+      let timer = null;
+
+      function debouncedGetResults() {
+        clearTimeout(timer);
+        timer = setTimeout(getResults, 500);
+      }
+
+      function setup() {
+        let courseInput = document.getElementById('class-input');
+        courseInput.addEventListener('input', debouncedGetResults);
+      }
+
+      document.addEventListener('DOMContentLoaded', setup);
   //document.addEventListener('DOMContentLoaded', (event) => {
 //});
   /*const draggables = document.querySelectorAll('.course');
