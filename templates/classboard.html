@@ -58,11 +58,12 @@
 }
 
 #class-search {
-  width: 100%; /* Full width of the container */
+  width: 95%; /* Full width of the container */
   padding: 10px; /* Padding for aesthetic spacing inside the input */
   border: none; /* Removes border */
   border-bottom: 1px solid #ccc; /* Adds a light border to the bottom edge */
   font-size: 16px; /* Increases font size for readability */
+  margin: 10px; /* Spacing around the input */
 }
 
 #class-list {
@@ -114,7 +115,7 @@ body {
   {% include 'header.html' %}
 
 <main>
-  <section id="main-content">
+  <section id="main-content" ondrop="drop(event)" ondragover="allowDrop(event)">
     <p><span class="roboto">What's </span><span class="caveat">your </span><span class="roboto">best minor?</span></p>
   </section>
   <p><center>Search for your classes and drag them to your class board!</center></p>
@@ -161,7 +162,7 @@ body {
   </section>
 
   <div id="right-container">
-    <div id="drop-area" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id="drop-area" ondrop="drop_area(event)" ondragover="allowDrop(event)">
       <center id="placeholder"><p>Drag your classes here</p></center>
     </div>
   </div>
@@ -196,14 +197,15 @@ body {
     ev.dataTransfer.setData("text", ev.target.id);
   }
 
-  function drop(ev) {
+  function drop_area(ev) {
     ev.preventDefault();
   
     // Get the ID of the dragged element
     let data = ev.dataTransfer.getData("text");
     let dropArea = document.getElementById('drop-area');
     for (let i = 0; i < dropArea.children.length; i++) {
-      if (dropArea.children[i].id === data) {
+      let id = data + '-container';
+      if (dropArea.children[i].id === id) {
         // If the course is already in the drop area, don't add it again
         return;
       }
@@ -212,7 +214,10 @@ body {
     // Create a new grid item container for the dropped course
     const newCourseContainer = document.createElement('div');
     newCourseContainer.classList.add('grid-item')
-    newCourseContainer.id = data;
+    newCourseContainer.id = data + '-container';
+    newCourseContainer.draggable = true;
+    newCourseContainer.ondragstart = function() { drag(event); };
+
     
     // Copy the content of the dragged course into the new container
     const originalCourse = document.getElementById(data);
@@ -221,6 +226,14 @@ body {
     // Append the new grid item container to the drop area
     dropArea.appendChild(newCourseContainer);
     displayMessage();
+  }
+
+  function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    let dropArea = document.getElementById('drop-area');
+    dropArea.removeChild(document.getElementById(data));
+    //ev.target.appendChild(document.getElementById(data));
   }
   //document.addEventListener('DOMContentLoaded', (event) => {
 //});
