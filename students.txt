@@ -54,3 +54,28 @@ throw error
 PyQt5==5.15.10
 PyQt5-Qt5==5.15.12
 PyQt5-sip==12.13.0
+
+#drop-area {
+  min-height: 450px; /* Minimum height to allow for easy dropping */
+  max-height: 450px; /* Set the maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  background-color: #EFEFEF; /* A neutral color, differentiate it from the draggable area */
+  border: 2px dashed #CCCCCC; /* A dashed border to indicate it's droppable */
+  border-radius: 5px; /* Match your design's border radius */
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  row-gap: 10px; /* Spacing between grid rows */
+  padding: 20px; /* Padding inside the drop area */
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Space from the top of the container */
+  gap: 10px; /* Spacing between grid items */
+}
+
+.grid-item {
+  /* Styling for grid items */
+  padding: 20px;
+  margin-bottom: 10px;
+  background-color: #F7A072;
+  border-radius: 5px;
+  cursor: move; /* Indicate draggable items */
+}

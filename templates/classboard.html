@@ -34,7 +34,7 @@
   margin-bottom: 10px;
   padding: 20px;
   background-color: #F7A072;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: move;
   box-sizing: border-box;
 }
@@ -87,13 +87,14 @@ body {
   padding: 20px;
   margin-bottom: 20px;
   background-color: #F7A072;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: move; /* Indicate draggable items */
 }
 
 .course h2, .course p {
   margin: 0;
 }
+
 
 .custom-link {
   text-decoration: none; /* This removes the underline */
@@ -223,7 +224,11 @@ body {
     // Copy the content of the dragged course into the new container
     const originalCourse = document.getElementById(data);
     newCourseContainer.innerHTML = originalCourse.innerHTML;
-    
+
+    let paragraph = newCourseContainer.querySelector('p')
+
+    // set paragraph element to have a small font size
+    paragraph.style.fontSize =  '15px';
     // Append the new grid item container to the drop area
     dropArea.appendChild(newCourseContainer);
     displayMessage();
