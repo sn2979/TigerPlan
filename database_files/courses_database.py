@@ -22,23 +22,30 @@ def _put_connection(conn):
 #-----------------------------------------------------------------------
 # Connect to MongoDB
 # Define a function to determine the sorting key
-def sorting_key(course):
+def sorting_key(course, search_query):
     # Extract the dept_num from the course dictionary
     dept_num = course['dept_num']
     
     # Regex pattern to match "Subject" or "Subject + ' ' + course_num"
-    pattern = fr"{search_query}\s?\d*"
+    pattern_startswith = fr"^{re.escape(search_query)}\s?\d*"
+    pattern_contains = fr".*{re.escape(search_query)}.*"
 
-    # Check if the dept_num matches the regex pattern
-    match = re.search(pattern, dept_num, re.IGNORECASE)
+    # Check if the dept_num matches the regex patterns
+    match_startswith = re.search(pattern_startswith, dept_num, re.IGNORECASE)
+    match_contains = re.search(pattern_contains, dept_num, re.IGNORECASE)
     
-    # Return False if there is a match, so that matching items come first
-    # Return True if there is no match, so that non-matching items come later
-    return not bool(match)
-
+    if match_startswith:
+        # Return 0 for dept_nums that start with the search value
+        return 0
+    elif match_contains:
+        # Return 1 for dept_nums that contain the search value
+        return 1
+    else:
+        # Return 2 for dept_nums that do not match the patterns
+        return 2
 
 def search_courses(search_query):
-    if len(search_query) >= 3:
+    # if len(search_query) >= 3:
         try:
             # Get connection
             client = _get_connection()
@@ -53,12 +60,16 @@ def search_courses(search_query):
                 'numericOrdering': False,  # Treat numeric values as strings (e.g., "10" comes before "2")
                 'alternate': 'shifted'  # Controls treatment of whitespace and punctuation
             }
+            no_spaces_title = re.sub(r'\s+', ' ', search_query)
+            no_spaces_dept_num = re.sub(r'\s+', '', search_query)
+            escaped_query = re.escape(search_query)
+            print(search_query)
             query = {
             '$or': [
-                {'subject': search_query},  # Caseinsensitive regex match on subject
-                {'subject': search_query[:3], 'catalog_number': {'$regex': f"^{search_query[3:]}", '$options': 'i'}}, # Match combined subject+catalog_number (e.g., "COS126")
-                {'catalog_number': search_query},  # Case-insensitive sensitive match on catalog_number
-                {'title':{'$regex': search_query, '$options': 'i'}}  # Case-insensitive regex match on title
+                {'subject': {'$regex': f"^{escaped_query}", '$options': 'i'}},  # Caseinsensitive regex match on subject
+                {'subject': re.escape(no_spaces_dept_num)[:3], 'catalog_number': {'$regex': rf"^{re.escape(no_spaces_dept_num[3:])}(\d*)?", '$options': 'i'}}, # Match combined subject+catalog_number (e.g., "COS126")
+                {'catalog_number': {'$regex': f"^{escaped_query}"}},  # Case-insensitive sensitive match on catalog_number
+                {'title':{'$regex': re.escape(no_spaces_title), '$options': 'i'}}  # Case-insensitive regex match on title
             ]
         }
             projection = {
@@ -84,14 +95,14 @@ def search_courses(search_query):
             sys.exit(1)
         finally:
             _put_connection(client)
-        all_courses.sort(key=sorting_key)
+        all_courses.sort(key=lambda course: sorting_key(course, search_query))
         return all_courses
-    else:
-        return None
+    # else:
+    #     return None
 
 
 # Example usage: Searching for courses matching a query
-search_query = "spi"  # Example search query (can be any sequence of letters/numbers)
+search_query = "env"  # Example search query (can be any sequence of letters/numbers)
 matching_courses = search_courses(search_query)
 # Print matching courses
 if matching_courses:
