@@ -4,15 +4,14 @@ import queue
 import pymongo
 from pymongo import MongoClient
 #-----------------------------------------------------------------------
-# _DATABASE_URL = os.environ['DATABASE_URL'] # = mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData
+_DATABASE_URL = os.environ['DATABASE_URL'] 
 _connection_pool = queue.Queue()
 
 def _get_connection():
     try:
         conn = _connection_pool.get(block=False)
     except queue.Empty:
-        # conn = MongoClient(_DATABASE_URL)
-        conn = MongoClient("mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData")
+        conn = MongoClient(_DATABASE_URL)
     return conn
 
 def _put_connection(conn):
