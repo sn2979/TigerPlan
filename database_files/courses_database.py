@@ -6,6 +6,7 @@ import re
 
 #-----------------------------------------------------------------------
 _DATABASE_URL = os.environ.get('DATABASE_URL')
+print(_DATABASE_URL)
 _connection_pool = queue.Queue()
 
 def _get_connection():
