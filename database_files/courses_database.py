@@ -5,7 +5,7 @@ from pymongo import MongoClient
 import re
 
 #-----------------------------------------------------------------------
-_DATABASE_URL = os.environ['DATABASE_URL'] 
+_DATABASE_URL = os.getenv('DATABASE_URL')
 _connection_pool = queue.Queue()
 
 def _get_connection():
