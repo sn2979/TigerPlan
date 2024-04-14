@@ -5,15 +5,14 @@ from pymongo import MongoClient
 import re
 
 #-----------------------------------------------------------------------
-# _DATABASE_URL = os.environ['DATABASE_URL'] # = mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData
+_DATABASE_URL = os.environ['DATABASE_URL'] 
 _connection_pool = queue.Queue()
 
 def _get_connection():
     try:
         conn = _connection_pool.get(block=False)
     except queue.Empty:
-        # conn = MongoClient(_DATABASE_URL)
-        conn = MongoClient("mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData")
+        conn = MongoClient(_DATABASE_URL)
     return conn
 
 def _put_connection(conn):
@@ -45,64 +44,64 @@ def sorting_key(course, search_query):
         return 2
 
 def search_courses(search_query):
-    # if len(search_query) >= 3:
-        try:
-            # Get connection
-            client = _get_connection()
-            db = client['TigerPlanData']
-            courses_collection = db['CoursesData']
-            print("Connected to MongoDB successfully!")
-            # Query database
-            collation_options = {
-                'locale': 'en',            # Specify locale (language)
-                'strength': 1,             # Specify collation strength (1 for primary, i.e., case-insensitive)
-                'caseLevel': False,        # Ignore case differences (case-insensitive)
-                'numericOrdering': False,  # Treat numeric values as strings (e.g., "10" comes before "2")
-                'alternate': 'shifted'  # Controls treatment of whitespace and punctuation
-            }
-            no_spaces_title = re.sub(r'\s+', ' ', search_query)
-            no_spaces_dept_num = re.sub(r'\s+', '', search_query)
-            escaped_query = re.escape(search_query)
-            print(search_query)
-            query = {
-            '$or': [
-                {'subject': {'$regex': f"^{escaped_query}", '$options': 'i'}},  # Caseinsensitive regex match on subject
-                {'subject': re.escape(no_spaces_dept_num)[:3], 'catalog_number': {'$regex': rf"^{re.escape(no_spaces_dept_num[3:])}(\d*)?", '$options': 'i'}}, # Match combined subject+catalog_number (e.g., "COS126")
-                {'catalog_number': {'$regex': f"^{escaped_query}"}},  # Case-insensitive sensitive match on catalog_number
-                {'title':{'$regex': re.escape(no_spaces_title), '$options': 'i'}}  # Case-insensitive regex match on title
-            ]
+    if re.match(r'^(?: )*$', search_query):
+        return None
+    try:
+        # Get connection
+        client = _get_connection()
+        db = client['TigerPlanData']
+        courses_collection = db['CoursesData']
+        print("Connected to MongoDB successfully!")
+        # Query database
+        collation_options = {
+            'locale': 'en',            # Specify locale (language)
+            'strength': 1,             # Specify collation strength (1 for primary, i.e., case-insensitive)
+            'caseLevel': False,        # Ignore case differences (case-insensitive)
+            'numericOrdering': False,  # Treat numeric values as strings (e.g., "10" comes before "2")
+            'alternate': 'shifted'  # Controls treatment of whitespace and punctuation
         }
-            projection = {
-                'course_id': 1
-            }
-
-        # Execute the aggregation pipeline
-            # Execute query and retrieve matching courses
-            courses = courses_collection.find(query, projection=projection, collation=collation_options)
-            course_ids_list = [course['course_id'] for course in courses]
-            cross_courses_collection = db['CrossDump']
-            # Prepare query to find documents with course_id in the provided list
-            query = {'id': {'$in': course_ids_list}}
-            # Execute query to find matching documents
-            matching_courses = cross_courses_collection.find(query)
-            all_courses = []
-            for course in matching_courses:
-                if course is not None:
-                    all_courses.append({'dept_num': course['code'], 'title': course['title']})
-            
-        except Exception as e:
-            print("Failed to connect to MongoDB:", e, file=sys.stderr)
-            sys.exit(1)
-        finally:
-            _put_connection(client)
-        all_courses.sort(key=lambda course: sorting_key(course, search_query))
-        return all_courses
+        no_spaces_title = re.sub(r'\s+', ' ', search_query)
+        no_spaces_dept_num = re.sub(r'\s+', '', search_query)
+        escaped_query = re.escape(search_query)
+        print(search_query)
+        query = {
+        '$or': [
+            {'subject': {'$regex': f"^{escaped_query}", '$options': 'i'}},  # Caseinsensitive regex match on subject
+            {'subject': re.escape(no_spaces_dept_num)[:3], 'catalog_number': {'$regex': rf"^{re.escape(no_spaces_dept_num[3:])}(\d*)?", '$options': 'i'}}, # Match combined subject+catalog_number (e.g., "COS126")
+            {'catalog_number': {'$regex': f"^{escaped_query}"}},  # Case-insensitive sensitive match on catalog_number
+            {'title':{'$regex': re.escape(no_spaces_title), '$options': 'i'}}  # Case-insensitive regex match on title
+        ]
+    }
+        projection = {
+            'course_id': 1
+        }
+    # Execute the aggregation pipeline
+        # Execute query and retrieve matching courses
+        courses = courses_collection.find(query, projection=projection, collation=collation_options)
+        course_ids_list = [course['course_id'] for course in courses]
+        cross_courses_collection = db['CrossDump']
+        # Prepare query to find documents with course_id in the provided list
+        query = {'id': {'$in': course_ids_list}}
+        # Execute query to find matching documents
+        matching_courses = cross_courses_collection.find(query)
+        all_courses = []
+        for course in matching_courses:
+            if course is not None:
+                all_courses.append({'dept_num': course['code'], 'title': course['title']})
+        
+    except Exception as e:
+        print("Failed to connect to MongoDB:", e, file=sys.stderr)
+        sys.exit(1)
+    finally:
+        _put_connection(client)
+    all_courses.sort(key=lambda course: sorting_key(course, search_query))
+    return all_courses
     # else:
     #     return None
 
 
 # Example usage: Searching for courses matching a query
-search_query = "env"  # Example search query (can be any sequence of letters/numbers)
+search_query = "  "  # Example search query (can be any sequence of letters/numbers)
 matching_courses = search_courses(search_query)
 # Print matching courses
 if matching_courses:
