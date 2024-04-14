@@ -16,16 +16,27 @@
 }
 
 #drop-area {
-  min-height: 450px; /* Minimum height to allow for easy dropping */
-  background-color: #EFEFEF; /* A neutral color, differentiate it from the draggable area */
-  border: 2px dashed #CCCCCC; /* A dashed border to indicate it's droppable */
-  border-radius: 5px; /* Match your design's border radius */
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px; /* Spacing between grid items */
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px; /* Space from the top of the container */
+  min-height: 450px;
+  max-height: 450px; /* Set the maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  background-color: #EFEFEF;
+  border: 2px dashed #CCCCCC;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap; /* Enable wrapping of items */
+  justify-content: space-between; /* Distribute items evenly between columns */
+}
+
+.grid-item {
+  width: calc(50% - 10px); /* Calculate width for two columns with gap */
+  height: 100px; /* Set a fixed height for each item */
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: #F7A072;
+  border-radius: 20px;
+  cursor: move;
+  box-sizing: border-box;
 }
 
 #drop-area p {
@@ -34,22 +45,25 @@
 }
 
 #left-container {
+  min-height: 450px;
+  max-height: 450px; /* Set the maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
   width: 30%; /* Adjust width as necessary */
   background-color: #0FA3B1; /* For contrast against the class items */
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-  overflow: hidden; /* Ensures child elements stay within the rounded corners */
   margin-right: 20px; /* Spacing between this container and whatever is to the right */
   margin-left: 20px; /* Spacing between this container and whatever is to the right */
   float: left; /* Align it to the left */
 }
 
-#class-search {
-  width: 100%; /* Full width of the container */
+#class-input {
+  width: 95%; /* Full width of the container */
   padding: 10px; /* Padding for aesthetic spacing inside the input */
   border: none; /* Removes border */
   border-bottom: 1px solid #ccc; /* Adds a light border to the bottom edge */
   font-size: 16px; /* Increases font size for readability */
+  margin: 10px; /* Spacing around the input */
 }
 
 #class-list {
@@ -73,13 +87,14 @@ body {
   padding: 20px;
   margin-bottom: 20px;
   background-color: #F7A072;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: move; /* Indicate draggable items */
 }
 
 .course h2, .course p {
   margin: 0;
 }
+
 
 .custom-link {
   text-decoration: none; /* This removes the underline */
@@ -101,38 +116,54 @@ body {
   {% include 'header.html' %}
 
 <main>
-  <section id="main-content">
+  <section id="main-content" ondrop="drop(event)" ondragover="allowDrop(event)">
     <p><span class="roboto">What's </span><span class="caveat">your </span><span class="roboto">best minor?</span></p>
   </section>
   <p><center>Search for your classes and drag them to your class board!</center></p>
   <br>
   <section id="class-selection">
-    <div id="left-container">
-      <input type="text" id="class-search" placeholder="Search classes...">
+    <div id="left-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <input type="text" id="class-input" placeholder="Search classes...">
       <div id="class-list">
-        <div class="course" draggable="true" ondragstart="drag(event)" id="cos333">
+        <!--<div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos333">
           <h2>COS 333</h2>
           <p>Advanced Programming Techniques</p>
         </div>
-        <div class="course" draggable="true" ondragstart="drag(event)" id="cos445">
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos445">
           <h2>COS 445</h2>
           <p>Economics and Computing</p>
         </div>
-        <div class="course" draggable="true" ondragstart="drag(event)"id="cos217">
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)"id="cos217">
           <h2>COS 217</h2>
           <p>Introduction to Programming Systems</p>
         </div>
-        <div class="course" draggable="true" ondragstart="drag(event)" id="cos324">
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos324">
           <h2>COS 324</h2>
           <p>Introduction to Machine Learning</p>
         </div>
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos226">
+          <h2>COS 226</h2>
+          <p>Data Structures and Algorithms</p>
+        </div>
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos126">
+          <h2>COS 126</h2>
+          <p>Introduction to Computer Science</p>
+        </div>
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos316">
+          <h2>COS 316</h2>
+          <p>Systems and Networking</p>
+        </div>
+        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos471">
+          <h2>COS 471</h2>
+          <p>DeFi</p>
+        </div>-->
         <!-- Repeat for each class -->
       </div>
     </div>
   </section>
 
   <div id="right-container">
-    <div id="drop-area" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id="drop-area" ondrop="drop_area(event)" ondragover="allowDrop(event)">
       <center id="placeholder"><p>Drag your classes here</p></center>
     </div>
   </div>
@@ -140,21 +171,23 @@ body {
 </main>
 
 <script>
-  function displayMessage(ev) {
+  'use strict';
+  function displayMessage() {
     // Check if the drop area has the placeholder message
-    dropArea = document.getElementById('drop-area');
-    console.log(`Drop area: ${dropArea.innerHTML}`);
-    console.log(`Drop area child 0: ${dropArea.children[0]}`)
-    if (dropArea.children[0].id === 'placeholder') {
-      console.log(`Placeholder found!`);
-      // remove the placeholder message
-      dropArea.removeChild(dropArea.children[0]);
+    let dropArea = document.getElementById('drop-area');
+    console.log(`Drop area has ${dropArea.children.length} children`)
+
+    if (dropArea.children.length === 0) {
+      // add the placeholder message
+      console.log(`Placeholder not found!`);
+      dropArea.innerHTML = '<center id="placeholder"><p>Drag your classes here</p></center>';
     }
     else {
-      if (dropArea.children.length === 0) {
-        // add the placeholder message
-        console.log(`Placeholder not found!`);
-        dropArea.innerHTML = '<center><p id="placeholder">Drag your classes here</p></center>';
+      console.log(`Child 0 id is ${dropArea.children[0].id}`)
+      if (dropArea.children[0].id === 'placeholder') {
+        console.log(`Placeholder found!`);
+        // remove the placeholder message
+        dropArea.removeChild(dropArea.children[0]);
       }
     }
   }
@@ -167,133 +200,93 @@ body {
     ev.dataTransfer.setData("text", ev.target.id);
   }
 
+  function drop_area(ev) {
+    ev.preventDefault();
+    console.log(`Drop area called!`);
+  
+    // Get the ID of the dragged element
+    let data = ev.dataTransfer.getData("text");
+    let dropArea = document.getElementById('drop-area');
+    for (let i = 0; i < dropArea.children.length; i++) {
+      let id = data + '-container';
+      if (dropArea.children[i].id === id || data.includes('container')) {
+        // If the course is already in the drop area, don't add it again
+        return;
+      }
+    }
+    
+    // Create a new grid item container for the dropped course
+    const newCourseContainer = document.createElement('div');
+    newCourseContainer.classList.add('grid-item')
+    newCourseContainer.id = data + '-container';
+    newCourseContainer.draggable = true;
+    newCourseContainer.ondragstart = function() { drag(event); };
+
+    
+    // Copy the content of the dragged course into the new container
+    const originalCourse = document.getElementById(data);
+    newCourseContainer.innerHTML = originalCourse.innerHTML;
+
+    let paragraph = newCourseContainer.querySelector('p')
+
+    // set paragraph element to have a small font size
+    paragraph.style.fontSize =  '15px';
+    // Append the new grid item container to the drop area
+    dropArea.appendChild(newCourseContainer);
+    displayMessage();
+  }
+
   function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
+    let dropArea = document.getElementById('drop-area');
+    dropArea.removeChild(document.getElementById(data));
     displayMessage();
-    console.log('Dislay message called');
   }
-  //document.addEventListener('DOMContentLoaded', (event) => {
-//});
-  /*const draggables = document.querySelectorAll('.course');
-  const dropArea = document.getElementById('drop-area');
 
-    // Function to check and display message if drop area is empty
-  function checkEmptyDropArea() {
-    const dragMessageElement = document.getElementById('drag-message');
-
-    if (dropArea.children.length === 0) {
-      console.log(`Children are of length ${dropArea.children.length}`);
-      if (!dragMessageElement) {
-        // Add the message if it doesn't exist
-        dropArea.innerHTML = '<center><p id="drag-message">Drag your classes here</p></center>';
-      }
-    } else {
-      // Clear the message if drop area has classes and the message exists
-      if (dragMessageElement) {
-        dropArea.removeChild(dragMessageElement);
-      }
+  function handleResponse() {
+    if (this.status !== 200) {
+        alert('Error: Failed to fetch data from server');
+        return;
     }
+    let resultsDiv = document.getElementById('class-list');
+    console.log(this.responseText);
+    resultsDiv.innerHTML = this.responseText;
   }
 
-  // Check and display message initially when page loads
-  checkEmptyDropArea();
-
-  draggables.forEach(draggable => {
-    draggable.addEventListener('dragstart', () => {
-      draggable.classList.add('dragging');
-    });
-
-    draggable.addEventListener('dragend', () => {
-      draggable.classList.remove('dragging');
-      // Check if drop area is empty after dragging ends
-      if (dropArea.children.length === 0) {
-        // Check and display message after dragging ends
-      checkEmptyDropArea();
-      }
-    });
-  });
-
-  const container = document.getElementById('left-container');
-
-  container.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    const afterElement = getDragAfterElement(container, e.clientY);
-    const draggable = document.querySelector('.dragging');
-    //if (afterElement == null) {
-      console.log("here3")
-      container.appendChild(draggable);
-    //} else {
-      //console.log("here2")
-      //container.insertBefore(draggable, afterElement);
-    //}
-  });
-
-  function getDragAfterElement(container, y) {
-    const draggableElements = [...container.querySelectorAll('.course:not(.dragging)')];
-
-    return draggableElements.reduce((closest, child) => {
-      const box = child.getBoundingClientRect();
-      const offset = y - box.top - box.height / 2;
-      if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child };
-      } else {
-        return closest;
-      }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
+  function handleError() {
+    alert('Error: Failed to fetch data from server');
   }
-});
 
-function allowDrop(ev) {
-  ev.preventDefault(); // This allows for dropping.
-}
+  let request = null;
 
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id); // Set the drag data to the element's ID.
-}
+  function getResults() {
+    let courseInput = document.getElementById('class-input');
+    let course = courseInput.value;
+    let encodedCourse = encodeURIComponent(course);
+    let url = '/searchresults?course=' + encodedCourse;
+    if (request !== null)
+        request.abort();
+    request = new XMLHttpRequest();
+    request.onload = handleResponse;
+    request.onerror = handleError;
+    request.open('GET', url);
+    request.send();
+  }
 
-function drop(ev) {
-  console.log(`Dropped called!`)
-  ev.preventDefault();
+  let timer = null;
 
-  console.log(`Default prevented!`)
+  function debouncedGetResults() {
+    clearTimeout(timer);
+    timer = setTimeout(getResults, 500);
+  }
 
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data)); // Append the dragged element to the drop target.
-  
-  console.log(`Element appended! ${data}`)
-  console.log(`Element appended! ${ev.target.innerHTML}`)
-  // Create a new container for the dropped element (to maintain the grid layout)
-  const newCourseContainer = document.createElement('div');
-  newCourseContainer.draggable = true;
-  newCourseContainer.id = data;
+  function setup() {
+    let courseInput = document.getElementById('class-input');
+    courseInput.addEventListener('input', debouncedGetResults);
+  }
 
-  console.log(`New container created! ${newCourseContainer}`);
-
-  // Copy the content of the dragged element into the new container
-  newCourseContainer.innerHTML = ev.target.innerHTML;
-
-  console.log(`Content copied! ${newCourseContainer.innerHTML}`);
-
-  // Append the new container to the drop area
-  ev.target.appendChild(newCourseContainer);
-  console.log(`Child appended`);
-  // Check and display message after dropping
-  console.log(`drag message cleared`);
-}
-
-// Add the 'drag' attribute and event listener to your draggable elements
-document.querySelectorAll('.course').forEach(function(course) {
-  course.setAttribute('draggable', true);
-  course.addEventListener('dragstart', drag);
-});
-
-// Make sure to add the `drop` and `dragover` event listeners to your droppable area
-document.getElementById('drop-area').addEventListener('dragover', allowDrop);
-document.getElementById('drop-area').addEventListener('drop', drop);*/
-
-
+  document.addEventListener('DOMContentLoaded', setup);
 </script>
 
 </body>
