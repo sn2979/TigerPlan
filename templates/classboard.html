@@ -172,7 +172,7 @@ body {
 
 <script>
   'use strict';
-  /*function displayMessage() {
+  function displayMessage() {
     // Check if the drop area has the placeholder message
     let dropArea = document.getElementById('drop-area');
     console.log(`Drop area has ${dropArea.children.length} children`)
@@ -190,7 +190,7 @@ body {
         dropArea.removeChild(dropArea.children[0]);
       }
     }
-  }*/
+  }
 
   function allowDrop(ev) {
     ev.preventDefault();
@@ -206,7 +206,7 @@ body {
   
     // Get the ID of the dragged element
     let data = ev.dataTransfer.getData("text");
-    /*let dropArea = document.getElementById('drop-area');
+    let dropArea = document.getElementById('drop-area');
     for (let i = 0; i < dropArea.children.length; i++) {
       let id = data + '-container';
       if (dropArea.children[i].id === id || data.includes('container')) {
@@ -215,7 +215,7 @@ body {
       }
     }
     
-    // Create a new grid item container for the dropped course
+    /*// Create a new grid item container for the dropped course
     const newCourseContainer = document.createElement('div');
     newCourseContainer.classList.add('grid-item')
     newCourseContainer.id = data + '-container';
@@ -239,6 +239,9 @@ body {
     let courseId = courseElement.id; // Extract course ID from the element ID
     let courseNum = courseElement.querySelector('h2').textContent; // Extract course title
     let courseTitle = courseElement.querySelector('p').textContent; // Extract course description
+
+    // Immediately add the course to the UI (assuming it will be successfully added to database)
+    addCourseToDropArea(courseId, courseNum, courseTitle);
 
     console.log(`${courseId}`);
     console.log(`${courseNum}`);
@@ -270,6 +273,30 @@ body {
         // Optionally handle request error
     };
     request.send();
+  }
+
+  // Function to add course to drop area
+  function addCourseToDropArea(courseId, courseNum, courseTitle) {
+    let dropArea = document.getElementById('drop-area');
+
+    // Create a new grid item container for the dropped course
+    const newCourseContainer = document.createElement('div');
+    newCourseContainer.classList.add('grid-item');
+    newCourseContainer.id = courseId + '-container';
+    newCourseContainer.draggable = true;
+    newCourseContainer.ondragstart = function() { drag(event); };
+
+    // Populate the new container with course details
+    newCourseContainer.innerHTML = `
+      <h2>${courseNum}</h2>
+      <p>${courseTitle}</p>
+    `;
+
+    // Append the new grid item container to the drop area
+    dropArea.appendChild(newCourseContainer);
+    displayMessage();
+
+    // Optionally update UI or provide visual feedback (e.g., display success message)
   }
 
   function drop(ev) {
@@ -305,6 +332,9 @@ body {
     courseNum = courseNum.slice(0, courseNum.indexOf('-container'));
     let courseTitle = courseElement.querySelector('p').textContent; // Extract course description
 
+    // Immediately remove the course from UI (assuming it will be successfully removed from database)
+    courseElement.parentNode.removeChild(courseElement);
+
     console.log(`CourseId: ${courseId}`);
     console.log(`CourseNum: ${courseNum}`);
     console.log(`CourseTitle: ${courseTitle}`);
@@ -313,6 +343,7 @@ body {
     let encodedCourseId = encodeURIComponent(courseId);
     let encodedCourseNum = encodeURIComponent(courseNum);
     let encodedCourseTitle = encodeURIComponent(courseTitle);
+
 
     // Construct the URL with encoded course data
     let url = `/removecourse?courseId=${encodedCourseId}&courseNum=${encodedCourseNum}&title=${encodedCourseTitle}`;
