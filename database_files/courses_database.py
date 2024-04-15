@@ -5,7 +5,8 @@ from pymongo import MongoClient
 import re
 
 #-----------------------------------------------------------------------
-_DATABASE_URL = os.environ.get('DATABASE_URL')
+# _DATABASE_URL = os.environ.get('DATABASE_URL')
+_DATABASE_URL = "mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData"
 print(_DATABASE_URL)
 _connection_pool = queue.Queue()
 
