@@ -334,6 +334,7 @@ body {
 
     // Immediately remove the course from UI (assuming it will be successfully removed from database)
     courseElement.parentNode.removeChild(courseElement);
+    displayMessage();
 
     console.log(`CourseId: ${courseId}`);
     console.log(`CourseNum: ${courseNum}`);
