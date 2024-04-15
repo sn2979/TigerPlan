@@ -114,6 +114,7 @@ def get_student_major(username):
 
 # Function to update student classes
 def update_student_classes(username, classes_to_add=None, classes_to_remove=None):
+    print(classes_to_remove)
     try:
         existing_student = students_collection.find_one({"netID": username})
         if existing_student is None:
@@ -125,10 +126,13 @@ def update_student_classes(username, classes_to_add=None, classes_to_remove=None
             update_query["$addToSet"] = {"Classes": {"$each": classes_to_add}}
         
         if classes_to_remove:
-            update_query["$pull"] = {"Classes": {"$in": classes_to_remove}}
+            update_query["$pull"] = {"Classes": {"id": {"$in": classes_to_remove}}}
+            print(f"Removed classes with IDs: {classes_to_remove}")
         
         if update_query:
             students_collection.update_one({"netID": username}, update_query)
+            print("updated classes")
+            print(get_student_classes(username))
         
         return True
     except Exception as e:

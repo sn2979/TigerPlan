@@ -111,7 +111,7 @@ def classboard():
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
 
-    html_code = flask.render_template("classboard.html", username = username, classes = classes)
+    html_code = flask.render_template("classboard.html", username=username, classes=classes)
     response = flask.make_response(html_code)
     return response
     
@@ -176,3 +176,54 @@ def search_results():
         error_message = f"An error occurred: {str(e)}"
         return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
 
+@app.route('/addcourse', methods=['POST'])
+def add_course():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500
+
+    id = request.args.get('courseId')
+    print(id)
+    coursenum = request.args.get('courseNum')
+    print(coursenum)
+    title = request.args.get('title')
+    print(title)
+
+    course = {'id': id, 'coursenum': coursenum, 'title': title}
+    try:
+        student_database.update_student_classes(username, [course], None)
+        return flask.redirect('/loadarea')
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return flask.render_template("error.html", error=error_message), 500
+
+
+
+@app.route('/removecourse', methods=['POST'])
+def remove_course():
+    print("remove course")
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500
+
+    id = request.args.get('courseId')
+    
+    try:
+        student_database.update_student_classes(username, classes_to_remove=[id])
+        return flask.redirect('/loadarea')
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return flask.render_template("error.html", error=error_message), 500
+
+@app.route('/loadarea', methods=['GET'])
+def load_area():
+    success, username, classes = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    html_code = flask.render_template("droparea.html", classes=classes)
+    response = flask.make_response(html_code)
+    return response
