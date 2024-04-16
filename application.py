@@ -81,16 +81,30 @@ def profile():
     return response
 
 @app.route('/update_profile', methods=['POST'])
+def reset_profile():
+    username = flask.session.get('username')
+    if username is None:
+        flask.redirect('/login')
+
+    name = request.form.get('name')
+    if name == '':
+        name = student_database.get_student_name(username)
+        
+    major = request.form.get('major')
+    if major == '':
+        major = student_database.get_student_major(username)
+    
+    student_database.update_student_profile(username, name, major)
+    return flask.redirect('/profile')
+
+@app.route('/set_profile', methods=['POST'])
 def set_profile():
     username = flask.session.get('username')
     if username is None:
         flask.redirect('/login')
+
     name = request.form.get('name')
-    if name == '':
-        name = student_database.get_student_name(username)
     major = request.form.get('major')
-    if major == '':
-        major = student_database.get_student_major(username)
     student_database.update_student_profile(username, name, major)
     return flask.redirect('/classboard')
 
@@ -209,7 +223,7 @@ def remove_course():
         return flask.render_template("error.html", error=error_message), 500
 
     id = request.args.get('courseId')
-    
+
     try:
         student_database.update_student_classes(username, classes_to_remove=[id])
         return flask.redirect('/loadarea')

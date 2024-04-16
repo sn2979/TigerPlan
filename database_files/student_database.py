@@ -47,7 +47,7 @@ def handle_student_login(username):
                 "netID": username,
                 "Name": "",
                 "Major": "",
-                "Classes": ["COS 333 <3 "],
+                "Classes": [],
                 "Recommendations": []
             }   
             students_collection.insert_one(new_student)
