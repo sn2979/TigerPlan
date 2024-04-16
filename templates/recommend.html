@@ -62,8 +62,18 @@
   <section id="main-content">
     <p>Here are your most compatiable minors!</p>
   </section>
-  <div class="container">
-  <div class="card" onclick="location.href='#';"> <!-- replace # with the link -->
+  <div class="container"></div>
+    {% for course in courses %}
+    <div class="container">
+      <div class="card" onclick="location.href='#';">
+        <h3 class="card-title">{{course['minor']}}</h3>
+        <p class="card-text">You need {{course['distance']}} more classes to fulfill this minor!</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <!--<div class="container">
+  <div class="card" onclick="location.href='#';"> 
     <h3 class="card-title">Creative Writing</h3>
     <p class="card-text">You need one more class to fulfill this minor!</p>
   </div>
@@ -75,7 +85,7 @@
     <h3 class="card-title">Journalism</h3>
     <p class="card-text">You need three more classes to fulfill this minor!</p>
   </div>
-</div>
+</div>-->
 </main>
 
 </body>
