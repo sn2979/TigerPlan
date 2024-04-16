@@ -5,6 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TigerPlan</title>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
+<style>
+  .card {
+    background-color: #FF9B42; /* card background color */
+    margin-bottom: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #e0e0e0; /* card border */
+    border-radius: 20px;
+    transition: transform 0.2s; /* smooth transform on hover */
+    font-family: 'Caveat Brush', brush;
+    width: 400px;
+  }
+
+  .card p {
+    font-family: 'Roboto Serif', serif;
+    font-size: 30px;
+  }
+
+  .card:hover {
+    transform: translateY(-5px); /* raise the card slightly on hover */
+  }
+
+  .card:nth-child(2) {
+    background-color: #F7A072; /* second card background color */
+  }
+
+  .card:nth-child(3) {
+    background-color: #ffd699; /* third card background color */
+  }
+
+  .card-title {
+    font-size: 40px; /* title font size */
+    margin-bottom: 5px;
+  }
+
+  .card-text {
+    font-size: 16px; /* text font size */
+  }
+
+  .container {
+    display: flex;
+    justify-content: center; /* Centers the cards in the container */
+    flex-wrap: wrap; /* Allows cards to wrap to next line on small screens */
+    gap: 20px; /* Adjust the space between cards */
+    padding: 20px;
+  }
+</style>
 </head>
 <body>
 
@@ -12,8 +60,22 @@
 {% include 'header.html' %}
 <main>
   <section id="main-content">
-    <p>This is a filler page for the reccomend section.</p>
+    <p>Here are your most compatiable minors!</p>
   </section>
+  <div class="container">
+  <div class="card" onclick="location.href='#';"> <!-- replace # with the link -->
+    <h3 class="card-title">Creative Writing</h3>
+    <p class="card-text">You need one more class to fulfill this minor!</p>
+  </div>
+  <div class="card" onclick="location.href='#';">
+    <h3 class="card-title">Linguistics</h3>
+    <p class="card-text">You need three more classes to fulfill this minor!</p>
+  </div>
+  <div class="card" onclick="location.href='#';">
+    <h3 class="card-title">Journalism</h3>
+    <p class="card-text">You need three more classes to fulfill this minor!</p>
+  </div>
+</div>
 </main>
 
 </body>
