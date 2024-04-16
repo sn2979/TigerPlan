@@ -100,7 +100,7 @@ def find_best_combination(key, all_combinations, subrequirements):
     best_fraction = 0
     difference = math.inf
     best_combination = []
-    taken_needed = None
+    taken_needed = (0, 0)
 
     for combination_dict in all_combinations:
         #print(f"Combination: {combination_dict}")

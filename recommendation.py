@@ -3,6 +3,7 @@ import courses as course_dicts
 import recommender2
 import math
 import threading
+import database_files.student_database as student_database
 
 def categorize_courses(course_list, minor_requirements):
     categorized_courses = {}
@@ -56,7 +57,9 @@ def categorize_courses(course_list, minor_requirements):
 
     return champion1, champion2, champion3'''
 
-def process_minor(minor, class_list, champions, lock):
+def process_minor(username, minor, class_list, champions, lock):
+    if minor == student_database.get_student_major(username):
+        return
     courses = categorize_courses(class_list, course_dicts.get_courses(minor))
     subrequirements = course_dicts.get_minor_requirements(minor)
 
@@ -79,7 +82,7 @@ def process_minor(minor, class_list, champions, lock):
         elif distance < champions['champion3']['distance']:
             champions['champion3'] = {'distance': distance, 'minor': minor, 'best_combination': best_combination}
 
-def recommend(class_list):
+def recommend(class_list, username):
     minors = ['CLA', 'ENV', 'LIN', 'COS', 'FIN']
 
     # Initialize champions dictionary with proper structure
@@ -94,7 +97,7 @@ def recommend(class_list):
 
     threads = []
     for minor in minors:
-        t = threading.Thread(target=process_minor, args=(minor, class_list, champions, lock))
+        t = threading.Thread(target=process_minor, args=(username, minor, class_list, champions, lock))
         threads.append(t)
         t.start()
 
@@ -108,9 +111,18 @@ def recommend(class_list):
         champions['champion3']
     ]
 
+    # Create a new list to store the filtered champions
+    filtered_champions = []
+
+    # Iterate over each champion in top_champions
     for champion in top_champions:
-       if champion['distance'] == 100:
-           top_champions.remove(champion)
+        # Check the condition to decide whether to keep the champion
+        if champion['distance'] != 100:
+            # If the condition is met, add the champion to the filtered list
+            filtered_champions.append(champion)
+
+    # Update top_champions to contain only the filtered champions
+    top_champions = filtered_champions
 
     return top_champions
 
@@ -118,8 +130,7 @@ def recommend(class_list):
 if __name__ == "__main__":
     # testing categorize_courses()
 
-    my_courses = ['CLA 219', 'CLG 108', 'CLA 212', 'LAT 336', 'ART 201', 
-                  'MAT 202', 'MAT 201']
+    my_courses = student_database.get_student_coursenums("js3691")
 
     # Specify the requirements for the CLA minor with regular expressions
     cla_minor_requirements = course_dicts.cla_minor_courses()
@@ -132,7 +143,7 @@ if __name__ == "__main__":
         print(f"{category}: {courses}")
     
     # testing recommend()
-    top_champions = recommend(my_courses)
+    top_champions = recommend(my_courses, username="js3691")
 
     # Print the top 3 recommended minors in a formatted way including distance and best combination
     print("Top 3 recommended minors:")
