@@ -1,0 +1,141 @@
+import re
+import courses as course_dicts
+import recommender2
+import math
+import threading
+
+def categorize_courses(course_list, minor_requirements):
+    categorized_courses = {}
+
+    # Iterate over each category of requirements in the minor
+    for category, courses_needed in minor_requirements.items():
+        categorized_courses[category] = []
+
+        # Check each course in the course list against the regular expression patterns
+        for course in course_list:
+            for pattern in courses_needed:
+                if re.match(pattern, course):
+                    categorized_courses[category].append(course)
+                    break  # Move to the next course once matched
+
+    return categorized_courses
+
+'''def recommend(class_list):
+    minors = ['CLA', 'ENV', 'LIN', 'COS', 'FIN']
+
+    champion1 = [math.inf, '', []]
+    champion2 = [math.inf, '', []]
+    champion3 = [math.inf, '', []]
+
+    for minor in minors:
+        courses = categorize_courses(class_list, course_dicts.get_courses(minor))
+        print(minor)
+
+        subrequirements = course_dicts.get_minor_requirements(minor)
+
+        _, combinations = recommender2.generate_combinations(courses, subrequirements)
+        if len(combinations) == 0:
+            continue
+        best_combination, _, classes_taken_needed = recommender2.find_best_combination(minor, combinations, subrequirements)
+
+        distance = classes_taken_needed[1] - classes_taken_needed[0]
+        print(distance)
+
+        if distance < champion1[0]:
+            champion1[0] = distance
+            champion1[1] = minor
+            champion1[2] = best_combination
+        elif distance < champion2[0]:
+            champion2[0] = distance
+            champion2[1] = minor
+            champion2[2] = best_combination
+        elif distance < champion3[0]:
+            champion3[0] = distance
+            champion3[1] = minor
+            champion3[2] = best_combination
+
+    return champion1, champion2, champion3'''
+
+def process_minor(minor, class_list, champions, lock):
+    courses = categorize_courses(class_list, course_dicts.get_courses(minor))
+    subrequirements = course_dicts.get_minor_requirements(minor)
+
+    _, combinations = recommender2.generate_combinations(courses, subrequirements)
+    if len(combinations) == 0:
+        best_combination = []
+        distance = 100
+    else:
+        best_combination, _, classes_taken_needed = recommender2.find_best_combination(minor, combinations, subrequirements)
+        distance = classes_taken_needed[1] - classes_taken_needed[0]
+
+    with lock:
+        if distance < champions['champion1']['distance']:
+            champions['champion3'] = champions['champion2']
+            champions['champion2'] = champions['champion1']
+            champions['champion1'] = {'distance': distance, 'minor': minor, 'best_combination': best_combination}
+        elif distance < champions['champion2']['distance']:
+            champions['champion3'] = champions['champion2']
+            champions['champion2'] = {'distance': distance, 'minor': minor, 'best_combination': best_combination}
+        elif distance < champions['champion3']['distance']:
+            champions['champion3'] = {'distance': distance, 'minor': minor, 'best_combination': best_combination}
+
+def recommend(class_list):
+    minors = ['CLA', 'ENV', 'LIN', 'COS', 'FIN']
+
+    # Initialize champions dictionary with proper structure
+    champions = {
+        'champion1': {'distance': math.inf, 'minor': '', 'best_combination': []},
+        'champion2': {'distance': math.inf, 'minor': '', 'best_combination': []},
+        'champion3': {'distance': math.inf, 'minor': '', 'best_combination': []}
+    }
+
+    # Create a lock for thread synchronization
+    lock = threading.Lock()
+
+    threads = []
+    for minor in minors:
+        t = threading.Thread(target=process_minor, args=(minor, class_list, champions, lock))
+        threads.append(t)
+        t.start()
+
+    for t in threads:
+        t.join()
+
+    # Extract top 3 champions
+    top_champions = [
+        champions['champion1'],
+        champions['champion2'],
+        champions['champion3']
+    ]
+
+    for champion in top_champions:
+       if champion['distance'] == 100:
+           top_champions.remove(champion)
+
+    return top_champions
+
+
+if __name__ == "__main__":
+    # testing categorize_courses()
+
+    my_courses = ['CLA 219', 'CLG 108', 'CLA 212', 'LAT 336', 'ART 201', 
+                  'MAT 202', 'MAT 201']
+
+    # Specify the requirements for the CLA minor with regular expressions
+    cla_minor_requirements = course_dicts.cla_minor_courses()
+
+    # Call the function to categorize courses based on CLA minor requirements
+    categorized_courses = categorize_courses(my_courses, cla_minor_requirements)
+
+    # Print the categorized courses for each category
+    for category, courses in categorized_courses.items():
+        print(f"{category}: {courses}")
+    
+    # testing recommend()
+    top_champions = recommend(my_courses)
+
+    # Print the top 3 recommended minors in a formatted way including distance and best combination
+    print("Top 3 recommended minors:")
+    for i, champion in enumerate(top_champions, start=1):
+        print(f"{i}. {champion['minor']}: {champion['distance']} classes away")
+        print(f"   Best combination: {champion['best_combination']}")

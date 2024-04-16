@@ -99,7 +99,7 @@ def traverse_tree(node, combination_dict,
 def find_best_combination(key, all_combinations, subrequirements):
     best_fraction = 0
     difference = math.inf
-    best_combination = None
+    best_combination = []
     taken_needed = None
 
     for combination_dict in all_combinations:
@@ -120,6 +120,8 @@ def find_best_combination(key, all_combinations, subrequirements):
 
         # Update best combination based on fraction of completion
         # fraction_completion >= best_fraction
+        if taken_needed[1] == 0:
+            taken_needed = (taken, needed)
         if needed - taken < difference:
             '''if fraction_completion == best_fraction and (needed - taken) >= difference:
                 continue'''
@@ -140,12 +142,12 @@ if __name__ == '__main__':
     # Class list
     class_list = {
         # class_list: ['COS 126', 'ECE 115', 'MAT 301', 'ANT 314', 'ENV 304', 'COS 217', 'COS 324']
-        'Foundation Above 300 2': ['ENV 304', 'ENV 377'],
-        'Foundation Above 300 1': ['ENV 304', 'ENV 377'],
-        'Foundation Below 300 1': ['ENV 200A'],
-        'Elective Above 300 2': ['ENV 304', 'CEE 304'],
-        'Elective Above 300 1': ['ENV 304', 'CEE 304'],
-        'Elective Below 300 1': ['ENV 200A']
+        'Foundation Above 300 2': [],#['ENV 304', 'ENV 377'],
+        'Foundation Above 300 1': [],#['ENV 304', 'ENV 377'],
+        'Foundation Below 300 1': [],#['ENV 200A'],
+        'Elective Above 300 2': [],#['ENV 304', 'CEE 304'],
+        'Elective Above 300 1': [],#['ENV 304', 'CEE 304'],
+        'Elective Below 300 1': []#['ENV 200A']
 
         # class_list: {'Foundational Courses/Above 300-level': ['ENV 304'], 'Elective Courses/Above 300-level': ['ENV 304']}
     }
@@ -194,7 +196,7 @@ if __name__ == '__main__':
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
     
-    # testing COS
+    '''# testing COS
     # Class list
     class_list = {
     'Intro Course': ['COS 126', 'ECE 115'],
@@ -212,8 +214,8 @@ if __name__ == '__main__':
     }
 
     # Print all combinations
-    '''for i, combination in enumerate(all_combinations, start=1):
-        print(f"Combination {i}: {combination}")'''
+    for i, combination in enumerate(all_combinations, start=1):
+        print(f"Combination {i}: {combination}")
 
         # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
@@ -259,7 +261,7 @@ if __name__ == '__main__':
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
 
     # Define all_combinations as a list of dictionaries
-    '''dict_combinations = [
+    dict_combinations = [
         {
             "Prerequisites": ["CLA 219"],
             "Basic Requirements": ["CLA 212"],
@@ -307,8 +309,7 @@ if __name__ == '__main__':
     for i, combo in enumerate(dict_combinations, start=1):
         print(f"Combination {i}:")
         for category, selected_class in combo.items():
-            print(f"  {category}: {selected_class}")'''
-
+            print(f"  {category}: {selected_class}")
     # Find the best combination
     best_combination, best_fraction, classes_taken_needed = find_best_combination('CLA', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
@@ -386,4 +387,4 @@ if __name__ == '__main__':
     best_combination, best_fraction, classes_taken_needed = find_best_combination('LIN', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
-    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(f"Classes taken and needed: {classes_taken_needed}")'''
