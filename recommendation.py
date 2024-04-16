@@ -130,7 +130,7 @@ def recommend(class_list, username):
 if __name__ == "__main__":
     # testing categorize_courses()
 
-    my_courses = student_database.get_student_coursenums("sn2979")
+    my_courses = student_database.get_student_coursenums("ta5527")
 
     # Specify the requirements for the CLA minor with regular expressions
     cla_minor_requirements = course_dicts.cla_minor_courses()
@@ -143,7 +143,7 @@ if __name__ == "__main__":
         print(f"{category}: {courses}")
     
     # testing recommend()
-    top_champions = recommend(my_courses, username="js3691")
+    top_champions = recommend(my_courses, username="ta5527")
 
     # Print the top 3 recommended minors in a formatted way including distance and best combination
     print("Top 3 recommended minors:")

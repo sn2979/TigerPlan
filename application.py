@@ -43,6 +43,92 @@ def get_user_info():
     except Exception as e:
         # Handle database retrieval or rendering errors
         return False, e, []
+
+def map_major_name_to_id(major):
+    # Implement this function to map major_id to the corresponding major name
+    # Example: This is a simplified mapping, you should replace this with your logic
+    majors_mapping = {
+        'African American Studies': 'AAS',
+        'Anthropology': 'ANT',
+        'Architecture': 'ARC',
+        'Art and Archaeology': 'ART',
+        'Astrophysics': 'AST',
+        'Chemical and Biological Engineering': 'CBE',
+        'Chemistry': 'CHM',
+        'Civil and Environmental Engineering': 'CEE',
+        'Classics': 'CLA',
+        'Comparative Literature': 'COM',
+        'Computer Science': 'COS',
+        'East Asian Studies': 'EAS',
+        'Economics': 'ECO',
+        'Electrical and Computer Engineering': 'ECE',
+        'English': 'ENG',
+        'Ecology and Evolutionary Biology': 'EEB',
+        'French and Italian': 'FRE',
+        'Geosciences': 'GEO',
+        'German': 'GER',
+        'History': 'HIS',
+        'Mathematics': 'MAT',
+        'Mechanical and Aerospace Engineering': 'MAE',
+        'Music': 'MUS',
+        'Near Eastern Studies': 'NES',
+        'Neuroscience': 'NEU',
+        'Operations Research and Financial Engineering': 'ORF',
+        'Philosophy': 'PHI',
+        'Physics': 'PHY',
+        'Politics': 'POL',
+        'Princeton School of Public and International Affairs': 'SPI',
+        'Psychology': 'PSY',
+        'Religion': 'REL',
+        'Slavic Languages and Literatures': 'SLA',
+        'Sociology': 'SOC',
+        'Spanish and Portuguese': 'SPA'
+    }
+
+    return majors_mapping.get(major, '')
+
+def map_major_id_to_name(major):
+    # Create a reverse mapping dictionary from major name to major id
+    reverse_mapping = {
+    'AAS': 'African American Studies',
+    'ANT': 'Anthropology',
+    'ARC': 'Architecture',
+    'ART': 'Art and Archaeology',
+    'AST': 'Astrophysics',
+    'CBE': 'Chemical and Biological Engineering',
+    'CHM': 'Chemistry',
+    'CEE': 'Civil and Environmental Engineering',
+    'CLA': 'Classics',
+    'COM': 'Comparative Literature',
+    'COS': 'Computer Science',
+    'EAS': 'East Asian Studies',
+    'ECO': 'Economics',
+    'ECE': 'Electrical and Computer Engineering',
+    'ENG': 'English',
+    'EEB': 'Ecology and Evolutionary Biology',
+    'FRE': 'French and Italian',
+    'GEO': 'Geosciences',
+    'GER': 'German',
+    'HIS': 'History',
+    'MAT': 'Mathematics',
+    'MAE': 'Mechanical and Aerospace Engineering',
+    'MUS': 'Music',
+    'NES': 'Near Eastern Studies',
+    'NEU': 'Neuroscience',
+    'ORF': 'Operations Research and Financial Engineering',
+    'PHI': 'Philosophy',
+    'PHY': 'Physics',
+    'POL': 'Politics',
+    'SPI': 'Princeton School of Public and International Affairs',
+    'PSY': 'Psychology',
+    'REL': 'Religion',
+    'SLA': 'Slavic Languages and Literatures',
+    'SOC': 'Sociology',
+    'SPA': 'Spanish and Portuguese'
+    }
+
+    return reverse_mapping.get(major, '')
+
         
 #-----------------------------------------------------------------------
 #Routes for authentication. 
@@ -74,7 +160,7 @@ def profile():
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message)
     name = student_database.get_student_name(username)
-    major = student_database.get_student_major(username)
+    major = map_major_id_to_name(student_database.get_student_major(username))
     html_code = flask.render_template("profile.html", username=username
                                       , name=name, major=major)
     response = flask.make_response(html_code)
@@ -89,12 +175,17 @@ def reset_profile():
     name = request.form.get('name')
     if name == '':
         name = student_database.get_student_name(username)
-        
-    major = request.form.get('major')
-    if major == '':
-        major = student_database.get_student_major(username)
-    
-    student_database.update_student_profile(username, name, major)
+
+    # Retrieve the selected major id from the form data
+    major_name = request.form.get('major')
+    if not major_name:
+        # If major_id is not provided (shouldn't happen), use default logic
+        major = map_major_id_to_name(student_database.get_student_major(username))
+    else:
+        # update major if you get new input
+        major = map_major_name_to_id(major_name)
+        student_database.update_student_profile(username, name, major)
+
     return flask.redirect('/profile')
 
 @app.route('/set_profile', methods=['POST'])
@@ -104,7 +195,7 @@ def set_profile():
         flask.redirect('/login')
 
     name = request.form.get('name')
-    major = request.form.get('major')
+    major = map_major_name_to_id(request.form.get('major'))
     student_database.update_student_profile(username, name, major)
     return flask.redirect('/classboard')
 
