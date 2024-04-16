@@ -107,6 +107,14 @@ body {
   clear: both;
 }
 
+#recommend-minors-btn {
+  display: block;
+  width: 30%;
+  margin-top: 50px; /* Adjusts space above the button */
+  margin-bottom: 20px; /* Adjusts space below the button */
+  align-items: center;
+}
+
 </style>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 </head>
@@ -121,6 +129,7 @@ body {
   </section>
   <p><center>Search for your classes and drag them to your class board!</center></p>
   <br>
+  
   <section id="class-selection">
     <div id="left-container" ondrop="drop(event)" ondragover="allowDrop(event)">
       <input type="text" id="class-input" placeholder="Search classes...">
@@ -159,8 +168,9 @@ body {
         </div>-->
         <!-- Repeat for each class -->
       </div>
-    </div>
+    </div> 
   </section>
+
 
   <div id="right-container">
     <div id="drop-area" ondrop="drop_area(event)" ondragover="allowDrop(event)">
@@ -168,6 +178,11 @@ body {
     </div>
   </div>
 
+
+  <div> <center>
+    <button id="recommend-minors-btn" href="onclick="location.href='\recommend'>Recommend Minors</button>
+  </center>
+  </div>
 </main>
 
 <script>
