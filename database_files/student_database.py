@@ -1,7 +1,7 @@
 import sys
 import os
 import queue
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING
 
 #-----------------------------------------------------------------------
 # _DATABASE_URL = os.environ['DATABASE_URL'] # = mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData
@@ -139,12 +139,41 @@ def update_student_classes(username, classes_to_add=None, classes_to_remove=None
         print("An error occurred while updating student classes:", e)
         return False
 
+def get_student_coursenums(username):
+    try:
+        # Get a MongoDB connection
+        client = _get_connection()
+        db = client['TigerPlanData']
+        students_collection = db['StudentsData']
+
+        # Aggregation pipeline to retrieve course numbers for the specified student
+        pipeline = [
+            # Match the document for the specified student by netID
+            {"$match": {"netID": username}},
+            # Unwind the classes array to deconstruct the array into separate documents
+            {"$unwind": "$Classes"},
+            # Project to include only the coursenum field from each class object
+            {"$project": {"_id": 0, "coursenum": "$Classes.coursenum"}}
+        ]
+
+        # Execute the aggregation pipeline
+        result = list(students_collection.aggregate(pipeline))
+
+        # Extract the list of coursenum values
+        coursenum_list = [entry['coursenum'] for entry in result]
+
+        return coursenum_list
+    except Exception as e:
+        print("An error occurred while getting student course numbers:", e)
+        return []
+    
+
 # Example usage
 def main():
     try:
         # Assuming username is retrieved after successful login
         # create a loop of usernames
-        for i in range(1, 10):
+        '''for i in range(1, 10):
             username = "student" + str(i)
             worked,_ = handle_student_login(username)
             if worked:
@@ -166,8 +195,11 @@ def main():
         # Update student classes by adding some classes
         update_student_classes("student2", classes_to_add=["COS 333"])
         student_classes = get_student_classes("student2")
-        print("Updated classes for student:", student_classes)
-
+        print("Updated classes for student:", student_classes)'''
+        username = "sn2979"
+        # Get the list of coursenum values for the specified student
+        student_coursenums = get_student_coursenums(username)
+        print("Coursenums for student:", student_coursenums)
     except Exception as e:
         print("An error occurred:", e)
 
