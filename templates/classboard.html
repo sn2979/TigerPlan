@@ -26,6 +26,7 @@
   display: flex;
   flex-wrap: wrap; /* Enable wrapping of items */
   justify-content: space-between; /* Distribute items evenly between columns */
+  margin-bottom: 20px; /* Spacing between this container and the button */
 }
 
 .grid-item {
@@ -110,9 +111,8 @@ body {
 #recommend-minors-btn {
   display: block;
   width: 30%;
-  margin-top: 50px; /* Adjusts space above the button */
-  margin-bottom: 20px; /* Adjusts space below the button */
   align-items: center;
+  margin-bottom: 50px;
 }
 
 </style>
@@ -179,9 +179,10 @@ body {
   </div>
 
 
-  <div> <center>
-    <button id="recommend-minors-btn" href="onclick="location.href='\recommend'>Recommend Minors</button>
-  </center>
+  <div id="button-container"> 
+    <center>
+      <button id="recommend-minors-btn" href="onclick="location.href='\recommend'>Recommend Minors</button>
+    </center>
   </div>
 </main>
 
