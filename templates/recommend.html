@@ -16,12 +16,16 @@
     border-radius: 20px;
     transition: transform 0.2s; /* smooth transform on hover */
     font-family: 'Caveat Brush', brush;
-    width: 400px;
+    width: 325px;
+    height: 450px; 
   }
 
   .card p {
     font-family: 'Roboto Serif', serif;
     font-size: 30px;
+    margin-top:100px;
+    flex: 1; /* Let the title take up space evenly */
+
   }
 
   .card:hover {
@@ -37,12 +41,15 @@
   }
 
   .card-title {
-    font-size: 40px; /* title font size */
-    margin-bottom: 5px;
+    font-size: 45px; /* title font size */
+    flex: 1; /* Let the title take up space evenly */
+
   }
 
   .card-text {
     font-size: 16px; /* text font size */
+    flex: 1; /* Let the title take up space evenly */
+    margin-bottom: 50px;
   }
 
   .container {
@@ -70,12 +77,14 @@
   }
 
   .modal-content {
-    margin: 20% auto;
-    padding: 20px;
+    margin: 10% auto; /* Adjust vertical margin for centering */
+    padding: 40px; /* Increase padding for content spacing */
     border: 1px solid #e0e0e0; /* card border */
     border-radius: 20px;
-    width: 80%;
-    max-width: 600px;
+    width: 95%; /* Increase width to 90% of the viewport */
+    max-width: 900px; /* Set maximum width for larger screens */
+    height: 70%; /* Increase width to 90% of the viewport */
+    max-height: 600px; /* Set maximum width for larger screens */
     text-align: center;
     font-family: 'Caveat Brush', brush;
     position: relative; /* Ensure relative positioning for absolute positioned close button */
@@ -111,9 +120,12 @@
   </section>
   <div class="container">
     {% for course in courses %}
-      <div class="card" onclick="openModal(this, '{{ course['minor'] }}', '{{ course['distance'] }}');">
+      <div class="card" onclick="openModal(this, minor ='{{ course['minor'] }}', distance = '{{ course['distance'] }}', desc = '{{ course['desc'] }}');">
         <h3 class="card-title">{{ course['minor'] }}</h3>
-        <p class="card-text">You need {{ course['distance'] }} more classes to fulfill this minor!</p>
+        <p>  </p>
+        <p class="card-text" style='line-height: 8px;'>You need</p>
+        <h1 style='line-height: 1px; font-size: 50px;'>{{ course['distance'] }} </h1>
+        <p >more classes to fulfill this minor!</p>
       </div>
     {% endfor %}
   </div>
@@ -129,7 +141,7 @@
 </main>
 
 <script>
-  function openModal(card, minor, distance) {
+  function openModal(card, minor, distance, desc) {
     var modal = document.getElementById("myModal");
     var modalContent = document.querySelector(".modal-content");
     var modalTitle = document.getElementById("modal-title");
@@ -137,13 +149,16 @@
 
     // Get the background color of the clicked card
     var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
-    
+
     // Set the modal's background color to match the card's background color
     modalContent.style.backgroundColor = cardBackgroundColor;
 
     modal.style.display = "block";
     modalTitle.textContent = minor;
-    modalText.textContent = `You need ${distance} more classes to fulfill this minor!`;
+
+    // Dynamically format the HTML content based on the description
+    var formattedDesc = '<div>' + desc + '</div>';
+    modalText.innerHTML = formattedDesc;
   }
 
   function closeModal() {
@@ -151,6 +166,7 @@
     modal.style.display = "none";
   }
 </script>
+
 
 </body>
 </html>
