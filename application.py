@@ -191,6 +191,7 @@ def map_major_id_to_name(major):
     'VPL': 'Values and Public Life'
 }
 
+
     return reverse_mapping.get(major, '')
 
 def generate_and_store_recommendations(username):
@@ -226,19 +227,6 @@ def login():
         # Handle authentication failure
         return flask.abort(401)  # Unauthorized
 
-@app.route('/logoutapp', methods=['GET'])
-def logoutapp():
-    flask.session.pop('username', None)  # Remove username from session
-    return auth.logoutapp()
-
-@app.route('/logoutcas', methods=['GET'])
-def logoutcas():
-    flask.session.pop('username', None)  # Remove username from session
-    return auth.logoutcas()
-
-#-----------------------------------------------------------------------
-#Routes for app
- 
 @app.route('/profile', methods=['GET'])
 def profile():
     success, username, _ = get_user_info()
@@ -285,6 +273,15 @@ def set_profile():
     student_database.update_student_profile(username, name, major)
     return flask.redirect('/classboard')
 
+@app.route('/logoutapp', methods=['GET'])
+def logoutapp():
+    flask.session.pop('username', None)  # Remove username from session
+    return auth.logoutapp()
+
+@app.route('/logoutcas', methods=['GET'])
+def logoutcas():
+    flask.session.pop('username', None)  # Remove username from session
+    return auth.logoutcas()
 
 @app.route('/classboard', methods=['GET'])
 def classboard():
@@ -323,9 +320,7 @@ def recommendations():
 
     # Map minor IDs to names for display
     for course in stored_recommendations:
-        course['minorid'] = course['minor']
         course['minor'] = map_major_id_to_name(course['minor'])
-        course['desc'] = "MAWHAHAHAHHAHA"
 
     return flask.render_template("recommend.html", username=username, courses=stored_recommendations)
 
@@ -340,6 +335,19 @@ def about():
     response = flask.make_response(html_code)
     return response
 
+
+
+#route to a testing page; delete later
+@app.route('/test', methods=['GET'])
+def test():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    html_code = flask.render_template("tester.html", username = username)
+    response = flask.make_response(html_code)
+    return response
 
 @app.route('/searchresults', methods=['GET'])
 def search_results():
@@ -386,6 +394,8 @@ def add_course():
         error_message = f"An error occurred: {str(e)}"
         return flask.render_template("error.html", error=error_message), 500
 
+
+
 @app.route('/removecourse', methods=['POST'])
 def remove_course():
     print("remove course")
@@ -411,31 +421,5 @@ def load_area():
         return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
 
     html_code = flask.render_template("droparea.html", classes=classes)
-    response = flask.make_response(html_code)
-    return response
-
-
-@app.route('/details', methods = ['GET'])
-def details():
-    success, username, _ = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
-
-    minor = flask.request.args.get('minor')
-    print(minor)
-    return flask.render_template("minor.html", username=username, minor = minor)
-
-
-
-#route to a testing page; delete later
-@app.route('/test', methods=['GET'])
-def test():
-    success, username, classes = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
-
-    html_code = flask.render_template("tester.html", username = username)
     response = flask.make_response(html_code)
     return response

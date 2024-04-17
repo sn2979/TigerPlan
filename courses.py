@@ -148,14 +148,10 @@ def fin_minor_courses():
 def lin_minor_courses():
     courses = {
         'Prerequisites': ['.*LIN 201.*'],
-        'Core Courses 1': ['.*LIN 301.*', '.*LIN 302.*', '.*LIN 303.*', '.*LIN 306.*', 
+        'Core Course': ['.*LIN 301.*', '.*LIN 302.*', '.*LIN 303.*', '.*LIN 306.*', 
         '.*PHI 334 / LIN 334.*'],
-        'Core Courses 2': ['.*LIN 301.*', '.*LIN 302.*', '.*LIN 303.*', '.*LIN 306.*', 
-        '.*PHI 334 / LIN 334.*'],
-        'Methods 1': ['.*LIN 210.*', '.*LIN 310.*', '.*LIN 355.*', '.*LIN 356.*'],
-        'Methods 2': ['.*LIN 210.*', '.*LIN 310.*', '.*LIN 355.*', '.*LIN 356.*'],
-        'Electives 1': ['.*LIN 2.*', '.*LIN 3.*', '.*LIN 4.*', '.*LIN 5.*'],
-        'Electives 2': ['.*LIN 2.*', '.*LIN 3.*', '.*LIN 4.*', '.*LIN 5.*']
+        'Methods': ['.*LIN 210.*', '.*LIN 310.*', '.*LIN 355.*', '.*LIN 356.*'],
+        'Electives': ['.*LIN 2.*', '.*LIN 3.*', '.*LIN 4.*', '.*LIN 5.*']
     }
 
     return courses
@@ -233,12 +229,9 @@ def fin_minor_requirements():
 def lin_minor_requirements():
     subrequirements = {
         'Prerequisites': 1,
-        'Core Courses 1': 1,
-        'Core Courses 2': 2,
-        'Methods 1': 1,
-        'Methods 2': 2,
-        'Electives 1': 1,
-        'Electives 2': 2
+        'Core Course': 1,
+        'Methods': 1,
+        'Electives': 2
     }
 
     return subrequirements
