@@ -70,6 +70,7 @@ def process_minor(username, minor, class_list, champions, lock):
     else:
         best_combination, _, classes_taken_needed = recommender2.find_best_combination(minor, combinations, subrequirements)
         distance = classes_taken_needed[1] - classes_taken_needed[0]
+        print("Minor:", minor, "Distance:", distance)
 
     with lock:
         if distance < champions['champion1']['distance']:

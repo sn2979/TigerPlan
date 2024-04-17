@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, name, parent=None, classes_needed=0):
+    def __init__(self, name, parent=None, classes_needed=0, marked=False):
         self.name = name
         self.children = []
         self.node_type = 'AND'
@@ -7,6 +7,7 @@ class Node:
         self.classes_taken = 0
         self.parent = parent
         self.class_list = []
+        self.marked = marked
     
     def get_children(self):
         return self.children
@@ -31,6 +32,9 @@ class Node:
 
     def add_child(self, child_node):
         self.children.append(child_node)
+    
+    def get_marked(self):
+        return self.marked
 
     def compute_classes_taken_needed(self):
         if self.children:
@@ -42,12 +46,14 @@ class Node:
 
 
 class OrNode(Node):
-    def __init__(self, name, parent=None, classes_needed=0):
+    def __init__(self, name, parent=None, classes_needed=0, marked=False):
         super().__init__(name)
         self.node_type = 'OR'
         self.classes_needed = classes_needed
         self.classes_taken = 0
         self.parent = parent
+        self.marked = marked
+        self.winner = None
 
     def compute_classes_taken_needed(self):
         if self.children:
@@ -59,8 +65,8 @@ class OrNode(Node):
                     max_fraction = fraction
                     self.classes_taken = int(max_fraction * child.classes_needed)
                     self.classes_needed = child.classes_needed
-                    winner = child
-        return self.classes_taken, self.classes_needed, winner
+                    self.winner = child
+        return self.classes_taken, self.classes_needed, self.winner
 
 def create_tree(key, subrequirements):
     if key == 'CLA':
@@ -81,7 +87,7 @@ def create_cla_tree(subrequirements, parent=None):
     cla = Node('CLA', parent)
 
     # Create the Prerequisites node under CLA
-    prerequisites = Node('Prerequisites', parent=cla, classes_needed=subrequirements.get('Prerequisites', 0))
+    prerequisites = Node('Prerequisites', parent=cla, classes_needed=subrequirements.get('Prerequisites', 0), marked=True)
     cla.add_child(prerequisites)
 
     # Create the Tracks (OR node) under CLA
@@ -98,7 +104,7 @@ def create_cla_tree(subrequirements, parent=None):
     subtracks = OrNode('Subtracks', parent=classical)
 
     # Create Greek (OR node) under Subtracks
-    greek = OrNode('Greek', parent=subtracks)
+    greek = OrNode('Greek Track', parent=subtracks)
     greek_4 = Node('Greek 4 and Relevant 4', parent=greek)
     greek_4.add_child(Node('Greek 4', parent=greek_4, classes_needed=subrequirements.get('Greek 4', 0)))
     greek_4.add_child(Node('Relevant Courses', parent=greek_4, classes_needed=subrequirements.get('Relevant Courses', 0)))
@@ -107,7 +113,7 @@ def create_cla_tree(subrequirements, parent=None):
     subtracks.add_child(greek)
 
     # Create Latin (OR node) under Subtracks
-    latin = OrNode('Latin', parent=subtracks)
+    latin = OrNode('Latin Track', parent=subtracks)
     latin_4 = Node('Latin 4 and Relevant 4', parent=latin)
     latin_4.add_child(Node('Latin 4', parent=latin_4, classes_needed=subrequirements.get('Latin 4', 0)))
     latin_4.add_child(Node('Relevant Courses', parent=latin_4, classes_needed=subrequirements.get('Relevant Courses', 0)))
@@ -116,7 +122,7 @@ def create_cla_tree(subrequirements, parent=None):
     subtracks.add_child(latin)
 
     # Create Medicine (OR node) under Subtracks
-    medicine = OrNode('Medicine', parent=subtracks)
+    medicine = OrNode('Medicine Track', parent=subtracks)
     medicine_4 = Node('Medicine 4 and Relevant 4', parent=medicine)
     medicine_4.add_child(Node('Medicine 4', parent=medicine_4, classes_needed=subrequirements.get('Medicine 4', 0)))
     medicine_4.add_child(Node('Relevant Courses', parent=medicine_4, classes_needed=subrequirements.get('Relevant Courses', 0)))
@@ -292,56 +298,15 @@ def create_lin_tree(subrequirements, parent=None):
     
     # Create Coursework Node under LIN
     coursework = Node('Coursework', parent=lin)
-    coursework.add_child(Node('Core Courses 1',
+    coursework.add_child(Node('Core Course',
                                  parent=coursework, 
-                                 classes_needed=subrequirements.get('Core Courses 1', 0)))
-    coursework.add_child(Node('Methods 1',
+                                 classes_needed=subrequirements.get('Core Course', 0)))
+    coursework.add_child(Node('Methods',
                                  parent=coursework, 
-                                 classes_needed=subrequirements.get('Methods 1', 0)))
-    
-    # Create Elective Combos Node under LIN
-    elective_combos = OrNode('Elective Combos', parent=coursework)
-    elective_combos.add_child(Node('Core Courses 2',
-                                 parent=elective_combos, 
-                                 classes_needed=subrequirements.get('Core Courses 2', 0)))
-    elective_combos.add_child(Node('Methods 2',
-                                 parent=elective_combos, 
-                                 classes_needed=subrequirements.get('Methods 2', 0)))
-    elective_combos.add_child(Node('Electives 2',
-                                 parent=elective_combos, 
-                                 classes_needed=subrequirements.get('Electives 2', 0)))
-    
-    core_method = Node('Core Courses 1 and Methods 1',
-                       parent=elective_combos)
-    core_method.add_child(Node('Core Courses 1',
-                              parent=core_method,
-                              classes_needed=subrequirements.get('Core Courses 1', 0)))
-    core_method.add_child(Node('Methods 1',
-                              parent=core_method,
-                              classes_needed=subrequirements.get('Methods 1', 0)))
-    elective_combos.add_child(core_method)
-
-    core_elective = Node('Core Courses 1 and Electives 1',
-                       parent=elective_combos)
-    core_elective.add_child(Node('Core Courses 1',
-                              parent=core_elective,
-                              classes_needed=subrequirements.get('Core Courses 1', 0)))
-    core_elective.add_child(Node('Electives 1',
-                              parent=core_elective,
-                              classes_needed=subrequirements.get('Electives 1', 0)))
-    elective_combos.add_child(core_elective)
-
-    method_elective = Node('Methods 1 and Electives 1',
-                       parent=elective_combos)
-    method_elective.add_child(Node('Methods 1',
-                              parent=method_elective,
-                              classes_needed=subrequirements.get('Methods 1', 0)))
-    method_elective.add_child(Node('Electives 1',
-                              parent=method_elective,
-                              classes_needed=subrequirements.get('Electives 1', 0)))
-    elective_combos.add_child(method_elective)
-
-    coursework.add_child(elective_combos)
+                                 classes_needed=subrequirements.get('Methods', 0)))
+    coursework.add_child(Node('Electives',
+                                 parent=coursework, 
+                                 classes_needed=subrequirements.get('Electives', 0)))
     lin.add_child(coursework)
 
     return lin

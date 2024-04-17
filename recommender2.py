@@ -94,13 +94,14 @@ def traverse_tree(node, combination_dict,
     print(f"Classes needed for {node.get_name()}: {node.classes_needed}")
     print()'''
 
-    return used, node.classes_taken, node.classes_needed, node.classes_taken / node.classes_needed, node.class_list # , winning_classes
+    return used, node.classes_taken, node.classes_needed, node.classes_taken / node.classes_needed, node.class_list
 
 def find_best_combination(key, all_combinations, subrequirements):
     best_fraction = 0
     difference = math.inf
     best_combination = []
     taken_needed = (0, 0)
+    best_tree = None
 
     for combination_dict in all_combinations:
         #print(f"Combination: {combination_dict}")
@@ -129,6 +130,7 @@ def find_best_combination(key, all_combinations, subrequirements):
             difference =  needed - taken
             best_combination = combination_dict
             taken_needed = (taken, needed)
+            best_tree = root_node
         
         # remove duplicates from winning classes after flattening
         '''winning_classes = [course for sublist in winning_classes for course in sublist]
@@ -191,10 +193,11 @@ if __name__ == '__main__':
     # Create the ENV tree
     env = minors.create_cla_tree(subrequirements)'''
 
-    best_combination, best_fraction, classes_taken_needed = find_best_combination('ENV', dict_combinations, subrequirements)
+    best_combination, best_fraction, classes_taken_needed, tree = find_best_combination('ENV', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
+
     
     '''# testing COS
     # Class list
