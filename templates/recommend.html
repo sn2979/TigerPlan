@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TigerPlan</title>
-<link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/try_style.css') }}">
 <style>
   .card {
     background-color: #FF9B42; /* card background color */
@@ -27,7 +27,6 @@
   .card:hover {
     transform: translateY(-5px); /* raise the card slightly on hover */
   }
-
 
   .card:nth-child(2) {
     background-color: #F7A072; /* second card background color */
@@ -56,6 +55,30 @@
     justify-content: center; /* Centers the cards horizontally */
     align-items: center; /* Centers the cards vertically */
   }
+
+  /* Styles for the modal popup */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 20% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -64,34 +87,43 @@
 {% include 'header.html' %}
 <main>
   <section id="main-content">
-    <p>Here are your most compatiable minors!</p>
+    <p>Here are your most compatible minors!</p>
   </section>
   <div class="container">
     {% for course in courses %}
-      <div class="card" onclick="location.href='#';">
-        <h3 class="card-title">{{course['minor']}}</h3>
-        <p class="card-text">You need {{course['distance']}} more classes to fulfill this minor!</p>
+      <div class="card" onclick="openModal('{{ course['minor'] }}', '{{ course['distance'] }}');">
+        <h3 class="card-title">{{ course['minor'] }}</h3>
+        <p class="card-text">You need {{ course['distance'] }} more classes to fulfill this minor!</p>
       </div>
     {% endfor %}
   </div>
 
+  <!-- Modal popup -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title"></h2>
+      <p id="modal-text"></p>
+    </div>
   </div>
-  
-<!--<div class="container">
-  <div class="card" onclick="location.href='#';"> 
-    <h3 class="card-title">Creative Writing</h3>
-    <p class="card-text">You need one more class to fulfill this minor!</p>
-  </div>
-  <div class="card" onclick="location.href='#';">
-    <h3 class="card-title">Linguistics</h3>
-    <p class="card-text">You need three more classes to fulfill this minor!</p>
-  </div>
-  <div class="card" onclick="location.href='#';">
-    <h3 class="card-title">Journalism</h3>
-    <p class="card-text">You need three more classes to fulfill this minor!</p>
-  </div>
-</div>-->
 </main>
+
+<script>
+  function openModal(minor, distance) {
+    var modal = document.getElementById("myModal");
+    var modalTitle = document.getElementById("modal-title");
+    var modalText = document.getElementById("modal-text");
+
+    modal.style.display = "block";
+    modalTitle.textContent = minor;
+    modalText.textContent = `You need ${distance} more classes to fulfill this minor!`;
+  }
+
+  function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+  }
+</script>
 
 </body>
 </html>
