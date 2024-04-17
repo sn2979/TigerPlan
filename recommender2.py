@@ -2,6 +2,7 @@ import itertools
 from itertools import product, combinations
 import minor_trees as minors
 import math
+import json
     
 def generate_combinations(class_list, subrequirements):
     #print("Generating combinations...")
@@ -39,6 +40,54 @@ def generate_combinations(class_list, subrequirements):
     all_combinations_product = all_combinations_product[1:]
 
     return all_combinations_product, combined_combinations
+
+def best_path(node):
+    '''print(f"Node: {node.get_name()}")
+    print(f"Marked: {node.get_marked()}")
+    for child in node.get_children():
+        print(f"Child: {child.get_name()}")'''
+    if node.get_children() == []:
+        return node
+    
+    if node.get_node_type() == 'OR':
+        #print(f"Winner: {node.get_winner().get_name()}")
+        node.children = [node.get_winner()]
+        '''print(f"Winner: {node.get_winner().get_name()}")
+        for child in node.get_children():
+            print(f"Child: {child.get_name()}")'''
+
+    marked_children = []
+    for child in node.get_children():
+        if child.get_marked():
+            marked_children.append(child)
+            best_path(child)
+    node.children = marked_children
+    return node
+
+def extract_node_information(node, parent_name=None):
+    # Initialize dictionary to store node information
+    node_info = {}
+
+    # Extract node information
+    node_name = node.get_name()
+    class_list = node.get_class_list()
+    
+    # Store node name and associated class list
+    node_info['name'] = node_name
+    node_info['class_list'] = class_list
+    
+    # Store parent's name if available
+    if parent_name is not None:
+        node_info['parent'] = parent_name
+    
+    # Recursively process children nodes
+    if node.get_children():
+        node_info['children'] = []
+        for child in node.get_children():
+            child_info = extract_node_information(child, node_name)
+            node_info['children'].append(child_info)
+    
+    return node_info
 
 def traverse_tree(node, combination_dict, 
                   subrequirements, used):
@@ -135,21 +184,24 @@ def find_best_combination(key, all_combinations, subrequirements):
         # remove duplicates from winning classes after flattening
         '''winning_classes = [course for sublist in winning_classes for course in sublist]
         winning_classes = list(set(winning_classes))'''
+    #print(f"Best tree and children: {best_tree.get_children()}")
+    #best_tree = best_path(best_tree)
+    best_tree = best_path(root_node)
+    print(f"root node and children: {best_tree.get_children()}")
 
-    return best_combination, best_fraction, taken_needed
+    return best_combination, best_fraction, taken_needed, best_tree
 
 
 if __name__ == '__main__':
     # testing ENV
     # Class list
     class_list = {
-        # class_list: ['COS 126', 'ECE 115', 'MAT 301', 'ANT 314', 'ENV 304', 'COS 217', 'COS 324']
-        'Foundation Above 300 2': [],#['ENV 304', 'ENV 377'],
-        'Foundation Above 300 1': [],#['ENV 304', 'ENV 377'],
-        'Foundation Below 300 1': [],#['ENV 200A'],
-        'Elective Above 300 2': [],#['ENV 304', 'CEE 304'],
-        'Elective Above 300 1': [],#['ENV 304', 'CEE 304'],
-        'Elective Below 300 1': []#['ENV 200A']
+        'Foundation Above 300 2': ['ENV 304', 'ENV 377'],
+        'Foundation Above 300 1': ['ENV 304', 'ENV 377'],
+        'Foundation Below 300 1': ['ENV 200A'],
+        'Elective Above 300 2': ['ENV 304', 'CEE 304'],
+        'Elective Above 300 1': ['ENV 304', 'CEE 304'],
+        'Elective Below 300 1': ['ENV 200A']
 
         # class_list: {'Foundational Courses/Above 300-level': ['ENV 304'], 'Elective Courses/Above 300-level': ['ENV 304']}
     }
@@ -197,6 +249,10 @@ if __name__ == '__main__':
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
+    tree = extract_node_information(tree)
+
+    print(json.dumps(tree, indent=2))
+
 
     
     '''# testing COS
