@@ -70,15 +70,24 @@ def extract_node_information(node, parent_name=None):
 
     # Extract node information
     node_name = node.get_name()
-    class_list = node.get_class_list()
+    class_list = node.get_node_classes()
     
     # Store node name and associated class list
     node_info['name'] = node_name
-    node_info['class_list'] = class_list
+    node_info['class_list'] = list(class_list)
     
     # Store parent's name if available
-    if parent_name is not None:
-        node_info['parent'] = parent_name
+    '''if parent_name is not None:
+        node_info['parent'] = parent_name'''
+    
+    # store classes taken at node
+    node_info['classes_taken'] = node.classes_taken
+
+    # store classes needed at node
+    node_info['classes_needed'] = node.classes_needed
+
+    # store classes remaining at node
+    node_info['classes_remaining'] = node.classes_needed - node.classes_taken
     
     # Recursively process children nodes
     if node.get_children():
@@ -86,8 +95,14 @@ def extract_node_information(node, parent_name=None):
         for child in node.get_children():
             child_info = extract_node_information(child, node_name)
             node_info['children'].append(child_info)
-    
+
     return node_info
+
+def best_path_node_info(node):
+    tree = best_path(node)
+    tree_info = extract_node_information(tree)
+    tree_info = json.dumps(tree_info, indent=2)
+    return tree, tree_info
 
 def traverse_tree(node, combination_dict, 
                   subrequirements, used):
@@ -112,7 +127,8 @@ def traverse_tree(node, combination_dict,
                     used.add(course)
         node.classes_taken = taken
         node.clases_needed = subrequirements.get(node.get_name(), 0)
-        node.class_list = courses
+        node.class_list = set(courses)
+        node.node_classes = set(courses)
         '''print(f"Classes taken for {node.get_name()}: {node.classes_taken}")
         print(f"Classes needed for {node.get_name()}: {node.classes_needed}")
         print()'''
@@ -129,7 +145,8 @@ def traverse_tree(node, combination_dict,
         curr_used, _, _, _, class_list = traverse_tree(child_node, combination_dict, 
                              subrequirements, set(node.class_list))
         if node.get_node_type() == 'AND':
-            node.class_list.extend(child_node.class_list)
+            node.class_list.update(child_node.class_list)
+            node.node_classes.update(child_node.node_classes)
     
     # Compute classes taken for this node
     _, _, winner = node.compute_classes_taken_needed()
@@ -137,7 +154,8 @@ def traverse_tree(node, combination_dict,
     if node.get_node_type() == 'OR':
         if winner:
             #print(f"Winner: {winner.get_name()}")
-            node.class_list.extend(winner.class_list)
+            node.class_list.update(winner.class_list)
+            node.node_classes.update(winner.node_classes)
 
     '''print(f"Classes taken for {node.get_name()}: {node.classes_taken}")
     print(f"Classes needed for {node.get_name()}: {node.classes_needed}")
@@ -186,10 +204,9 @@ def find_best_combination(key, all_combinations, subrequirements):
         winning_classes = list(set(winning_classes))'''
     #print(f"Best tree and children: {best_tree.get_children()}")
     #best_tree = best_path(best_tree)
-    best_tree = best_path(root_node)
-    print(f"root node and children: {best_tree.get_children()}")
+    best_tree, best_tree_info = best_path_node_info(best_tree)
 
-    return best_combination, best_fraction, taken_needed, best_tree
+    return best_combination, best_fraction, taken_needed, best_tree, best_tree_info
 
 
 if __name__ == '__main__':
@@ -245,17 +262,15 @@ if __name__ == '__main__':
     # Create the ENV tree
     env = minors.create_cla_tree(subrequirements)'''
 
-    best_combination, best_fraction, classes_taken_needed, tree = find_best_combination('ENV', dict_combinations, subrequirements)
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('ENV', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
-    tree = extract_node_information(tree)
-
-    print(json.dumps(tree, indent=2))
+    print(tree_info)
 
 
     
-    '''# testing COS
+    # testing COS
     # Class list
     class_list = {
     'Intro Course': ['COS 126', 'ECE 115'],
@@ -273,17 +288,18 @@ if __name__ == '__main__':
     }
 
     # Print all combinations
-    for i, combination in enumerate(all_combinations, start=1):
-        print(f"Combination {i}: {combination}")
+    '''for i, combination in enumerate(all_combinations, start=1):
+        print(f"Combination {i}: {combination}")'''
 
         # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
 
     # Find the best combination
-    best_combination, best_fraction, classes_taken_needed = find_best_combination('COS', dict_combinations, subrequirements)
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('COS', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
 
     # testing CLA
     
@@ -320,7 +336,7 @@ if __name__ == '__main__':
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
 
     # Define all_combinations as a list of dictionaries
-    dict_combinations = [
+    '''dict_combinations = [
         {
             "Prerequisites": ["CLA 219"],
             "Basic Requirements": ["CLA 212"],
@@ -360,20 +376,21 @@ if __name__ == '__main__':
             "Historical Survey": [],
             "Track Requirements": []
         }
-    ]
+    ]'''
     # Print all combinations
-    for i, combination in enumerate(all_combinations, start=1):
+    '''for i, combination in enumerate(all_combinations, start=1):
         print(f"Combination {i}: {combination}")
 
     for i, combo in enumerate(dict_combinations, start=1):
         print(f"Combination {i}:")
         for category, selected_class in combo.items():
-            print(f"  {category}: {selected_class}")
+            print(f"  {category}: {selected_class}")'''
     # Find the best combination
-    best_combination, best_fraction, classes_taken_needed = find_best_combination('CLA', dict_combinations, subrequirements)
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('CLA', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
 
     # testing FIN
     # Class list
@@ -410,40 +427,36 @@ if __name__ == '__main__':
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
     
     # Find the best combination
-    best_combination, best_fraction, classes_taken_needed = find_best_combination('FIN', dict_combinations, subrequirements)
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('FIN', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
 
     # testing LIN
     # Class list
 
     class_list = {
         'Prerequisites': ['LIN 201'],
-        'Core Courses 1': [],
-        'Core Courses 2': [],
-        'Methods 1': [],
-        'Methods 2': [],
-        'Electives 1': ['LIN 201', 'LIN 214', 'LIN 205'],
-        'Electives 2': ['LIN 201', 'LIN 214', 'LIN 205']
+        'Core Course': [],
+        'Methods': [],
+        'Electives': ['LIN 201', 'LIN 214', 'LIN 205']
     }
 
     # Subrequirements
     subrequirements = {
         'Prerequisites': 1,
-        'Core Courses 1': 1,
-        'Core Courses 2': 2,
-        'Methods 1': 1,
-        'Methods 2': 2,
-        'Electives 1': 1,
-        'Electives 2': 2
+        'Core Course': 1,
+        'Methods': 1,
+        'Electives': 2
     }
 
     # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
 
     # Find the best combination
-    best_combination, best_fraction, classes_taken_needed = find_best_combination('LIN', dict_combinations, subrequirements)
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('LIN', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
-    print(f"Classes taken and needed: {classes_taken_needed}")'''
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)

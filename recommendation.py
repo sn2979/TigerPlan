@@ -68,7 +68,7 @@ def process_minor(username, minor, class_list, champions, lock):
         best_combination = []
         distance = 100
     else:
-        best_combination, _, classes_taken_needed = recommender2.find_best_combination(minor, combinations, subrequirements)
+        best_combination, _, classes_taken_needed, tree, tree_description = recommender2.find_best_combination(minor, combinations, subrequirements)
         distance = classes_taken_needed[1] - classes_taken_needed[0]
         print("Minor:", minor, "Distance:", distance)
 
@@ -76,21 +76,33 @@ def process_minor(username, minor, class_list, champions, lock):
         if distance < champions['champion1']['distance']:
             champions['champion3'] = champions['champion2']
             champions['champion2'] = champions['champion1']
-            champions['champion1'] = {'distance': distance, 'minor': minor, 'best_combination': best_combination}
+            champions['champion1'] = {'distance': distance, 
+                                      'minor': minor, 
+                                      'best_combination': best_combination, 
+                                      'tree': tree, 
+                                      'tree_description': tree_description}
         elif distance < champions['champion2']['distance']:
             champions['champion3'] = champions['champion2']
-            champions['champion2'] = {'distance': distance, 'minor': minor, 'best_combination': best_combination}
+            champions['champion2'] = {'distance': distance, 
+                                      'minor': minor, 
+                                      'best_combination': best_combination,
+                                      'tree': tree,
+                                      'tree_description': tree_description}
         elif distance < champions['champion3']['distance']:
-            champions['champion3'] = {'distance': distance, 'minor': minor, 'best_combination': best_combination}
+            champions['champion3'] = {'distance': distance, 
+                                      'minor': minor, 
+                                      'best_combination': best_combination,
+                                      'tree': tree,
+                                      'tree_description': tree_description}
 
 def recommend(class_list, username):
     minors = ['CLA', 'ENV', 'LIN', 'COS', 'FIN']
 
     # Initialize champions dictionary with proper structure
     champions = {
-        'champion1': {'distance': math.inf, 'minor': '', 'best_combination': []},
-        'champion2': {'distance': math.inf, 'minor': '', 'best_combination': []},
-        'champion3': {'distance': math.inf, 'minor': '', 'best_combination': []}
+        'champion1': {'distance': math.inf, 'minor': '', 'best_combination': [], 'tree': None, 'tree_description': ''},
+        'champion2': {'distance': math.inf, 'minor': '', 'best_combination': [], 'tree': None, 'tree_description': ''},
+        'champion3': {'distance': math.inf, 'minor': '', 'best_combination': [], 'tree': None, 'tree_description': ''}
     }
 
     # Create a lock for thread synchronization
@@ -151,3 +163,4 @@ if __name__ == "__main__":
     for i, champion in enumerate(top_champions, start=1):
         print(f"{i}. {champion['minor']}: {champion['distance']} classes away")
         print(f"   Best combination: {champion['best_combination']}")
+        print(f"   Tree Description: {champion['tree_description']}")
