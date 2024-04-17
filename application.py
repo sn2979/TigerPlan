@@ -194,6 +194,15 @@ def map_major_id_to_name(major):
 
     return reverse_mapping.get(major, '')
 
+def generate_and_store_recommendations(username):
+    # Placeholder recommendation logic
+    courses = student_database.get_student_coursenums(username)
+    recommended_courses = list(recommendation.recommend(courses, username))
+
+    # Store recommended courses in the database
+    student_database.store_recommendations(username, recommended_courses)
+
+    return recommended_courses
         
 #-----------------------------------------------------------------------
 #Routes for authentication. 
@@ -284,7 +293,6 @@ def classboard():
     html_code = flask.render_template("classboard.html", username=username, classes=classes)
     response = flask.make_response(html_code)
     return response
-    
 
 @app.route('/recommend', methods=['GET'])
 def recommend():
@@ -293,25 +301,28 @@ def recommend():
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500
     
-    # Implement the recommendation logic here
-    # The following code is a placeholder
-    # You should replace it with your recommendation logic
-    # The recommendation logic should return a list of recommended courses
-    # You should pass the recommended courses to the template
+    _ = generate_and_store_recommendations(username)
+    # reroute to recommendations page
+    return flask.redirect('/recommendations')
 
-    # get the classes of the student and convert it to the format that the recommendation function expects
-    courses = student_database.get_student_coursenums(username)
+@app.route('/recommendations', methods=['GET'])
+def recommendations():
+    success, username, classes = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500
+    
+    stored_recommendations = student_database.get_stored_recommendations(username)
 
-    # get the recommended courses
-    recommended_courses = list(recommendation.recommend(courses, username))
+    if not stored_recommendations:
+        # No stored recommendations found, generate and store new ones
+        stored_recommendations = generate_and_store_recommendations(username)
 
-    for course in recommended_courses:
+    # Map minor IDs to names for display
+    for course in stored_recommendations:
         course['minor'] = map_major_id_to_name(course['minor'])
 
-
-    html_code = flask.render_template("recommend.html", username=username, courses=recommended_courses)
-    response = flask.make_response(html_code)
-    return response
+    return flask.render_template("recommend.html", username=username, courses=stored_recommendations)
 
 @app.route('/about', methods=['GET'])
 def about():

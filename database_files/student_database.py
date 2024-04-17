@@ -167,6 +167,45 @@ def get_student_coursenums(username):
         print("An error occurred while getting student course numbers:", e)
         return []
     
+def store_recommendations(username, recommendations):
+    try:
+        client = _get_connection()
+        db = client['TigerPlanData']
+        students_collection = db['StudentsData']
+
+        existing_student = students_collection.find_one({"netID": username})
+        if existing_student is None:
+            raise Exception("Student not found")
+
+        students_collection.update_one(
+            {"netID": username},
+            {"$set": {"Recommendations": recommendations}},
+            upsert=True
+        )
+        _put_connection(client)
+        return True
+    except Exception as e:
+        print("An error occurred while storing recommendations:", e)
+        _put_connection(client)
+        return False
+
+def get_stored_recommendations(username):
+    try:
+        client = _get_connection()
+        db = client['TigerPlanData']
+        students_collection = db['StudentsData']
+
+        existing_student = students_collection.find_one({"netID": username})
+        if existing_student is None:
+            raise Exception("Student not found")
+
+        recommendations = existing_student.get("Recommendations", [])
+        _put_connection(client)
+        return recommendations
+    except Exception as e:
+        print("An error occurred while retrieving recommendations:", e)
+        _put_connection(client)
+        return []
 
 # Example usage
 def main():
@@ -200,6 +239,25 @@ def main():
         # Get the list of coursenum values for the specified student
         student_coursenums = get_student_coursenums(username)
         print("Coursenums for student:", student_coursenums)
+
+        # Store recommendations for the specified student
+        recommendations = [
+            {"distance": 2, "minor": "African American Studies", "best_combination": ["AAS 100", "AAS 200"]},
+            {"distance": 3, "minor": "Anthropology", "best_combination": ["ANT 101", "ANT 200", "ANT 300"]},
+            { "distance": 4, "minor": "Art and Archaeology", "best_combination": ["ART 101", "ART 200", "ART 300", "ART 400"]}
+        ]
+
+        # Store recommendations
+        success = store_recommendations(username, recommendations)
+        if success:
+            print("Recommendations stored successfully")
+        else:
+            print("Failed to store recommendations")
+
+        # Retrieve stored recommendations
+        stored_recommendations = get_stored_recommendations(username)
+        print("Stored recommendations:", stored_recommendations)
+
     except Exception as e:
         print("An error occurred:", e)
 
