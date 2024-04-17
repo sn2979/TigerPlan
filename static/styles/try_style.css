@@ -12,6 +12,9 @@
     font-size: 14px;
     font-family: 'Roboto Serif', serif; /* Example font, update as needed */
     background-color: #C8F6EB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .roboto {
