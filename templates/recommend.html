@@ -130,7 +130,7 @@
     {% endfor %}
   </div>
 
-  <!-- Modal popup -->
+  <!--making modal -->
   <div id="myModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -139,7 +139,6 @@
     </div>
   </div>
 </main>
-
 <script>
   function openModal(card, minor, distance, desc) {
     var modal = document.getElementById("myModal");
@@ -147,18 +146,14 @@
     var modalTitle = document.getElementById("modal-title");
     var modalText = document.getElementById("modal-text");
 
-    // Get the background color of the clicked card
+    //colors
     var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
-
-    // Set the modal's background color to match the card's background color
     modalContent.style.backgroundColor = cardBackgroundColor;
 
     modal.style.display = "block";
     modalTitle.textContent = minor;
 
-    // Dynamically format the HTML content based on the description
-    var formattedDesc = '<div>' + desc + '</div>';
-    modalText.innerHTML = formattedDesc;
+    modalText.innerHTML = '{% include "minor.html" %}';
   }
 
   function closeModal() {
@@ -166,6 +161,8 @@
     modal.style.display = "none";
   }
 </script>
+
+
 
 
 </body>
