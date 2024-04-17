@@ -93,9 +93,14 @@
                 <input placeholder="{{name}}" type="text" id="name" name="name"><br><br>
 
                 <label for="major">Major: </label>
-                    <select id="major" name="major">
-                        <option value="" disabled selected>{{ major }}</option>
-                        <!-- Replace the following with actual options -->
+                    <select id="major" name="major" onchange="handleMajorChange(this)">
+                        {% if major %}
+                        <option value="{{ major }}" selected>{{ major }}</option>
+                        {% else %}
+                        <option value="" disabled selected>Click to select a major</option>
+                        {% endif %}
+
+                        <option id = "">------</option> <!-- Add a blank option -->
                         <option id="AAS">African American Studies</option>
                         <option id="ANT">Anthropology</option>
                         <option id="ARC">Architecture</option>
@@ -140,6 +145,6 @@
 
                 <input type="submit" value="Submit">
             </form>
-        </center>
+        </center>   
     </body>
 </html>
