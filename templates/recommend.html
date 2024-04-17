@@ -70,14 +70,34 @@
   }
 
   .modal-content {
-    background-color: #fefefe;
     margin: 20% auto;
     padding: 20px;
-    border: 1px solid #888;
-    border-radius: 10px;
+    border: 1px solid #e0e0e0; /* card border */
+    border-radius: 20px;
     width: 80%;
     max-width: 600px;
     text-align: center;
+    font-family: 'Caveat Brush', brush;
+    position: relative; /* Ensure relative positioning for absolute positioned close button */
+  }
+
+  .modal-content h2 {
+    font-size: 40px; /* title font size */
+    margin-bottom: 10px;
+  }
+
+  .modal-content p {
+    font-family: 'Roboto Serif', serif;
+    font-size: 30px; /* text font size */
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #000; /* Adjust color for visibility */
   }
 </style>
 </head>
@@ -91,7 +111,7 @@
   </section>
   <div class="container">
     {% for course in courses %}
-      <div class="card" onclick="openModal('{{ course['minor'] }}', '{{ course['distance'] }}');">
+      <div class="card" onclick="openModal(this, '{{ course['minor'] }}', '{{ course['distance'] }}');">
         <h3 class="card-title">{{ course['minor'] }}</h3>
         <p class="card-text">You need {{ course['distance'] }} more classes to fulfill this minor!</p>
       </div>
@@ -109,10 +129,17 @@
 </main>
 
 <script>
-  function openModal(minor, distance) {
+  function openModal(card, minor, distance) {
     var modal = document.getElementById("myModal");
+    var modalContent = document.querySelector(".modal-content");
     var modalTitle = document.getElementById("modal-title");
     var modalText = document.getElementById("modal-text");
+
+    // Get the background color of the clicked card
+    var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
+    
+    // Set the modal's background color to match the card's background color
+    modalContent.style.backgroundColor = cardBackgroundColor;
 
     modal.style.display = "block";
     modalTitle.textContent = minor;
