@@ -198,9 +198,11 @@ def generate_and_store_recommendations(username):
     # Placeholder recommendation logic
     courses = student_database.get_student_coursenums(username)
     recommended_courses = list(recommendation.recommend(courses, username))
+    print("recommended!")
 
     # Store recommended courses in the database
     student_database.store_recommendations(username, recommended_courses)
+    print("stored!")
 
     return recommended_courses
         

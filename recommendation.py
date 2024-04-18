@@ -66,9 +66,10 @@ def process_minor(username, minor, class_list, champions, lock):
     _, combinations = recommender2.generate_combinations(courses, subrequirements)
     if len(combinations) == 0:
         best_combination = []
+        tree_description = ''
         distance = 100
     else:
-        best_combination, _, classes_taken_needed, tree, tree_description = recommender2.find_best_combination(minor, combinations, subrequirements)
+        best_combination, _, classes_taken_needed, _, tree_description = recommender2.find_best_combination(minor, combinations, subrequirements)
         distance = classes_taken_needed[1] - classes_taken_needed[0]
         print("Minor:", minor, "Distance:", distance)
 
@@ -79,20 +80,17 @@ def process_minor(username, minor, class_list, champions, lock):
             champions['champion1'] = {'distance': distance, 
                                       'minor': minor, 
                                       'best_combination': best_combination, 
-                                      'tree': tree, 
                                       'tree_description': tree_description}
         elif distance < champions['champion2']['distance']:
             champions['champion3'] = champions['champion2']
             champions['champion2'] = {'distance': distance, 
                                       'minor': minor, 
                                       'best_combination': best_combination,
-                                      'tree': tree,
                                       'tree_description': tree_description}
         elif distance < champions['champion3']['distance']:
             champions['champion3'] = {'distance': distance, 
                                       'minor': minor, 
                                       'best_combination': best_combination,
-                                      'tree': tree,
                                       'tree_description': tree_description}
 
 def recommend(class_list, username):
@@ -100,9 +98,9 @@ def recommend(class_list, username):
 
     # Initialize champions dictionary with proper structure
     champions = {
-        'champion1': {'distance': math.inf, 'minor': '', 'best_combination': [], 'tree': None, 'tree_description': ''},
-        'champion2': {'distance': math.inf, 'minor': '', 'best_combination': [], 'tree': None, 'tree_description': ''},
-        'champion3': {'distance': math.inf, 'minor': '', 'best_combination': [], 'tree': None, 'tree_description': ''}
+        'champion1': {'distance': math.inf, 'minor': '', 'best_combination': [], 'tree_description': ''},
+        'champion2': {'distance': math.inf, 'minor': '', 'best_combination': [],  'tree_description': ''},
+        'champion3': {'distance': math.inf, 'minor': '', 'best_combination': [],  'tree_description': ''}
     }
 
     # Create a lock for thread synchronization
