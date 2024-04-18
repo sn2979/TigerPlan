@@ -23,7 +23,7 @@
   .card p {
     font-family: 'Roboto Serif', serif;
     font-size: 30px;
-    margin-top:100px;
+    margin-top: 20%;
     flex: 1; /* Let the title take up space evenly */
   }
 
@@ -59,54 +59,6 @@
     justify-content: center; /* Centers the cards horizontally */
     align-items: center; /* Centers the cards vertically */
   }
-
-
-  /* Styles for the modal popup */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
-  }
-
-  .modal-content {
-    margin: 10% auto; /* Adjust vertical margin for centering */
-    padding: 40px; /* Increase padding for content spacing */
-    border: 1px solid #e0e0e0; /* card border */
-    border-radius: 20px;
-    width: 95%; /* Increase width to 90% of the viewport */
-    max-width: 900px; /* Set maximum width for larger screens */
-    height: 70%; /* Increase width to 90% of the viewport */
-    max-height: 600px; /* Set maximum width for larger screens */
-    text-align: center;
-    font-family: 'Roboto Serif', serif;
-    font-size: 30px; /* text font size */
-    position: relative; /* Ensure relative positioning for absolute positioned close button */
-  }
-
-  .modal-content h2 {
-    font-size: 40px; /* title font size */
-    margin-bottom: 10px;
-  }
-
-  .modal-content p {
-    font-family: 'Roboto Serif', serif;
-    font-size: 30px; /* text font size */
-  }
-
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 30px;
-    cursor: pointer;
-    color: #000; /* Adjust color for visibility */
-  }
 </style>
 </head>
 <body>
@@ -115,59 +67,34 @@
 {% include 'header.html' %}
 <main>
   <section id="main-content">
-    <p>Here are your most compatible minors!</p>
+    <p>Here are your most compatiable minors!</p>
   </section>
   <div class="container">
-    {% for course in courses %}
-      <div class="card">
-        <h3 class="card-title">{{ course['minor'] }}</h3>
-        <p>  </p>
-        <p class="card-text" style='line-height: 8px;'>You need</p>
-        <h1 style='line-height: 1px; font-size: 50px;'>{{ course['distance'] }} </h1>
-        <p >more classes to fulfill this minor!</p>
+    {% for course in courses: %}
+      <div class="card" onclick="location.href='#';">
+        <h3 class="card-title">{{course['minor']}}</h3>
+        <p class="card-text">You need
+        <span style="line-height: 1px; font-family: 'Caveat Brush', cursive; font-size: 50px;"> {{ course['distance'] }} </span>
+        more classes to fulfill this minor!</p>
       </div>
-    {% endfor %}
-  </div>
-
-  <!--making modal -->
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2 id="modal-title"></h2>
-      <p id="description"></p>
-      <div id="modal-text"></div>
+      {% endfor %}
     </div>
   </div>
+  <!--<div class="container">
+  <div class="card" onclick="location.href='#';"> 
+    <h3 class="card-title">Creative Writing</h3>
+    <p class="card-text">You need one more class to fulfill this minor!</p>
+  </div>
+  <div class="card" onclick="location.href='#';">
+    <h3 class="card-title">Linguistics</h3>
+    <p class="card-text">You need three more classes to fulfill this minor!</p>
+  </div>
+  <div class="card" onclick="location.href='#';">
+    <h3 class="card-title">Journalism</h3>
+    <p class="card-text">You need three more classes to fulfill this minor!</p>
+  </div>
+</div>-->
 </main>
-<script>
-  function openModal( card, minor) {
-    console.log("modal opened uwu")
-    var modal = document.getElementById("myModal");
-    var modalContent = document.querySelector(".modal-content");
-    var modalTitle = document.getElementById("modal-title");
-    var modalText = document.getElementById("modal-text");
-    //var description = document.getElementById("description");
-    //var descArray = JSON.parse(desc);
-    //colors
-    var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
-    modalContent.style.backgroundColor = cardBackgroundColor;
-
-    
-    modal.style.display = "block";
-    modalTitle.textContent = minor;
-    //description.textContent = descArray[0];
-
-  }
-
-  function closeModal() {
-    var modal = document.getElementById("myModal");
-    modal.style.display = "none";
-  }
-</script>
-
-
-
 
 </body>
 </html>
-
