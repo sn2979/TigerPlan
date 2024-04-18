@@ -94,7 +94,11 @@
 
                 <label for="major">Major: </label>
                     <select id="major" name="major">
-                        <option value="" disabled selected>{{ major }}</option>
+                        {% if major %}
+                        <option value="{{ major }}" selected>{{ major }}</option>
+                        {% else %}
+                        <option value="" disabled selected>Click to select a major</option>
+                        {% endif %}
                         <!-- Replace the following with actual options -->
                         <option id="AAS">African American Studies</option>
                         <option id="ANT">Anthropology</option>
@@ -140,6 +144,8 @@
 
                 <input type="submit" value="Submit">
             </form>
+            <button class="back-button" onclick="window.location.href='/classboard'">Back to My Classes</button>
+
         </center>
     </body>
 </html>
