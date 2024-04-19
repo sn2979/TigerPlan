@@ -6,7 +6,7 @@ import sys
 import os
 import queue
 from pymongo import MongoClient
-from req_lib import ReqLib
+from database_files.create_databases.req_lib import ReqLib
 
 #-----------------------------------------------------------------------
 # _DATABASE_URL = os.environ.get('DATABASE_URL')
