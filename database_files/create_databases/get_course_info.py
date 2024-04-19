@@ -11,7 +11,7 @@
 #!/usr/bin/env python3
 import sys
 from pymongo import MongoClient
-from req_lib import ReqLib
+from database_files.create_databases.req_lib import ReqLib
 import json
 
 def get_all_terms():
