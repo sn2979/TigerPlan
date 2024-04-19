@@ -87,6 +87,8 @@
     font-family: 'Roboto Serif', serif;
     font-size: 30px; /* text font size */
     position: relative; /* Ensure relative positioning for absolute positioned close button */
+    word-wrap: break-word;
+
   }
 
   .modal-content h2 {
@@ -119,7 +121,7 @@
   </section>
   <div class="container">
     {% for course in courses %}
-      <div class="card" onclick="openModal(this, minor = '{{course['minor']}}');">
+      <div class="card" onclick="openModal(this, minor = '{{course['minor']}}',  desc = {{course['desc']}});">
         <h3 class="card-title">{{ course['minor'] }}</h3>
         <p>  </p>
         <p class="card-text" style='line-height: 8px;'>You need</p>
@@ -140,22 +142,28 @@
   </div>
 </main>
 <script>
-  function openModal( card, minor) {
+  function openModal( card, minor, desc) {
     console.log("modal opened uwu")
     var modal = document.getElementById("myModal");
     var modalContent = document.querySelector(".modal-content");
     var modalTitle = document.getElementById("modal-title");
     var modalText = document.getElementById("modal-text");
-    //var description = document.getElementById("description");
-    //var descArray = JSON.parse(desc);
+    
     //colors
     var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
     modalContent.style.backgroundColor = cardBackgroundColor;
 
-    
     modal.style.display = "block";
     modalTitle.textContent = minor;
-    //description.textContent = descArray[0];
+
+    // Constructing the context object with `desc`
+    console.log(minor)
+    var context = { minor : minor };
+    console.log(context)
+
+    modalText.innerHTML = "{% include 'minor.html' with context %}"
+    
+    modalText.textContent = "hello"
 
   }
 
@@ -164,8 +172,6 @@
     modal.style.display = "none";
   }
 </script>
-
-
 
 
 </body>

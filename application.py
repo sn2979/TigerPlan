@@ -409,7 +409,7 @@ def recommendations():
     for course in stored_recommendations:
         course['minorid'] = course['minor']
         course['minor'] = map_major_id_to_name(course['minor'])
-        course['desc'] = ['hehe','hoho']
+        course['desc'] = ['test','this']
 
     return flask.render_template("recommend.html", username=username, courses=stored_recommendations)
 
