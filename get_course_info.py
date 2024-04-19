@@ -24,7 +24,8 @@ def get_all_subjects():
              "CDH", "CEE", "CGS", "CHI", "CHM", "CHV", "CLA", "CLG", 
              "COM", "COS", "CTL", "CWR", "DAN", "EAS", "ECE", "ECO", 
              "EAS", "ECE", "ECO", "ECS", "EEB", "EGR", "ENE", "ENG", 
-             "ENT", "ENV", "EPS", "FIN", "FRE", "GEO", "GER", "GEZ", 
+             "ENT", "ENV", "EPS", "FIN", "FRE", "FRS",
+             "GEO", "GER", "GEZ", 
              "GHP", "GSS", "HEB", "HIN", "HIS", "HLS", "HOS", "HUM", 
              "ITA", "JDS", "JPN", "JRN", "KOR", "LAO", "LAS", "LAT", 
              "LCA", "LIN", "MAE", "MAT", "MED", "MOD", "MOG", "MOL", 
@@ -80,7 +81,7 @@ def input_all_items_into_db(data):
             print(f"Connected to collection")
             collection.insert_many(data)
     except Exception as ex: 
-        print("blah")
+        print("Failed to insert courses into database")
         print(ex, file=sys.stderr)
         sys.exit(1)
 
@@ -91,8 +92,9 @@ if __name__ == "__main__":
     subjs = get_all_subjects()
     terms = get_all_terms()
     all_jsons = []
-    for subj in subjs:
-        for term in terms:
+    subj = "FRS"
+    # for subj in subjs:
+    for term in terms:
             print(f"Adding {subj} courses for term {term}")
             term_info = get_term_info_for_subject(term, subj)
             courses_json_list = get_courses_json_list(term_info, subj)
