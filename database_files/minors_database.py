@@ -52,6 +52,28 @@ def get_urls(minorId):
         print("An error occurred while getting minor description:", e)
         return []
 
+#Function to get minor code
+def get_code_from_name(name):
+    try:
+        minor = minors_collection.find_one({"name": name})
+        if minor is None:
+            raise Exception("Minor not found")
+        return minor.get("code", "")
+    except Exception as e:
+        print("An error occurred while getting minor code:", e)
+        return ""
+
+#Function to get minor name
+def get_name_from_code(code):
+    try:
+        minor = minors_collection.find_one({"code": code})
+        if minor is None:
+            raise Exception("Minor not found")
+        return minor.get("name", "")
+    except Exception as e:
+        print("An error occurred while getting minor name:", e)
+        return ""
+
 
 # Example usage
 def main():

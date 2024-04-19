@@ -3,6 +3,8 @@ import flask
 from flask import request
 import database_files.student_database as student_database
 import database_files.courses_database as courses_database
+import database_files.minors_database as minors_database
+
 import dotenv
 import auth
 import recommendation
@@ -47,6 +49,275 @@ def get_user_info():
     except Exception as e:
         # Handle database retrieval or rendering errors
         return False, e, []
+
+def generate_and_store_recommendations(username):
+    # Placeholder recommendation logic
+    courses = student_database.get_student_coursenums(username)
+    recommended_courses = list(recommendation.recommend(courses, username))
+    print("recommended!")
+
+    # Store recommended courses in the database
+    student_database.store_recommendations(username, recommended_courses)
+    print("stored!")
+
+    return recommended_courses
+        
+#-----------------------------------------------------------------------
+#Routes for authentication. 
+
+@app.route('/login', methods=['GET'])
+def login():
+    username = auth.authenticate()
+    success, first_time = student_database.handle_student_login(username)
+    if success:
+        # Store the username in the session
+        flask.session['username'] = username
+        
+        if first_time:
+            print("First time login")
+            html_code = flask.render_template("loginpage.html", username=username)
+            response = flask.make_response(html_code)
+            return response
+        else:
+            print("Returning user")
+            return flask.redirect('/classboard') 
+    else:
+        # Handle authentication failure
+        return flask.abort(401)  # Unauthorized
+
+@app.route('/logoutapp', methods=['GET'])
+def logoutapp():
+    flask.session.pop('username', None)  # Remove username from session
+    return auth.logoutapp()
+
+@app.route('/logoutcas', methods=['GET'])
+def logoutcas():
+    flask.session.pop('username', None)  # Remove username from session
+    return auth.logoutcas()
+
+#-----------------------------------------------------------------------
+#Routes for profile. 
+
+@app.route('/profile', methods=['GET'])
+def profile():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message)
+    name = student_database.get_student_name(username)
+    #major = map_major_id_to_name(student_database.get_student_major(username))
+    major = minors_database.get_name_from_code(student_database.get_student_major(username))
+    html_code = flask.render_template("profile.html", username=username
+                                      , name=name, major=major)
+    response = flask.make_response(html_code)
+    return response
+
+@app.route('/update_profile', methods=['POST'])
+def reset_profile():
+    username = flask.session.get('username')
+    if username is None:
+        flask.redirect('/login')
+
+    name = request.form.get('name')
+    if name == '':
+        name = student_database.get_student_name(username)
+
+    # Retrieve the selected major id from the form data
+    major_name = request.form.get('major')
+    if not major_name:
+        # If major_id is not provided (shouldn't happen), use default logic
+        #major = map_major_id_to_name(student_database.get_student_major(username))
+        major = minors_database.get_name_from_code(student_database.get_student_major(username))
+    else:
+        # update major if you get new input
+        #major = map_major_name_to_id(major_name)
+        major = minors_database.get_code_from_name(major_name)
+        student_database.update_student_profile(username, name, major)
+
+    return flask.redirect('/profile')
+
+@app.route('/set_profile', methods=['POST'])
+def set_profile():
+    username = flask.session.get('username')
+    if username is None:
+        flask.redirect('/login')
+
+    name = request.form.get('name')
+    #major = map_major_name_to_id(request.form.get('major'))
+    major = minors_database.get_code_from_name(request.form.get('major'))
+    student_database.update_student_profile(username, name, major)
+    return flask.redirect('/classboard')
+
+#-----------------------------------------------------------------------
+#Routes for classboard. 
+
+@app.route('/classboard', methods=['GET'])
+def classboard():
+    success, username, classes = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    html_code = flask.render_template("classboard.html", username=username, classes=classes)
+    response = flask.make_response(html_code)
+    return response
+
+@app.route('/searchresults', methods=['GET'])
+def search_results():
+    
+    course = flask.request.args.get('course')
+    if course is None:
+        course = ''
+    course = course.strip()
+
+    if course == '':
+        result = []
+   
+    #let's do more exception handling with database on backend too later
+    try:
+        result = courses_database.search_courses(course) 
+        if result is None: 
+            result = []
+        html_code = flask.render_template('course.html', courses=result)
+        response = flask.make_response(html_code)
+        return response
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+@app.route('/addcourse', methods=['POST'])
+def add_course():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500
+
+    id = request.args.get('courseId')
+    print(id)
+    coursenum = request.args.get('courseNum')
+    print(coursenum)
+    title = request.args.get('title')
+    print(title)
+
+    course = {'id': id, 'coursenum': coursenum, 'title': title}
+    try:
+        student_database.update_student_classes(username, [course], None)
+        return flask.redirect('/loadarea')
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return flask.render_template("error.html", error=error_message), 500
+
+
+@app.route('/removecourse', methods=['POST'])
+def remove_course():
+    print("remove course")
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500
+
+    id = request.args.get('courseId')
+
+    try:
+        student_database.update_student_classes(username, classes_to_remove=[id])
+        return flask.redirect('/loadarea')
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return flask.render_template("error.html", error=error_message), 500
+
+@app.route('/loadarea', methods=['GET'])
+def load_area():
+    success, username, classes = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    html_code = flask.render_template("droparea.html", classes=classes)
+    response = flask.make_response(html_code)
+    return response
+
+
+
+#-----------------------------------------------------------------------
+#Routes for reccomend. 
+
+@app.route('/recommend', methods=['GET'])
+def recommend():
+    success, username, classes = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500
+    
+    _ = generate_and_store_recommendations(username)
+    # reroute to recommendations page
+    return flask.redirect('/recommendations')
+
+@app.route('/recommendations', methods=['GET'])
+def recommendations():
+    success, username, classes = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500
+    
+    stored_recommendations = student_database.get_stored_recommendations(username)
+
+    if not stored_recommendations:
+        # No stored recommendations found, generate and store new ones
+        stored_recommendations = generate_and_store_recommendations(username)
+
+    # Map minor IDs to names for display
+    for course in stored_recommendations:
+        course['minorid'] = course['minor']
+        #course['minor'] = map_major_id_to_name(course['minor'])
+        course['minor'] = minors_database.get_name_from_code(course['minorid'])
+        course['desc'] = minors_database.get_desc(course['minorid'])
+        
+
+    return flask.render_template("recommend.html", username=username, courses=stored_recommendations)
+
+
+@app.route('/details', methods = ['GET'])
+def details():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    minor = flask.request.args.get('minor')
+    print(minor)
+    return flask.render_template("minor.html", username=username, minor = minor)
+
+
+#-----------------------------------------------------------------------
+#Other routes
+
+@app.route('/about', methods=['GET'])
+def about():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    html_code = flask.render_template("about.html", username = username)
+    response = flask.make_response(html_code)
+    return response
+
+#route to a testing page; delete later
+@app.route('/test', methods=['GET'])
+def test():
+    success, username, _ = get_user_info()
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+
+    html_code = flask.render_template("tester.html", username = username)
+    response = flask.make_response(html_code)
+    return response
+
+
+
+#obsolete functions
+'''
 
 def map_major_name_to_id(major):
     # Implement this function to map major_id to the corresponding major name
@@ -193,261 +464,4 @@ def map_major_id_to_name(major):
 
 
     return reverse_mapping.get(major, '')
-
-def generate_and_store_recommendations(username):
-    # Placeholder recommendation logic
-    courses = student_database.get_student_coursenums(username)
-    recommended_courses = list(recommendation.recommend(courses, username))
-    print("recommended!")
-
-    # Store recommended courses in the database
-    student_database.store_recommendations(username, recommended_courses)
-    print("stored!")
-
-    return recommended_courses
-        
-#-----------------------------------------------------------------------
-#Routes for authentication. 
-
-@app.route('/login', methods=['GET'])
-def login():
-    username = auth.authenticate()
-    success, first_time = student_database.handle_student_login(username)
-    if success:
-        # Store the username in the session
-        flask.session['username'] = username
-        
-        if first_time:
-            print("First time login")
-            html_code = flask.render_template("loginpage.html", username=username)
-            response = flask.make_response(html_code)
-            return response
-        else:
-            print("Returning user")
-            return flask.redirect('/classboard') 
-    else:
-        # Handle authentication failure
-        return flask.abort(401)  # Unauthorized
-
-@app.route('/logoutapp', methods=['GET'])
-def logoutapp():
-    flask.session.pop('username', None)  # Remove username from session
-    return auth.logoutapp()
-
-@app.route('/logoutcas', methods=['GET'])
-def logoutcas():
-    flask.session.pop('username', None)  # Remove username from session
-    return auth.logoutcas()
-
-#-----------------------------------------------------------------------
-#Routes for profile. 
-
-@app.route('/profile', methods=['GET'])
-def profile():
-    success, username, _ = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message)
-    name = student_database.get_student_name(username)
-    major = map_major_id_to_name(student_database.get_student_major(username))
-    html_code = flask.render_template("profile.html", username=username
-                                      , name=name, major=major)
-    response = flask.make_response(html_code)
-    return response
-
-@app.route('/update_profile', methods=['POST'])
-def reset_profile():
-    username = flask.session.get('username')
-    if username is None:
-        flask.redirect('/login')
-
-    name = request.form.get('name')
-    if name == '':
-        name = student_database.get_student_name(username)
-
-    # Retrieve the selected major id from the form data
-    major_name = request.form.get('major')
-    if not major_name:
-        # If major_id is not provided (shouldn't happen), use default logic
-        major = map_major_id_to_name(student_database.get_student_major(username))
-    else:
-        # update major if you get new input
-        major = map_major_name_to_id(major_name)
-        student_database.update_student_profile(username, name, major)
-
-    return flask.redirect('/profile')
-
-@app.route('/set_profile', methods=['POST'])
-def set_profile():
-    username = flask.session.get('username')
-    if username is None:
-        flask.redirect('/login')
-
-    name = request.form.get('name')
-    major = map_major_name_to_id(request.form.get('major'))
-    student_database.update_student_profile(username, name, major)
-    return flask.redirect('/classboard')
-
-#-----------------------------------------------------------------------
-#Routes for classboard. 
-
-@app.route('/classboard', methods=['GET'])
-def classboard():
-    success, username, classes = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
-
-    html_code = flask.render_template("classboard.html", username=username, classes=classes)
-    response = flask.make_response(html_code)
-    return response
-
-@app.route('/searchresults', methods=['GET'])
-def search_results():
-    
-    course = flask.request.args.get('course')
-    if course is None:
-        course = ''
-    course = course.strip()
-
-    if course == '':
-        result = []
-   
-    #let's do more exception handling with database on backend too later
-    try:
-        result = courses_database.search_courses(course) 
-        if result is None: 
-            result = []
-        html_code = flask.render_template('course.html', courses=result)
-        response = flask.make_response(html_code)
-        return response
-    except Exception as e:
-        error_message = f"An error occurred: {str(e)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
-
-@app.route('/addcourse', methods=['POST'])
-def add_course():
-    success, username, _ = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500
-
-    id = request.args.get('courseId')
-    print(id)
-    coursenum = request.args.get('courseNum')
-    print(coursenum)
-    title = request.args.get('title')
-    print(title)
-
-    course = {'id': id, 'coursenum': coursenum, 'title': title}
-    try:
-        student_database.update_student_classes(username, [course], None)
-        return flask.redirect('/loadarea')
-    except Exception as e:
-        error_message = f"An error occurred: {str(e)}"
-        return flask.render_template("error.html", error=error_message), 500
-
-
-@app.route('/removecourse', methods=['POST'])
-def remove_course():
-    print("remove course")
-    success, username, _ = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500
-
-    id = request.args.get('courseId')
-
-    try:
-        student_database.update_student_classes(username, classes_to_remove=[id])
-        return flask.redirect('/loadarea')
-    except Exception as e:
-        error_message = f"An error occurred: {str(e)}"
-        return flask.render_template("error.html", error=error_message), 500
-
-@app.route('/loadarea', methods=['GET'])
-def load_area():
-    success, username, classes = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
-
-    html_code = flask.render_template("droparea.html", classes=classes)
-    response = flask.make_response(html_code)
-    return response
-
-
-
-#-----------------------------------------------------------------------
-#Routes for reccomend. 
-
-@app.route('/recommend', methods=['GET'])
-def recommend():
-    success, username, classes = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500
-    
-    _ = generate_and_store_recommendations(username)
-    # reroute to recommendations page
-    return flask.redirect('/recommendations')
-
-@app.route('/recommendations', methods=['GET'])
-def recommendations():
-    success, username, classes = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500
-    
-    stored_recommendations = student_database.get_stored_recommendations(username)
-
-    if not stored_recommendations:
-        # No stored recommendations found, generate and store new ones
-        stored_recommendations = generate_and_store_recommendations(username)
-
-    # Map minor IDs to names for display
-    for course in stored_recommendations:
-        course['minorid'] = course['minor']
-        course['minor'] = map_major_id_to_name(course['minor'])
-        course['desc'] = ['test','this']
-
-    return flask.render_template("recommend.html", username=username, courses=stored_recommendations)
-
-
-@app.route('/details', methods = ['GET'])
-def details():
-    success, username, _ = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
-
-    minor = flask.request.args.get('minor')
-    print(minor)
-    return flask.render_template("minor.html", username=username, minor = minor)
-
-
-#-----------------------------------------------------------------------
-#Other routes
-
-@app.route('/about', methods=['GET'])
-def about():
-    success, username, _ = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
-
-    html_code = flask.render_template("about.html", username = username)
-    response = flask.make_response(html_code)
-    return response
-
-#route to a testing page; delete later
-@app.route('/test', methods=['GET'])
-def test():
-    success, username, _ = get_user_info()
-    if not success:
-        error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
-
-    html_code = flask.render_template("tester.html", username = username)
-    response = flask.make_response(html_code)
-    return response
+'''
