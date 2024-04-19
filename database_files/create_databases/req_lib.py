@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import requests
 import json
-from configs import Configs
+from database_files.create_databases.configs import Configs
 
 
 class ReqLib:
