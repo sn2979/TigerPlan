@@ -28,7 +28,7 @@ def sorting_key(course, search_query):
     dept_num = course['dept_num']
     
     # Regex pattern to match "Subject" or "Subject + ' ' + course_num"
-    pattern_startswith = fr"^{re.escape(search_query)}\s?\d*"
+    pattern_startswith = fr"^{re.escape(search_query)}\s?(\d*)\s*(.*)"
     pattern_contains = fr".*{re.escape(search_query)}.*"
 
     # Check if the dept_num matches the regex patterns
@@ -36,14 +36,24 @@ def sorting_key(course, search_query):
     match_contains = re.search(pattern_contains, dept_num, re.IGNORECASE)
     
     if match_startswith:
-        # Return 0 for dept_nums that start with the search value
-        return 0
+        course_number = match_startswith.group(1)  # Extract course number
+        course_suffix = match_startswith.group(2)  # Extract the rest after course number
+
+        # Return a tuple to sort courses:
+        # 0 - Courses that start with the search query
+        # course_number (as int) - Sort by the course number (convert to integer)
+        # course_suffix - Sort by the rest of the dept_num after course number
+        return (0, int(course_number) if course_number.isdigit() else 0, course_suffix)
+    
     elif match_contains:
-        # Return 1 for dept_nums that contain the search value
-        return 1
+        # Return a tuple to sort courses:
+        # 1 - Courses that contain the search query but do not start with it
+        return (1, None, None)
+    
     else:
-        # Return 2 for dept_nums that do not match the patterns
-        return 2
+        # Return a tuple to sort courses:
+        # 2 - Courses that do not match the patterns
+        return (2, None, None)
 
 def search_courses(search_query):
     if re.match(r'^(?: )*$', search_query):
@@ -65,7 +75,6 @@ def search_courses(search_query):
         no_spaces_title = re.sub(r'\s+', ' ', search_query)
         no_spaces_dept_num = re.sub(r'\s+', '', search_query)
         escaped_query = re.escape(search_query)
-        print(search_query)
         query = {
         '$or': [
             {'subject': {'$regex': f"^{escaped_query}", '$options': 'i'}},  # Caseinsensitive regex match on subject
@@ -103,7 +112,7 @@ def search_courses(search_query):
 
 
 # Example usage: Searching for courses matching a query
-search_query = "  "  # Example search query (can be any sequence of letters/numbers)
+search_query = "soc"  # Example search query (can be any sequence of letters/numbers)
 matching_courses = search_courses(search_query)
 # Print matching courses
 if matching_courses:
