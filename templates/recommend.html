@@ -198,7 +198,25 @@
   </div>
 </main>
 <script>
-  function openModal( card, minor, desc) {
+  
+
+  function openModal(card, minor, desc) {
+    var modal = document.getElementById("myModal");
+    
+    modal.style.display = "block";
+    document.getElementById("modal-title").textContent = minor;
+    document.getElementById("description").textContent = desc;
+    
+    document.getElementById("modal-text").innerHTML = `<p>${minor}</p><p>this is minor.html</p>`;
+
+    //colors
+    var modalContent = document.querySelector(".modal-content");
+    var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
+    modalContent.style.backgroundColor = cardBackgroundColor;
+
+  }
+
+  function openModalDepreciated( card, minor, desc) {
     console.log("modal opened uwu")
     var modal = document.getElementById("myModal");
     var modalContent = document.querySelector(".modal-content");
@@ -227,6 +245,7 @@
     var modal = document.getElementById("myModal");
     modal.style.display = "none";
   }
+
 </script>
 
 
