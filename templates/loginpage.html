@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
     
 {% include 'header.html' %}
@@ -14,5 +14,149 @@
 
          <input type="submit" value="Submit">
     </form>
-</body>
+</body>-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TigerPlan</title>
+        <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
+    <style>
+        form {
+            width: 450px;
+            height: 280px;
+            margin: 20px;
+            background-color: #EDDEA4;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            width: 450;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #F7A072;
+            color: #FFFFFF;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            font-family: 'Roboto Serif', serif; /* Example font, update as needed */
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333333;
+            font-family: 'Roboto Serif', serif; /* Example font, update as needed */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #FF884D;
+        }
+
+        .profile h1 {
+            margin: 20px;
+            text-align: center;
+            color: #333333;
+            font-family: 'Roboto Serif'
+        }
+
+        h3 {
+            margin: 20px;
+            text-align: center;
+            color: #666666;
+            font-family: 'Roboto Serif', serif; /* Example font, update as needed */
+        }
+
+        select {
+        width: 50%; /* Match the width of your text inputs */
+        padding: 12px;
+        margin-bottom: 20px; /* This matches your input style */
+        font-size: 16px; /* Large enough for easy reading */
+        border: 1px solid #CCCCCC;
+        border-radius: 5px;
+        -webkit-appearance: none; /* Disables the default dropdown styling */
+        -moz-appearance: none;
+        appearance: none; /* Use this to make it consistent across browsers */
+        background-color: white; 
+        cursor: pointer;
+        }
+    </style>
+    </head>
+
+    <body>
+        <center class="profile">
+            <h1>Your Profile</h1>
+            <h3>Set up your profile!</h3>
+            <form action="/set_profile" method="POST">
+                <input type="hidden" id="username" name="username" value="{{ username }}"><br><br>
+
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <label for="major">Major: </label>
+                    <select id="major" name="major">
+                        <option value="" disabled selected>{{ major }}</option>
+                        <!-- Replace the following with actual options -->
+                        <option id="AAS">African American Studies</option>
+                        <option id="ANT">Anthropology</option>
+                        <option id="ARC">Architecture</option>
+                        <option id="ART">Art and Archaeology</option>
+                        <option id="AST">Astrophysics</option>
+                        <option id="CBE">Chemical and Biological Engineering</option>
+                        <option id="CHM">Chemistry</option>
+                        <option id="CEE">Civil and Environmental Engineering</option>
+                        <option id="CLA">Classics</option>
+                        <option id="COM">Comparative Literature</option>
+                        <option id="COS">Computer Science</option>
+                        <option id="EAS">East Asian Studies</option>
+                        <option id="ECO">Economics</option>
+                        <option id="ECE">Electrical and Computer Engineering</option>
+                        <option id="ENG">English</option>
+                        <option id="EEB">Ecology and Evolutionary Biology</option>
+                        <option id="FRE">French and Italian</option>
+                        <option id="GEO">Geosciences</option>
+                        <option id="GER">German</option>
+                        <option id="HIS">History</option>
+                        <option id="MAT">Mathematics</option>
+                        <option id="MAE">Mechanical and Aerospace Engineering</option>
+                        <option id="MOL">Molecular Biology</option>
+                        <option id="MUS">Music</option>
+                        <option id="NES">Near Eastern Studies</option>
+                        <option id="NEU">Neuroscience</option>
+                        <option id="ORF">Operations Research and Financial Engineering</option>
+                        <option id="PHI">Philosophy</option>
+                        <option id="PHY">Physics</option>
+                        <option id="POL">Politics</option>
+                        <option id="SPI">Princeton School of Public and International Affairs</option>
+                        <option id="PSY">Psychology</option>
+                        <option id="REL">Religion</option>
+                        <option id="SLA">Slavic Languages and Literatures</option>
+                        <option id="SOC">Sociology</option>
+                        <option id="SPA">Spanish and Portuguese</option>
+                    </select> 
+
+                    <br>
+                    <br>
+                    <br>
+
+                <input type="submit" value="Submit">
+            </form>
+        </center>
+    </body>
+</html>
+
 

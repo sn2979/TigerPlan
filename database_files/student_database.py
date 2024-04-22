@@ -1,7 +1,7 @@
 import sys
 import os
 import queue
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING
 
 #-----------------------------------------------------------------------
 # _DATABASE_URL = os.environ['DATABASE_URL'] # = mongodb+srv://tigerplan333:TigerPlan123!@tigerplandata.yyrhywn.mongodb.net/?retryWrites=true&w=majority&appName=TigerPlanData
@@ -47,7 +47,7 @@ def handle_student_login(username):
                 "netID": username,
                 "Name": "",
                 "Major": "",
-                "Classes": ["COS 333 <3 "],
+                "Classes": [],
                 "Recommendations": []
             }   
             students_collection.insert_one(new_student)
@@ -114,6 +114,7 @@ def get_student_major(username):
 
 # Function to update student classes
 def update_student_classes(username, classes_to_add=None, classes_to_remove=None):
+    print(classes_to_remove)
     try:
         existing_student = students_collection.find_one({"netID": username})
         if existing_student is None:
@@ -125,22 +126,93 @@ def update_student_classes(username, classes_to_add=None, classes_to_remove=None
             update_query["$addToSet"] = {"Classes": {"$each": classes_to_add}}
         
         if classes_to_remove:
-            update_query["$pull"] = {"Classes": {"$in": classes_to_remove}}
+            update_query["$pull"] = {"Classes": {"id": {"$in": classes_to_remove}}}
+            print(f"Removed classes with IDs: {classes_to_remove}")
         
         if update_query:
             students_collection.update_one({"netID": username}, update_query)
+            print("updated classes")
+            print(get_student_classes(username))
         
         return True
     except Exception as e:
         print("An error occurred while updating student classes:", e)
         return False
 
+def get_student_coursenums(username):
+    try:
+        # Get a MongoDB connection
+        client = _get_connection()
+        db = client['TigerPlanData']
+        students_collection = db['StudentsData']
+
+        # Aggregation pipeline to retrieve course numbers for the specified student
+        pipeline = [
+            # Match the document for the specified student by netID
+            {"$match": {"netID": username}},
+            # Unwind the classes array to deconstruct the array into separate documents
+            {"$unwind": "$Classes"},
+            # Project to include only the coursenum field from each class object
+            {"$project": {"_id": 0, "coursenum": "$Classes.coursenum"}}
+        ]
+
+        # Execute the aggregation pipeline
+        result = list(students_collection.aggregate(pipeline))
+
+        # Extract the list of coursenum values
+        coursenum_list = [entry['coursenum'] for entry in result]
+
+        return coursenum_list
+    except Exception as e:
+        print("An error occurred while getting student course numbers:", e)
+        return []
+    
+def store_recommendations(username, recommendations):
+    try:
+        client = _get_connection()
+        db = client['TigerPlanData']
+        students_collection = db['StudentsData']
+
+        existing_student = students_collection.find_one({"netID": username})
+        if existing_student is None:
+            raise Exception("Student not found")
+
+        students_collection.update_one(
+            {"netID": username},
+            {"$set": {"Recommendations": recommendations}},
+            upsert=True
+        )
+        _put_connection(client)
+        return True
+    except Exception as e:
+        print("An error occurred while storing recommendations:", e)
+        _put_connection(client)
+        return False
+
+def get_stored_recommendations(username):
+    try:
+        client = _get_connection()
+        db = client['TigerPlanData']
+        students_collection = db['StudentsData']
+
+        existing_student = students_collection.find_one({"netID": username})
+        if existing_student is None:
+            raise Exception("Student not found")
+
+        recommendations = existing_student.get("Recommendations", [])
+        _put_connection(client)
+        return recommendations
+    except Exception as e:
+        print("An error occurred while retrieving recommendations:", e)
+        _put_connection(client)
+        return []
+
 # Example usage
 def main():
     try:
         # Assuming username is retrieved after successful login
         # create a loop of usernames
-        for i in range(1, 10):
+        '''for i in range(1, 10):
             username = "student" + str(i)
             worked,_ = handle_student_login(username)
             if worked:
@@ -162,7 +234,29 @@ def main():
         # Update student classes by adding some classes
         update_student_classes("student2", classes_to_add=["COS 333"])
         student_classes = get_student_classes("student2")
-        print("Updated classes for student:", student_classes)
+        print("Updated classes for student:", student_classes)'''
+        username = "sn2979"
+        # Get the list of coursenum values for the specified student
+        student_coursenums = get_student_coursenums(username)
+        print("Coursenums for student:", student_coursenums)
+
+        # Store recommendations for the specified student
+        recommendations = [
+            {"distance": 2, "minor": "African American Studies", "best_combination": ["AAS 100", "AAS 200"]},
+            {"distance": 3, "minor": "Anthropology", "best_combination": ["ANT 101", "ANT 200", "ANT 300"]},
+            { "distance": 4, "minor": "Art and Archaeology", "best_combination": ["ART 101", "ART 200", "ART 300", "ART 400"]}
+        ]
+
+        # Store recommendations
+        success = store_recommendations(username, recommendations)
+        if success:
+            print("Recommendations stored successfully")
+        else:
+            print("Failed to store recommendations")
+
+        # Retrieve stored recommendations
+        stored_recommendations = get_stored_recommendations(username)
+        print("Stored recommendations:", stored_recommendations)
 
     except Exception as e:
         print("An error occurred:", e)

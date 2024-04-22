@@ -3,17 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TigerPlan</title>
+<title>TigerPlan - About</title>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
-</head>
-<body>
+
+<style>
+  /* CSS for stacking sections vertically */
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+  }
+
+  .text-section {
+    margin-bottom: 30px; /* space between sections */
+    font-size: 20px; 
+  }
+
+  h2 {
+    margin-top:25px;
+    margin-bottom: 20px; /* Add space below h2 */
+    font-size: 40px; /* Larger font size for h2 */
+    color:#e6893e;
     
+  }
+
+  h4 {
+    margin-bottom: 10px; /* Add space below h4 */
+    font-size: 30px; /* Larger font size for h4 */
+    text-align: center; /* Center align h4 */
+    color: #e6893e;
+
+  }
+</style>
+
+</head>
+
+<body>
+
 {% set username = username %}
 {% include 'header.html' %}
+
 <main>
-  <section id="main-content">
-    <p>This is a filler page for the about section.</p>
-  </section>
+<section class="container mb-4 mt-5">
+  <h2 class="text-center mb-4">About TigerPlan</h2>
+
+  <div class="text-section">
+    <p>TigerPlan is a web application that helps Princeton University students choose their minors.</p>   
+  </div>
+
+  <div class="text-section">
+    <h4>Team Members</h4>
+    <div>Samyukta Neeraj - email</div>
+    <div>Tara Shukla - email</div>
+    <div>Abani Ahmed - email</div>
+    <div>Josh Schoenberg - jschoenberg@princeton.edu</div>
+  </div>
+
+  <div class="text-section">
+    <h4>Acknowledgments</h4>
+    <p class="mb-0">Creston Brooks - COS 333 Spring 2024 Advisor</p>
+    <p>Prof. Robert Dondero- COS 333 Spring 2024 Professor</p>
+  </div>
+
+  <div class="text-section">
+    <h4>Resources</h4>
+  </div>
+</section>
+
 </main>
 
 </body>

@@ -5,6 +5,156 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TigerPlan</title>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
+<style>
+  
+  .card {
+    background-color: #FF9B42; /* card background color */
+    margin-bottom: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #e0e0e0; /* card border */
+    border-radius: 20px;
+    transition: transform 0.2s; /* smooth transform on hover */
+    font-family: 'Caveat Brush', brush;
+    width: 325px;
+    height: 450px; 
+  }
+
+  .card p {
+    font-family: 'Roboto Serif', serif;
+    font-size: 30px;
+    margin-top:100px;
+    flex: 1; /* Let the title take up space evenly */
+  }
+
+  .card:hover {
+    transform: translateY(-5px); /* raise the card slightly on hover */
+  }
+
+  .card:nth-child(2) {
+    background-color: #F7A072; /* second card background color */
+  }
+
+  .card:nth-child(3) {
+    background-color: #ffd699; /* third card background color */
+  }
+
+  .card-title {
+    font-size: 40px; /* title font size */
+    margin-bottom: 5px;
+  }
+
+  .card-text {
+    font-size: 16px; /* text font size */
+    flex: 1; /* Let the title take up space evenly */
+    margin-bottom: 50px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center; /* Centers the cards in the container */
+    flex-wrap: wrap; /* Allows cards to wrap to next line on small screens */
+    gap: 20px; /* Adjust the space between cards */
+    padding: 20px;
+    justify-content: center; /* Centers the cards horizontally */
+    align-items: center; /* Centers the cards vertically */
+  }
+
+
+  /* Styles for the modal popup */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+  }
+
+  .modal-content {
+    margin: 10% auto; /* Adjust vertical margin for centering */
+    padding: 40px; /* Increase padding for content spacing */
+    border: 1px solid #e0e0e0; /* card border */
+    border-radius: 20px;
+    width: 95%; /* Increase width to 90% of the viewport */
+    max-width: 1100px; /* Set maximum width for larger screens */
+    height: 70%; /* Increase width to 90% of the viewport */
+    max-height: 600px; /* Set maximum width for larger screens */
+    text-align: center;
+    font-family: 'Roboto Serif', serif;
+    font-size: 30px; /* text font size */
+    position: relative; /* Ensure relative positioning for absolute positioned close button */
+    word-wrap: break-word;
+
+  }
+  .modal-descBox {
+    background-color: #FFFFCC; /* Light yellow background */
+    /*margin-bottom: 10px;*/
+    padding: 20px;
+    text-align: center;
+    font-family: 'Caveat Brush', brush;
+    width: calc(50% - 40px); /* Set width to half of the modal width minus padding */
+    position: absolute; /* Position absolutely within the modal */
+    top: 50%; /* Align to the vertical center */
+    right: 20px; /* Align to the right */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    border-radius: 10px; /* Add rounded corners */
+
+    width: 50%; /* Increase width to 90% of the viewport */
+    max-width: 450px; /* Set maximum width for larger screens */
+    height: 85%; /* Increase width to 90% of the viewport */
+    max-height: 700px; /* Set maximum width for larger screens */
+
+  }
+  .modal-content .modal-descBox p {
+    font-size: 20px; /* Adjust the font size as needed */
+  }
+  .modal-content h2 {
+    font-family: 'Caveat Brush', brush;
+    font-size: 55px; /* title font size */
+    margin-bottom: 10px;
+    margin-left: 20px; /* Adjust the left margin to move it more towards the center */
+    margin-right: auto; /* Set right margin to auto for centering */
+    text-align: left; /* Align the text to the left */
+  }
+
+  .modal-content p {
+    font-family: 'Roboto Serif', serif;
+    font-size: 30px; /* text font size */
+  }
+
+  .grey-boxes {
+    display: flex;
+    flex-direction: column; /* Stack boxes vertically */
+    align-items: flex-start; /* Align to the left */
+    margin-top: 20px;
+  }
+  
+  .grey-box {
+    background-color: #C6C6C6;
+    width: 45%; /* Set width to 45% of the modal */
+    max-width: 500px;
+    height: 70px;
+    margin-bottom: 20px; /* Add margin between boxes */
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+    z-index: 2;
+
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #000; /* Adjust color for visibility */
+  }
+</style>
 </head>
 <body>
 
@@ -12,9 +162,93 @@
 {% include 'header.html' %}
 <main>
   <section id="main-content">
-    <p>This is a filler page for the reccomend section.</p>
+    <p>Here are your most compatible minors!</p>
   </section>
+  <div class="container">
+    {% for course in courses %}
+      <div class="card" onclick="openModal(this, minor = '{{course['minor']}}',  desc = '{{course['desc']}}' );">
+        <h3 class="card-title">{{ course['minor'] }}</h3>
+        <p>  </p>
+        <p class="card-text" style='line-height: 8px;'>You need</p>
+        <h1 style='line-height: 1px; font-size: 50px;'>{{ course['distance'] }} </h1>
+        <p >more classes to fulfill this minor!</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!--making modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title"></h2>
+
+      <div class="grey-boxes">
+        <div class="grey-box"></div>
+        <div class="grey-box"></div>
+        <div class="grey-box"></div>
+      </div>
+
+
+      <div id="modal-text"></div>
+      <div class  = "modal-descBox">
+        <p class = "modal-descText" id = "description"></p>
+      </div>
+
+    </div>
+  </div>
 </main>
+<script>
+  
+
+  function openModal(card, minor, desc) {
+    var modal = document.getElementById("myModal");
+    
+    modal.style.display = "block";
+    document.getElementById("modal-title").textContent = minor;
+    document.getElementById("description").textContent = desc;
+    
+    document.getElementById("modal-text").innerHTML = `<p>${minor}</p><p>this is minor.html</p>`;
+
+    //colors
+    var modalContent = document.querySelector(".modal-content");
+    var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
+    modalContent.style.backgroundColor = cardBackgroundColor;
+
+  }
+
+  function openModalDepreciated( card, minor, desc) {
+    console.log("modal opened uwu")
+    var modal = document.getElementById("myModal");
+    var modalContent = document.querySelector(".modal-content");
+    var modalTitle = document.getElementById("modal-title");
+    var modalText = document.getElementById("modal-text");
+    var descriptionText = document.getElementById("description");
+
+    //colors
+    var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
+    modalContent.style.backgroundColor = cardBackgroundColor;
+
+    modal.style.display = "block";
+    modalTitle.textContent = minor;
+    descriptionText.textContent = desc;
+    
+    // Constructing the context object with `desc`
+    console.log(minor)
+    var context = { minor : minor };
+    console.log(context)
+
+    modalText.innerHTML = "{% include 'minor.html' with context %}"
+    
+  }
+
+  function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+  }
+
+</script>
+
 
 </body>
 </html>
+

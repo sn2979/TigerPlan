@@ -1,0 +1,10 @@
+{% if classes %}
+    {% for course in classes %}
+        <div class="grid-item" draggable="true" ondragstart="drag(event)" id="{{ course.id }}-container">
+            <h2 id="{{course.coursenum}}">{{ course.coursenum }}</h2>
+            <p id= "{{course.title}}"> {{ course.title }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+<center id="placeholder"><p>Drag your classes here!</p></center>
+{% endif %}

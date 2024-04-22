@@ -47,10 +47,10 @@ try:
 
             # Insert document into CrossDump collection
             cross_dump_collection.update_many(
-                {'id': course_id},  # Match documents by course_id
+                {'id': course_id, 'title': {'$exists': False}},  # Match documents by course_id where title does not exist
                 {'$set': {'title': title}},  # Set new title value
                 upsert=False  # Do not insert a new document if no match is found
-            )
+)
             print(f"added {title} for courseid {course_id}")
 except Exception as ex:
         print(ex)

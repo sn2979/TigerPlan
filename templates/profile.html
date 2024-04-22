@@ -3,9 +3,7 @@
     <head>
         <title>TigerPlan</title>
         <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
+
     <style>
         form {
             width: 450px;
@@ -53,7 +51,8 @@
             margin: 20px;
             text-align: center;
             color: #333333;
-            font-family: 'Roboto Serif'
+            font-family: 'Roboto Serif';
+            font-size: 40px;
         }
 
         h3 {
@@ -62,6 +61,20 @@
             color: #666666;
             font-family: 'Roboto Serif', serif; /* Example font, update as needed */
         }
+
+        select {
+            width: 50%; /* Match the width of your text inputs */
+            padding: 12px;
+            margin-bottom: 20px; /* This matches your input style */
+            font-size: 16px; /* Large enough for easy reading */
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+            -webkit-appearance: none; /* Disables the default dropdown styling */
+            -moz-appearance: none;
+            appearance: none; /* Use this to make it consistent across browsers */
+            background-color: white; 
+            cursor: pointer;
+        }
     </style>
     </head>
     
@@ -69,8 +82,10 @@
 
     <body>
         <center class="profile">
-            <h1>Your Profile</h1>
-            <h3>Update your profile here!</h3>
+            <section id="main-content">
+                <p>Your Profile!</p>
+              </section>
+            <p>Update your profile here!</p>
             <form action="/update_profile" method="POST">
                 <input type="hidden" id="username" name="username" value="{{ username }}"><br><br>
 
@@ -78,10 +93,59 @@
                 <input placeholder="{{name}}" type="text" id="name" name="name"><br><br>
 
                 <label for="major">Major: </label>
-                <input placeholder="{{major}}" type="text" id="major" name="major"><br><br>
+                    <select id="major" name="major">
+                        {% if major %}
+                        <option value="{{ major }}" selected>{{ major }}</option>
+                        {% else %}
+                        <option value="" disabled selected>Click to select a major</option>
+                        {% endif %}
+                        <!-- Replace the following with actual options -->
+                        <option id="AAS">African American Studies</option>
+                        <option id="ANT">Anthropology</option>
+                        <option id="ARC">Architecture</option>
+                        <option id="ART">Art and Archaeology</option>
+                        <option id="AST">Astrophysics</option>
+                        <option id="CBE">Chemical and Biological Engineering</option>
+                        <option id="CHM">Chemistry</option>
+                        <option id="CEE">Civil and Environmental Engineering</option>
+                        <option id="CLA">Classics</option>
+                        <option id="COM">Comparative Literature</option>
+                        <option id="COS">Computer Science</option>
+                        <option id="EAS">East Asian Studies</option>
+                        <option id="ECO">Economics</option>
+                        <option id="ECE">Electrical and Computer Engineering</option>
+                        <option id="ENG">English</option>
+                        <option id="EEB">Ecology and Evolutionary Biology</option>
+                        <option id="FRE">French and Italian</option>
+                        <option id="GEO">Geosciences</option>
+                        <option id="GER">German</option>
+                        <option id="HIS">History</option>
+                        <option id="MAT">Mathematics</option>
+                        <option id="MAE">Mechanical and Aerospace Engineering</option>
+                        <option id="MOL">Molecular Biology</option>
+                        <option id="MUS">Music</option>
+                        <option id="NES">Near Eastern Studies</option>
+                        <option id="NEU">Neuroscience</option>
+                        <option id="ORF">Operations Research and Financial Engineering</option>
+                        <option id="PHI">Philosophy</option>
+                        <option id="PHY">Physics</option>
+                        <option id="POL">Politics</option>
+                        <option id="SPI">Princeton School of Public and International Affairs</option>
+                        <option id="PSY">Psychology</option>
+                        <option id="REL">Religion</option>
+                        <option id="SLA">Slavic Languages and Literatures</option>
+                        <option id="SOC">Sociology</option>
+                        <option id="SPA">Spanish and Portuguese</option>
+                    </select> 
+
+                    <br>
+                    <br>
+                    <br>
 
                 <input type="submit" value="Submit">
             </form>
+            <button class="back-button" onclick="window.location.href='/classboard'">Back to My Classes</button>
+
         </center>
     </body>
 </html>
