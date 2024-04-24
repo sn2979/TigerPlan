@@ -210,6 +210,60 @@ def find_best_combination(key, all_combinations, subrequirements):
 
 
 if __name__ == '__main__':
+    '''# testing AFS
+    # Class list
+    class_list = {
+        'Core': ['AFS 201'],
+        'Humanities': [],
+        'African Language': ['GEZ 101'],
+        'Social Sciences': ['SPI 409'],
+        'Other Electives': ['LIN 201', 'SPI 409', 'TWI 105', 'GEZ 101']
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'Core': 1,
+        'Humanities': 1,
+        'African Language': 1,
+        'Social Sciences': 1,
+        'Other Electives': 1
+    }
+
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('AFS', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
+
+    # testing GSS
+    # Class list
+    class_list = {
+        'Intro': ['GSS 201'],
+        'Thematic': ['GSS 301', 'GSS 203'],
+        'Elective': ['GSS 203']
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'Intro': 1,
+        'Thematic': 3,
+        'Elective': 1
+    }
+
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('GSS', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
+
     # testing ENV
     # Class list
     class_list = {
@@ -236,7 +290,7 @@ if __name__ == '__main__':
     # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
 
-    '''dict_combinations = [
+    dict_combinations = [
         {
             'Foundation Above 300 2': ['ENV 304', 'ENV 377'],
             'Foundation Above 300 1': ['ENV 304'],
@@ -260,7 +314,7 @@ if __name__ == '__main__':
         print(f"Combination {i}: {combination}")
 
     # Create the ENV tree
-    env = minors.create_cla_tree(subrequirements)'''
+    env = minors.create_cla_tree(subrequirements)
 
     best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('ENV', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
@@ -288,8 +342,8 @@ if __name__ == '__main__':
     }
 
     # Print all combinations
-    '''for i, combination in enumerate(all_combinations, start=1):
-        print(f"Combination {i}: {combination}")'''
+    for i, combination in enumerate(all_combinations, start=1):
+        print(f"Combination {i}: {combination}")
 
         # Generate all combinations of classes
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
@@ -336,7 +390,7 @@ if __name__ == '__main__':
     all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
 
     # Define all_combinations as a list of dictionaries
-    '''dict_combinations = [
+    dict_combinations = [
         {
             "Prerequisites": ["CLA 219"],
             "Basic Requirements": ["CLA 212"],
@@ -376,15 +430,15 @@ if __name__ == '__main__':
             "Historical Survey": [],
             "Track Requirements": []
         }
-    ]'''
+    ]
     # Print all combinations
-    '''for i, combination in enumerate(all_combinations, start=1):
+    for i, combination in enumerate(all_combinations, start=1):
         print(f"Combination {i}: {combination}")
 
     for i, combo in enumerate(dict_combinations, start=1):
         print(f"Combination {i}:")
         for category, selected_class in combo.items():
-            print(f"  {category}: {selected_class}")'''
+            print(f"  {category}: {selected_class}")
     # Find the best combination
     best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('CLA', dict_combinations, subrequirements)
     print(f"Best combination: {best_combination}")
@@ -459,4 +513,6 @@ if __name__ == '__main__':
     print(f"Best combination: {best_combination}")
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
-    print(tree_info)
+    print(tree_info)'''
+
+    

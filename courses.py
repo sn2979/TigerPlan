@@ -156,6 +156,37 @@ def lin_minor_courses():
 
     return courses
 
+def gss_minor_courses():
+    courses = {
+        'Intro': ['GSS 201'],
+        'Thematic': ['.*GSS.*'],
+        'Elective': ['.*GSS 3.*', '.*GSS 4.*']
+    }
+
+    return courses
+
+def afs_minor_courses():
+    courses = {
+        'Core': ['.*AFS 2.*', '.*AFS 3.*'],
+        'Humanities': ['.*AAS.*', '.*AFS.*', '.*AMS.*', '.*ART.*', '.*ASA.*', '.*CLA.*', '.*CLG.*', '.*COM.*',
+                    '.*CWR.*', '.*DAN.*', '.*EAS.*', '.*ENG.*', '.*ECS.*', '.*GER.*', '.*GSS.*', '.*HIS.*',
+                    '.*HLS.*', '.*HUM.*', '.*JDS.*', '.*LAO.*', '.*LAS.*', '.*LAT.*', '.*LIN.*', '.*MED.*',
+                    '.*MOG.*', '.*MUS.*', '.*MPP.*', '.*NES.*', '.*PHI.*', '.*SAS.*', '.*SLA.*', '.*THR.*',
+                    '.*TRA.*', '.*URB.*', '.*VIS.*'],
+        'African Language': ['.*TWI 101.*', '.*TWI 102.*', '.*TWI 103G.*', '.*TWI 105.*', '.*TWI 107.*',
+                    '.*GEZ 101.*', '.*SWA 101.*', '.*SWA 102.*', '.*SWA 103K.*', '.*SWA 105.*', '.*SWA 107.*'],
+        'Social Sciences': ['.*EPS .*', '.*HIS .*', '.*JRN .*', '.*POL .*', '.*SOC .*', '.*SPI .*', '.*ANT .*'],
+        'Other Electives': ['.*AAS.*', '.*AFS.*', '.*AMS.*', '.*ART.*', '.*ASA.*', '.*CLA.*', '.*CLG.*', '.*COM.*',
+                    '.*CWR.*', '.*DAN.*', '.*EAS.*', '.*ENG.*', '.*ECS.*', '.*GER.*', '.*GSS.*',
+                    '.*HLS.*', '.*HUM.*', '.*JDS.*', '.*LAO.*', '.*LAS.*', '.*LAT.*', '.*LIN.*', '.*MED.*',
+                    '.*MOG.*', '.*MUS.*', '.*MPP.*', '.*NES.*', '.*PHI.*', '.*SAS.*', '.*SLA.*', '.*THR.*',
+                    '.*TRA.*', '.*URB.*', '.*VIS.*', '.*TWI 101.*', '.*TWI 102.*', '.*TWI 103G.*', '.*TWI 105.*', '.*TWI 107.*',
+                    '.*GEZ 101.*', '.*SWA 101.*', '.*SWA 102.*', '.*SWA 103K.*', '.*SWA 105.*', '.*SWA 107.*',
+                     '.*EPS .*', '.*HIS .*', '.*JRN .*', '.*POL .*', '.*SOC .*', '.*SPI .*', '.*ANT .*']
+    }
+
+    return courses
+
 def get_courses(minor):
     if minor == 'CLA':
         return cla_minor_courses()
@@ -167,6 +198,10 @@ def get_courses(minor):
         return cos_minor_courses()
     elif minor == 'FIN':
         return fin_minor_courses()
+    elif minor == 'GSS':
+        return gss_minor_courses()
+    elif minor == 'AFS':
+        return afs_minor_courses()
     else:
         return None
 #---------------------------------------------------------------------
@@ -236,6 +271,26 @@ def lin_minor_requirements():
 
     return subrequirements
 
+def gss_minor_requirements():
+    subrequirements = {
+        'Intro': 1,
+        'Thematic': 3,
+        'Elective': 1
+    }
+
+    return subrequirements
+
+def afs_minor_requirements():
+    subrequirements = {
+        'Core': 1,
+        'Humanities': 1,
+        'African Language': 1,
+        'Social Sciences': 1,
+        'Other Electives': 1
+    }
+
+    return subrequirements
+
 def get_minor_requirements(minor):
     if minor == 'CLA':
         return cla_minor_requirements()
@@ -247,5 +302,9 @@ def get_minor_requirements(minor):
         return cos_minor_requirements()
     elif minor == 'FIN':
         return fin_minor_requirements()
+    elif minor == 'GSS':
+        return gss_minor_requirements()
+    elif minor == 'AFS':
+        return afs_minor_requirements()
     else:
         return None

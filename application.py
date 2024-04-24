@@ -379,7 +379,7 @@ def load_area():
 
 
 #-----------------------------------------------------------------------
-#Routes for reccomend. 
+#Routes for recommend. 
 
 @app.route('/recommend', methods=['GET'])
 def recommend():
@@ -409,7 +409,7 @@ def recommendations():
     for course in stored_recommendations:
         course['minorid'] = course['minor']
         course['minor'] = map_major_id_to_name(course['minor'])
-        course['desc'] = ['hehe','hoho']
+        #course['desc'] = ['hehe','hoho']
 
     return flask.render_template("recommend.html", username=username, courses=stored_recommendations)
 

@@ -88,6 +88,10 @@ def create_tree(key, subrequirements):
         return create_fin_tree(subrequirements)
     elif key == 'LIN':
         return create_lin_tree(subrequirements)
+    elif key == 'GSS':
+        return create_gss_tree(subrequirements)
+    elif key == 'AFS':
+        return create_afs_tree(subrequirements)
     else:
         return None
     
@@ -326,6 +330,49 @@ def create_lin_tree(subrequirements, parent=None):
     lin.add_child(coursework)
 
     return lin
+
+def create_gss_tree(subrequirements, parent=None):
+    # Create the root node for GSS minor
+    gss = Node('GSS', parent, marked=True)
+
+    # Create the Intro node under GSS
+    gss.add_child(Node('Intro', parent=gss, classes_needed=subrequirements.get('Intro', 0), marked=True))
+
+    # Create the Thematic node under GSS
+    gss.add_child(Node('Thematic', parent=gss, classes_needed=subrequirements.get('Thematic', 0), marked=True))
+
+    # Create the Elective node under GSS
+    gss.add_child( Node('Elective', parent=gss, classes_needed=subrequirements.get('Elective', 0), marked=True))
+
+    return gss
+
+def create_afs_tree(subrequirements, parent=None):
+
+    # Create the root node for AFS minor
+    afs = Node('AFS', parent, marked=True)
+
+    # Create Core node under AFS
+    afs.add_child(Node('Core', parent=afs, classes_needed=subrequirements.get('Core', 0), marked=True))
+
+    # Create Electives node under AFS
+    electives = Node('Electives', parent=afs, marked=True)
+
+    # Create Humanities node under Electives
+    electives.add_child(Node('Humanities', parent=electives, classes_needed=subrequirements.get('Humanities', 0), marked=True))
+
+    # Create African Language node under Electives
+    electives.add_child(Node('African Language', parent=electives, classes_needed=subrequirements.get('African Language', 0), marked=True))
+
+    # Create Social Sciences node under Electives
+    electives.add_child(Node('Social Sciences', parent=electives, classes_needed=subrequirements.get('Social Sciences', 0), marked=True))
+
+    # Create Other Electives node under Electives
+    electives.add_child(Node('Other Electives', parent=electives, classes_needed=subrequirements.get('Other Electives', 0), marked=True))
+
+    afs.add_child(electives)
+
+    return afs
+
                          
 
 
