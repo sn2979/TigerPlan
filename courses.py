@@ -244,6 +244,166 @@ def cwr_minor_courses():
 
     return courses
 
+def  dan_minor_courses():
+    courses = {
+        'Studio': ['.*DAN 204.*', '.*DAN 207.*', '.*DAN 208.*', '.*DAN 211.*', '.*DAN 215.*', '.*DAN 216.*',
+                   '.*DAN 221.*', '.*DAN 229.*', '.*DAN 301.*', '.*DAN 303.*', '.*DAN 305.*', '.*DAN 324.*',
+                   '.*DAN 326.*', '.*DAN 348.*', '.*DAN 351.*', '.*DAN 354.*', '.*DAN 401.*', '.*DAN 402.*',
+                   '.*DAN 408.*', '.*DAN 419A.*', '.*DAN 420A.*', '.*DAN 431.*', '.*DAN 432.*'],
+        'Seminar': ['.*DAN 215.*', '.*DAN 305.*', '.*DAN 308.*', '.*DAN 312.*', '.*DAN 314.*', '.*DAN 316.*',
+                    '.*DAN 317.*', '.*DAN 321.*', '.*DAN 325.*', '.*DAN 329.*', '.*DAN 348.*', '.*DAN 393.*',
+                    '.*DAN 406.*'],
+        'Electives': ['.*DAN.*']
+    }
+
+    return courses
+
+def eas_minor_courses():
+    courses = {
+        'Advanced Language': ['.*CHI 2.*', '.*CHI 3.*', '.*CHI 4.*',
+                              '.*CHI 5.*', '.*JPN 2.*', '.*JPN 3.*',
+                              '.*JPN 4.*', '.*JPN 5.*', '.*KOR 2.*',
+                              '.*KOR 3.*', '.*KOR 4.*', '.*KOR 5.*'],
+        'Other Language': ['.*CHI.*', '.*JPN.*', '.*KOR.*'],
+        '200-Level Content': ['.*EAS 2.*'],
+        'Other Content': ['.*EAS 1.*', '.*EAS 2.*', '.*EAS 3.*', '.*EAS 4.*', 
+                          '.*EAS 5.*', '.*POL 434.*', '.*SOC 307.*',
+                          '.*SPI 316.*']
+    }
+
+    return courses
+
+def eng_minor_courses():
+    courses = {
+        'Seminars': ['.*ENG 256.*', '.*ENG 300.*', '.*ENG 305.*', '.*ENG 306.*', '.*ENG 310.*',
+                        '.*ENG 311.*', '.*ENG 312.*', '.*ENG 331.*', '.*ENG 334.*', '.*ENG 344.*',
+                        '.*ENG 346.*', '.*ENG 361.*', '.*ENG 379.*', '.*ENG 401.*', '.*ENG 402.*',
+                        '.*ENG 403.*', '.*ENG 404.*', '.*ENG 405.*', '.*ENG 411.*', '.*ENG 412.*',
+                        '.*ENG 413.*', '.*ENG 414.*', '.*ENG 417.*'],
+        'English Courses': ['.*ENG.*']
+    }
+
+    return courses
+
+def ghp_minor_courses():
+    courses = {
+        'ISC': ['.*ISC 231.*', '.*ISC 232.*', '.*ISC 233.*', 
+                '.*ISC 234.*'],
+        'Foundation': ['.*ANT 240.*', '.*GSS 201.*', '.*MOL 101.*', 
+                       '.*MOL 211.*', '.*MOL 214.*', '.*SOC 217.*',
+                       '.*URB 201.*', '.*EEB 309.*', '.*EEB 314.*', 
+                       '.*EEB 327.*', '.*EEB 328.*'],
+        'Statistics': ['.*ECO 202.*', '.*ECO 302.*', '.*ECO 312.*',
+                          '.*MOL 290.*', '.*ORF 245.*', '.*ORF 405.*',
+                          '.*POL 345.*', '.*PSY 251.*', '.*SML 201.*',
+                          '.*SOC 301.*', '.*SPI 200.*'],
+        'Core': ['.*GHP 350.*', '.*GHP 351.*'],
+        'Advanced Electives 4': ['.*AAS 303.*', '.*AAS 314.*', '.*AAS 352.*',
+                                '.*AMS 305.*', '.*AMS 404.*', '.*ANT 313.*',
+                                '.*ANT 321.*', '.*ANT 339.*', '.*ANT 344.*',
+                                '.*ANT 360.*', '.*ANT 390.*', '.*ANT 446.*',
+                                '.*ANT 461.*', '.*ARC 492.*', '.*ART 361.*',
+                                '.*ART 491.*', '.*CBE 411.*', '.*CBE 430.*',
+                                '.*CBE 438.*', '.*CBE 442.*', '.*CEE 471.*',
+                                '.*CEE 311.*', '.*CEE 325.*', '.*CEE 334.*',
+                                '.*CHV 323.*', '.*CLA 326.*', '.*CLA 338.*',
+                                '.*COM 329.*', '.*EAS 418.*', '.*ECE 451.*',
+                                '.*ECE 452.*', '.*ECO 332.*', '.*ECO 355.*',
+                                '.*ECS 376.*', '.*EEB 308.*', '.*EEB 325.*',
+                                '.*EEB 327.*', '.*EEB 428.*', '.*EGR 277.*',
+                                '.*ENE 321.*', '.*ENG 359.*', '.*ENG 384.*',
+                                '.*ENV 302.*', '.*ENV 304.*', '.*ENV 305.*',
+                                '.*ENV 343.*', '.*FRE 240.*', '.*FRE 420.*',
+                                '.*GEO 360.*', '.*HIS 390.*', '.*HIS 393.*',
+                                '.*HIS 494.*', '.*HUM 315.*', '.*HUM 360.*',
+                                '.*ITA 319.*', '.*JDS 324.*', '.*LAS 308.*',
+                                '.*MOL 340.*', '.*MOL 405.*', '.*MOL 433.*',
+                                '.*MOL 445.*', '.*MOL 459.*', '.*MOL 460.*',
+                                '.*NES 301.*', '.*NEU 331.*', '.*NEU 385.*',
+                                '.*NEU 400.*', '.*NEU 420.*', '.*NEU 430.*',
+                                '.*NEU 447.*', '.*PHI 356.*', '.*PSY 317.*',
+                                '.*PSY 320.*', '.*PSY 332.*', '.*PSY 341.*',
+                                '.*QCB 311.*', '.*QCB 408.*', '.*QCB 455.*',
+                                '.*QCB 470.*', '.*REL 303.*', '.*REL 361.*',
+                                '.*SOC 249.*', '.*SPI 332.*', '.*SPI 335.*',
+                                '.*SPI 364.*', '.*SPI 368.*', '.*SPI 393.*',
+                                '.*SPI 394.*', '.*SPI 405.*', '.*VIS 301.*'],
+        'Advanced Electives 3': ['.*AAS 303.*', '.*AAS 314.*', '.*AAS 352.*',
+                                '.*AMS 305.*', '.*AMS 404.*', '.*ANT 313.*',
+                                '.*ANT 321.*', '.*ANT 339.*', '.*ANT 344.*',
+                                '.*ANT 360.*', '.*ANT 390.*', '.*ANT 446.*',
+                                '.*ANT 461.*', '.*ARC 492.*', '.*ART 361.*',
+                                '.*ART 491.*', '.*CBE 411.*', '.*CBE 430.*',
+                                '.*CBE 438.*', '.*CBE 442.*', '.*CEE 471.*',
+                                '.*CEE 311.*', '.*CEE 325.*', '.*CEE 334.*',
+                                '.*CHV 323.*', '.*CLA 326.*', '.*CLA 338.*',
+                                '.*COM 329.*', '.*EAS 418.*', '.*ECE 451.*',
+                                '.*ECE 452.*', '.*ECO 332.*', '.*ECO 355.*',
+                                '.*ECS 376.*', '.*EEB 308.*', '.*EEB 325.*',
+                                '.*EEB 327.*', '.*EEB 428.*', '.*EGR 277.*',
+                                '.*ENE 321.*', '.*ENG 359.*', '.*ENG 384.*',
+                                '.*ENV 302.*', '.*ENV 304.*', '.*ENV 305.*',
+                                '.*ENV 343.*', '.*FRE 240.*', '.*FRE 420.*',
+                                '.*GEO 360.*', '.*HIS 390.*', '.*HIS 393.*',
+                                '.*HIS 494.*', '.*HUM 315.*', '.*HUM 360.*',
+                                '.*ITA 319.*', '.*JDS 324.*', '.*LAS 308.*',
+                                '.*MOL 340.*', '.*MOL 405.*', '.*MOL 433.*',
+                                '.*MOL 445.*', '.*MOL 459.*', '.*MOL 460.*',
+                                '.*NES 301.*', '.*NEU 331.*', '.*NEU 385.*',
+                                '.*NEU 400.*', '.*NEU 420.*', '.*NEU 430.*',
+                                '.*NEU 447.*', '.*PHI 356.*', '.*PSY 317.*',
+                                '.*PSY 320.*', '.*PSY 332.*', '.*PSY 341.*',
+                                '.*QCB 311.*', '.*QCB 408.*', '.*QCB 455.*',
+                                '.*QCB 470.*', '.*REL 303.*', '.*REL 361.*',
+                                '.*SOC 249.*', '.*SPI 332.*', '.*SPI 335.*',
+                                '.*SPI 364.*', '.*SPI 368.*', '.*SPI 393.*',
+                                '.*SPI 394.*', '.*SPI 405.*', '.*VIS 301.*'],
+        'Advanced Electives 2': ['.*AAS 303.*', '.*AAS 314.*', '.*AAS 352.*',
+                                '.*AMS 305.*', '.*AMS 404.*', '.*ANT 313.*',
+                                '.*ANT 321.*', '.*ANT 339.*', '.*ANT 344.*',
+                                '.*ANT 360.*', '.*ANT 390.*', '.*ANT 446.*',
+                                '.*ANT 461.*', '.*ARC 492.*', '.*ART 361.*',
+                                '.*ART 491.*', '.*CBE 411.*', '.*CBE 430.*',
+                                '.*CBE 438.*', '.*CBE 442.*', '.*CEE 471.*',
+                                '.*CEE 311.*', '.*CEE 325.*', '.*CEE 334.*',
+                                '.*CHV 323.*', '.*CLA 326.*', '.*CLA 338.*',
+                                '.*COM 329.*', '.*EAS 418.*', '.*ECE 451.*',
+                                '.*ECE 452.*', '.*ECO 332.*', '.*ECO 355.*',
+                                '.*ECS 376.*', '.*EEB 308.*', '.*EEB 325.*',
+                                '.*EEB 327.*', '.*EEB 428.*', '.*EGR 277.*',
+                                '.*ENE 321.*', '.*ENG 359.*', '.*ENG 384.*',
+                                '.*ENV 302.*', '.*ENV 304.*', '.*ENV 305.*',
+                                '.*ENV 343.*', '.*FRE 240.*', '.*FRE 420.*',
+                                '.*GEO 360.*', '.*HIS 390.*', '.*HIS 393.*',
+                                '.*HIS 494.*', '.*HUM 315.*', '.*HUM 360.*',
+                                '.*ITA 319.*', '.*JDS 324.*', '.*LAS 308.*',
+                                '.*MOL 340.*', '.*MOL 405.*', '.*MOL 433.*',
+                                '.*MOL 445.*', '.*MOL 459.*', '.*MOL 460.*',
+                                '.*NES 301.*', '.*NEU 331.*', '.*NEU 385.*',
+                                '.*NEU 400.*', '.*NEU 420.*', '.*NEU 430.*',
+                                '.*NEU 447.*', '.*PHI 356.*', '.*PSY 317.*',
+                                '.*PSY 320.*', '.*PSY 332.*', '.*PSY 341.*',
+                                '.*QCB 311.*', '.*QCB 408.*', '.*QCB 455.*',
+                                '.*QCB 470.*', '.*REL 303.*', '.*REL 361.*',
+                                '.*SOC 249.*', '.*SPI 332.*', '.*SPI 335.*',
+                                '.*SPI 364.*', '.*SPI 368.*', '.*SPI 393.*',
+                                '.*SPI 394.*', '.*SPI 405.*', '.*VIS 301.*'],
+        '200-Level Electives 2': ['.*ANT 206.*', '.*ANT 219.*', '.*ANT 233.*',
+                                '.*ANT 238.*', '.*ANT 240.*', '.*ASA 238.*',
+                                '.*ASL 205.*', '.*CLA 227.*', '.*DAN 224.*',
+                                '.*ENE 202.*', '.*ENV 251.*', '.*FRE 240.*',
+                                '.*HIS 294.*', '.*LAS 229.*', '.*PSY 207.*',
+                                '.*SPA 204.*', '.*SPA 205.*'],
+        '200-Level Electives 1': ['.*ANT 206.*', '.*ANT 219.*', '.*ANT 233.*',
+                                '.*ANT 238.*', '.*ANT 240.*', '.*ASA 238.*',
+                                '.*ASL 205.*', '.*CLA 227.*', '.*DAN 224.*',
+                                '.*ENE 202.*', '.*ENV 251.*', '.*FRE 240.*',
+                                '.*HIS 294.*', '.*LAS 229.*', '.*PSY 207.*',
+                                '.*SPA 204.*', '.*SPA 205.*']
+    }
+
+    return courses
+
 def get_courses(minor):
     if minor == 'CLA':
         return cla_minor_courses()
@@ -267,6 +427,14 @@ def get_courses(minor):
         return cs_minor_courses()
     elif minor == 'CWR':
         return cwr_minor_courses()
+    elif minor == 'DAN':
+        return dan_minor_courses()
+    elif minor == 'EAS':
+        return eas_minor_courses()
+    elif minor == 'ENG':
+        return eng_minor_courses()
+    elif minor == 'GHP':
+        return ghp_minor_courses()
     else:
         return None
 #---------------------------------------------------------------------
@@ -394,6 +562,48 @@ def cwr_minor_requirements():
 
     return subrequirements
 
+def dan_minor_requirements():
+    subrequirements = {
+        'Studio': 1,
+        'Seminar': 1,
+        'Electives': 3
+    }
+
+    return subrequirements
+
+def eas_minor_requirements():
+    subrequirements = {
+        'Advanced Language': 2,
+        'Other Language': 2,
+        '200-Level Content': 1,
+        'Other Content': 2
+    }
+
+    return  subrequirements
+
+def eng_minor_requirements():
+    subrequirements = {
+        'Seminars': 2,
+        'English Courses': 3
+    }
+
+    return subrequirements
+
+def ghp_minor_requirements():
+    subrequirements = {
+        'ISC': 4,
+        'Foundation': 1,
+        'Statistics': 1,
+        'Core': 2,
+        'Advanced Electives 4': 4,
+        'Advanced Electives 3': 3,
+        'Advanced Electives 2': 2,
+        '200-Level Electives 2': 2,
+        '200-Level Electives 1': 1
+    }
+
+    return subrequirements
+
 def get_minor_requirements(minor):
     if minor == 'CLA':
         return cla_minor_requirements()
@@ -417,5 +627,13 @@ def get_minor_requirements(minor):
         return cs_minor_requirements()
     elif minor == 'CWR':
         return cwr_minor_requirements()
+    elif minor == 'DAN':
+        return dan_minor_requirements()
+    elif minor == 'EAS':
+        return eas_minor_requirements()
+    elif minor == 'ENG':
+        return eng_minor_requirements()
+    elif minor == 'GHP':
+        return ghp_minor_requirements()
     else:
         return None

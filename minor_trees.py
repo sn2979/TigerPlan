@@ -100,6 +100,14 @@ def create_tree(key, subrequirements):
         return create_cs_tree(subrequirements)
     elif key == 'CWR':
         return create_cwr_tree(subrequirements)
+    elif key == 'DAN':
+        return create_dan_tree(subrequirements)
+    elif key == 'EAS':
+        return create_eas_tree(subrequirements)
+    elif key == 'ENG':
+        return create_eng_tree(subrequirements)
+    elif key == 'GHP':
+        return create_ghp_tree(subrequirements)
     else:
         return None
     
@@ -458,11 +466,133 @@ def create_cwr_tree(subrequirements, parent=None):
 
     return cwr
 
+def create_dan_tree(subrequirements, parent=None):
+    # Create the root node for DAN minor
+    dan = Node('DAN', parent, marked=True)
 
-                         
+    # Create Studio node under DAN
+    dan.add_child(Node('Studio', parent=dan, classes_needed=subrequirements.get('Studio', 0), marked=True))
 
+    # Create Seminar node under DAN
+    dan.add_child(Node('Seminar', parent=dan, classes_needed=subrequirements.get('Seminar', 0), marked=True))
 
+    # Create Electives node under DAN
+    dan.add_child(Node('Electives', parent=dan, classes_needed=subrequirements.get('Electives', 0), marked=True))
+
+    return dan
+
+def create_eas_tree(subrequirements, parent=None):
+    '''subrequirements = {
+        'Advanced Language': 2,
+        'Other Language': 2,
+        '200-Level Content': 1,
+        'Other Content': 2
+    }'''
+
+    # Create the root node for EAS minor
+    eas = Node('EAS', parent, marked=True)
+
+    # Create the Language node under EAS
+    language = Node('Language', parent=eas, marked=True)
+
+    # Create Advanced Language node under Language
+    language.add_child(Node('Advanced Language', parent=language, classes_needed=subrequirements.get('Advanced Language', 0), marked=True))
+
+    # Create Other Language node under Language
+    language.add_child(Node('Other Language', parent=language, classes_needed=subrequirements.get('Other Language', 0), marked=True))
+
+    # Add Language under EAS
+    eas.add_child(language)
+
+    # Create Content node under EAS
+    content = Node('Content', parent=eas, marked=True)
+
+    # Create 200-Level Content node under Content
+    content.add_child(Node('200-Level Content', parent=content, classes_needed=subrequirements.get('200-Level Content', 0), marked=True))
+
+    # Create Other Content node under Content
+    content.add_child(Node('Other Content', parent=content, classes_needed=subrequirements.get('Other Content', 0), marked=True))
+
+    # Add Content under EAS
+    eas.add_child(content)
+
+    return eas
+
+def create_eng_tree(subrequirements, parent=None):
+    '''subrequirements = {
+        'Seminars': 2,
+        'English Courses': 3
+    }'''
+
+    # Create the root node for ENG minor
+    eng = Node('ENG', parent, marked=True)
+    
+    # Create Seminars node under ENG
+    eng.add_child(Node('Seminars', parent=eng, classes_needed=subrequirements.get('Seminars', 0), marked=True))
+
+    # Create English Courses node under ENG
+    eng.add_child(Node('English Courses', parent=eng, classes_needed=subrequirements.get('English Courses', 0), marked=True))
+
+    return eng
+
+def create_ghp_tree(subrequirements, parent=None):
+    '''subrequirements = {
+        'ISC': 4,
+        'Foundation': 1,
+        'Statistics': 1,
+        'Core': 2,
+        'Advanced Electives 4': 4,
+        'Advanced Electives 3': 3,
+        'Advanced Electives 2': 2,
+        '200-Level Electives 2': 2,
+        '200-Level Electives 1': 1
+    }'''
+
+    # Create the root node for GHP minor
+    ghp = Node('GHP', parent, marked=True)
+
+    # Create Prerequisites node under GHP
+    prerequisites = Node('Prerequisites', parent=ghp, marked=True)
+    foundations = OrNode('Foundations', parent=prerequisites, marked=True)
+    foundations.add_child(Node('ISC', parent=foundations, 
+                               classes_needed=subrequirements.get('ISC', 0)))
+    foundations.add_child(Node('Foundation', parent=foundations, 
+                               classes_needed=subrequirements.get('Foundation', 0)))
+
+    prerequisites.add_child(foundations)
+
+    prerequisites.add_child(Node('Statistics', parent=prerequisites, 
+                                 classes_needed=subrequirements.get('Statistics', 0), marked=True))
+
+    ghp.add_child(prerequisites)
+
+    # Create Core node under GHP
+    ghp.add_child(Node('Core', parent=ghp, classes_needed=subrequirements.get('Core', 0), marked=True))
+
+    # Create Electives node under GHP
+    electives = OrNode('Electives', parent=ghp, marked=True)
+    electives.add_child(Node('Advanced Electives 4', parent=electives, 
+                            classes_needed=subrequirements.get('Advanced Electives 4', 0)))
+    
+    advanced_2_200_2 = Node('Advanced Electives 2 and 200-Level 2', parent=electives)
+    advanced_2_200_2.add_child(Node('Advanced Electives 2', parent=advanced_2_200_2, 
+                               classes_needed=subrequirements.get('Advanced Electives 2', 0)))
+    advanced_2_200_2.add_child(Node('200-Level Electives 2', parent=advanced_2_200_2,
+                                 classes_needed=subrequirements.get('200-Level Electives 2', 0)))
+    
+    electives.add_child(advanced_2_200_2)
+
+    advanced_3_200_1 = Node('Advanced Electives 3 and 200-Level 1', parent=electives)
+    advanced_3_200_1.add_child(Node('Advanced Electives 3', parent=advanced_3_200_1, 
+                               classes_needed=subrequirements.get('Advanced Electives 3', 0)))
+    advanced_3_200_1.add_child(Node('200-Level Electives 1', parent=advanced_3_200_1,
+                                 classes_needed=subrequirements.get('200-Level Electives 1', 0)))
+    
+    electives.add_child(advanced_3_200_1)
+
+    ghp.add_child(electives)
+
+    return ghp
+    
     
 
-
-    

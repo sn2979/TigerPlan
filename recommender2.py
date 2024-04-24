@@ -210,6 +210,95 @@ def find_best_combination(key, all_combinations, subrequirements):
 
 
 if __name__ == '__main__':
+    # testing GHP
+    # Class list
+    class_list = {
+        'ISC': ['ISC 231', 'ISC 232', 'ISC 233', 'ISC 234'],
+        'Foundation': [],
+        'Statistics': ['ORF 245'],
+        'Core': ['GHP 350'],
+        'Advanced Electives 4': ['NEU 400'],
+        'Advanced Electives 3': ['NEU 400'],
+        'Advanced Electives 2': ['NEU 400'],
+        '200-Level Electives 2': ['CLA 227'],
+        '200-Level Electives 1': ['CLA 227']
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'ISC': 4,
+        'Foundation': 1,
+        'Statistics': 1,
+        'Core': 2,
+        'Advanced Electives 4': 4,
+        'Advanced Electives 3': 3,
+        'Advanced Electives 2': 2,
+        '200-Level Electives 2': 2,
+        '200-Level Electives 1': 1
+    }
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('GHP', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
+    '''
+    # testing ENG
+    # Class list
+    class_list = {
+        'Seminars': ['ENG 300', 'ENG 305'],
+        'English Courses': ['ENG 300', 'ENG 305']
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'Seminars': 2,
+        'English Courses': 3
+    }
+    # testing EAS
+    # Class list
+    class_list = {
+        'Advanced Language': ['CHI 303'],
+        'Other Language': ['CHI 101', 'CHI 102', 'CHI 303' ],
+        '200-Level Content': ['EAS 203'],
+        'Other Content': ['EAS 203', 'POL 434']
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'Advanced Language': 2,
+        'Other Language': 2,
+        '200-Level Content': 1,
+        'Other Content': 2
+    }
+    # testing DAN
+    # Class list
+    class_list = {
+        'Studio': ['DAN 215', 'DAN 354'],
+        'Seminar': ['DAN 215'],
+        'Electives': ['DAN 215', 'DAN 354']
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'Studio': 1,
+        'Seminar': 1,
+        'Electives': 3
+    }
+
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('DAN', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
+
     # testing CWR
     # Class list
     class_list = {
@@ -232,7 +321,7 @@ if __name__ == '__main__':
     print(f"Best fraction: {best_fraction}")
     print(f"Classes taken and needed: {classes_taken_needed}")
     print(tree_info)
-    ''' # testing CS
+     # testing CS
     # Class list
     class_list = {
         'Core 2': ['GEO 103', 'GEO 369'],
