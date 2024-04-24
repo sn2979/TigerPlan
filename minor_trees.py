@@ -69,7 +69,7 @@ class OrNode(Node):
         if self.children:
             max_fraction = 0
             for child in self.children:
-                fraction = child.classes_taken / child.classes_needed
+                fraction =  child.classes_taken / child.classes_needed
                 if fraction >= max_fraction:
                     max_fraction = fraction
                     self.classes_taken = int(max_fraction * child.classes_needed)
@@ -94,6 +94,12 @@ def create_tree(key, subrequirements):
         return create_afs_tree(subrequirements)
     elif key == 'ASA':
         return create_asa_tree(subrequirements)
+    elif key == 'CHI':
+        return create_chi_tree(subrequirements)
+    elif key == 'CS':
+        return create_cs_tree(subrequirements)
+    elif key == 'CWR':
+        return create_cwr_tree(subrequirements)
     else:
         return None
     
@@ -295,17 +301,6 @@ def create_fin_tree(subrequirements, parent=None):
     return fin
 
 def create_lin_tree(subrequirements, parent=None):
-    '''    # Subrequirements
-    subrequirements = {
-        'Prerequisites': 1,
-        'Core Courses 1': 1,
-        'Core Courses 2': 2,
-        'Methods 1': 1,
-        'Methods 2': 2,
-        'Electives 1': 1,
-        'Electives 2': 2
-    }'''
-
     # Create the root node for LIN minor
     lin = Node('LIN', parent, marked=True)
 
@@ -396,6 +391,73 @@ def create_asa_tree(subrequirements, parent=None):
     asa.add_child(Node('Advanced Seminar', parent=asa, classes_needed=subrequirements.get('Advanced Seminar', 0), marked=True))
 
     return asa
+
+def create_chi_tree(subrequirements, parent=None):
+    ''' subrequirements = {
+        'Advanced Language': 2,
+        'Other Language': 4,
+        'EAS/Cognate': 1
+    }'''
+
+    # Create the root node for CHI minor
+    chi = Node('CHI', parent, marked=True)
+
+    # create the language node under CHI
+    language = Node('Language', parent=chi, marked=True)
+
+    # Create Advanced Language node under CHI
+    language.add_child(Node('Advanced Language', parent=language, classes_needed=subrequirements.get('Advanced Language', 0), marked=True))
+
+    # Create Other Language node under CHI
+    language.add_child(Node('Other Language', parent=language, classes_needed=subrequirements.get('Other Language', 0), marked=True))
+
+    # Add Language under CHI
+    chi.add_child(language)
+
+    # Create EAS/Cognate node under CHI
+    chi.add_child(Node('EAS/Cognate', parent=chi, classes_needed=subrequirements.get('EAS/Cognate', 0), marked=True))
+
+    return chi
+
+def create_cs_tree(subrequirements, parent=None):
+    # Create the root node for CS minor
+    cs = OrNode('CS', parent, marked=True)
+
+    # Create Core 2 and Capstone 3 node under CS
+    core_2_capstone_3 = Node('Core 2 and Capstone 3', parent=cs, marked=True)
+    core_2_capstone_3.add_child(Node('Core 2', parent=core_2_capstone_3, classes_needed=subrequirements.get('Core 2', 0), marked=True))
+    core_2_capstone_3.add_child(Node('Capstone 3', parent=core_2_capstone_3, classes_needed=subrequirements.get('Capstone 3', 0), marked=True))
+
+    cs.add_child(core_2_capstone_3)
+
+    # Create Core 3 and Capstone 2 node under CS
+    core_3_capstone_2 = Node('Core 3 and Capstone 2', parent=cs, marked=True)
+    core_3_capstone_2.add_child(Node('Core 3', parent=core_3_capstone_2, classes_needed=subrequirements.get('Core 3', 0), marked=True))
+    core_3_capstone_2.add_child(Node('Capstone 2', parent=core_3_capstone_2, classes_needed=subrequirements.get('Capstone 2', 0), marked=True))
+
+    cs.add_child(core_3_capstone_2)
+
+    # Create Core 4 and Capstone 1 node under CS
+    core_4_capstone_1 = Node('Core 4 and Capstone 1', parent=cs, marked=True)
+    core_4_capstone_1.add_child(Node('Core 4', parent=core_4_capstone_1, classes_needed=subrequirements.get('Core 4', 0), marked=True))
+    core_4_capstone_1.add_child(Node('Capstone 1', parent=core_4_capstone_1, classes_needed=subrequirements.get('Capstone 1', 0), marked=True))
+
+    cs.add_child(core_4_capstone_1)
+
+    return cs
+
+def create_cwr_tree(subrequirements, parent=None):
+    # Create the root node for CWR minor
+    cwr = Node('CWR', parent, marked=True)
+
+    # Create CWR Hosted node under CWR
+    cwr.add_child(Node('CWR Hosted', parent=cwr, classes_needed=subrequirements.get('CWR Hosted', 0), marked=True))
+
+    # Create CWR Electives node under CWR
+    cwr.add_child(Node('CWR Electives', parent=cwr, classes_needed=subrequirements.get('CWR Electives', 0), marked=True))
+
+    return cwr
+
 
                          
 

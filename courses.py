@@ -195,6 +195,55 @@ def asa_minor_courses():
     }
 
     return courses
+
+def chi_minor_courses():
+    courses = {
+        'Advanced Language': ['.*CHI 303.*', '.*CHI 304.*', '.*CHI 305.*', '.*CHI 306.*', 
+                              '.*CHI 403.*', '.*CHI 404.*', '.*CHI 405.*', '.*CHI 406.*', '.*CHI 451.*'],
+        'Other Language': ['.*CHI 303.*', '.*CHI 304.*', '.*CHI 305.*', '.*CHI 306.*', 
+                              '.*CHI 403.*', '.*CHI 404.*', '.*CHI 405.*', '.*CHI 406.*', '.*CHI 451.*',
+                              '.*CHI 1001.*', '.*CHI 1002.*', '.*CHI 101.*', '.*CHI 102.*', '.*CHI 103.*', 
+                              '.*CHI 105.*', '.*CHI 107.*', '.*CHI 108.*'],
+        'EAS/Cognate': ['.*EAS.*']
+    }
+
+    return courses
+
+def cs_minor_courses():
+    courses = {
+        'Core 2': ['.*GEO 102.*', '.*GEO 103.*', '.*GEO 202.*', '.*GEO 203.*', 
+                   '.*GEO 361.*', '.*GEO 363.*', '.*GEO 369.*', '.*GEO 370.*', 
+                   '.*GEO 416.*', '.*GEO 417.*', '.*GEO 425.*', '.*GEO 428.*', 
+                   '.*GEO 470.*'],
+        'Core 3': ['.*GEO 102.*', '.*GEO 103.*', '.*GEO 202.*', '.*GEO 203.*', 
+                   '.*GEO 361.*', '.*GEO 363.*', '.*GEO 369.*', '.*GEO 370.*', 
+                   '.*GEO 416.*', '.*GEO 417.*', '.*GEO 425.*', '.*GEO 428.*', 
+                   '.*GEO 470.*'],
+        'Core 4': ['.*GEO 102.*', '.*GEO 103.*', '.*GEO 202.*', '.*GEO 203.*', 
+                   '.*GEO 361.*', '.*GEO 363.*', '.*GEO 369.*', '.*GEO 370.*', 
+                   '.*GEO 416.*', '.*GEO 417.*', '.*GEO 425.*', '.*GEO 428.*', 
+                   '.*GEO 470.*'],
+        'Capstone 3': ['.*GEO 360.*', '.*GEO 362.*', '.*GEO 366.*', '.*GEO 367.*',
+                          '.*GEO 369.*', '.*GEO 370.*', '.*GEO 416.*', '.*GEO 417.*', 
+                          '.*GEO 425.*', '.*GEO 428.*', '.*GEO 470.*'],
+        'Capstone 2': ['.*GEO 360.*', '.*GEO 362.*', '.*GEO 366.*', '.*GEO 367.*',
+                          '.*GEO 369.*', '.*GEO 370.*', '.*GEO 416.*', '.*GEO 417.*', 
+                          '.*GEO 425.*', '.*GEO 428.*', '.*GEO 470.*'],
+        'Capstone 1': ['.*GEO 360.*', '.*GEO 362.*', '.*GEO 366.*', '.*GEO 367.*',
+                          '.*GEO 369.*', '.*GEO 370.*', '.*GEO 416.*', '.*GEO 417.*', 
+                          '.*GEO 425.*', '.*GEO 428.*', '.*GEO 470.*']
+    }
+
+    return courses
+
+def cwr_minor_courses():
+    courses = {
+        'CWR Hosted': ['CWR.*'],
+        'CWR Electives': ['.*CWR.*']
+    }
+
+    return courses
+
 def get_courses(minor):
     if minor == 'CLA':
         return cla_minor_courses()
@@ -212,6 +261,12 @@ def get_courses(minor):
         return afs_minor_courses()
     elif minor == 'ASA':
         return asa_minor_courses()
+    elif minor == 'CHI':
+        return chi_minor_courses()
+    elif minor == 'CS':
+        return cs_minor_courses()
+    elif minor == 'CWR':
+        return cwr_minor_courses()
     else:
         return None
 #---------------------------------------------------------------------
@@ -310,6 +365,35 @@ def asa_minor_requirements():
 
     return subrequirements
 
+def chi_minor_requirements():
+    subrequirements = {
+        'Advanced Language': 2,
+        'Other Language': 4,
+        'EAS/Cognate': 1
+    }
+
+    return subrequirements
+
+def cs_minor_requirements():
+    subrequirements = {
+        'Core 2': 2,
+        'Core 3': 3,
+        'Core 4': 4,
+        'Capstone 3': 3,
+        'Capstone 2': 2,
+        'Capstone 1': 1
+    }
+
+    return subrequirements
+
+def cwr_minor_requirements():
+    subrequirements = {
+        'CWR Hosted': 3,
+        'CWR Electives': 2
+    }
+
+    return subrequirements
+
 def get_minor_requirements(minor):
     if minor == 'CLA':
         return cla_minor_requirements()
@@ -327,5 +411,11 @@ def get_minor_requirements(minor):
         return afs_minor_requirements()
     elif minor == 'ASA':
         return asa_minor_requirements()
+    elif minor == 'CHI':
+        return chi_minor_requirements()
+    elif minor == 'CS':
+        return cs_minor_requirements()
+    elif minor == 'CWR':
+        return cwr_minor_requirements()
     else:
         return None

@@ -94,7 +94,7 @@ def process_minor(username, minor, class_list, champions, lock):
                                       'tree_description': tree_description}
 
 def recommend(class_list, username):
-    minors = ['CLA', 'ENV', 'LIN', 'COS', 'FIN', 'GSS', 'AFS', 'ASA']
+    minors = ['CLA', 'ENV', 'LIN', 'COS', 'FIN', 'GSS', 'AFS', 'ASA', 'CHI', 'CS', 'CWR']
 
     # Initialize champions dictionary with proper structure
     champions = {

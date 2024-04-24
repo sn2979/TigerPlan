@@ -210,6 +210,82 @@ def find_best_combination(key, all_combinations, subrequirements):
 
 
 if __name__ == '__main__':
+    # testing CWR
+    # Class list
+    class_list = {
+        'CWR Hosted': ['CWR 201', 'CWR 205'],
+        'CWR Electives': ['CWR 201', 'CWR 205']
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'CWR Hosted': 3,
+        'CWR Electives': 2
+    }
+
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('CWR', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
+    ''' # testing CS
+    # Class list
+    class_list = {
+        'Core 2': ['GEO 103', 'GEO 369'],
+        'Core 3': ['GEO 103', 'GEO 369'],
+        'Core 4': ['GEO 103', 'GEO 369'],
+        'Capstone 3': ['GEO 366'],
+        'Capstone 2': ['GEO 366'],
+        'Capstone 1': ['GEO 366']
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'Core 2': 2,
+        'Core 3': 3,
+        'Core 4': 4,
+        'Capstone 3': 3,
+        'Capstone 2': 2,
+        'Capstone 1': 1
+    }
+
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('CS', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
+    #testing CHI
+    # Class list
+    class_list = {
+        'Advanced Language': ['CHI 303'],
+        'Other Language': ['CHI 101', 'CHI 102'],
+        'EAS/Cognate': ['EAS 202']
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'Advanced Language': 2,
+        'Other Language': 4,
+        'EAS/Cognate': 1
+    }
+
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('CHI', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
     # testing ASA
     # Class list
     class_list = {
@@ -235,7 +311,7 @@ if __name__ == '__main__':
     print(f"Classes taken and needed: {classes_taken_needed}")
     print(tree_info)
     
-    '''# testing AFS
+    # testing AFS
     # Class list
     class_list = {
         'Core': ['AFS 201'],
