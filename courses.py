@@ -187,6 +187,14 @@ def afs_minor_courses():
 
     return courses
 
+def asa_minor_courses():
+    courses = {
+        'Core': ['.*ASA 101.*'],
+        'Electives': ['.*ASA.*'],
+        'Advanced Seminar': ['.*AMS 403.*', '.*AMS 404.*', '.*AMS 406.*']
+    }
+
+    return courses
 def get_courses(minor):
     if minor == 'CLA':
         return cla_minor_courses()
@@ -202,6 +210,8 @@ def get_courses(minor):
         return gss_minor_courses()
     elif minor == 'AFS':
         return afs_minor_courses()
+    elif minor == 'ASA':
+        return asa_minor_courses()
     else:
         return None
 #---------------------------------------------------------------------
@@ -291,6 +301,15 @@ def afs_minor_requirements():
 
     return subrequirements
 
+def asa_minor_requirements():
+    subrequirements = {
+        'Core': 1,
+        'Electives': 3,
+        'Advanced Seminar': 1
+    }
+
+    return subrequirements
+
 def get_minor_requirements(minor):
     if minor == 'CLA':
         return cla_minor_requirements()
@@ -306,5 +325,7 @@ def get_minor_requirements(minor):
         return gss_minor_requirements()
     elif minor == 'AFS':
         return afs_minor_requirements()
+    elif minor == 'ASA':
+        return asa_minor_requirements()
     else:
         return None

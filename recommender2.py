@@ -210,6 +210,31 @@ def find_best_combination(key, all_combinations, subrequirements):
 
 
 if __name__ == '__main__':
+    # testing ASA
+    # Class list
+    class_list = {
+        'Core': ['AMS 101'],
+        'Electives': ['ASA 301'],
+        'Advanced Seminar': []
+    }
+
+    # Subrequirements
+    subrequirements = {
+        'Core': 1,
+        'Electives': 3,
+        'Advanced Seminar': 1
+    }
+
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('ASA', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
+    
     '''# testing AFS
     # Class list
     class_list = {

@@ -92,6 +92,8 @@ def create_tree(key, subrequirements):
         return create_gss_tree(subrequirements)
     elif key == 'AFS':
         return create_afs_tree(subrequirements)
+    elif key == 'ASA':
+        return create_asa_tree(subrequirements)
     else:
         return None
     
@@ -372,6 +374,28 @@ def create_afs_tree(subrequirements, parent=None):
     afs.add_child(electives)
 
     return afs
+
+def create_asa_tree(subrequirements, parent=None):
+    ''' # Subrequirements
+    subrequirements = {
+        'Core': 1,
+        'Electives': 3,
+        'Advanced Seminar': 1
+    }'''
+
+    # Create the root node for ASA minor
+    asa = Node('ASA', parent, marked=True)
+
+    # Create Core node under ASA
+    asa.add_child(Node('Core', parent=asa, classes_needed=subrequirements.get('Core', 0), marked=True))
+
+    # Create Electives node under ASA
+    asa.add_child(Node('Electives', parent=asa, classes_needed=subrequirements.get('Electives', 0), marked=True))
+
+    # Create Advanced Seminar node under ASA
+    asa.add_child(Node('Advanced Seminar', parent=asa, classes_needed=subrequirements.get('Advanced Seminar', 0), marked=True))
+
+    return asa
 
                          
 
