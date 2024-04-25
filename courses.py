@@ -648,6 +648,174 @@ def mus_minor_courses():
 
     return courses
 
+def neu_minor_courses():
+    courses = {
+        'Fundamentals': ['.*NEU 200.*', '.*NEU 201.*'],
+        'Intro': ['.*NEU 202.*'],
+        'Molecular/Cellular/Disease': ['.*NEU 301.*', '.*NEU 331.*', '.*NEU 385.*',
+                                        '.*NEU 400.*', '.*NEU 403.*', '.*NEU 413.*',
+                                        '.*NEU 428.*', '.*NEU 430.*', '.*NEU 443.*',
+                                        '.*NEU 447.*', '.*NEU 460.*', '.*NEU 475.*',
+                                        '.*NEU 490.*', '.*NEU 501A.*', '.*ECE 452.*',
+                                        '.*MOL 250.*', '.*MOL 433.*', '.*MOL 259.*',
+                                        '.*MOL 460.*', '.*PHY 562.*', '.*PSY 207.*',
+                                        '.*PSY 317.*', '.*QCB 515.*'],
+        'Circuits & Systems': ['.*NEU 200.*', '.*NEU 260.*', '.*NEU 301.*',
+                                '.*NEU 316.*', '.*NEU 325.*', '.*NEU 336.*',
+                                '.*NEU 385.*', '.*NEU 413.*', '.*NEU 420.*',
+                                '.*NEU 422.*', '.*NEU 427.*', '.*NEU 428.*',
+                                '.*NEU 460.*', '.*NEU 457.*', '.*NEU 501A.*',
+                                '.*NEU 502A.*', '.*PHY 562.*'],
+        'Neural Computation': ['.*NEU 330.*', '.*NEU 338.*', '.*NEU 340.*',
+                            '.*NEU 437.*', '.*NEU 443.*', '.*NEU 457.*',
+                            '.*NEU 499.*', '.*COS 226.*', '.*COS 343.*',
+                            '.*COS 402.*', '.*COS 429.*', '.*COS 324.*',
+                            '.*COS 302.*', '.*COS 424.*', '.*COS 485.*',
+                            '.*ECE 364.*','.*ECE 452.*', '.*MAT 323.*', 
+                            '.*PSY 360.*', '.*QCB 515.*'],
+        'Cognitive & Social Neuroscience': ['.*NEU 200.*', '.*NEU 306.*', 
+                                        '.*NEU 316.*', '.*NEU 331.*',
+                                        '.*NEU 330.*', '.*NEU 337.*', 
+                                        '.*NEU 338.*', '.*NEU 340.*', 
+                                        '.*NEU 422.*', '.*NEU 499.*', 
+                                        '.*NEU 502A.*', '.*ECE 480.*', 
+                                        '.*PSY 248.*', '.*PSY 409.*'],
+        'Other Electives': ['.*NEU 301.*', '.*NEU 331.*', '.*NEU 385.*',
+                            '.*NEU 400.*', '.*NEU 403.*', '.*NEU 413.*',
+                            '.*NEU 428.*', '.*NEU 430.*', '.*NEU 443.*',
+                            '.*NEU 447.*', '.*NEU 460.*', '.*NEU 475.*',
+                            '.*NEU 490.*', '.*NEU 501A.*', '.*ECE 452.*',
+                            '.*MOL 250.*', '.*MOL 433.*', '.*MOL 259.*',
+                            '.*MOL 460.*', '.*PHY 562.*', '.*PSY 207.*',
+                            '.*PSY 317.*', '.*QCB 515.*', '.*NEU 200.*', 
+                            '.*NEU 260.*', '.*NEU 301.*', '.*NEU 316.*', 
+                            '.*NEU 325.*', '.*NEU 336.*', '.*NEU 385.*', 
+                            '.*NEU 413.*', '.*NEU 420.*', '.*NEU 422.*', 
+                            '.*NEU 427.*', '.*NEU 428.*', '.*NEU 460.*', 
+                            '.*NEU 457.*', '.*NEU 501A.*', '.*NEU 502A.*', 
+                            '.*PHY 562.*', '.*NEU 330.*', '.*NEU 338.*', '.*NEU 340.*',
+                            '.*NEU 437.*', '.*NEU 443.*', '.*NEU 457.*',
+                            '.*NEU 499.*', '.*COS 226.*', '.*COS 343.*',
+                            '.*COS 402.*', '.*COS 429.*', '.*COS 324.*',
+                            '.*COS 302.*', '.*COS 424.*', '.*COS 485.*',
+                            '.*ECE 364.*','.*ECE 452.*', '.*MAT 323.*', 
+                            '.*PSY 360.*', '.*QCB 515.*', '.*NEU 200.*', '.*NEU 306.*', 
+                            '.*NEU 316.*', '.*NEU 331.*', '.*NEU 330.*', 
+                            '.*NEU 337.*', '.*NEU 338.*', '.*NEU 340.*', 
+                            '.*NEU 422.*', '.*NEU 499.*', '.*NEU 502A.*', 
+                            '.*ECE 480.*', '.*PSY 248.*', '.*PSY 409.*']
+    }
+
+    return courses
+
+def phi_minor_courses():
+    courses = {
+        'Prerequisite': ['.*PHI.*'],
+        'Advanced 5': ['.*PHI 3.*', '.*PHI 4.*', '.*PHI 5.*'],
+        'Advanced 4': ['.*PHI 3.*', '.*PHI 4.*', '.*PHI 5.*'],
+        'Advanced 3': ['.*PHI 3.*', '.*PHI 4.*', '.*PHI 5.*'],
+        '200-Level 2': ['.*PHI 2.*'],
+        '200-Level 1': ['.*PHI 2.*']
+    }
+
+    return courses
+
+def res_minor_courses():
+    subrequirements = {
+        'History and Social Sciences': ['.*NES 362.*', '.*NES 364.*', '.*POL 360.*',
+                                        '.*POL 374.*', '.*POL 432.*', '.*POL 433.*',
+                                        '.*SLA 338.*', '.*SLA 368.*', '.*SLA 420.*',
+                                        '.*SOC 308.*'],
+        'Literature, Arts and Culture': ['.*ART 337.*', '.*ART 393.*', '.*ART 466.*', 
+                                        '.*COM 404.*', '.*NES 404.*', '.*COM 410.*', '.*COM 415.*',
+                                        '.*ECS 360.*', '.*ECS 391.*', '.*JDS 221.*',
+                                        '.*MUS 339.*', '.*SLA 218.*', '.*SLA 219.*',
+                                        '.*SLA 220.*', '.*SLA 221.*', '.*SLA 236.*',
+                                        '.*SLA 301.*', '.*SLA 303.*', '.*SLA 304.*',
+                                        '.*SLA 305.*', '.*SLA 307.*', '.*SLA 308.*',
+                                        '.*SLA 309.*', '.*SLA 310.*', '.*SLA 312.*',
+                                        '.*SLA 313.*', '.*SLA 314.*', '.*SLA 319.*',
+                                        '.*SLA 322.*', '.*SLA 324.*', '.*SLA 326.*',
+                                        '.*SLA 337.*', '.*SLA 345.*', '.*SLA 347.*',
+                                        '.*SLA 350.*', '.*SLA 361.*', '.*SLA 365.*',
+                                        '.*SLA 366.*', '.*SLA 367.*', '.*SLA 368.*',
+                                        '.*SLA 369.*', '.*SLA 395.*', '.*SLA 396.*',
+                                        '.*SLA 411.*', '.*SLA 412.*', '.*SLA 413.*',
+                                        '.*SLA 415.*', '.*SLA 416.*', '.*SLA 417.*',
+                                        '.*SLA 422.*'],
+        'BCS': ['.*BCS 101.*', '.*BCS 102.*', '.*BCS 105.*', '.*BCS 107.*',],
+        'CZE': ['.*CZE 101.*', '.*CZE 102.*', '.*CZE 105.*', '.*CZE 107.*'],
+        'PLS': ['.*PLS 101.*', '.*PLS 102.*'],
+        'RUS': ['.*RUS 101.*', '.*RUS 102.*', '.*RUS 103.*', '.*RUS 105.*', 
+                '.*RUS 108.*', '.*RUS 107.*', '.*RUS 207.*', '.*RUS 208.*',
+                '.*RUS 305.*', '.*RUS 407.*', '.*RUS 408.*', '.*RUS 409.*'],
+        'TUR': ['.*TUR 101.*', '.*TUR 102.*', '.*TUR 105.*', '.*TUR 107.*',
+                 '.*TUR 305.*'],
+        'UKR': ['.*UKR 101.*', '.*UKR 102.*']
+    }
+
+    return subrequirements
+
+def sas_minor_courses():
+    courses = {
+        'Core': ['.*SAS 200.*'],
+        'Language': ['.*HIN 107.*', '.*URD 107.*', '.*SAN 107.*'],
+        'Electives': ['.*ANT .*', '.*COM .*', '.*ENG .*', '.*ECO .*',
+                    '.*HIS .*', '.*NES .*', '.*POL .*', '.*REL .*',
+                    '.*SPI .*', '.*SAS .*']
+    }
+
+    return courses
+
+def sla_minor_courses():
+    courses = {
+        'First Requirement': ['.*RUS 107.*', '.*RUS 108.*'],
+        'Second Requirement': ['.*RUS 207.*', '.*RUS 3.*'],
+        'Departmentals': ['.*RUS 208.*', '.*RUS 3.*', '.*RUS 4.*',
+                          '.*SLA 2.*', '.*SLA 3.*', '.*SLA 4.*']
+    }
+
+    return courses
+
+def sml_minor_courses():
+    courses = {
+        'Statistics': ['.*ECO 202.*', '.*ORF 245.*', '.*POL 345.*', '.*PSY 251.*',
+                        '.*SPI 200.*'],
+        'Machine Learning': ['.*COS 324.*', '.*COS 424.*', '.*ECE 364.*',
+                            '.*ECE 435.*', '.*MAT 490.*', '.*ORF 350.*'],
+        'Electives': ['.*COS 429.*', '.*COS 484.*', '.*COS 485.*', '.*ORF 418.*', 
+                      '.*SOC 306.*', '.*ECE 434.*', '.*MAT 385.*', '.*ORF 309.*', 
+                      '.*ORF 363.*', '.*AST 303.*', '.*CEE 460.*', '.*ECO 302.*', 
+                      '.*ECO 312.*', '.*ECO 313.*', '.*ECO 491.*', '.*ECE 382.*', 
+                      '.*ECE 480.*', '.*GEO 422.*', '.*MAE 345.*', '.*NEU 330.*', 
+                      '.*ORF 405.*', '.*ORF 473.*', '.*POL 346.*', '.*PSY 360.*',
+                      '.*PSY 454.*', '.*QCB 408.*', '.*QCB 455.*', '.*SOC 400.*']
+    }
+
+    return courses
+
+def tmt_minor_courses():
+    courses = {
+        'Introduction': ['.*THR 101.*'],
+        'Additional Courses': ['.*THR .*', '.*MTD .*'],
+        'Electives': ['.*THR .*', '.*MTD .*', '.*DAN .*', '.*MUS .*'],
+        'Dramaturgical': ['.*AMS 403.*', '.*ATL 499.*', '.*DAN 305.*', '.*ENG 314.*', '.*ENG 319.*', '.*FRE 390.*',
+                        '.*GSS 337.*', '.*THR 308.*', '.*THR 316.*', '.*THR 355.*', '.*COM 212.*', '.*DAN 206.*',
+                        '.*DAN 208.*', '.*DAN 357.*', '.*ENG 354.*', '.*ENG 357.*', '.*FRE 228.*', '.*HUM 321.*',
+                        '.*HUM 352.*', '.*THR 223.*', '.*THR 300.*', '.*THR 313.*', '.*THR 350.*', '.*ENG 354.*',
+                        '.*ENG 407.*', '.*FRE 390.*', '.*HUM 340.*', '.*MTD 348.*', '.*MUS 350.*', '.*MUS 357.*',
+                        '.*THR 220.*', '.*THR 359.*', '.*THR 391.*', '.*THR 400.*', '.*THR 416.*', '.*VIS 354.*',
+                        '.*AMS 317.*', '.*DAN 310.*', '.*DAN 393.*', '.*ECS 362.*', '.*FRE 228.*', '.*HIN 305.*',
+                        '.*LAS 308.*', '.*MTD 202.*', '.*MUS 334.*', '.*THR 316.*', '.*THR 402.*', '.*THR 405.*',
+                        '.*VIS 354.*', '.*CLA 227.*', '.*DAN 215.*', '.*ENG 318.*', '.*ENG 361.*', '.*ENG 409.*',
+                        '.*FRE 390.*', '.*GSS 322.*', '.*ITA 314.*', '.*MUS 350.*', '.*THR 205.*', '.*THR 302.*',
+                        '.*THR 347.*', '.*THR 350.*', '.*THR 391.*', '.*THR 400.*', '.*ENG 319.*', '.*FRE 392.*',
+                        '.*HUM 352.*', '.*MTD 217.*', '.*THR 203.*', '.*THR 205.*', '.*THR 300.*', '.*THR 305.*',
+                        '.*THR 376.*', '.*THR 402.*', '.*FRE 389.*', '.*MTD 333.*', '.*THR 353.*']
+    }
+
+    return courses
+
 def get_courses(minor):
     if minor == 'CLA':
         return cla_minor_courses()
@@ -705,6 +873,20 @@ def get_courses(minor):
         return mse_minor_courses()
     elif minor == 'MUS':
         return mus_minor_courses()
+    elif minor == 'NEU':
+        return neu_minor_courses()
+    elif minor == 'PHI':
+        return phi_minor_courses()
+    elif minor == 'RES':
+        return res_minor_courses()
+    elif minor == 'SAS':
+        return sas_minor_courses()
+    elif minor == 'SLA':
+        return sla_minor_courses()
+    elif minor == 'SML':
+        return sml_minor_courses()
+    elif minor == 'TMT':
+        return tmt_minor_courses()
     else:
         return None
 #---------------------------------------------------------------------
@@ -1007,6 +1189,82 @@ def mus_minor_requirements():
 
     return subrequirements
 
+def neu_minor_requirements():
+    subrequirements = {
+        'Fundamentals': 1,
+        'Intro': 1,
+        'Molecular/Cellular/Disease': 1,
+        'Circuits & Systems': 1,
+        'Neural Computation': 1,
+        'Cognitive & Social Neuroscience': 1,
+        'Other Electives': 1
+    }
+
+    return subrequirements
+
+def phi_minor_requirements():
+    subrequirements = {
+        'Prerequisite': 1,
+        'Advanced 5': 5,
+        'Advanced 4': 4,
+        'Advanced 3': 3,
+        '200-Level 2': 2,
+        '200-Level 1': 1
+    }
+
+    return subrequirements
+
+def res_minor_requirements():
+    subrequirements = {
+        'History and Social Sciences': 2,
+        'Literature, Arts and Culture': 2,
+        'BCS': 2,
+        'CZE': 2,
+        'PLS': 2,
+        'RUS': 2,
+        'TUR': 2,
+        'UKR': 2
+    }
+
+    return subrequirements
+
+def sas_minor_requirements():
+    subrequirements = {
+        'Core': 1,
+        'Language': 1,
+        'Electives': 3
+    }
+
+    return subrequirements
+
+def sla_minor_requirements():
+    subrequirements = {
+        'First Requirement': 1,
+        'Second Requirement': 1,
+        'Departmentals': 3
+    }
+
+    return subrequirements
+
+def sml_minor_requirements():
+    subrequirements = {
+        'Statistics': 1,
+        'Machine Learning': 1,
+        'Electives': 3
+    }
+
+    return subrequirements
+
+def tmt_minor_requirements():
+    subrequirements = {
+        'Introduction': 1,
+        'Additional Courses': 2,
+        'Electives': 2,
+        'Dramaturgical': 1
+    }
+
+    return subrequirements
+
 def get_minor_requirements(minor):
     if minor == 'CLA':
         return cla_minor_requirements()
@@ -1064,5 +1322,19 @@ def get_minor_requirements(minor):
         return mse_minor_requirements()
     elif minor == 'MUS':
         return mus_minor_requirements()
+    elif minor == 'NEU':
+        return neu_minor_requirements()
+    elif minor == 'PHI':
+        return phi_minor_requirements()
+    elif minor == 'RES':
+        return res_minor_requirements()
+    elif minor == 'SAS':
+        return sas_minor_requirements()
+    elif minor == 'SLA':
+        return sla_minor_requirements()
+    elif minor == 'SML':
+        return sml_minor_requirements()
+    elif minor == 'TMT':
+        return tmt_minor_requirements()
     else:
         return None

@@ -896,6 +896,188 @@ def create_mus_tree(subrequirements, parent=None):
 
     return mus
 
+def create_neu_tree(subrequirements, parent=None):
+    # Create the root node for NEU minor
+    neu = Node('NEU', parent, marked=True)
+
+    # Create core node under NEU
+    core = Node('Core', parent=neu, marked=True)
+    core.add_child(Node('Fundamentals', parent=core, classes_needed=subrequirements.get('Fundamentals', 0), marked=True))
+    core.add_child(Node('Intro', parent=core, classes_needed=subrequirements.get('Intro', 0), marked=True))
+    neu.add_child(core)
+
+    # add electives node under NEU
+    electives = Node('Electives', parent=neu, marked=True)
+
+    # add Other elective node under electives
+    electives.add_child(Node('Other Electives', parent=electives, classes_needed=subrequirements.get('Other Electives', 0), marked=True))
+    
+    # add tracks or node under electives
+    tracks = OrNode('Tracks', parent=electives, marked=True)
+
+    # add Molecular/Cellular/Disease with Circuits & Systems with  Neural Computation node under tracks
+    mcd_cs_nc = Node('Molecular/Cellular/Disease with Circuits & Systems with Neural Computation', parent=tracks)
+    mcd_cs_nc.add_child(Node('Molecular/Cellular/Disease', parent=mcd_cs_nc, 
+                             classes_needed=subrequirements.get('Molecular/Cellular/Disease', 0)))
+    mcd_cs_nc.add_child(Node('Circuits & Systems', parent=mcd_cs_nc,
+                                classes_needed=subrequirements.get('Circuits & Systems', 0)))
+    mcd_cs_nc.add_child(Node('Neural Computation', parent=mcd_cs_nc,
+                                classes_needed=subrequirements.get('Neural Computation', 0)))
+    
+    tracks.add_child(mcd_cs_nc)
+
+    # add Molecular/Cellular/Disease with Circuits & Systems with Cognitive & Social Neuroscience node under tracks
+    mcd_cs_csn = Node('Molecular/Cellular/Disease with Circuits & Systems with Cognitive & Social Neuroscience', parent=tracks)
+    mcd_cs_csn.add_child(Node('Molecular/Cellular/Disease', parent=mcd_cs_csn,
+                                classes_needed=subrequirements.get('Molecular/Cellular/Disease', 0)))
+    mcd_cs_csn.add_child(Node('Circuits & Systems', parent=mcd_cs_csn,
+                                classes_needed=subrequirements.get('Circuits & Systems', 0)))
+    mcd_cs_csn.add_child(Node('Cognitive & Social Neuroscience', parent=mcd_cs_csn,
+                                classes_needed=subrequirements.get('Cognitive & Social Neuroscience', 0)))
+    
+    tracks.add_child(mcd_cs_csn)
+
+    # add Molecular/Cellular/Disease with Neural Computation with Cognitive & Social Neuroscience node under tracks
+    mcd_nc_csn = Node('Molecular/Cellular/Disease with Neural Computation with Cognitive & Social Neuroscience', parent=tracks)
+    mcd_nc_csn.add_child(Node('Molecular/Cellular/Disease', parent=mcd_nc_csn,
+                                classes_needed=subrequirements.get('Molecular/Cellular/Disease', 0)))
+    mcd_nc_csn.add_child(Node('Neural Computation', parent=mcd_nc_csn,
+                                classes_needed=subrequirements.get('Neural Computation', 0)))
+    mcd_nc_csn.add_child(Node('Cognitive & Social Neuroscience', parent=mcd_nc_csn,
+                                classes_needed=subrequirements.get('Cognitive & Social Neuroscience', 0)))
+    
+    tracks.add_child(mcd_nc_csn)
+
+    # add Circuits & Systems with Neural Computation with Cognitive & Social Neuroscience node under tracks
+    cs_nc_csn = Node('Circuits & Systems with Neural Computation with Cognitive & Social Neuroscience', parent=tracks)
+    cs_nc_csn.add_child(Node('Circuits & Systems', parent=cs_nc_csn,
+                                classes_needed=subrequirements.get('Circuits & Systems', 0)))
+    cs_nc_csn.add_child(Node('Neural Computation', parent=cs_nc_csn,
+                                classes_needed=subrequirements.get('Neural Computation', 0)))
+    cs_nc_csn.add_child(Node('Cognitive & Social Neuroscience', parent=cs_nc_csn,
+                                classes_needed=subrequirements.get('Cognitive & Social Neuroscience', 0)))
+    
+    tracks.add_child(cs_nc_csn)
+    electives.add_child(tracks)
+    neu.add_child(electives)
+
+    return neu
+
+def create_phi_tree(subrequirements, parent=None):
+    # Create the root node for PHI minor
+    phi = Node('PHI', parent, marked=True)
+
+    # Create Prerequisite node under PHI
+    phi.add_child(Node('Prerequisite', parent=phi, classes_needed=subrequirements.get('Prerequisite', 0), marked=True))
+
+    # create Core node under PHI
+    core = OrNode('Core', parent=phi, marked=True)
+
+    # create Advanced 5 node under Core
+    core.add_child(Node('Advanced 5', parent=core, classes_needed=subrequirements.get('Advanced 5', 0)))
+
+    # create 200-Level 1 and Advanced 4 node under Core
+    advanced_4_200_1 = Node('Advanced 4 and 200-Level 1', parent=core)
+    advanced_4_200_1.add_child(Node('Advanced 4', parent=advanced_4_200_1,
+                                    classes_needed=subrequirements.get('Advanced 4', 0)))
+    advanced_4_200_1.add_child(Node('200-Level 1', parent=advanced_4_200_1,
+                                    classes_needed=subrequirements.get('200-Level 1', 0)))
+    
+    core.add_child(advanced_4_200_1)
+
+    # create 200-Level 2 and Advanced 3 node under Core
+    advanced_3_200_2 = Node('Advanced 3 and 200-Level 2', parent=core)
+    advanced_3_200_2.add_child(Node('Advanced 3', parent=advanced_3_200_2,
+                                    classes_needed=subrequirements.get('Advanced 3', 0)))
+    advanced_3_200_2.add_child(Node('200-Level 2', parent=advanced_3_200_2,
+                                    classes_needed=subrequirements.get('200-Level 2', 0)))
+    
+    core.add_child(advanced_3_200_2)
+
+    phi.add_child(core)
+
+    return phi
+
+def create_res_tree(subrequirements, parent=None):
+    # Create the root node for RES minor
+    res = Node('RES', parent, marked=True)
+
+    # Create History and Social Sciences node under RES
+    res.add_child(Node('History and Social Sciences', parent=res, 
+                       classes_needed=subrequirements.get('History and Social Sciences', 0), marked=True))
+    
+    # Create Literature, Arts and Culture node under RES
+    res.add_child(Node('Literature, Arts and Culture', parent=res,
+                          classes_needed=subrequirements.get('Literature, Arts and Culture', 0), marked=True))
+    
+    # create language or node under RES
+    language = OrNode('Language', parent=res, marked=True)
+
+    # create BCS node under language
+    language.add_child(Node('BCS', parent=language,
+                            classes_needed=subrequirements.get('BCS', 0), marked=True))
+    language.add_child(Node('CZE', parent=language,
+                            classes_needed=subrequirements.get('CZE', 0), marked=True))
+    language.add_child(Node('PLS', parent=language,
+                            classes_needed=subrequirements.get('PLS', 0), marked=True))
+    language.add_child(Node('RUS', parent=language,
+                            classes_needed=subrequirements.get('RUS', 0), marked=True))
+    language.add_child(Node('TUR', parent=language,
+                            classes_needed=subrequirements.get('TUR', 0), marked=True))
+    language.add_child(Node('UKR', parent=language,
+                            classes_needed=subrequirements.get('UKR', 0), marked=True))
+    
+    res.add_child(language)
+
+    return res
+
+def create_sas_tree(subrequirements, parent=None):
+    # Create the root node for SAS minor
+    sas = Node('SAS', parent, marked=True)
+
+    # Create Core node under SAS
+    sas.add_child(Node('Core', parent=sas, classes_needed=subrequirements.get('Core', 0), marked=True))
+
+    # Create Language node under SAS
+    sas.add_child(Node('Language', parent=sas, classes_needed=subrequirements.get('Language', 0), marked=True))
+
+    # Create Electives node under SAS
+    sas.add_child(Node('Electives', parent=sas, classes_needed=subrequirements.get('Electives', 0), marked=True))
+
+    return sas
+
+def create_sla_tree(subrequirements, parent=None):
+    # Create the root node for SLA minor
+    sla = Node('SLA', parent, marked=True)
+
+    sla.add_child(Node('First Requirement', parent=sla, 
+                       classes_needed=subrequirements.get('First Requirement', 0), marked=True))
+    sla.add_child(Node('Second Requirement', parent=sla,
+                          classes_needed=subrequirements.get('Second Requirement', 0), marked=True))
+    sla.add_child(Node('Departmentals', parent=sla,
+                            classes_needed=subrequirements.get('Departmentals', 0), marked=True))
+
+    return sla
+
+def create_sml_tree(subrequirements, parent=None):
+    # Create the root node for SML minor
+    sml = Node('SML', parent, marked=True)
+    sml.add_child(Node('Statistics', parent=sml, classes_needed=subrequirements.get('Statistics', 0), marked=True))
+    sml.add_child(Node('Machine Learning', parent=sml, classes_needed=subrequirements.get('Machine Learning', 0), marked=True))
+    sml.add_child(Node('Electives', parent=sml, classes_needed=subrequirements.get('Electives', 0), marked=True))
+
+    return sml
+
+def create_tmt_tree(subrequirements, parent=None):
+    # Create the root node for TMT minor
+    tmt = Node('TMT', parent, marked=True)
+    tmt.add_child(Node('Introduction', parent=tmt, classes_needed=subrequirements.get('Introduction', 0), marked=True))
+    tmt.add_child(Node('Additional Courses', parent=tmt, classes_needed=subrequirements.get('Additional Courses', 0), marked=True))
+    tmt.add_child(Node('Electives', parent=tmt, classes_needed=subrequirements.get('Electives', 0), marked=True))
+    tmt.add_child(Node('Dramaturgical', parent=tmt, classes_needed=subrequirements.get('Dramaturgical', 0), marked=True))
+
+    return tmt
+
 def create_tree(key, subrequirements):
     if key == 'CLA':
         return create_cla_tree(subrequirements)
@@ -953,6 +1135,20 @@ def create_tree(key, subrequirements):
         return create_mse_tree(subrequirements)
     elif key == 'MUS':
         return create_mus_tree(subrequirements)
+    elif key == 'NEU':
+        return create_neu_tree(subrequirements)
+    elif key == 'PHI':
+        return create_phi_tree(subrequirements)
+    elif key == 'RES':
+        return create_res_tree(subrequirements)
+    elif key == 'SAS':
+        return create_sas_tree(subrequirements)
+    elif key == 'SLA':
+        return create_sla_tree(subrequirements)
+    elif key == 'SML':
+        return create_sml_tree(subrequirements)
+    elif key == 'TMT':
+        return create_tmt_tree(subrequirements)
     else:
         return None
     

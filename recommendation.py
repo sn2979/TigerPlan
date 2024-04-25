@@ -97,7 +97,8 @@ def recommend(class_list, username):
     minors = ['CLA', 'ENV', 'LIN', 'COS', 'FIN', 'GSS', 'AFS', 'ASA', 
               'CHI', 'CS', 'CWR', 'DAN', 'EAS', 'ENG', 'GHP', 'HIS', 
               'HLS', 'HSTM', 'HUM', 'JPN', 'JRN', 'KOR', 'LAO', 'MED',
-              'MPP', 'MQE', 'MSE', 'MUS']
+              'MPP', 'MQE', 'MSE', 'MUS', 'NEU', 'PHI', 'RES', 'SAS',
+              'SLA', 'SML', 'TMT']
 
     # Initialize champions dictionary with proper structure
     champions = {
