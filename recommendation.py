@@ -96,7 +96,8 @@ def process_minor(username, minor, class_list, champions, lock):
 def recommend(class_list, username):
     minors = ['CLA', 'ENV', 'LIN', 'COS', 'FIN', 'GSS', 'AFS', 'ASA', 
               'CHI', 'CS', 'CWR', 'DAN', 'EAS', 'ENG', 'GHP', 'HIS', 
-              'HLS', 'HSTM', 'HUM', 'JPN', 'JRN', 'KOR', 'LAO']
+              'HLS', 'HSTM', 'HUM', 'JPN', 'JRN', 'KOR', 'LAO', 'MED',
+              'MPP', 'MQE', 'MSE', 'MUS']
 
     # Initialize champions dictionary with proper structure
     champions = {

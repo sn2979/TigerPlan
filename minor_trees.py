@@ -769,6 +769,133 @@ def create_lao_tree(subrequirements, parent=None):
 
     return lao
 
+def create_med_tree(subrequirements, parent=None):
+    # Create the root node for MED minor
+    med = Node('MED', parent, marked=True)
+
+    # Create Intro or node under MED
+    intro = OrNode('Intro', parent=med, marked=True)
+    intro.add_child(Node('Single Course', parent=intro, classes_needed=subrequirements.get('Single Course', 0), marked=True))
+    intro.add_child(Node('Humanities Sequence', parent=intro, classes_needed=subrequirements.get('Humanities Sequence', 0), marked=True))
+    med.add_child(intro)
+
+    # Create Medieval Topics node under MED
+    med.add_child(Node('Medieval Topics', parent=med, classes_needed=subrequirements.get('Medieval Topics', 0), marked=True))
+
+    return med
+
+def create_mpp_tree(subrequirements, parent=None):
+    # Create the root node for MPP minor
+    mpp = Node('MPP', parent, marked=True)
+    
+    # Create Core node under MPP
+    mpp.add_child(Node('Core', parent=mpp, classes_needed=subrequirements.get('Core', 0), marked=True))
+
+    # Create Materials and Making node under MPP
+    mpp.add_child(Node('Materials and Making', parent=mpp, classes_needed=subrequirements.get('Materials and Making', 0), marked=True))
+
+    # Create Culture and Criticism node under MPP
+    mpp.add_child(Node('Culture and Criticism', parent=mpp, classes_needed=subrequirements.get('Culture and Criticism', 0), marked=True))
+
+    # Create Elective node under MPP
+    mpp.add_child(Node('Elective', parent=mpp, classes_needed=subrequirements.get('Elective', 0), marked=True))
+
+    # Create Departmental node under MPP
+    mpp.add_child(Node('Departmental', parent=mpp, classes_needed=subrequirements.get('Departmental', 0), marked=True))
+
+    return mpp
+
+def create_mqe_tree(subrequirements, parent=None):
+    # Create the root node for MQE minor
+    mqe = Node('MQE', parent, marked=True)
+
+    # create prerequisite node
+    prerequisites = Node('Prerequisites', parent=mqe, marked=True)
+
+    # create multivariable calculus node under prerequisites
+    prerequisites.add_child(Node('Multivariable Calculus', parent=prerequisites,
+                                    classes_needed=subrequirements.get('Multivariable Calculus', 0), marked=True))
+    
+    # create linear algebra node under prerequisites
+    prerequisites.add_child(Node('Linear Algebra', parent=prerequisites,
+                                    classes_needed=subrequirements.get('Linear Algebra', 0), marked=True))
+    
+    # create statistics node under prerequisites
+    prerequisites.add_child(Node('Statistics', parent=prerequisites,
+                                    classes_needed=subrequirements.get('Statistics', 0), marked=True))
+    
+    mqe.add_child(prerequisites)
+
+    # create Core Courses under MQE
+    mqe.add_child(Node('Core Courses', parent=mqe, classes_needed=subrequirements.get('Core Courses', 0), marked=True))
+
+    # create Electives under MQE
+    mqe.add_child(Node('Electives', parent=mqe, classes_needed=subrequirements.get('Electives', 0), marked=True))
+
+    return mqe
+
+def create_mse_tree(subrequirements, parent=None):
+    # Create the root node for MSE minor
+    mse = Node('MSE', parent, marked=True)
+
+    # create General Physics under MSE
+    general_physics = OrNode('General Physics', parent=mse, marked=True)
+    general_physics.add_child(Node('103-104 Sequence', parent=general_physics,
+                                      classes_needed=subrequirements.get('103-104 Sequence', 0), marked=True))
+    general_physics.add_child(Node('105-106 Sequence', parent=general_physics,
+                                        classes_needed=subrequirements.get('105-106 Sequence', 0), marked=True))
+    
+    mse.add_child(general_physics)
+
+    # create General Chemistry under MSE
+    general_chemistry = OrNode('General Chemistry', parent=mse, marked=True)
+    general_chemistry.add_child(Node('201-202 Sequence', parent=general_chemistry,
+                                        classes_needed=subrequirements.get('201-202 Sequence', 0), marked=True))
+    general_chemistry.add_child(Node('Chemistry', parent=general_chemistry,
+                                        classes_needed=subrequirements.get('Chemistry', 0), marked=True))
+    
+    mse.add_child(general_chemistry)
+
+    # create Thermodynamics under MSE
+    mse.add_child(Node('Thermodynamics', parent=mse,
+                        classes_needed=subrequirements.get('Thermodynamics', 0), marked=True))
+    
+    # create Materials under MSE
+    mse.add_child(Node('Materials', parent=mse,
+                        classes_needed=subrequirements.get('Materials', 0), marked=True))
+    
+    # create Mathematics under MSE
+    mse.add_child(Node('Mathematics', parent=mse,
+                        classes_needed=subrequirements.get('Mathematics', 0), marked=True))
+    
+    # create Electives under MSE
+    mse.add_child(Node('Electives', parent=mse,
+                        classes_needed=subrequirements.get('Electives', 0), marked=True))
+    
+    # create Experimental Methods under MSE
+    mse.add_child(Node('Experimental Methods', parent=mse,
+                        classes_needed=subrequirements.get('Experimental Methods', 0), marked=True))
+    
+    return mse
+
+def create_mus_tree(subrequirements, parent=None):
+    # Create the root node for MPP minor
+    mus = Node('MUS', parent, marked=True)
+    
+    # Create Core node under MPP
+    mus.add_child(Node('Core', parent=mus, classes_needed=subrequirements.get('Core', 0), marked=True))
+
+    # Create Materials and Making node under MPP
+    mus.add_child(Node('Materials and Making', parent=mus, classes_needed=subrequirements.get('Materials and Making', 0), marked=True))
+
+    # Create Culture and Criticism node under MPP
+    mus.add_child(Node('Culture and Criticism', parent=mus, classes_needed=subrequirements.get('Culture and Criticism', 0), marked=True))
+
+    # Create Music Electives node under MPP
+    mus.add_child(Node('Music Electives', parent=mus, classes_needed=subrequirements.get('Music Electives', 0), marked=True))
+
+    return mus
+
 def create_tree(key, subrequirements):
     if key == 'CLA':
         return create_cla_tree(subrequirements)
@@ -816,6 +943,16 @@ def create_tree(key, subrequirements):
         return create_kor_tree(subrequirements)
     elif key == 'LAO':
         return create_lao_tree(subrequirements)
+    elif key == 'MED':
+        return create_med_tree(subrequirements)
+    elif key == 'MPP':
+        return create_mpp_tree(subrequirements)
+    elif key == 'MQE':
+        return create_mqe_tree(subrequirements)
+    elif key == 'MSE':
+        return create_mse_tree(subrequirements)
+    elif key == 'MUS':
+        return create_mus_tree(subrequirements)
     else:
         return None
     

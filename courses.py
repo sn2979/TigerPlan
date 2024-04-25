@@ -565,6 +565,89 @@ def lao_minor_courses():
 
     return courses
 
+def med_minor_courses():
+    courses = {
+        'Single Course': ['.*MED 227.*', '.*HIS 210.*', '.*ART 228.*'],
+        'Humanities Sequence': ['.*HUM 216.*', '.*HUM 217.*'],
+        'Medieval Topics': ['.*ART 228.*', '.*ART 361.*', '.*CLA 565.*',
+                            '.*ENG 361.*', '.*HIS 210.*', '.*HIS 344.*',
+                            '.*HIS 536.*', '.*HIS 544.*', '.*HUM 372.*',
+                            '.*MUS 338.*', '.*REL 251.*', '.*FRE 560.*']
+    }
+
+    return courses
+
+def mpp_minor_courses():
+    courses = {
+        'Core': ['.*MUS 105.*'],
+        'Materials and Making': ['.*MUS 209B.*', '.*MUS 209A.*', '.*MUS 329.*',
+                                '.*MUS 319.*', '.*MUS 316.*', '.*MUS 312.*',
+                                '.*MUS 248.*', '.*MUS 210.*', '.*MUS 106.*',
+                                '.*MUS 345.*', '.*MUS 340.*', '.*MUS 314.*',
+                                '.*MUS 308.*', '.*MUS 106.*', '.*MUS 560.*',
+                                '.*MUS 204.*', '.*MUS 537.*', '.*MUS 528.*',
+                                '.*MUS 351.*', '.*MUS 310.*'],
+        'Culture and Criticism': ['.*MUS 230.*', '.*MUS 238.*', '.*MUS 248.*',
+                                '.MUS 262.*', '.*MUS 203.*', '.*MUS 240.*',
+                                '.*MUS 223.*', '.*MUS 232.*', '.*MUS 242.*',
+                                '.*MUS 262.*', '.*MUS 203.*', '.*MUS 350.*'],
+        'Elective': ['.*MUS.*', '.*MPP.*'],
+        'Departmental': ['.*MPP.*']
+    }
+
+    return courses
+
+def mqe_minor_courses():
+    courses = {
+        'Multivariable Calculus': ['.*MAT 201.*', '.*ECO 201.*',
+                                   '.*MAT 203.*', '.*EGR 156.*'],
+        'Linear Algebra': ['.*MAT 202.*', '.*EGR 154.*', '.*MAT 204.*'],
+        'Statistics': ['.*ECO 202.*', '.*ORF 245.*'],
+        'Core Courses': ['.*ECO 310.*', '.*ECO 311.*', '.*ECO 312.*'],
+        'Electives': ['.*ECO 313.*', '.*ECO 315.*', '.*ECO 317.*',
+                    '.*ECO 323.*', '.*ECO 327.*', '.*ECO 416.*',
+                    '.ECO 418.*', '.*COS 445.*', '.*ORF 405.*']
+    }
+
+    return courses
+
+def mse_minor_courses():
+    courses = {
+        '103-104 Sequence': ['.*PHY 103.*', '.*PHY 104.*'],
+        '105-106 Sequence': ['.*PHY 105.*', '.*PHY 106.*'],
+        '201-202 Sequence': ['.*CHM 201.*', '.*CHM 202.*'],
+        'Chemistry': ['.*CHM 207.*', '.*CHM 215.*'],
+        'Thermodynamics': ['.*CBE 246.*', '.*CHM 306.*', '.*CHM 406.*'
+                           '.*ECE 342.*', '.*MAE 221.*', '.*PHY 301.*'],
+        'Materials': ['.*MSE 301.*', '.*CEE 364.*', '.*MAE 324.*'],
+        'Mathematics': ['.*MAT 103.*', '.*MAT 104.*', '.*MAT 201.*',
+                          '.*MAT 202.*', '.*MAT 203.*', '.*MAT 204.*'],
+        'Electives': ['.*MSE. 3*', '.*MSE 4*'],
+        'Experimental Methods': ['.*MSE 302.*', '.*CHM 371.*', '.*ECE 308.*'
+                                '.*GEO 369.*']
+    }
+
+    return courses
+
+def mus_minor_courses():
+    courses = {
+        'Core': ['MUS 105'],
+        'Materials and Making': ['.*MUS 209B.*', '.*MUS 209A.*', '.*MUS 329.*',
+                                '.*MUS 319.*', '.*MUS 316.*', '.*MUS 312.*',
+                                '.*MUS 248.*', '.*MUS 210.*', '.*MUS 106.*',
+                                '.*MUS 345.*', '.*MUS 340.*', '.*MUS 314.*',
+                                '.*MUS 308.*', '.*MUS 106.*', '.*MUS 560.*',
+                                '.*MUS 204.*', '.*MUS 537.*', '.*MUS 528.*',
+                                '.*MUS 351.*', '.*MUS 310.*'],
+        'Culture and Criticism': ['.*MUS 230.*', '.*MUS 238.*', '.*MUS 248.*',
+                                '.MUS 262.*', '.*MUS 203.*', '.*MUS 240.*',
+                                '.*MUS 223.*', '.*MUS 232.*', '.*MUS 242.*',
+                                '.*MUS 262.*', '.*MUS 203.*', '.*MUS 350.*'],
+        'Music Electives': ['.*MUS.*']
+    }
+
+    return courses
+
 def get_courses(minor):
     if minor == 'CLA':
         return cla_minor_courses()
@@ -612,6 +695,16 @@ def get_courses(minor):
         return kor_minor_courses()
     elif minor == 'LAO':
         return lao_minor_courses()
+    elif minor == 'MED':
+        return med_minor_courses()
+    elif minor == 'MPP':
+        return mpp_minor_courses()
+    elif minor == 'MQE':
+        return mqe_minor_courses()
+    elif minor == 'MSE':
+        return mse_minor_courses()
+    elif minor == 'MUS':
+        return mus_minor_courses()
     else:
         return None
 #---------------------------------------------------------------------
@@ -858,6 +951,62 @@ def lao_minor_requirements():
 
     return subrequirements
 
+def med_minor_requirements():
+    subrequirements = {
+        'Single Course': 1,
+        'Humanities Sequence': 2,
+        'Medieval Topics': 3
+    }
+
+    return subrequirements
+
+def mpp_minor_requirements():
+    subrequirements = {
+        'Core': 1,
+        'Materials and Making': 1,
+        'Culture and Criticism': 1,
+        'Elective': 1,
+        'Departmental': 1
+    }
+
+    return subrequirements
+
+def mqe_minor_requirements():
+    subrequirements = {
+        'Multivariable Calculus': 1,
+        'Linear Algebra': 1,
+        'Statistics': 1,
+        'Core Courses': 2,
+        'Electives': 3
+    }
+
+    return subrequirements
+
+def mse_minor_requirements():
+    subrequirements = {
+        '103-104 Sequence': 2,
+        '105-106 Sequence': 2,
+        '201-202 Sequence': 2,
+        'Chemistry': 1,
+        'Thermodynamics': 1,
+        'Materials': 1,
+        'Mathematics': 2,
+        'Electives': 3,
+        'Experimental Methods': 1
+    }
+
+    return subrequirements
+
+def mus_minor_requirements():
+    subrequirements = {
+        'Core': 1,
+        'Materials and Making': 1,
+        'Culture and Criticism': 1,
+        'Music Electives': 2
+    }
+
+    return subrequirements
+
 def get_minor_requirements(minor):
     if minor == 'CLA':
         return cla_minor_requirements()
@@ -905,5 +1054,15 @@ def get_minor_requirements(minor):
         return kor_minor_requirements()
     elif minor == 'LAO':
         return lao_minor_requirements()
+    elif minor == 'MED':
+        return med_minor_requirements()
+    elif minor == 'MPP':
+        return mpp_minor_requirements()
+    elif minor == 'MQE':
+        return mqe_minor_requirements()
+    elif minor == 'MSE':
+        return mse_minor_requirements()
+    elif minor == 'MUS':
+        return mus_minor_requirements()
     else:
         return None
