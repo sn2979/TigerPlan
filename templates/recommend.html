@@ -231,11 +231,10 @@
     // Loop through each course card
     courseCards.forEach(function(card) {
         // Add click event listener to each course card
+        let minor = card.getAttribute("data-minor");
+        let desc = card.getAttribute("data-desc");
+        // Get the data attributes from the clicked course card
         card.addEventListener("click", function() {
-            // Get the data attributes from the clicked course card
-            var minor = this.getAttribute("data-minor");
-            var desc = this.getAttribute("data-desc");
-
             // Call the openModal function with the extracted data
             openModal(minor, desc);
         });
@@ -294,7 +293,9 @@ function openModal(minor, desc) {
 
     // Check if the description length exceeds the maximum length
     if (desc.length > maxLength) {
-      console.log('description length', desc.length);
+      descriptionParagraph.textContent = desc; // Show full description
+      modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Enable scrolling
+      /*console.log('description length', desc.length);
       console.log('max length', maxLength);
         // Truncate the description and add "..." at the end
         var truncatedDesc = desc.substring(0, maxLength) + "...";
@@ -304,13 +305,16 @@ function openModal(minor, desc) {
         descriptionParagraph.textContent = truncatedDesc;
         console.log('description paragraph', descriptionParagraph.textContent);
         console.log('description paragraph id', descriptionParagraph.id);
+
+        descriptionParagraph.dataset.fullDescription = desc; // Store full description in data attribute
+        descriptionParagraph.classList.add("truncated"); // Add a class to track the truncated state
     } else {
         // Display the full description if it's shorter than the maximum length
         console.log('No truncation needed');
-        descriptionParagraph.textContent = desc;
+        descriptionParagraph.textContent = desc; */
     }
 
-    descriptionParagraph = modalContent.querySelector("#description");
+    /*descriptionParagraph = modalContent.querySelector("#description");
 
     // Add event listener to toggle full description on clicking the truncated text
     descriptionParagraph.addEventListener("click", function() {
@@ -328,7 +332,7 @@ function openModal(minor, desc) {
           descriptionParagraph.textContent = truncatedDesc; // Show truncated description
           modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Disable scrolling
       }
-  });
+  });*/
 }
 
 </script>
