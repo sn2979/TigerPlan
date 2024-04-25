@@ -216,10 +216,7 @@ def generate_and_store_recommendations(username):
 
 @app.route('/login', methods=['GET'])
 def login():
-    print("HERE2")
     username = auth.authenticate()
-    print("HERE3")
-    print(username)
     success, first_time = student_database.handle_student_login(username)
     if success:
         # Store the username in the session
@@ -232,7 +229,7 @@ def login():
             return response
         else:
             print("Returning user")
-            if flask.session['previous_page'] == None:
+            if flask.session.get('previous_page') == None:
                 return flask.redirect('/classboard')
             else:
                 return flask.redirect(flask.session['previous_page']) 
