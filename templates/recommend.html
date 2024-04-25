@@ -292,9 +292,9 @@ function openModal(minor, desc) {
     var maxLength = 600; // Adjust this value as needed
 
     // Check if the description length exceeds the maximum length
-    if (desc.length > maxLength) {
-      descriptionParagraph.textContent = desc; // Show full description
-      modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Enable scrolling
+    
+    descriptionParagraph.textContent = desc; // Show full description
+    modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Enable scrolling
       /*console.log('description length', desc.length);
       console.log('max length', maxLength);
         // Truncate the description and add "..." at the end
@@ -312,7 +312,6 @@ function openModal(minor, desc) {
         // Display the full description if it's shorter than the maximum length
         console.log('No truncation needed');
         descriptionParagraph.textContent = desc; */
-    }
 
     /*descriptionParagraph = modalContent.querySelector("#description");
 
