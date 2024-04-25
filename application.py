@@ -72,7 +72,7 @@ def map_major_name_to_id(major):
         'Climate Science': 'CS',
         'Comparative Literature': 'COM',
         'Computer Science': 'COS',
-        'Creative Writing': 'CRW',
+        'Creative Writing': 'CWR',
         'Dance': 'DAN',
         'East Asian Studies': 'EAS',
         'Economics': 'ECO',
@@ -104,7 +104,7 @@ def map_major_name_to_id(major):
         'Near Eastern Studies': 'NES',
         'Neuroscience': 'NEU',
         'Operations Research and Financial Engineering': 'ORF',
-        'Translation and Intercultural Communication': 'PTIC',
+        'Translation and Intercultural Communication': 'TRA',
         'Philosophy': 'PHI',
         'Physics': 'PHY',
         'Politics': 'POL',
@@ -144,7 +144,7 @@ def map_major_id_to_name(major):
     'CS': 'Climate Science',
     'COM': 'Comparative Literature',
     'COS': 'Computer Science',
-    'CRW': 'Creative Writing',
+    'CWR': 'Creative Writing',
     'DAN': 'Dance',
     'EAS': 'East Asian Studies',
     'ECO': 'Economics',
@@ -176,7 +176,7 @@ def map_major_id_to_name(major):
     'NES': 'Near Eastern Studies',
     'NEU': 'Neuroscience',
     'ORF': 'Operations Research and Financial Engineering',
-    'PTIC': 'Translation and Intercultural Communication',
+    'TRA': 'Translation and Intercultural Communication',
     'PHI': 'Philosophy',
     'PHY': 'Physics',
     'POL': 'Politics',
@@ -407,7 +407,7 @@ def load_area():
 
 
 #-----------------------------------------------------------------------
-#Routes for reccomend. 
+#Routes for recommend. 
 
 @app.route('/recommend', methods=['GET'])
 def recommend():

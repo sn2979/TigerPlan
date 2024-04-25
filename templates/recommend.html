@@ -24,7 +24,7 @@
   .card p {
     font-family: 'Roboto Serif', serif;
     font-size: 30px;
-    margin-top:100px;
+    margin-top: 20%;
     flex: 1; /* Let the title take up space evenly */
   }
 
@@ -162,7 +162,7 @@
 {% include 'header.html' %}
 <main>
   <section id="main-content">
-    <p>Here are your most compatible minors!</p>
+    <p>Here are your most compatiable minors!</p>
   </section>
   <div class="container">
     {% for course in courses %}
@@ -196,6 +196,20 @@
 
     </div>
   </div>
+  <!--<div class="container">
+  <div class="card" onclick="location.href='#';"> 
+    <h3 class="card-title">Creative Writing</h3>
+    <p class="card-text">You need one more class to fulfill this minor!</p>
+  </div>
+  <div class="card" onclick="location.href='#';">
+    <h3 class="card-title">Linguistics</h3>
+    <p class="card-text">You need three more classes to fulfill this minor!</p>
+  </div>
+  <div class="card" onclick="location.href='#';">
+    <h3 class="card-title">Journalism</h3>
+    <p class="card-text">You need three more classes to fulfill this minor!</p>
+  </div>
+</div>-->
 </main>
 <script>
   
@@ -251,4 +265,3 @@
 
 </body>
 </html>
-
