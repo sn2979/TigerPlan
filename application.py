@@ -406,6 +406,14 @@ def load_area():
 #-----------------------------------------------------------------------
 #Routes for recommend. 
 
+def parseTree(treedesc):
+    success, username, classes = get_user_info()
+    for child in classes:
+        print(child)
+    
+
+
+
 @app.route('/recommend', methods=['GET'])
 def recommend():
     success, username, classes = get_user_info()
@@ -431,7 +439,7 @@ def recommendations():
         return flask.render_template("error.html", error=error_message), 500
     
     stored_recommendations = student_database.get_stored_recommendations(username)
-
+    
     if not stored_recommendations:
         # No stored recommendations found, generate and store new ones
         stored_recommendations = generate_and_store_recommendations(username)
@@ -440,10 +448,11 @@ def recommendations():
     for course in stored_recommendations:
         course['minorid'] = course['minor']
         course['minor'] = map_major_id_to_name(course['minor'])
+        parseTree(course['tree_description'])
         #reminder to self to add truncation of description if too long
         course['desc'] = minors_database.get_desc(course['minorid'])
         course['urls'] = minors_database.get_urls(course['minorid'])
-
+    
 
     return flask.render_template("recommend.html", username=username, courses=stored_recommendations)
 

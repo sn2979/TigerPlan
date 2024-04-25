@@ -208,6 +208,7 @@
 
             <div class="grey-boxes">
               <div class="grey-box"></div>
+              
               <div class="grey-box"></div>
               <div class="grey-box"></div>
             </div>
@@ -237,6 +238,7 @@
             var desc = this.getAttribute("data-desc");
 
             // Call the openModal function with the extracted data
+
             openModal(minor, desc);
         });
     });
@@ -272,7 +274,7 @@
 });
 
 // Function to open the modal with specified minor and desc
-function openModal(minor, desc) {
+function openModal(minor, desc, tester) {
     // Get the corresponding modal element by ID
     var modal = document.getElementById(minor + "-modal");
     
