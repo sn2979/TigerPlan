@@ -86,9 +86,7 @@ def logoutapp():
 
     # Log out of the application.
     flask.session.clear()
-    html_code = flask.render_template('loggedout.html')
-    response = flask.make_response(html_code)
-    return response
+    return flask.redirect('/')
 
 #-----------------------------------------------------------------------
 
