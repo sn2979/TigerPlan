@@ -367,12 +367,6 @@ def create_asa_tree(subrequirements, parent=None):
     return asa
 
 def create_chi_tree(subrequirements, parent=None):
-    ''' subrequirements = {
-        'Advanced Language': 2,
-        'Other Language': 4,
-        'EAS/Cognate': 1
-    }'''
-
     # Create the root node for CHI minor
     chi = Node('CHI', parent, marked=True)
 
@@ -448,12 +442,6 @@ def create_dan_tree(subrequirements, parent=None):
     return dan
 
 def create_eas_tree(subrequirements, parent=None):
-    '''subrequirements = {
-        'Advanced Language': 2,
-        'Other Language': 2,
-        '200-Level Content': 1,
-        'Other Content': 2
-    }'''
 
     # Create the root node for EAS minor
     eas = Node('EAS', parent, marked=True)
@@ -502,18 +490,6 @@ def create_eng_tree(subrequirements, parent=None):
     return eng
 
 def create_ghp_tree(subrequirements, parent=None):
-    '''subrequirements = {
-        'ISC': 4,
-        'Foundation': 1,
-        'Statistics': 1,
-        'Core': 2,
-        'Advanced Electives 4': 4,
-        'Advanced Electives 3': 3,
-        'Advanced Electives 2': 2,
-        '200-Level Electives 2': 2,
-        '200-Level Electives 1': 1
-    }'''
-
     # Create the root node for GHP minor
     ghp = Node('GHP', parent, marked=True)
 
@@ -721,6 +697,77 @@ def create_hum_tree(subrequirements, parent=None):
 
     return hum
 
+def create_jpn_tree(subrequirements, parent=None):
+    # Create the root node for JPN minor
+    jpn = Node('JPN', parent, marked=True)
+
+    # Create the Language node under JPN
+    language = Node('Language', parent=jpn, marked=True)
+
+    # Create Advanced Language node under Language
+    language.add_child(Node('Advanced Language', parent=language, classes_needed=subrequirements.get('Advanced Language', 0), marked=True))
+
+    # Create Other Language node under Language
+    language.add_child(Node('Other Language', parent=language, classes_needed=subrequirements.get('Other Language', 0), marked=True))
+
+    # Add Language under JPN
+    jpn.add_child(language)
+
+    # Create EAS/Cognate node under JPN
+    jpn.add_child(Node('EAS/Cognate', parent=jpn, classes_needed=subrequirements.get('EAS/Cognate', 0), marked=True))
+
+    return jpn
+
+def create_jrn_tree(subrequirements, parent=None):
+    # Create the root node for JRN minor
+    jrn = Node('JRN', parent, marked=True)
+
+    # Create Gateway node under JRN
+    jrn.add_child(Node('Gateway', parent=jrn, classes_needed=subrequirements.get('Gateway', 0), marked=True))
+
+    # Create Advanced node under JRN
+    jrn.add_child(Node('Advanced', parent=jrn, classes_needed=subrequirements.get('Advanced', 0), marked=True))
+
+    # Create Electives node under JRN
+    jrn.add_child(Node('Electives', parent=jrn, classes_needed=subrequirements.get('Electives', 0), marked=True))
+
+    return jrn
+
+def create_kor_tree(subrequirements, parent=None):
+    # Create the root node for KOR minor
+    kor = Node('KOR', parent, marked=True)
+
+    # Create the Language node under KOR
+    language = Node('Language', parent=kor, marked=True)
+
+    # Create Advanced Language node under Language
+    language.add_child(Node('Advanced Language', parent=language, classes_needed=subrequirements.get('Advanced Language', 0), marked=True))
+
+    # Create Other Language node under Language
+    language.add_child(Node('Other Language', parent=language, classes_needed=subrequirements.get('Other Language', 0), marked=True))
+
+    # Add Language under KOR
+    kor.add_child(language)
+
+    # Create EAS/Cognate node under KOR
+    kor.add_child(Node('EAS/Cognate', parent=kor, classes_needed=subrequirements.get('EAS/Cognate', 0), marked=True))
+
+    return kor
+
+def create_lao_tree(subrequirements, parent=None):
+    # Create the root node for LAO minor
+    lao = Node('LAO', parent, marked=True)
+
+    # Create Required node under LAO
+    lao.add_child(Node('Required', parent=lao, classes_needed=subrequirements.get('Required', 0), marked=True))
+
+    # Create Breadth node under LAO
+    lao.add_child(Node('Breadth', parent=lao, classes_needed=subrequirements.get('Breadth', 0), marked=True))
+
+    # Create Advanced Seminar node under LAO
+    lao.add_child(Node('Advanced Seminar', parent=lao, classes_needed=subrequirements.get('Advanced Seminar', 0), marked=True))
+
+    return lao
 
 def create_tree(key, subrequirements):
     if key == 'CLA':
@@ -761,6 +808,14 @@ def create_tree(key, subrequirements):
         return create_hstm_tree(subrequirements)
     elif key == 'HUM':
         return create_hum_tree(subrequirements)
+    elif key == 'JPN':
+        return create_jpn_tree(subrequirements)
+    elif key == 'JRN':
+        return create_jrn_tree(subrequirements)
+    elif key == 'KOR':
+        return create_kor_tree(subrequirements)
+    elif key == 'LAO':
+        return create_lao_tree(subrequirements)
     else:
         return None
     

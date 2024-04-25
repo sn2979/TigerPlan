@@ -529,6 +529,41 @@ def hum_minor_courses():
 
     return courses
 
+def jpn_minor_courses():
+    courses = {
+        'Advanced Language': ['.*JPN 3.*', '.*JPN 4.*', '.*JPN 5.*'],
+        'Other Language': ['.*JPN.*'],
+        'EAS/Cognate': ['.*EAS.*']
+    }
+
+    return courses
+
+def jrn_minor_courses():
+    courses = {
+        'Gateway': ['.*JRN 240.*', '.*JRN 260.*', '.*JRN 280.*'],
+        'Advanced': ['.*JRN 3.*', '.*JRN 4.*', '.*JRN 5.*'],
+        'Electives': ['.*JRN.*']
+    }
+
+    return courses
+
+def kor_minor_courses():
+    courses = {
+        'Advanced Language': ['.*KOR 3.*', '.*KOR 4.*', '.*KOR 5.*'],
+        'Other Language': ['.*KOR.*'],
+        'EAS/Cognate': ['.*EAS.*']
+    }
+
+    return courses
+
+def lao_minor_courses():
+    courses = {
+        'Required': ['.*AMS 101.*'],
+        'Breadth': ['.*LAO.*'],
+        'Advanced Seminar': ['.AMS 403.*', '.*AMS 404.*']
+    }
+
+    return courses
 
 def get_courses(minor):
     if minor == 'CLA':
@@ -569,6 +604,14 @@ def get_courses(minor):
         return hstm_minor_courses()
     elif minor == 'HUM':
         return hum_minor_courses()
+    elif minor == 'JPN':
+        return jpn_minor_courses()
+    elif minor == 'JRN':
+        return jrn_minor_courses()
+    elif minor == 'KOR':
+        return kor_minor_courses()
+    elif minor == 'LAO':
+        return lao_minor_courses()
     else:
         return None
 #---------------------------------------------------------------------
@@ -779,6 +822,42 @@ def hum_minor_requirements():
 
     return subrequirements
 
+def jpn_minor_requirements():
+    subrequirements = {
+        'Advanced Language': 2,
+        'Other Language': 4,
+        'EAS/Cognate': 1
+    }
+
+    return subrequirements
+
+def jrn_minor_requirements():
+    subrequirements = {
+        'Gateway': 1,
+        'Advanced': 2,
+        'Electives': 2
+    }
+
+    return subrequirements
+
+def kor_minor_requirements():
+    subrequirements = {
+        'Advanced Language': 2,
+        'Other Language': 4,
+        'EAS/Cognate': 1
+    }
+
+    return subrequirements
+
+def lao_minor_requirements():
+    subrequirements = {
+        'Required': 1,
+        'Breadth': 3,
+        'Advanced Seminar': 1
+    }
+
+    return subrequirements
+
 def get_minor_requirements(minor):
     if minor == 'CLA':
         return cla_minor_requirements()
@@ -818,5 +897,13 @@ def get_minor_requirements(minor):
         return hstm_minor_requirements()
     elif minor == 'HUM':
         return hum_minor_requirements()
+    elif minor == 'JPN':
+        return jpn_minor_requirements()
+    elif minor == 'JRN':
+        return jrn_minor_requirements()
+    elif minor == 'KOR':
+        return kor_minor_requirements()
+    elif minor == 'LAO':
+        return lao_minor_requirements()
     else:
         return None

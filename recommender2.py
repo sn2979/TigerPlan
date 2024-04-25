@@ -210,6 +210,17 @@ def find_best_combination(key, all_combinations, subrequirements):
 
 
 if __name__ == '__main__':
+    
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('HUM', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
+    '''
     # test for HUM
     # Class list
     subrequirements = {
@@ -230,17 +241,6 @@ if __name__ == '__main__':
         'Data and Culture': ['HUM 307 / ENG 277'],
         'Interdisciplinary Electives': []
     }
-    
-    # Generate all combinations of classes
-    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
-
-    # Find the best combination
-    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('HUM', dict_combinations, subrequirements)
-    print(f"Best combination: {best_combination}")
-    print(f"Best fraction: {best_fraction}")
-    print(f"Classes taken and needed: {classes_taken_needed}")
-    print(tree_info)
-    '''
     # test for HSTM
     # Class list
     subrequirements = {
