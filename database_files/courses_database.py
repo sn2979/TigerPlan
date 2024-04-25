@@ -112,14 +112,14 @@ def search_courses(search_query):
 
 
 # Example usage: Searching for courses matching a query
-search_query = "soc"  # Example search query (can be any sequence of letters/numbers)
-matching_courses = search_courses(search_query)
-# Print matching courses
-if matching_courses:
-    print(f"Matching courses for query '{search_query}':")
-    for course in matching_courses:
-        print(course)
-        # print(f"Subject: {course['subject']} | Catalog Number: {course['catalog_number']} | Title: {course['title']}")
-else:
-    print(matching_courses)
-    print(f"No courses found for query '{search_query}'")
+# search_query = "soc"  # Example search query (can be any sequence of letters/numbers)
+# matching_courses = search_courses(search_query)
+# # Print matching courses
+# if matching_courses:
+#     print(f"Matching courses for query '{search_query}':")
+#     for course in matching_courses:
+#         print(course)
+#         # print(f"Subject: {course['subject']} | Catalog Number: {course['catalog_number']} | Title: {course['title']}")
+# else:
+#     print(matching_courses)
+#     print(f"No courses found for query '{search_query}'")
