@@ -20,6 +20,9 @@ dotenv.load_dotenv()
 app.secret_key = os.environ['APP_SECRET_KEY']
 
 '''
+def login_required(previous_page_url):
+    flask.session['previous_page'] = previous_page_url
+    return flask.redirect('/login')
 
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
@@ -254,8 +257,7 @@ def logoutcas():
 def profile():
     success, username, _ = get_user_info()
     if username is None:
-        flask.session['previous_page'] = '/profile'
-        return flask.redirect('/login')
+        return login_required(previous_page_url='/profile')
     if not success:
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message)
@@ -270,8 +272,7 @@ def profile():
 def reset_profile():
     username = flask.session.get('username')
     if username is None:
-        flask.session['previous_page'] = '/update_profile'
-        flask.redirect('/login')
+        return login_required(previous_page_url='/update_profile')
 
     name = request.form.get('name')
     if name == '':
@@ -293,8 +294,7 @@ def reset_profile():
 def set_profile():
     username = flask.session.get('username')
     if username is None:
-        flask.session['previous_page'] = '/set_profile'
-        flask.redirect('/login')
+        return login_required(previous_page_url='/set_profile')
 
     name = request.form.get('name')
     major = map_major_name_to_id(request.form.get('major'))
@@ -308,8 +308,7 @@ def set_profile():
 def classboard():
     success, username, classes = get_user_info()
     if username is None:
-        flask.session['previous_page'] = '/classboard'
-        return flask.redirect('/login')
+        return login_required(previous_page_url='/classboard')
     if not success:
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
@@ -345,8 +344,7 @@ def search_results():
 def add_course():
     success, username, _ = get_user_info()
     if username is None:
-        flask.session['previous_page'] = '/addcourse'
-        return flask.redirect('/login')
+        return login_required(previous_page_url='/addcourse')
     if not success:
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500
@@ -372,8 +370,7 @@ def remove_course():
     print("remove course")
     success, username, _ = get_user_info()
     if username is None:
-        flask.session['previous_page'] = '/removecourse'
-        return flask.redirect('/login')
+        return login_required(previous_page_url='/removecourse')
     if not success:
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500
@@ -391,8 +388,7 @@ def remove_course():
 def load_area():
     success, username, classes = get_user_info()
     if username is None:
-        flask.session['previous_page'] = '/loadarea'
-        return flask.redirect('/login')
+        return login_required(previous_page_url='/loadarea')
     if not success:
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
@@ -410,8 +406,7 @@ def load_area():
 def recommend():
     success, username, classes = get_user_info()
     if username is None:
-        flask.session['previous_page'] = '/recommend'
-        return flask.redirect('/login')
+        return login_required(previous_page_url='/recommend')
     if not success:
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500
@@ -424,8 +419,7 @@ def recommend():
 def recommendations():
     success, username, classes = get_user_info()
     if username is None:
-        flask.session['previous_page'] = '/recommendations'
-        return flask.redirect('/login')
+        return login_required(previous_page_url='/recommendations')
     if not success:
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500
@@ -452,8 +446,7 @@ def recommendations():
 def details():
     success, username, _ = get_user_info()
     if username is None:
-        flask.session['previous_page'] = '/details'
-        return flask.redirect('/login')
+        return login_required(previous_page_url='/details')
     if not success:
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
@@ -470,8 +463,7 @@ def details():
 def about():
     success, username, _ = get_user_info()
     if username is None:
-        flask.session['previous_page'] = '/about'
-        return flask.redirect('/login')
+        return login_required(previous_page_url='/about')
     if not success:
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
@@ -485,8 +477,7 @@ def about():
 def test():
     success, username, _ = get_user_info()
     if username is None:
-        flask.session['previous_page'] = '/test'
-        return flask.redirect('/login')
+        return login_required(previous_page_url='/test')
     if not success:
         error_message = f"An error occurred: {str(username)}"
         return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
