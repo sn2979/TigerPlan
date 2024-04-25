@@ -404,6 +404,132 @@ def ghp_minor_courses():
 
     return courses
 
+def his_minor_courses():
+    courses = {
+        'HIS': ['.*HIS.*']
+    }
+
+    return courses
+
+def hls_minor_courses():
+    courses = {
+        'Gateway Seminar': ['.*HLS 222.*'],
+        '400-Level Seminar': ['.*HLS 410.*', '.*HLS 430.*'],
+        'History, Society Religion': ['.*HLS 210.*', '.*HLS 212.*', 
+                                    '.*HLS 217.*', '.*HLS 222.*',
+                                    '.*HLS 227.*', '.*HLS 240.*', 
+                                    '.*HLS 241.*', '.*HLS 251.*',
+                                    '.*HLS 252.*', '.*HLS 303.*',
+                                    '.*HLS 305.*', '.*HLS 322.*',
+                                    '.*HLS 324.*', '.*HLS 335.*',
+                                    '.*HLS 337.*', '.*HLS 340.*',
+                                    '.*HLS 343.*', '.*HLS 345.*',
+                                    '.*HLS 354.*', '.*HLS 358.*',  
+                                    '.*HLS 361.*', '.*HLS 363.*',
+                                    '.*HLS 367.*', '.*HLS 369.*',
+                                    '.*HLS 373.*', '.*HLS 428.*'],
+        'Language, Literature, Philosophy': ['.*HLS 101.*','.*HLS 102.*',
+                                            '.*HLS 105.*', '.*HLS 107.*',
+                                            '.*HLS 203.*', '.*HLS 208.*',
+                                            '.*HLS 211.*', '.*HLS 217.*',
+                                            '.*HLS 227.*', '.*HLS 240.*',
+                                            '.*HLS 300.*', '.*HLS 302.*',
+                                            '.*HLS 320.*', '.*HLS 322.*',
+                                            '.*HLS 326.*', '.*HLS 338.*',
+                                            '.*HLS 363.*', '.*HLS 367.*',
+                                            '.*HLS 368.*', '.*HLS 434.*',
+                                            '.*HLS 461.*'],
+        'Visual, Material Culture and Music': ['.*HLS 205.*','.*HLS 206.*',
+                                            '.*HLS 215.*', '.*HLS 228.*',
+                                            '.*HLS 231.*', '.*HLS 301.*',
+                                            '.*HLS 316.*', '.*HLS 410.*',
+                                            '.*HLS 430.*']
+    }
+
+    return courses
+
+def hstm_minor_courses():
+    courses = {
+        'Core': ['.*HIS 390.*'],
+        'Selected Courses': ['.*EGR 277.*', '.*HIS 277.*', '.*HIS 290.*', '.*HIS 291.*', '.*HIS 292.*', '.*HIS 293.*',
+                            '.*HIS 294.*', '.*HIS 295.*', '.*HIS 297.*', '.*STC 297.*', '.*HIS 298.*', '.*AAS 352.*',
+                            '.*HIS 347.*', '.*ART 361.*', '.*HIS 355.*', '.*SPI 364.*', '.*HIS 368.*', '.*AAS 331.*',
+                            '.*HIS 382.*', '.*HIS 390.*', '.*HIS 392.*', '.*HIS 393.*', '.*HIS 394.*', '.*HIS 395.*',
+                            '.*HIS 396.*', '.*HIS 397.*', '.*HIS 398.*', '.*AMS 399.*', '.*HIS 399.*', '.*HIS 452.*',
+                            '.*GSS 426.*', '.*HIS 472.*', '.*HIS 481.*', '.*HIS 489.*', '.*HIS 491.*', '.*HIS 492.*',
+                            '.*HIS 493.*', '.*HIS 494.*', '.*HIS 495.*', '.*HIS 496.*', '.*HIS 497.*', '.*HIS 498.*',
+                            '.*HIS 499.*'],
+        'HOS/HIS Cognate': ['.*HOS.*', '.*HIS.*'],
+        'History': ['.*HIS.*']
+    }
+
+    return courses
+
+def hum_minor_courses():
+    courses = {
+        '200-Level Humanities': ['.*HUM 216', '.*HUM 217.*', '.*HUM 233.*', 
+                                 '.*HUM 234.*', '.*HUM 247.*', '.*HUM 248.*'],
+        'Tradition and Transformation': ['.*HUM 390.*',
+                                        '.*HUM 216.*', '.*HUM 217.*',
+                                        '.*HUM 218.*', '.*HUM 219.*',
+                                        '.*HUM 230.*', '.*HUM 233.*',
+                                        '.*HUM 234.*', '.*HUM 247.*',
+                                        '.*HUM 248.*', '.*HUM 312.*',
+                                        '.*HUM 412.*', '.*HUM 434.*',
+                                        '.*HUM 227.*',
+                                        '.*HUM 333.*'],
+        'Global or Comparative Humanities': ['.*ART 361.*', 
+                                            '.*CLA 212.*',
+                                            '.*COM 310.*',
+                                            '.*HUM 240.*', '.*HUM 290.*',
+                                            '.*HUM 312.*', '.*HUM 335.*',
+                                            '.*HUM 402.*', '.*HUM 423.*',
+                                            '.*HUM 450.*', '.*HUM 470.*',
+                                            '.*MED 227.*',
+                                            '.*TRA 304.*'],
+        'Engaged or Public Humanities': ['.*HUM 315.*','.*HUM 321.*',
+                                        '.*HUM 339.*', '.*HUM 352.*',
+                                        '.*HUM 353.*', '.*HUM 470.*',
+                                        '.*SLA 368.*'],
+        'Humanities and Sciences in Dialogue': ['.*ART 361.*',
+                                            '.*HUM 315.*', '.*HUM 365.*',
+                                            '.*PSY 210.*',
+                                            '.*STC 297.*'],
+        'Data and Culture': ['.*HUM 346.*', '.*HUM 307.*',
+                             '.*HUM 475.*'],
+        'Interdisciplinary Electives': ['.*HUM 390.*',
+                                        '.*HUM 216.*', '.*HUM 217.*',
+                                        '.*HUM 218.*', '.*HUM 219.*',
+                                        '.*HUM 230.*', '.*HUM 233.*',
+                                        '.*HUM 234.*', '.*HUM 247.*',
+                                        '.*HUM 248.*', '.*HUM 312.*',
+                                        '.*HUM 412.*', '.*HUM 434.*',
+                                        '.*MED 227.*',
+                                        '.*TRA 304.*',
+                                        '.*ART 361.*', 
+                                        '.*CLA 212.*',
+                                        '.*COM 310.*',
+                                        '.*HUM 240.*', '.*HUM 290.*',
+                                        '.*HUM 312.*', '.*HUM 335.*',
+                                        '.*HUM 402.*', '.*HUM 423.*',
+                                        '.*HUM 450.*', '.*HUM 470.*',
+                                        '.*MED 227.*',
+                                        '.*TRA 304.*', 
+                                        '.*HUM 315.*','.*HUM 321.*',
+                                        '.*HUM 339.*', '.*HUM 352.*',
+                                        '.*HUM 353.*', '.*HUM 470.*',
+                                        '.*SLA 368.*',
+                                        '.*ART 361.*',
+                                        '.*HUM 315.*', '.*HUM 365.*',
+                                        '.*PSY 210.*',
+                                        '.*STC 297.*',
+                                        '.*HUM 346.*', '.*HUM 307.*',
+                                        '.*HUM 475.*']
+    }
+
+    return courses
+
+
 def get_courses(minor):
     if minor == 'CLA':
         return cla_minor_courses()
@@ -435,6 +561,14 @@ def get_courses(minor):
         return eng_minor_courses()
     elif minor == 'GHP':
         return ghp_minor_courses()
+    elif minor == 'HIS':
+        return his_minor_courses()
+    elif minor == 'HLS':
+        return hls_minor_courses()
+    elif minor == 'HSTM':
+        return hstm_minor_courses()
+    elif minor == 'HUM':
+        return hum_minor_courses()
     else:
         return None
 #---------------------------------------------------------------------
@@ -604,6 +738,47 @@ def ghp_minor_requirements():
 
     return subrequirements
 
+def his_minor_requirements():
+    subrequirements = {
+        'HIS': 5
+    }
+
+    return subrequirements
+
+def hls_minor_requirements():
+    subrequirements = {
+        'Gateway Seminar': 1,
+        '400-Level Seminar': 1,
+        'History, Society Religion': 1,
+        'Language, Literature, Philosophy': 1,
+        'Visual, Material Culture and Music': 1
+    }
+
+    return subrequirements
+
+def hstm_minor_requirements():
+    subrequirements = {
+        'Core': 1,
+        'Selected Courses': 2,
+        'HOS/HIS Cognate': 1,
+        'History': 1
+    }
+
+    return subrequirements
+
+def hum_minor_requirements():
+    subrequirements = {
+        '200-Level Humanities': 1,
+        'Tradition and Transformation': 1,
+        'Global or Comparative Humanities': 1,
+        'Engaged or Public Humanities': 1,
+        'Humanities and Sciences in Dialogue': 1,
+        'Data and Culture': 1,
+        'Interdisciplinary Electives': 2
+    }
+
+    return subrequirements
+
 def get_minor_requirements(minor):
     if minor == 'CLA':
         return cla_minor_requirements()
@@ -635,5 +810,13 @@ def get_minor_requirements(minor):
         return eng_minor_requirements()
     elif minor == 'GHP':
         return ghp_minor_requirements()
+    elif minor == 'HIS':
+        return his_minor_requirements()
+    elif minor == 'HLS':
+        return hls_minor_requirements()
+    elif minor == 'HSTM':
+        return hstm_minor_requirements()
+    elif minor == 'HUM':
+        return hum_minor_requirements()
     else:
         return None

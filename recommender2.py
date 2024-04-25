@@ -210,6 +210,51 @@ def find_best_combination(key, all_combinations, subrequirements):
 
 
 if __name__ == '__main__':
+    # test for HUM
+    # Class list
+    subrequirements = {
+        '200-Level Humanities': 1,
+        'Tradition and Transformation': 1,
+        'Global or Comparative Humanities': 1,
+        'Engaged or Public Humanities': 1,
+        'Humanities and Sciences in Dialogue': 1,
+        'Data and Culture': 1,
+        'Interdisciplinary Electives': 2
+    }
+    class_list = {
+        '200-Level Humanities': ['HUM 216'],
+        'Tradition and Transformation': ['HUM 233'],
+        'Global or Comparative Humanities': [],
+        'Engaged or Public Humanities': [],
+        'Humanities and Sciences in Dialogue': [],
+        'Data and Culture': ['HUM 307 / ENG 277'],
+        'Interdisciplinary Electives': []
+    }
+    
+    # Generate all combinations of classes
+    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
+
+    # Find the best combination
+    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('HUM', dict_combinations, subrequirements)
+    print(f"Best combination: {best_combination}")
+    print(f"Best fraction: {best_fraction}")
+    print(f"Classes taken and needed: {classes_taken_needed}")
+    print(tree_info)
+    '''
+    # test for HSTM
+    # Class list
+    subrequirements = {
+        'Core': 1,
+        'Selected Courses': 2,
+        'HOS/HIS Cognate': 1,
+        'History': 1
+    }
+    class_list = { 
+        'Core': ['HIS 390'],
+        'Selected Courses': ['.*ART 361.*', '.*HIS 355.*'],
+        'HOS/HIS Cognate': ['HOS 301'],
+        'History': []
+    }
     # testing GHP
     # Class list
     class_list = {
@@ -236,16 +281,6 @@ if __name__ == '__main__':
         '200-Level Electives 2': 2,
         '200-Level Electives 1': 1
     }
-    # Generate all combinations of classes
-    all_combinations, dict_combinations = generate_combinations(class_list, subrequirements)
-
-    # Find the best combination
-    best_combination, best_fraction, classes_taken_needed, tree, tree_info = find_best_combination('GHP', dict_combinations, subrequirements)
-    print(f"Best combination: {best_combination}")
-    print(f"Best fraction: {best_fraction}")
-    print(f"Classes taken and needed: {classes_taken_needed}")
-    print(tree_info)
-    '''
     # testing ENG
     # Class list
     class_list = {

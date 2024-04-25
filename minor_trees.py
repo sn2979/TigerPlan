@@ -77,40 +77,6 @@ class OrNode(Node):
                     self.winner = child
         return self.classes_taken, self.classes_needed, self.winner
 
-def create_tree(key, subrequirements):
-    if key == 'CLA':
-        return create_cla_tree(subrequirements)
-    elif key == 'ENV':
-        return create_env_tree(subrequirements)
-    elif key == 'COS':
-        return create_cos_tree(subrequirements)
-    elif key == 'FIN':
-        return create_fin_tree(subrequirements)
-    elif key == 'LIN':
-        return create_lin_tree(subrequirements)
-    elif key == 'GSS':
-        return create_gss_tree(subrequirements)
-    elif key == 'AFS':
-        return create_afs_tree(subrequirements)
-    elif key == 'ASA':
-        return create_asa_tree(subrequirements)
-    elif key == 'CHI':
-        return create_chi_tree(subrequirements)
-    elif key == 'CS':
-        return create_cs_tree(subrequirements)
-    elif key == 'CWR':
-        return create_cwr_tree(subrequirements)
-    elif key == 'DAN':
-        return create_dan_tree(subrequirements)
-    elif key == 'EAS':
-        return create_eas_tree(subrequirements)
-    elif key == 'ENG':
-        return create_eng_tree(subrequirements)
-    elif key == 'GHP':
-        return create_ghp_tree(subrequirements)
-    else:
-        return None
-    
 def create_cla_tree(subrequirements, parent=None):
     # Create the root node for CLA minor
     cla = Node('CLA', parent, marked=True)
@@ -593,6 +559,211 @@ def create_ghp_tree(subrequirements, parent=None):
     ghp.add_child(electives)
 
     return ghp
+
+def create_his_tree(subrequirements, parent=None):
+    '''subrequirements = {
+        'HIS': 5
+    }'''
+    history = Node('HIS', parent, marked=True)
+    history.add_child(Node('HIS', parent=history, classes_needed=subrequirements.get('HIS', 0), marked=True))
+
+    return history
+
+def create_hls_tree(subrequirements, parent=None):
+    '''
+    subrequirements = {
+        'Gateway Seminar': 1,
+        '400-Level Seminar': 1,
+        'History, Society Religion': 1,
+        'Language, Literature, Philosophy': 1,
+        'Visual, Material Culture and Music': 1
+    }'''
+
+    # Create the root node for HLS minor
+    hls = Node('HLS', parent, marked=True)
+
+    # Create all requirements
+    hls.add_child(Node('Gateway Seminar', parent=hls, 
+                       classes_needed=subrequirements.get('Gateway Seminar', 0), marked=True))
+    hls.add_child(Node('400-Level Seminar', parent=hls, 
+                       classes_needed=subrequirements.get('400-Level Seminar', 0), marked=True))
+    hls.add_child(Node('History, Society Religion', parent=hls, 
+                       classes_needed=subrequirements.get('History, Society Religion', 0), marked=True))
+    hls.add_child(Node('Language, Literature, Philosophy', parent=hls, 
+                       classes_needed=subrequirements.get('Language, Literature, Philosophy', 0), marked=True))
+    hls.add_child(Node('Visual, Material Culture and Music', parent=hls, 
+                       classes_needed=subrequirements.get('Visual, Material Culture and Music', 0), marked=True))
+    
+    return hls
+
+def create_hstm_tree(subrequirements, parent=None):
+    # Create the root node for HSTM minor
+    hstm = Node('HSTM', parent, marked=True)
+
+    # Create Core node under HSTM
+    hstm.add_child(Node('Core', parent=hstm, classes_needed=subrequirements.get('Core', 0), marked=True))
+    hstm.add_child(Node('Selected Courses', parent=hstm, classes_needed=subrequirements.get('Selected Courses', 0), marked=True))
+    hstm.add_child(Node('HOS/HIS Cognate', parent=hstm, classes_needed=subrequirements.get('HOS/HIS Cognate', 0), marked=True))
+    hstm.add_child(Node('History', parent=hstm, classes_needed=subrequirements.get('History', 0), marked=True))
+
+    return hstm
+
+def create_hum_tree(subrequirements, parent=None):
+    # Create the root node for HUM minor
+    hum = Node('HUM', parent, marked=True)
+
+    # Create 200-Level Humanities node under HUM
+    hum.add_child(Node('200-Level Humanities', parent=hum, classes_needed=subrequirements.get('200-Level Humanities', 0), marked=True))
+
+    # create interdisciplinary courses node under HUM
+    interdisciplinary = Node('Interdisciplinary Courses', parent=hum, marked=True)
+
+    # create interdisciplinary requirements or node under interdisciplinary
+    interdisciplinary_requirements = OrNode('Interdisciplinary Requirements', parent=interdisciplinary, marked=True)
+
+    # create Tradition and Transformation with Global or Comparative Humanities node under interdisciplinary requirements
+    tradition_global = Node('Tradition and Transformation with Global or Comparative Humanities', parent=interdisciplinary_requirements)
+    tradition_global.add_child(Node('Tradition and Transformation', parent=tradition_global,
+                                    classes_needed=subrequirements.get('Tradition and Transformation', 0)))
+    tradition_global.add_child(Node('Global or Comparative Humanities', parent=tradition_global, 
+                                    classes_needed=subrequirements.get('Global or Comparative Humanities', 0)))
+
+    interdisciplinary_requirements.add_child(tradition_global)
+
+    # create Tradition and Transformation with Engaged or Public Humanities node under interdisciplinary requirements
+    tradition_engaged = Node('Tradition and Transformation with Engaged or Public Humanities', parent=interdisciplinary_requirements)
+    tradition_engaged.add_child(Node('Tradition and Transformation', parent=tradition_engaged, 
+                                     classes_needed=subrequirements.get('Tradition and Transformation', 0)))
+    tradition_engaged.add_child(Node('Engaged or Public Humanities', parent=tradition_engaged, 
+                                     classes_needed=subrequirements.get('Engaged or Public Humanities', 0)))
+    
+    interdisciplinary_requirements.add_child(tradition_engaged)
+
+    # create Tradition and Transformation with Humanities and Sciences in Dialogue node under interdisciplinary requirements
+    tradition_sciences = Node('Tradition and Transformation with Humanities and Sciences in Dialogue', parent=interdisciplinary_requirements)
+    tradition_sciences.add_child(Node('Tradition and Transformation', parent=tradition_sciences,
+                                        classes_needed=subrequirements.get('Tradition and Transformation', 0)))
+    tradition_sciences.add_child(Node('Humanities and Sciences in Dialogue', parent=tradition_sciences,
+                                        classes_needed=subrequirements.get('Humanities and Sciences in Dialogue', 0)))
+    
+    interdisciplinary_requirements.add_child(tradition_sciences)
+
+    # create Tradition and Transformation with Data and Culture node under interdisciplinary requirements
+    tradition_data = Node('Tradition and Transformation with Data and Culture', parent=interdisciplinary_requirements)
+    tradition_data.add_child(Node('Tradition and Transformation', parent=tradition_data,
+                                    classes_needed=subrequirements.get('Tradition and Transformation', 0)))
+    tradition_data.add_child(Node('Data and Culture', parent=tradition_data,
+                                    classes_needed=subrequirements.get('Data and Culture', 0)))
+    
+    interdisciplinary_requirements.add_child(tradition_data)
+
+    # create Global or Comparative Humanities with Engaged or Public Humanities node under interdisciplinary requirements
+    global_engaged = Node('Global or Comparative Humanities with Engaged or Public Humanities', parent=interdisciplinary_requirements)
+    global_engaged.add_child(Node('Global or Comparative Humanities', parent=global_engaged,
+                                    classes_needed=subrequirements.get('Global or Comparative Humanities', 0)))
+    global_engaged.add_child(Node('Engaged or Public Humanities', parent=global_engaged,
+                                    classes_needed=subrequirements.get('Engaged or Public Humanities', 0)))
+    
+    interdisciplinary_requirements.add_child(global_engaged)
+
+    # create Global or Comparative Humanities with Humanities and Sciences in Dialogue node under interdisciplinary requirements
+    global_sciences = Node('Global or Comparative Humanities with Humanities and Sciences in Dialogue', parent=interdisciplinary_requirements)
+    global_sciences.add_child(Node('Global or Comparative Humanities', parent=global_sciences,
+                                    classes_needed=subrequirements.get('Global or Comparative Humanities', 0)))
+    global_sciences.add_child(Node('Humanities and Sciences in Dialogue', parent=global_sciences,
+                                    classes_needed=subrequirements.get('Humanities and Sciences in Dialogue', 0)))
+    
+    interdisciplinary_requirements.add_child(global_sciences)
+
+    # create Global or Comparative Humanities with Data and Culture node under interdisciplinary requirements
+    global_data = Node('Global or Comparative Humanities with Data and Culture', parent=interdisciplinary_requirements)
+    global_data.add_child(Node('Global or Comparative Humanities', parent=global_data,
+                                classes_needed=subrequirements.get('Global or Comparative Humanities', 0)))
+    global_data.add_child(Node('Data and Culture', parent=global_data,
+                                classes_needed=subrequirements.get('Data and Culture', 0)))
+    
+    interdisciplinary_requirements.add_child(global_data)
+
+    # create Engaged or Public Humanities with Humanities and Sciences in Dialogue node under interdisciplinary requirements
+    engaged_sciences = Node('Engaged or Public Humanities with Humanities and Sciences in Dialogue', parent=interdisciplinary_requirements)
+    engaged_sciences.add_child(Node('Engaged or Public Humanities', parent=engaged_sciences,
+                                    classes_needed=subrequirements.get('Engaged or Public Humanities', 0)))
+    engaged_sciences.add_child(Node('Humanities and Sciences in Dialogue', parent=engaged_sciences,
+                                    classes_needed=subrequirements.get('Humanities and Sciences in Dialogue', 0)))
+    
+    interdisciplinary_requirements.add_child(engaged_sciences)
+
+    # create Engaged or Public Humanities with Data and Culture node under interdisciplinary requirements
+    engaged_data = Node('Engaged or Public Humanities with Data and Culture', parent=interdisciplinary_requirements)
+    engaged_data.add_child(Node('Engaged or Public Humanities', parent=engaged_data,
+                                    classes_needed=subrequirements.get('Engaged or Public Humanities', 0)))
+    engaged_data.add_child(Node('Data and Culture', parent=engaged_data,
+                                    classes_needed=subrequirements.get('Data and Culture', 0)))
+    
+    interdisciplinary_requirements.add_child(engaged_data)
+
+    # create Humanities and Sciences in Dialogue with Data and Culture node under interdisciplinary requirements
+    sciences_data = Node('Humanities and Sciences in Dialogue with Data and Culture', parent=interdisciplinary_requirements)
+    sciences_data.add_child(Node('Humanities and Sciences in Dialogue', parent=sciences_data,
+                                    classes_needed=subrequirements.get('Humanities and Sciences in Dialogue', 0)))
+    sciences_data.add_child(Node('Data and Culture', parent=sciences_data,
+                                    classes_needed=subrequirements.get('Data and Culture', 0)))
+    
+    interdisciplinary_requirements.add_child(sciences_data)
+
+    interdisciplinary.add_child(interdisciplinary_requirements)
+
+    # Create Interdisciplinary Electives node under Interdisciplinary Courses
+    interdisciplinary.add_child(Node('Interdisciplinary Electives', parent=interdisciplinary,
+                                        classes_needed=subrequirements.get('Interdisciplinary Electives', 0), marked=True))
+    
+    hum.add_child(interdisciplinary)
+
+    return hum
+
+
+def create_tree(key, subrequirements):
+    if key == 'CLA':
+        return create_cla_tree(subrequirements)
+    elif key == 'ENV':
+        return create_env_tree(subrequirements)
+    elif key == 'COS':
+        return create_cos_tree(subrequirements)
+    elif key == 'FIN':
+        return create_fin_tree(subrequirements)
+    elif key == 'LIN':
+        return create_lin_tree(subrequirements)
+    elif key == 'GSS':
+        return create_gss_tree(subrequirements)
+    elif key == 'AFS':
+        return create_afs_tree(subrequirements)
+    elif key == 'ASA':
+        return create_asa_tree(subrequirements)
+    elif key == 'CHI':
+        return create_chi_tree(subrequirements)
+    elif key == 'CS':
+        return create_cs_tree(subrequirements)
+    elif key == 'CWR':
+        return create_cwr_tree(subrequirements)
+    elif key == 'DAN':
+        return create_dan_tree(subrequirements)
+    elif key == 'EAS':
+        return create_eas_tree(subrequirements)
+    elif key == 'ENG':
+        return create_eng_tree(subrequirements)
+    elif key == 'GHP':
+        return create_ghp_tree(subrequirements)
+    elif key == 'HIS':
+        return create_his_tree(subrequirements)
+    elif key == 'HLS':
+        return create_hls_tree(subrequirements)
+    elif key == 'HSTM':
+        return create_hstm_tree(subrequirements)
+    elif key == 'HUM':
+        return create_hum_tree(subrequirements)
+    else:
+        return None
+    
     
     
 
