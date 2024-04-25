@@ -1078,6 +1078,75 @@ def create_tmt_tree(subrequirements, parent=None):
 
     return tmt
 
+def create_tra_tree(subrequirements, parent=None):
+    # Create the root node for TRA minor
+    tra = Node('TRA', parent, marked=True)
+
+    # Create Core node under TRA
+    tra.add_child(Node('Core', parent=tra, classes_needed=subrequirements.get('Core', 0), marked=True))
+
+    # create Additional Courses node under TRA
+    additional_courses = Node('Additional Courses', parent=tra, marked=True)
+    additional_courses.add_child(Node('Other Additional Course', parent=additional_courses,
+                                      classes_needed=subrequirements.get('Other Additional Course', 0), marked=True))
+    
+    # Tracks or node under Additional Courses
+    tracks = OrNode('Tracks', parent=additional_courses, marked=True)
+
+    # created a Upper-Level Course with Cross-listed by TRA node under Tracks
+    upper_cross = Node('Upper-Level Course with Cross-listed by TRA', parent=tracks)
+    upper_cross.add_child(Node('Upper-Level Course', parent=upper_cross,
+                                 classes_needed=subrequirements.get('Upper-Level Course', 0)))
+    upper_cross.add_child(Node('Cross-listed by TRA', parent=upper_cross,
+                                    classes_needed=subrequirements.get('Cross-listed by TRA', 0)))
+    
+    tracks.add_child(upper_cross)
+
+    # create Upper-Level Course with Understanding of Translation node under Tracks
+    upper_understanding = Node('Upper-Level Course with Understanding of Translation', parent=tracks)
+    upper_understanding.add_child(Node('Upper-Level Course', parent=upper_understanding,
+                                        classes_needed=subrequirements.get('Upper-Level Course', 0)))
+    upper_understanding.add_child(Node('Understanding of Translation', parent=upper_understanding,
+                                        classes_needed=subrequirements.get('Understanding of Translation', 0)))
+    
+    tracks.add_child(upper_understanding)
+
+    # add Cross-listed by TRA with Understanding of Translation node under Tracks
+    cross_understanding = Node('Cross-listed by TRA with Understanding of Translation', parent=tracks)
+    cross_understanding.add_child(Node('Cross-listed by TRA', parent=cross_understanding,
+                                        classes_needed=subrequirements.get('Cross-listed by TRA', 0)))
+    cross_understanding.add_child(Node('Understanding of Translation', parent=cross_understanding,
+                                        classes_needed=subrequirements.get('Understanding of Translation', 0)))
+    
+    tracks.add_child(cross_understanding)
+
+    additional_courses.add_child(tracks)
+    tra.add_child(additional_courses)
+
+    return tra
+
+def create_vis_tree(subrequirements, parent=None):
+    vis = Node('VIS', parent, marked=True)
+    vis.add_child(Node('Studio', parent=vis, classes_needed=subrequirements.get('Studio', 0)))
+    vis.add_child(Node('Artist and Studio', parent=vis, classes_needed=subrequirements.get('Artist and Studio', 0)))
+    vis.add_child(Node('Exhibition Issues and Methods', parent=vis,
+                        classes_needed=subrequirements.get('Exhibition Issues and Methods', 0)))
+    vis.add_child(Node('Art and Archaeology', parent=vis, 
+                        classes_needed=subrequirements.get('Art and Archaeology', 0)))
+    vis.add_child(Node('Elective', parent=vis, classes_needed=subrequirements.get('Elective', 0)))
+
+    return vis
+
+def create_vpl_tree(subrequirements, parent=None):
+    # Create the root node for VPL minor
+    vpl = Node('VPL', parent, marked=True)
+    vpl.add_child(Node('Intro', parent=vpl, classes_needed=subrequirements.get('Intro', 0), marked=True))
+    vpl.add_child(Node('Political Theory', parent=vpl, classes_needed=subrequirements.get('Political Theory', 0), marked=True))
+    vpl.add_child(Node('Seminar', parent=vpl, classes_needed=subrequirements.get('Seminar', 0), marked=True))
+    vpl.add_child(Node('Thematic Courses', parent=vpl, classes_needed=subrequirements.get('Thematic Courses', 0), marked=True))
+
+    return vpl
+
 def create_tree(key, subrequirements):
     if key == 'CLA':
         return create_cla_tree(subrequirements)
@@ -1149,6 +1218,12 @@ def create_tree(key, subrequirements):
         return create_sml_tree(subrequirements)
     elif key == 'TMT':
         return create_tmt_tree(subrequirements)
+    elif key == 'TRA':
+        return create_tra_tree(subrequirements)
+    elif key == 'VIS':
+        return create_vis_tree(subrequirements)
+    elif key == 'VPL':
+        return create_vpl_tree(subrequirements)
     else:
         return None
     

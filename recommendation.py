@@ -98,7 +98,7 @@ def recommend(class_list, username):
               'CHI', 'CS', 'CWR', 'DAN', 'EAS', 'ENG', 'GHP', 'HIS', 
               'HLS', 'HSTM', 'HUM', 'JPN', 'JRN', 'KOR', 'LAO', 'MED',
               'MPP', 'MQE', 'MSE', 'MUS', 'NEU', 'PHI', 'RES', 'SAS',
-              'SLA', 'SML', 'TMT']
+              'SLA', 'SML', 'TMT', 'TRA', 'VIS', 'VPL']
 
     # Initialize champions dictionary with proper structure
     champions = {

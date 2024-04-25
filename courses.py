@@ -816,6 +816,53 @@ def tmt_minor_courses():
 
     return courses
 
+def tra_minor_courses():
+    courses = {
+        'Core': ['.*TRA 200.*', '.*TRA 400.*'],
+        'Upper-Level Course': ['.*SPA 380.*', '.*FRE 407.*', '.*ARA 308.*', 
+                               '.*CWR 206.*', '.*CWR 306.*'],
+        'Cross-listed by TRA': ['.*TRA 2.*', '.*TRA 3.*', '.*TRA 4.*'],
+        'Understanding of Translation': ['.*ANT 326.*', '.*COM 236.*', '.*HIS 397.*', 
+                               '.*ITA 300.*', '.*LIN 201.*', '.*NES 398.*',
+                                '.*PHI 317.*'],
+        'Other Additional Course': ['.*ANT 326.*', '.*COM 236.*', '.*HIS 397.*', 
+                               '.*ITA 300.*', '.*LIN 201.*', '.*NES 398.*',
+                                '.*PHI 317.*', '.*TRA 2.*', '.*TRA 3.*', '.*TRA 4.*',
+                                '.*SPA 380.*', '.*FRE 407.*', '.*ARA 308.*', 
+                               '.*CWR 206.*', '.*CWR 306.*']
+    }
+
+    return courses
+
+def vis_minor_courses():
+    courses = {
+        'Studio': ['.*VIS 3.*', '.*VIS 4.*'],
+        'Artist and Studio': ['.*VIS 392.*'],
+        'Exhibition Issues and Methods': ['.*VIS 416.*'],
+        'Art and Archaeology': ['.*ART .*'],
+        'Elective': ['.*VIS .*', '.*ART .*']
+    }
+
+    return courses
+
+def vpl_minor_courses():
+    courses = {
+        'Intro': ['.*PHI 202.*'],
+        'Political Theory': ['.*POL 210.*', '.*SPI 370.*', '.*POL 301.*', 
+                             '.*POL 302.*', '.*POL 303.*', '.*POL 305.*', 
+                             '.*POL 306.*', '.*POL 307.*', '.*POL 309.*', 
+                             '.*POL 313.*'],
+        'Seminar': ['.*HIS 427.*', '.*CHV 479.*', '.*POL 403.*', '.*POL 477.*', 
+                    '.*CHV 390.*', '.*CHV 395.*', '.*POL 471.*', '.*POL 474.*', 
+                    '.*CHV 478.*', '.*PHI 380.*', '.*CHV 367.*', '.*CHV 390.*', 
+                    '.*POL 403.*', '.*POL 418.*', '.*HIS 427.*', '.*PHI 411.*', 
+                    '.*REL 394.*'],
+        'Thematic Courses': ['.*PHI .*', '.*POL .*', '.*HIS .*', '.*REL .*', 
+                             '.*CHV .*']
+    }
+
+    return courses
+
 def get_courses(minor):
     if minor == 'CLA':
         return cla_minor_courses()
@@ -887,6 +934,12 @@ def get_courses(minor):
         return sml_minor_courses()
     elif minor == 'TMT':
         return tmt_minor_courses()
+    elif minor == 'TRA':
+        return tra_minor_courses()
+    elif minor == 'VIS':
+        return vis_minor_courses()
+    elif minor == 'VPL':
+        return vpl_minor_courses()
     else:
         return None
 #---------------------------------------------------------------------
@@ -1265,6 +1318,38 @@ def tmt_minor_requirements():
 
     return subrequirements
 
+def tra_minor_requirements():
+    subrequirements = {
+        'Core': 2,
+        'Upper-Level Course': 1,
+        'Cross-listed by TRA': 1,
+        'Understanding of Translation': 1,
+        'Other Additional Course': 1
+    }
+
+    return subrequirements
+
+def vis_minor_requirements():
+    subrequirements = {
+        'Studio': 3,
+        'Artist and Studio': 1,
+        'Exhibition Issues and Methods': 1,
+        'Art and Archaeology': 1,
+        'Elective': 1
+    }
+
+    return subrequirements
+
+def vpl_minor_requirements():
+    subrequirements = {
+        'Intro': 1,
+        'Political Theory': 1,
+        'Seminar': 1,
+        'Thematic Courses': 2
+    }
+
+    return subrequirements
+
 def get_minor_requirements(minor):
     if minor == 'CLA':
         return cla_minor_requirements()
@@ -1336,5 +1421,11 @@ def get_minor_requirements(minor):
         return sml_minor_requirements()
     elif minor == 'TMT':
         return tmt_minor_requirements()
+    elif minor == 'TRA':
+        return tra_minor_requirements()
+    elif minor == 'VIS':
+        return vis_minor_requirements()
+    elif minor == 'VPL':
+        return vpl_minor_requirements()
     else:
         return None
