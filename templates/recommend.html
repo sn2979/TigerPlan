@@ -76,6 +76,7 @@
   }
 
   .modal-content {
+    background-color: #FF9B42; /* Light grey background */
     margin: 10% auto; /* Adjust vertical margin for centering */
     padding: 40px; /* Increase padding for content spacing */
     border: 1px solid #e0e0e0; /* card border */
@@ -91,6 +92,16 @@
     word-wrap: break-word;
 
   }
+
+  .modal-content:nth-child(2) {
+    background-color: #F7A072; 
+  }
+
+  .modal-content:nth-child(3) {
+    background-color: #ffd699; 
+  }
+
+
   .modal-descBox {
     background-color: #FFFFCC; /* Light yellow background */
     /*margin-bottom: 10px;*/
@@ -154,6 +165,21 @@
     cursor: pointer;
     color: #000; /* Adjust color for visibility */
   }
+
+  /* Styles for description paragraph */
+  .modal-content p {
+      font-size: 20px;
+      overflow: hidden; /* Hide overflow content */
+      text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
+      /*white-space: nowrap; /* Prevent text wrapping */
+      cursor: pointer; /* Set cursor to pointer for clickable text */
+  }
+
+  /* Styles for scrolling description */
+  .modal-content p.full-description {
+      overflow-y: auto; /* Hide vertical scrollbar initially */
+      max-height: 200px; /* Limit maximum height before scrolling */
+  }
 </style>
 </head>
 <body>
@@ -166,99 +192,144 @@
   </section>
   <div class="container">
     {% for course in courses %}
-      <div class="card" onclick="openModal(this, minor = '{{course['minor']}}',  desc = '{{course['desc']}}' );">
+    <div id="{{ course['minor'] }}" class="card course-card" data-minor="{{ course['minor'] }}" data-desc="{{ course['desc'] }}">
         <h3 class="card-title">{{ course['minor'] }}</h3>
         <p>  </p>
         <p class="card-text" style='line-height: 8px;'>You need</p>
         <h1 style='line-height: 1px; font-size: 50px;'>{{ course['distance'] }} </h1>
-        <p >more classes to fulfill this minor!</p>
-      </div>
+        <p>more classes to fulfill this minor!</p>
+    </div>
+
+    <!-- Modal for {{ course['minor'] }} -->
+    <div id="{{ course['minor'] }}-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>{{ course['minor'] }}</h2>
+
+            <div class="grey-boxes">
+              <div class="grey-box"></div>
+              <div class="grey-box"></div>
+              <div class="grey-box"></div>
+            </div>
+      
+      
+            <div id="modal-text"></div>
+            <div class= "modal-descBox">
+              <p id = "description" class = "modal-descText"></p>
+            </div>
+      
+        </div>
+    </div>
     {% endfor %}
   </div>
-
-  <!--making modal -->
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2 id="modal-title"></h2>
-
-      <div class="grey-boxes">
-        <div class="grey-box"></div>
-        <div class="grey-box"></div>
-        <div class="grey-box"></div>
-      </div>
-
-
-      <div id="modal-text"></div>
-      <div class  = "modal-descBox">
-        <p class = "modal-descText" id = "description"></p>
-      </div>
-
-    </div>
-  </div>
-  <!--<div class="container">
-  <div class="card" onclick="location.href='#';"> 
-    <h3 class="card-title">Creative Writing</h3>
-    <p class="card-text">You need one more class to fulfill this minor!</p>
-  </div>
-  <div class="card" onclick="location.href='#';">
-    <h3 class="card-title">Linguistics</h3>
-    <p class="card-text">You need three more classes to fulfill this minor!</p>
-  </div>
-  <div class="card" onclick="location.href='#';">
-    <h3 class="card-title">Journalism</h3>
-    <p class="card-text">You need three more classes to fulfill this minor!</p>
-  </div>
-</div>-->
 </main>
 <script>
-  
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get all course cards
+    var courseCards = document.querySelectorAll(".course-card");
 
-  function openModal(card, minor, desc) {
-    var modal = document.getElementById("myModal");
+    // Loop through each course card
+    courseCards.forEach(function(card) {
+        // Add click event listener to each course card
+        card.addEventListener("click", function() {
+            // Get the data attributes from the clicked course card
+            var minor = this.getAttribute("data-minor");
+            var desc = this.getAttribute("data-desc");
+
+            // Call the openModal function with the extracted data
+            openModal(minor, desc);
+        });
+    });
+
+    // Get all modal close buttons (assuming they have a class of "close")
+    var modalCloseButtons = document.querySelectorAll(".close");
+
+    // Loop through each modal close button
+    modalCloseButtons.forEach(function(button) {
+        // Add click event listener to each button
+        button.addEventListener("click", function() {
+            // Get the closest modal (parent modal) to the button clicked
+            var modal = this.closest(".modal");
+            
+            // If modal element exists, hide it
+            if (modal) {
+                modal.style.display = "none";
+            }
+        });
+    });
+
+    // When the user clicks anywhere outside of a modal, close it
+    window.onclick = function(event) {
+        // Check if click event occurred outside of any modal
+        if (event.target.classList.contains("modal")) {
+            // Hide all modals (assuming modals have a class of "modal")
+            var modals = document.querySelectorAll(".modal");
+            modals.forEach(function(modal) {
+                modal.style.display = "none";
+            });
+        }
+    };
+});
+
+// Function to open the modal with specified minor and desc
+function openModal(minor, desc) {
+    // Get the corresponding modal element by ID
+    var modal = document.getElementById(minor + "-modal");
     
-    modal.style.display = "block";
-    document.getElementById("modal-title").textContent = minor;
-    document.getElementById("description").textContent = desc;
-    
-    document.getElementById("modal-text").innerHTML = `<p>${minor}</p><p>this is minor.html</p>`;
+    // If modal element exists, display it
+    if (modal) {
+        modal.style.display = "block";
+    }
 
-    //colors
-    var modalContent = document.querySelector(".modal-content");
-    var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
-    modalContent.style.backgroundColor = cardBackgroundColor;
+    // You can populate modal content dynamically using the passed 'minor' and 'desc'
+    var modalContent = modal.querySelector(".modal-content");
+    modalContent.querySelector("h2").textContent = minor;
+    //modalContent.querySelector("#description").textContent = desc;
+    // Get the paragraph element to display the description
+    let descriptionParagraph = modalContent.querySelector("#description");
+    console.log('description paragraph', descriptionParagraph.textContent);
 
-  }
+    // Set the initial maximum length for description display
+    var maxLength = 600; // Adjust this value as needed
 
-  function openModalDepreciated( card, minor, desc) {
-    console.log("modal opened uwu")
-    var modal = document.getElementById("myModal");
-    var modalContent = document.querySelector(".modal-content");
-    var modalTitle = document.getElementById("modal-title");
-    var modalText = document.getElementById("modal-text");
-    var descriptionText = document.getElementById("description");
+    // Check if the description length exceeds the maximum length
+    if (desc.length > maxLength) {
+      console.log('description length', desc.length);
+      console.log('max length', maxLength);
+        // Truncate the description and add "..." at the end
+        var truncatedDesc = desc.substring(0, maxLength) + "...";
+        console.log('truncated desc', truncatedDesc);
 
-    //colors
-    var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
-    modalContent.style.backgroundColor = cardBackgroundColor;
+        // Set the truncated text as the content of the paragraph
+        descriptionParagraph.textContent = truncatedDesc;
+        console.log('description paragraph', descriptionParagraph.textContent);
+        console.log('description paragraph id', descriptionParagraph.id);
+    } else {
+        // Display the full description if it's shorter than the maximum length
+        console.log('No truncation needed');
+        descriptionParagraph.textContent = desc;
+    }
 
-    modal.style.display = "block";
-    modalTitle.textContent = minor;
-    descriptionText.textContent = desc;
-    
-    // Constructing the context object with `desc`
-    console.log(minor)
-    var context = { minor : minor };
-    console.log(context)
+    descriptionParagraph = modalContent.querySelector("#description");
 
-    modalText.innerHTML = "{% include 'minor.html' with context %}"
-    
-  }
+    // Add event listener to toggle full description on clicking the truncated text
+    descriptionParagraph.addEventListener("click", function() {
+      // Toggle between full and truncated description
+      var modalContent = modal.querySelector(".modal-content");
 
-  function closeModal() {
-    var modal = document.getElementById("myModal");
-    modal.style.display = "none";
-  }
+      console.log('Clicked!');
+      console.log('description paragraph length: ',descriptionParagraph.textContent.length)
+      if (descriptionParagraph.textContent.length <= 650) {
+          console.log('Clicked and description was truncated');
+          descriptionParagraph.textContent = desc; // Show full description
+          modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Enable scrolling
+      } else {
+          console.log('Clicked and description was full');
+          descriptionParagraph.textContent = truncatedDesc; // Show truncated description
+          modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Disable scrolling
+      }
+  });
+}
 
 </script>
 
