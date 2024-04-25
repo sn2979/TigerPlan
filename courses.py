@@ -168,21 +168,12 @@ def gss_minor_courses():
 def afs_minor_courses():
     courses = {
         'Core': ['.*AFS 2.*', '.*AFS 3.*'],
-        'Humanities': ['.*AAS.*', '.*AFS.*', '.*AMS.*', '.*ART.*', '.*ASA.*', '.*CLA.*', '.*CLG.*', '.*COM.*',
-                    '.*CWR.*', '.*DAN.*', '.*EAS.*', '.*ENG.*', '.*ECS.*', '.*GER.*', '.*GSS.*', '.*HIS.*',
-                    '.*HLS.*', '.*HUM.*', '.*JDS.*', '.*LAO.*', '.*LAS.*', '.*LAT.*', '.*LIN.*', '.*MED.*',
-                    '.*MOG.*', '.*MUS.*', '.*MPP.*', '.*NES.*', '.*PHI.*', '.*SAS.*', '.*SLA.*', '.*THR.*',
-                    '.*TRA.*', '.*URB.*', '.*VIS.*'],
+        'Humanities': ['.*AFS.*'],
         'African Language': ['.*TWI 101.*', '.*TWI 102.*', '.*TWI 103G.*', '.*TWI 105.*', '.*TWI 107.*',
                     '.*GEZ 101.*', '.*SWA 101.*', '.*SWA 102.*', '.*SWA 103K.*', '.*SWA 105.*', '.*SWA 107.*'],
-        'Social Sciences': ['.*EPS .*', '.*HIS .*', '.*JRN .*', '.*POL .*', '.*SOC .*', '.*SPI .*', '.*ANT .*'],
-        'Other Electives': ['.*AAS.*', '.*AFS.*', '.*AMS.*', '.*ART.*', '.*ASA.*', '.*CLA.*', '.*CLG.*', '.*COM.*',
-                    '.*CWR.*', '.*DAN.*', '.*EAS.*', '.*ENG.*', '.*ECS.*', '.*GER.*', '.*GSS.*',
-                    '.*HLS.*', '.*HUM.*', '.*JDS.*', '.*LAO.*', '.*LAS.*', '.*LAT.*', '.*LIN.*', '.*MED.*',
-                    '.*MOG.*', '.*MUS.*', '.*MPP.*', '.*NES.*', '.*PHI.*', '.*SAS.*', '.*SLA.*', '.*THR.*',
-                    '.*TRA.*', '.*URB.*', '.*VIS.*', '.*TWI 101.*', '.*TWI 102.*', '.*TWI 103G.*', '.*TWI 105.*', '.*TWI 107.*',
-                    '.*GEZ 101.*', '.*SWA 101.*', '.*SWA 102.*', '.*SWA 103K.*', '.*SWA 105.*', '.*SWA 107.*',
-                     '.*EPS .*', '.*HIS .*', '.*JRN .*', '.*POL .*', '.*SOC .*', '.*SPI .*', '.*ANT .*']
+        'Social Sciences': ['.*AFS.*'],
+        'Other Electives': ['.*AFS.*', '.*TWI 101.*', '.*TWI 102.*', '.*TWI 103G.*', '.*TWI 105.*', '.*TWI 107.*',
+                    '.*GEZ 101.*', '.*SWA 101.*', '.*SWA 102.*', '.*SWA 103K.*', '.*SWA 105.*', '.*SWA 107.*']
     }
 
     return courses
@@ -760,9 +751,7 @@ def sas_minor_courses():
     courses = {
         'Core': ['.*SAS 200.*'],
         'Language': ['.*HIN 107.*', '.*URD 107.*', '.*SAN 107.*'],
-        'Electives': ['.*ANT .*', '.*COM .*', '.*ENG .*', '.*ECO .*',
-                    '.*HIS .*', '.*NES .*', '.*POL .*', '.*REL .*',
-                    '.*SPI .*', '.*SAS .*']
+        'Electives': ['.*SAS .*']
     }
 
     return courses
