@@ -226,13 +226,13 @@
 
   .classlist_label::before {
     font-weight: bold; /* Make the label bold */
-    content: '▶'; /* Downward-pointing arrow when open */
+    content: '▼'; /* Downward-pointing arrow when open */
     font-size: 12px; /* Smaller arrow size */
   }
 
   /* Adjust the arrow direction for open state */
   .classlist_label.open::before {
-    content: '▼'; /* Downward-pointing arrow when open */
+    content: '▶'; /* Downward-pointing arrow when open */
   }
 
   /* Show classlist when its parent is open */
@@ -251,8 +251,6 @@
     list-style-type: none; /* Remove default list style */
     margin-left: 20px; /* Adjust margin to align with reqname and classlist */
   }
-
-
 
   .close {
     position: absolute;
@@ -374,15 +372,18 @@
       nodeElement.innerHTML = `
       <div class="reqname">${node.name}</div>
       <div class="details">
+       <div class="summary-info">
         <div>Classes taken: ${node.classes_taken}</div>
         <div>Classes needed: ${node.classes_needed}</div>
         <div>Classes remaining: ${node.classes_remaining}</div>
+      </div>
         <div class="classlist">
           <div class="classlist_label">Your Classes:</div>
           <ul>
             ${node.class_list.map(className => `<li>${className}</li>`).join('')}
           </ul>
         </div>
+        
       </div>
       `;
       return nodeElement;
@@ -394,18 +395,17 @@
         const childElement = createNodeHtml(child);
         
         if (child.children && child.children.length > 0) {
-          const childrenContainer = document.createElement('div');
-          childrenContainer.className = 'children-container';
-          // set innerHTMl with two parts: a div containing "Subrequirements" and then a another div called "children" that will actually 
-          // contain the children; within this container, the children will be appended
-          childrenContainer.innerHTML = `
+          // to the childelement add a div <div class="reqname">Subrequirements</div>
+          // and then a div <div class="children"></div> that will actually contain the children
+          childElement.querySelector('.details').innerHTML += `
           <div class="reqname">Subrequirements</div>
-          <div class="children"></div>
+          <div class="children-container"></div>
           `;
-          // Get the reference to the 'children' container within childrenContainer
-          const childrenContent = childrenContainer.querySelector('.children');
-          appendChildren(childrenContent, child.children);
-          childElement.appendChild(childrenContainer);
+          const childrenContainer = childElement.querySelector('.children-container');
+          appendChildren(childrenContainer, child.children);
+
+          // append to the child element details div
+          childElement.querySelector('.details').appendChild(childrenContainer);
         }
         parentElement.appendChild(childElement);
       });
@@ -485,14 +485,15 @@ function openModal(minor, desc) {
 
 
 }
-
 function attachToggleListeners() {
   // Toggle functionality for the requirement names
   document.querySelectorAll(".reqname").forEach(function(reqname) {
     reqname.addEventListener("click", function() {
       // Toggle visibility of this requirement's details
       var details = this.nextElementSibling; // Assuming the details follow immediately after
-      details.style.display = details.style.display === "none" ? "block" : "none";
+      details.style.display = details.style.display === "block" ? "none" : "block";
+      console.log('display called!');
+
       // reqname has to be toggled open
       this.classList.toggle('open');
     });
@@ -505,12 +506,12 @@ function attachToggleListeners() {
       var ulElement = this.querySelector('ul'); // Assuming the details follow immediately after
       // toggle open for the classlist_label
       this.querySelector('.classlist_label').classList.toggle('open');
-      ulElement.style.display = (ulElement.style.display === 'block') ? 'none' : 'block';
+      ulElement.style.display = (ulElement.style.display === 'none') ? 'block' : 'none';
     });
   });
 
   // Toggle functionality for the children-container
-  document.querySelectorAll(".children-container").forEach(function(subreq) {
+  /*document.querySelectorAll(".children-container").forEach(function(subreq) {
     subreq.previousElementSibling.addEventListener("click", function(event) {
       // This will prevent the click from affecting the subrequirements themselves
       event.stopPropagation();
@@ -519,7 +520,7 @@ function attachToggleListeners() {
       subreq.classList.toggle('open');
       subreq.style.display = subreq.style.display === "none" ? "block" : "none";
     });
-  });
+  });*/
 }
 
 </script>
