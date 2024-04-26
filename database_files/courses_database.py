@@ -56,6 +56,8 @@ def sorting_key(course, search_query):
         return (2, None, None)
 
 def search_courses(search_query):
+    if len(search_query) == 0 or len(search_query) > 60:
+        return None
     if re.match(r'^(?: )*$', search_query):
         return None
     try:
