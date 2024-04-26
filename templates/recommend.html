@@ -131,12 +131,14 @@
     font-size: 20px; /* Adjust the font size as needed */
   }
   .modal-content h2 {
-    font-family: 'Caveat Brush', brush;
+    /*font-family: 'Caveat Brush', brush;*/
     font-size: 55px; /* title font size */
     margin-bottom: 10px;
     margin-left: 20px; /* Adjust the left margin to move it more towards the center */
     margin-right: auto; /* Set right margin to auto for centering */
     text-align: left; /* Align the text to the left */
+    /*wrap text if it's too long*/
+    word-wrap: break-word;
   }
 
   .modal-content p {
@@ -154,7 +156,10 @@
     background-color: #C6C6C6;
 
     /*margin-bottom: 10px;*/
-    padding: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 0;
+    padding-right: 0;
     text-align: center;
     width: calc(50% - 30px); /* Set width to half of the modal width minus padding */
     position: absolute; /* Position absolutely within the modal */
@@ -172,28 +177,32 @@
 
   .root-container {
     display: flex;
-    width: 90%;
-    height: 100%;
+    width: 100%;
+    height: 140%;
     margin: 0;
     flex-direction: column;
     align-items: center;
     padding:0px;
     background-color: #C6C6C6;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);*/
   }
   
   .node {
+    font-size: 140%;
     overflow-y: auto;  
     background-color: #ffd699;
-    width: 100%; /* Set width to 45% of the modal */
+    width: 90%; /* Set width to 45% of the modal */
     max-width: 500px;
     height: auto; /* Set height to auto */
     margin-bottom: 20px; /* Add margin between boxes */
+    margin-left: 0;
+    margin-right: 0;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
     z-index: 2;
     position: relative; /* Needed for absolute positioning of the arrow */
-    padding-left: 30px; /* Make space for the arrow */
+    padding: 10px; /* Make space for the arrow */
+    align-items: left;
 
   }
 
@@ -204,14 +213,41 @@
     cursor: pointer; /* Change cursor to indicate this can be clicked */
   }
 
+  .reqname {
+    /*weak bold*/
+    cursor: pointer;
+    font-family: 'Caveat Brush', brush;
+  }
+
   /* Style for the toggle arrow when the container is open */
   .reqname.open::before {
+    content: '▶'; /* Downward-pointing arrow when open */
+  }
+
+  .subreqname::before {
+    content: '▼'; /* Right-pointing arrow */
+    font-size: 12px; /* Smaller arrow size */
+    margin-right: 5px;
+    cursor: pointer; /* Change cursor to indicate this can be clicked */
+  }
+
+  .subreqname {
+    /*weak bold*/
+    cursor: pointer;
+    font-weight: bold; /* Make the label bold */
+  }
+
+  /* Style for the toggle arrow when the container is open */
+  .subreqname.open::before {
     content: '▼'; /* Downward-pointing arrow when open */
   }
 
   /* Initially hide the details and child lists */
   .details, .children-container {
     display: none;
+    font-size: 15px;
+    text-align: left;
+    padding-left: 20px;
   }
 
   /* Show the details and child lists when their parent is open */
@@ -219,9 +255,19 @@
     display: block;
   }
 
+  /* Show the details and child lists when their parent is open */
+  .subreqname.open + .details, .children-container.open {
+    display: block;
+  }
+
   /* Style for classlist */
   .classlist {
-    margin-left: 20px; /* Adjust margin to align with reqname */
+    margin-left: 0; /* Adjust margin to align with reqname */
+  }
+
+  .classlist_label {
+    font-weight: bold; /* Make the label bold */
+    cursor: pointer; /* Change cursor to indicate this can be clicked */
   }
 
   .classlist_label::before {
@@ -318,6 +364,24 @@
 </main>x
 <script>
 
+      // Function to adjust font size based on text length
+    function adjustFontSize() {
+      // Select all elements with class 'node'
+      var nodes = document.querySelectorAll('.node');
+
+      // Loop through each node element
+      nodes.forEach(function(node) {
+        // Get the text content length
+        var textLength = node.textContent.trim().length;
+
+        // Calculate font size based on text length (example logic)
+        var fontSize = 100 - (textLength * 2); // Adjust as per your requirement
+
+        // Set the calculated font size to the node element
+        node.style.fontSize = fontSize + '%';
+      });
+    }
+
   document.addEventListener("DOMContentLoaded", function() {
     // Get all course cards
     var courseCards = document.querySelectorAll(".course-card");
@@ -362,6 +426,7 @@
             });
         }
     };
+    adjustFontSize(); // Initial font size adjustment
 });
 
   function generateHTML(jsonData) {
@@ -370,19 +435,20 @@
       const nodeElement = document.createElement('div');
       nodeElement.className = 'node';
       nodeElement.innerHTML = `
-      <div class="reqname">${node.name}</div>
+      <div class="reqname">${node.name} (${node.classes_taken}/${node.classes_needed})</div>
       <div class="details">
+      <div class="subreqname">Details</div>
        <div class="summary-info">
-        <div>Classes taken: ${node.classes_taken}</div>
-        <div>Classes needed: ${node.classes_needed}</div>
-        <div>Classes remaining: ${node.classes_remaining}</div>
+          <div>Classes taken: ${node.classes_taken}</div>
+          <div>Classes needed: ${node.classes_needed}</div>
+          <div>Classes remaining: ${node.classes_remaining}</div>
+          <div class="classlist">
+            <div class="classlist_label">Your Classes:</div>
+            <ul>
+              ${node.class_list.map(className => `<li>${className}</li>`).join('')}
+            </ul>
+          </div>
       </div>
-        <div class="classlist">
-          <div class="classlist_label">Your Classes:</div>
-          <ul>
-            ${node.class_list.map(className => `<li>${className}</li>`).join('')}
-          </ul>
-        </div>
         
       </div>
       `;
@@ -398,7 +464,7 @@
           // to the childelement add a div <div class="reqname">Subrequirements</div>
           // and then a div <div class="children"></div> that will actually contain the children
           childElement.querySelector('.details').innerHTML += `
-          <div class="reqname">Subrequirements</div>
+          <div class="reqname">...</div>
           <div class="children-container"></div>
           `;
           const childrenContainer = childElement.querySelector('.children-container');
@@ -499,6 +565,17 @@ function attachToggleListeners() {
     });
   });
 
+  document.querySelectorAll(".subreqname").forEach(function(reqname) {
+    reqname.addEventListener("click", function() {
+      // Toggle visibility of this requirement's details
+      var details = this.nextElementSibling; // Assuming the details follow immediately after
+      // reqname has to be toggled open
+      this.classList.toggle('open');
+      details.style.display = details.style.display === "block" ? "none" : "block";
+      console.log('display called!');
+    });
+  });
+
   // Toggle functionality for the class list
   document.querySelectorAll(".classlist").forEach(function(classlist) {
     classlist.addEventListener("click", function() {
@@ -509,18 +586,6 @@ function attachToggleListeners() {
       ulElement.style.display = (ulElement.style.display === 'none') ? 'block' : 'none';
     });
   });
-
-  // Toggle functionality for the children-container
-  /*document.querySelectorAll(".children-container").forEach(function(subreq) {
-    subreq.previousElementSibling.addEventListener("click", function(event) {
-      // This will prevent the click from affecting the subrequirements themselves
-      event.stopPropagation();
-      
-      // Toggle visibility of subrequirements
-      subreq.classList.toggle('open');
-      subreq.style.display = subreq.style.display === "none" ? "block" : "none";
-    });
-  });*/
 }
 
 </script>
