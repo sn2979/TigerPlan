@@ -29,6 +29,10 @@
     flex: 1; /* Let the title take up space evenly */
   }
 
+  .card h3 {
+    word-wrap:break-word;
+
+  }
   .card:hover {
     transform: translateY(-5px); /* raise the card slightly on hover */
   }
@@ -207,13 +211,9 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>{{ course['minor'] }}</h2>
-
-            <div class="grey-boxes">
-              <div class="grey-box"></div>
-              <div class="grey-box"></div>
-              <div class="grey-box"></div>
+              
+            <div class="grey-boxes" data-tree="{{course['tree_description']}}">
             </div>
-      
       
             <div id="modal-text"></div>
             <div class= "modal-descBox">
@@ -224,8 +224,9 @@
     </div>
     {% endfor %}
   </div>
-</main>
+</main>x
 <script>
+
   document.addEventListener("DOMContentLoaded", function() {
     // Get all course cards
     var courseCards = document.querySelectorAll(".course-card");
@@ -272,6 +273,56 @@
     };
 });
 
+  //function to generate html 
+  function generateHTML(jsonString) {
+    // Parse the JSON string
+    console.log('jsonString', jsonString);
+    const data = JSON.parse(jsonString);
+
+    console.log('data', data);
+
+    // Recursively traverse the JSON data and generate HTML snippet
+    function generateHTMLSnippet(node) {
+      let htmlSnippet = `
+        <div class="grey-box">
+          <p>"name": "${node.name}",</p>
+          <p>"class_list": </p>
+          <ul>
+      `;
+      // Add class list items
+      node.class_list.forEach((className) => {
+        htmlSnippet += `<li>${className}</li>`;
+      });
+
+      htmlSnippet += `
+          </ul>
+          <p>"classes_taken": ${node.classes_taken}</p>
+          <p>"classes_needed": ${node.classes_needed}</p>
+          <p>"classes_remaining": ${node.classes_remaining}</p>
+        </div>
+      `;
+
+      // Recursively handle children nodes
+      if (node.children) {
+        node.children.forEach((child) => {
+          htmlSnippet += `
+            <div class="grey-boxes">
+              ${generateHTMLSnippet(child)}
+            </div>
+          `;
+        });
+      }
+
+      return htmlSnippet;
+    }
+
+    // Generate HTML snippet for each node
+    const html = generateHTMLSnippet(data);
+
+    return html;
+  }
+
+
 // Function to open the modal with specified minor and desc
 function openModal(minor, desc) {
     // Get the corresponding modal element by ID
@@ -279,13 +330,29 @@ function openModal(minor, desc) {
     
     // If modal element exists, display it
     if (modal) {
-        modal.style.display = "block";
+      //modal background color should match card color
+      //var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
+      //modalContent.style.backgroundColor = cardBackgroundColor;
+
+      modal.style.display = "block";
     }
 
     // You can populate modal content dynamically using the passed 'minor' and 'desc'
     var modalContent = modal.querySelector(".modal-content");
     modalContent.querySelector("h2").textContent = minor;
-    //modalContent.querySelector("#description").textContent = desc;
+
+    // Retrieve the data-tree attribute (JSON string)
+    var treeDescription = modalContent.querySelector(".grey-boxes").getAttribute("data-tree");
+    
+    console.log('treeDescription', treeDescription);
+
+    // Call generateHTML with the JSON string
+    var generatedHTML = generateHTML(treeDescription);
+    // Assuming there's a container element where you want to insert the HTML
+    var htmlContainer = modalContent.querySelector(".grey-boxes");
+    htmlContainer.innerHTML = generatedHTML;
+
+
     // Get the paragraph element to display the description
     let descriptionParagraph = modalContent.querySelector("#description");
     console.log('description paragraph', descriptionParagraph.textContent);
@@ -297,43 +364,6 @@ function openModal(minor, desc) {
     
     descriptionParagraph.textContent = desc; // Show full description
     modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Enable scrolling
-      /*console.log('description length', desc.length);
-      console.log('max length', maxLength);
-        // Truncate the description and add "..." at the end
-        var truncatedDesc = desc.substring(0, maxLength) + "...";
-        console.log('truncated desc', truncatedDesc);
-
-        // Set the truncated text as the content of the paragraph
-        descriptionParagraph.textContent = truncatedDesc;
-        console.log('description paragraph', descriptionParagraph.textContent);
-        console.log('description paragraph id', descriptionParagraph.id);
-
-        descriptionParagraph.dataset.fullDescription = desc; // Store full description in data attribute
-        descriptionParagraph.classList.add("truncated"); // Add a class to track the truncated state
-    } else {
-        // Display the full description if it's shorter than the maximum length
-        console.log('No truncation needed');
-        descriptionParagraph.textContent = desc; */
-
-    /*descriptionParagraph = modalContent.querySelector("#description");
-
-    // Add event listener to toggle full description on clicking the truncated text
-    descriptionParagraph.addEventListener("click", function() {
-      // Toggle between full and truncated description
-      var modalContent = modal.querySelector(".modal-content");
-
-      console.log('Clicked!');
-      console.log('description paragraph length: ',descriptionParagraph.textContent.length)
-      if (descriptionParagraph.textContent.length <= 650) {
-          console.log('Clicked and description was truncated');
-          descriptionParagraph.textContent = desc; // Show full description
-          modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Enable scrolling
-      } else {
-          console.log('Clicked and description was full');
-          descriptionParagraph.textContent = truncatedDesc; // Show truncated description
-          modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Disable scrolling
-      }
-  });*/
 }
 
 </script>

@@ -4,6 +4,7 @@ from flask import request
 import database_files.student_database as student_database
 import database_files.courses_database as courses_database
 import database_files.minors_database as minors_database
+import json
 
 import dotenv
 import auth
@@ -438,6 +439,7 @@ def recommendations():
         course['desc'] = minors_database.get_desc(course['minorid'])
         course['urls'] = minors_database.get_urls(course['minorid'])
 
+        #course['tree_description'] = json.loads(course['tree_description'])
 
     return flask.render_template("recommend.html", username=username, courses=stored_recommendations)
 
