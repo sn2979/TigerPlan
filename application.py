@@ -223,6 +223,7 @@ def login():
     username = auth.authenticate()
     success, first_time = student_database.handle_student_login(username)
     if success:
+        print("HERE")
         # Store the username in the session
         flask.session['username'] = username
         
@@ -295,7 +296,7 @@ def reset_profile():
 def set_profile():
     username = flask.session.get('username')
     if username is None:
-        return login_required(previous_page_url='/set_profile')
+        return flask.redirect('/login')
 
     name = request.form.get('name')
     major = map_major_name_to_id(request.form.get('major'))

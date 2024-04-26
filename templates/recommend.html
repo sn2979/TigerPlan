@@ -145,13 +145,33 @@
   }
 
   .grey-boxes {
+    overflow-y: auto;
     display: flex;
     flex-direction: column; /* Stack boxes vertically */
     align-items: flex-start; /* Align to the left */
-    margin-top: 20px;
+    margin-top: 15px;
+
+    background-color: #C6C6C6;
+
+    /*margin-bottom: 10px;*/
+    padding: 30px;
+    text-align: center;
+    width: calc(50% - 30px); /* Set width to half of the modal width minus padding */
+    position: absolute; /* Position absolutely within the modal */
+    top: 60%; /* Align to the vertical center */
+    left: 20px; /* Align to the right */
+    transform: translateY(-60%); /* Adjust for vertical centering */
+    border-radius: 10px; /* Add rounded corners */
+
+    width: 70%; /* Increase width to 90% of the viewport */
+    max-width: 500px; /* Set maximum width for larger screens */
+    height: 70%; /* Increase width to 90% of the viewport */
+    max-height: 700px; /* Set maximum width for larger screens */
+
   }
   
   .grey-box {
+    overflow-y: auto;  
     background-color: #C6C6C6;
     width: 45%; /* Set width to 45% of the modal */
     max-width: 500px;
@@ -183,8 +203,8 @@
 
   /* Styles for scrolling description */
   .modal-content p.full-description {
-      overflow-y: auto; /* Hide vertical scrollbar initially */
-      max-height: 200px; /* Limit maximum height before scrolling */
+    overflow-y: auto; /* Hide vertical scrollbar initially */
+    max-height: 200px; /* Limit maximum height before scrolling */
   }
 </style>
 </head>
@@ -214,7 +234,6 @@
               
             <div class="grey-boxes" data-tree="{{course['tree_description']}}">
             </div>
-      
             <div id="modal-text"></div>
             <div class= "modal-descBox">
               <p id = "description" class = "modal-descText"></p>
@@ -273,53 +292,53 @@
     };
 });
 
-  //function to generate html 
-  function generateHTML(jsonString) {
-    // Parse the JSON string
-    console.log('jsonString', jsonString);
-    const data = JSON.parse(jsonString);
-
-    console.log('data', data);
-
-    // Recursively traverse the JSON data and generate HTML snippet
-    function generateHTMLSnippet(node) {
-      let htmlSnippet = `
-        <div class="grey-box">
-          <p>"name": "${node.name}",</p>
-          <p>"class_list": </p>
-          <ul>
+  function generateHTML(jsonData) {
+    // Function to create HTML for a single node
+    function createNodeHtml(node) {
+      const nodeElement = document.createElement('div');
+      nodeElement.className = 'node';
+      nodeElement.innerHTML = `
+        <h4>${node.name}</h4>
+        <ul>
+          ${node.class_list.map(className => `<li>${className}</li>`).join('')}
+        </ul>
+        <div>Classes taken: ${node.classes_taken}</div>
+        <div>Classes needed: ${node.classes_needed}</div>
+        <div>Classes remaining: ${node.classes_remaining}</div>
       `;
-      // Add class list items
-      node.class_list.forEach((className) => {
-        htmlSnippet += `<li>${className}</li>`;
-      });
-
-      htmlSnippet += `
-          </ul>
-          <p>"classes_taken": ${node.classes_taken}</p>
-          <p>"classes_needed": ${node.classes_needed}</p>
-          <p>"classes_remaining": ${node.classes_remaining}</p>
-        </div>
-      `;
-
-      // Recursively handle children nodes
-      if (node.children) {
-        node.children.forEach((child) => {
-          htmlSnippet += `
-            <div class="grey-boxes">
-              ${generateHTMLSnippet(child)}
-            </div>
-          `;
-        });
-      }
-
-      return htmlSnippet;
+      return nodeElement;
     }
 
-    // Generate HTML snippet for each node
-    const html = generateHTMLSnippet(data);
+    // Function to recursively go through the tree and append children
+    function appendChildren(parentElement, children) {
+      children.forEach(child => {
+        const childElement = createNodeHtml(child);
+        if (child.children && child.children.length > 0) {
+          const childrenContainer = document.createElement('div');
+          childrenContainer.className = 'children-container';
+          appendChildren(childrenContainer, child.children);
+          childElement.appendChild(childrenContainer);
+        }
+        parentElement.appendChild(childElement);
+      });
+    }
 
-    return html;
+    // Start with the root element and call appendChildren if children are present
+    const rootElement = document.createElement('div');
+    // center the root element
+    rootElement.style.margin = 'auto';
+    rootElement.className = 'root-container';
+    if (jsonData.children && jsonData.children.length > 0) {
+      console.log("heres a child")
+      appendChildren(rootElement, jsonData.children);
+    } else {
+      // If there are no children, just append the root node
+      console.log("im the last child")
+      rootElement.appendChild(createNodeHtml(jsonData));
+    }
+
+    // Return the outer HTML of the root element
+    return rootElement.outerHTML;
   }
 
 
@@ -346,24 +365,30 @@ function openModal(minor, desc) {
     
     console.log('treeDescription', treeDescription);
 
-    // Call generateHTML with the JSON string
-    var generatedHTML = generateHTML(treeDescription);
-    // Assuming there's a container element where you want to insert the HTML
-    var htmlContainer = modalContent.querySelector(".grey-boxes");
-    htmlContainer.innerHTML = generatedHTML;
+    // Use the new generateHTML function
+    var generatedHTML = generateHTML(JSON.parse(treeDescription));
 
+
+    // Insert the generated HTML into the modal content container
+    var htmlContainer = modalContent.querySelector(".grey-boxes");
+    console.log("here is the generated html")
+    console.log(generatedHTML)
+    htmlContainer.innerHTML = generatedHTML;
+    //htmlContainer.set('html', generatedHTML);
 
     // Get the paragraph element to display the description
     let descriptionParagraph = modalContent.querySelector("#description");
     console.log('description paragraph', descriptionParagraph.textContent);
 
-    // Set the initial maximum length for description display
-    var maxLength = 600; // Adjust this value as needed
-
     // Check if the description length exceeds the maximum length
     
     descriptionParagraph.textContent = desc; // Show full description
     modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Enable scrolling
+
+    
+    modalContent.querySelector(".grey-boxes").style.overflowY = "auto"; // Enable scrolling
+
+
 }
 
 </script>
