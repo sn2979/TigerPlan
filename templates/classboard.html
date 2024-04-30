@@ -123,19 +123,20 @@ body {
   margin-bottom: 50px;
 }
 
-.grid-item button {
-  padding: 5px 10px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #4CAF50; /* Green background for add */
-  color: white;
-}
-
-.grid-item button:last-of-type {
-  background-color: #f44336; /* Red background for remove */
-}
+.remove-course-btn {
+   background-color: coral;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+      text-align: center; /* Align text horizontally */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+   }
 
 </style>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
@@ -178,7 +179,344 @@ body {
 </main>
 
 <script>
+
   'use strict';
+
+  // Function to display a placeholder message in the drop area if it's empty
+  function displayMessage() {
+    let dropArea = document.getElementById('drop-area');
+    console.log(`Drop area has ${dropArea.children.length} children`);
+
+    if (dropArea.children.length === 0) {
+      // Add the placeholder message
+      console.log(`Placeholder not found!`);
+      dropArea.innerHTML = '<center id="placeholder"><p>Drag your classes here</p></center>';
+    } else {
+      console.log(`Child 0 id is ${dropArea.children[0].id}`);
+      if (dropArea.children[0].id === 'placeholder') {
+        console.log(`Placeholder found!`);
+        // Remove the placeholder message
+        dropArea.removeChild(dropArea.children[0]);
+      }
+    }
+  }
+
+  // Function to allow dropping elements into the drop area
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  // Function to handle the start of a drag operation
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  // Function to handle dropping elements into the drop area
+  function drop_area(ev) {
+    ev.preventDefault();
+    console.log(`Drop area called!`);
+    
+
+    let data = ev.dataTransfer.getData("text");
+    let dropArea = document.getElementById('drop-area');
+    console.log(`Drop area has ${dropArea.children.length} children`)
+    console.log(`Data is ${data}`)
+
+    
+
+    // Check if the course is already in the drop area
+    let id = data + '-container';
+    console.log(`ID is ${id}`);
+    let existingElement = document.getElementById(id);
+    if (existingElement) {
+        // If the course is already in the drop area, don't add it again
+        return;
+    }
+
+    // Get course details from the dragged element
+    let courseElement = document.getElementById(data);
+    let courseId = courseElement.id;
+    let courseNum = courseElement.querySelector('h2').textContent;
+    let courseTitle = courseElement.querySelector('p').textContent;
+
+    // Add the course to the drop area
+    addCourseToDropArea(courseId, courseNum, courseTitle);
+
+    // Encode course data into URL parameters
+    let encodedCourseId = encodeURIComponent(courseId);
+    let encodedCourseNum = encodeURIComponent(courseNum);
+    let encodedCourseTitle = encodeURIComponent(courseTitle);
+
+    // Construct the URL for adding the course to the database
+    let url = `/addcourse?courseId=${encodedCourseId}&courseNum=${encodedCourseNum}&title=${encodedCourseTitle}`;
+
+    // Send a POST request to the server
+    let request = new XMLHttpRequest();
+    request.open('POST', url);
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400) {
+        console.log('Course successfully added to database');
+        load_area();
+        // Optionally handle success response
+      } else {
+        console.error('Error: Failed to add course to database');
+        // Optionally handle error response
+      }
+    };
+    request.onerror = function() {
+      console.error('Error: Request to add course failed');
+      // Optionally handle request error
+    };
+    request.send();
+  }
+
+  // Function to add a course to the drop area
+  function addCourseToDropArea(courseId, courseNum, courseTitle) {
+    let dropArea = document.getElementById('drop-area');
+
+    // Create a new grid item container for the dropped course
+    const newCourseContainer = document.createElement('div');
+    newCourseContainer.classList.add('grid-item');
+    newCourseContainer.id = courseId + '-container';
+    newCourseContainer.draggable = true;
+    newCourseContainer.ondragstart = function() { drag(event); };
+
+    // Populate the new container with course details
+    newCourseContainer.innerHTML = `
+    <div class="left-course-info">
+          <h2 id="deptnum">${courseNum}</h2>
+          <p id="title">${courseTitle}</p>
+        </div>
+        <div class="right-course-info">
+          <button class="remove-course-btn" data-course-id="${courseId}">-</button>
+        </div>
+    `;
+
+    // Append the new grid item container to the drop area
+    dropArea.appendChild(newCourseContainer);
+    displayMessage();
+  }
+
+  // Function to handle dropping elements into the drop area
+  function drop(ev) {
+    ev.preventDefault();
+    let data = ev.dataTransfer.getData("text");
+
+    let courseElement = document.getElementById(data);
+    if (courseElement) {
+      // Extract course ID from the element ID
+      let courseId = courseElement.id.slice(0, courseElement.id.indexOf('-container'));
+
+      // Remove the course from the UI
+      courseElement.parentNode.removeChild(courseElement);
+      displayMessage();
+
+      // Encode course data into URL parameters
+      let encodedCourseId = encodeURIComponent(courseId);
+
+      // Construct the URL for removing the course from the database
+      let url = `/removecourse?courseId=${encodedCourseId}`;
+
+      // Send a POST request to the server
+      let request = new XMLHttpRequest();
+      request.open('POST', url);
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          console.log('Course successfully removed from database');
+          load_area();
+          // Optionally handle success response
+        } else {
+          console.error('Error: Failed to remove course from database');
+          // Optionally handle error response
+        }
+      };
+      request.onerror = function() {
+        console.error('Error: Request to remove course failed');
+        // Optionally handle request error
+      };
+      request.send();
+    }
+  }
+
+  // Function to handle search response
+  function handleSearchResponse() {
+    if (this.status !== 200) {
+      alert('Error: Failed to fetch data from server');
+      return;
+    }
+    let resultsDiv = document.getElementById('class-list');
+    //console.log(this.responseText);
+    resultsDiv.innerHTML = this.responseText;
+  }
+
+  // Function to handle search error
+  function handleSearchError() {
+    alert('Error: Failed to fetch data from server');
+  }
+
+  // Function to perform a search and display results
+  function getResults() {
+    let courseInput = document.getElementById('class-input');
+    let course = courseInput.value;
+    let encodedCourse = encodeURIComponent(course);
+    let url = '/searchresults?course=' + encodedCourse;
+
+    let request = new XMLHttpRequest();
+    request.onload = handleSearchResponse;
+    request.onerror = handleSearchError;
+    request.open('GET', url);
+    request.send();
+  }
+
+  // Function to debounce search input
+  let timer = null;
+  function debouncedGetResults() {
+    clearTimeout(timer);
+    timer = setTimeout(getResults, 500);
+  }
+
+  // Function to initialize event listeners
+  function setup() {
+    let courseInput = document.getElementById('class-input');
+    courseInput.addEventListener('input', debouncedGetResults);
+  }
+
+  // Function to load initial area content
+  function load_area() {
+    let dropArea = document.getElementById('drop-area');
+    let url = '/loadarea';
+
+    let request = new XMLHttpRequest();
+    request.onload = function() {
+      if (request.status === 200) {
+        dropArea.innerHTML = request.responseText;
+      } else {
+        alert('Error: Failed to load classes');
+      }
+    };
+    request.onerror = function() {
+      alert('Error: Failed to load classes');
+    };
+    request.open('GET', url);
+    request.send();
+  }
+
+  function addCourse(courseId) {
+    // Find the course element in the search results using the courseId
+    let courseElement = document.getElementById(courseId);
+    if (courseElement) {
+
+      let dropArea = document.getElementById('drop-area');
+
+      // Check if the course is already in the drop area
+      let id = courseId + '-container';
+      let existingElement = document.getElementById(id);
+      if (existingElement) {
+          // If the course is already in the drop area, don't add it again
+          return;
+      }
+      else {
+        // Create a new course item in the drop area
+        let courseNum = courseElement.querySelector('h2').textContent;
+        let courseTitle = courseElement.querySelector('p').textContent;
+
+        addCourseToDropArea(courseId, courseNum, courseTitle);
+
+        // Encode course data into URL parameters
+        let encodedCourseId = encodeURIComponent(courseId);
+        let encodedCourseNum = encodeURIComponent(courseNum);
+        let encodedCourseTitle = encodeURIComponent(courseTitle);
+
+        // Construct the URL for adding the course to the database
+        let url = `/addcourse?courseId=${encodedCourseId}&courseNum=${encodedCourseNum}&title=${encodedCourseTitle}`;
+
+        // Send a POST request to the server
+        let request = new XMLHttpRequest();
+        request.open('POST', url);
+        request.onload = function() {
+          if (request.status >= 200 && request.status < 400) {
+            console.log('Course successfully added to database');
+            load_area();
+            // Optionally handle success response
+          } else {
+            console.error('Error: Failed to add course to database');
+            // Optionally handle error response
+          }
+        };
+        request.onerror = function() {
+          console.error('Error: Request to add course failed');
+          // Optionally handle request error
+        };
+        request.send();
+      }
+    }
+  }
+
+  function removeCourse(courseId) {
+    console.log(`Removing course: ${courseId}`)
+    let courseElement = document.getElementById(courseId);
+    if (courseElement) {
+      // Extract course ID from the element ID
+      let id = courseId.slice(0, courseId.indexOf('-container'));
+
+      // Remove the course from the UI
+      courseElement.parentNode.removeChild(courseElement);
+      displayMessage();
+
+      // Encode course data into URL parameters
+      let encodedCourseId = encodeURIComponent(id);
+
+      // Construct the URL for removing the course from the database
+      let url = `/removecourse?courseId=${encodedCourseId}`;
+
+      // Send a POST request to the server
+      let request = new XMLHttpRequest();
+      request.open('POST', url);
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          console.log('Course successfully removed from database');
+          load_area();
+          // Optionally handle success response
+        } else {
+          console.error('Error: Failed to remove course from database');
+          // Optionally handle error response
+        }
+      };
+      request.onerror = function() {
+        console.error('Error: Request to remove course failed');
+        // Optionally handle request error
+      };
+      request.send();
+    }
+  }
+
+  // Add event listeners once the DOM content is loaded
+  document.addEventListener('DOMContentLoaded', setup);
+  document.addEventListener('DOMContentLoaded', load_area);
+  // Add event listener to the document to handle clicks on add-course buttons
+  document.addEventListener('click', function(event) {
+    // Check if the clicked element is a button with the class 'add-course-btn'
+    if (event.target && event.target.classList.contains('add-course-btn')) {
+      // Get the course ID from the data-course-id attribute of the clicked button
+      let courseId = event.target.getAttribute('data-course-id');
+
+      // Call the addCourse function with the courseId
+      addCourse(courseId);
+    }
+  });
+
+  document.addEventListener('click', function(event) {
+    // Check if the clicked element is a button with the class 'add-course-btn'
+    if (event.target && event.target.classList.contains('remove-course-btn')) {
+      // Get the course ID from the data-course-id attribute of the clicked button
+      let courseId = event.target.getAttribute('data-course-id');
+
+      // Call the addCourse function with the courseId
+      removeCourse(courseId);
+    }
+  });
+
+  /*'use strict';
   function displayMessage() {
     // Check if the drop area has the placeholder message
     let dropArea = document.getElementById('drop-area');
@@ -222,25 +560,6 @@ body {
       }
     }
     
-    /*// Create a new grid item container for the dropped course
-    const newCourseContainer = document.createElement('div');
-    newCourseContainer.classList.add('grid-item')
-    newCourseContainer.id = data + '-container';
-    newCourseContainer.draggable = true;
-    newCourseContainer.ondragstart = function() { drag(event); };
-
-    
-    // Copy the content of the dragged course into the new container
-    const originalCourse = document.getElementById(data);
-    newCourseContainer.innerHTML = originalCourse.innerHTML;
-
-    let paragraph = newCourseContainer.querySelector('p')
-
-    // set paragraph element to have a small font size
-    paragraph.style.fontSize =  '15px';
-    // Append the new grid item container to the drop area
-    dropArea.appendChild(newCourseContainer);
-    displayMessage();*/
 
     let courseElement = document.getElementById(data); // Get the dragged course element
     let courseId = courseElement.id; // Extract course ID from the element ID
@@ -311,26 +630,7 @@ body {
   function drop(ev) {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("text");
-    /*encodedCourse = encodeURIComponent(data);
-    let url = '/removecourse?course=' + encodedCourse;
-    let request = new XMLHttpRequest();
-    request.open('POST', url);
-    request.onload = function() {
-        handleRemoveClassResponse(request); // Pass 'data' to handleClassResponse
-        // wait until request succeeds before removing the element
-        if (request.status !== 200) {
-          let course = document.getElementById(data);
-          if (course && course.parentNode === dropArea) {
-            dropArea.removeChild(course);
-            displayMessage(); 
-          }
-          else {
-            console.log(`Element with ID '${data}' not found in drop area`);
-          }
-        }
-    };
-    request.onerror = handleRemoveClassError;
-    request.send();*/
+    
     console.log(`Dropped ${data}`);
     let courseElement = document.getElementById(data); // Get the dragged course element
     let courseId = courseElement.id; // Extract course ID from the element ID
@@ -455,7 +755,7 @@ body {
   }
 
   document.addEventListener('DOMContentLoaded', setup);
-  document.addEventListener('DOMContentLoaded', load_area);
+  document.addEventListener('DOMContentLoaded', load_area);*/
 </script>
 
 </body>

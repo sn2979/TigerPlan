@@ -1,8 +1,56 @@
+<style>
+    .grid-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .grid-item p {
+        margin: 0;
+    }
+    .left-course-info {
+      display: flex;
+      flex-direction: column;
+   }
+
+   .right-course-info {
+      display: flex;
+      flex-direction: column;
+   }
+
+   .grid-item h2 {
+      margin: 0;
+   }
+
+   .grid-item p {
+      margin: 0;
+   }
+
+   .remove-course-btn {
+   background-color: coral;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+      text-align: center; /* Align text horizontally */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+   }
+</style>
 {% if classes %}
     {% for course in classes %}
         <div class="grid-item" draggable="true" ondragstart="drag(event)" id="{{ course.id }}-container">
-            <h2 id="{{course.coursenum}}">{{ course.coursenum }}</h2>
-            <p id= "{{course.title}}"> {{ course.title }}</p>
+            <div class="left-course-info">
+                <h2 id="{{course.coursenum}}">{{ course.coursenum }}</h2>
+                <p id= "{{course.title}}"> {{ course.title }}</p>
+            </div>
+            <div class="right-course-info">
+                <button class="remove-course-btn" data-course-id="{{ course.id }}-container">-</button>
+            </div>
         </div>
     {% endfor %}
 {% else %}
