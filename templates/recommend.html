@@ -97,6 +97,7 @@
     font-size: 30px; /* text font size */
     position: relative; /* Ensure relative positioning for absolute positioned close button */
     word-wrap: break-word;
+    padding-right: 45%;
 
   }
 
@@ -133,7 +134,7 @@
   }
   .modal-content h2 {
     /*font-family: 'Caveat Brush', brush;*/
-    font-size: 55px; /* title font size */
+    font-size: 35px; /* title font size */
     margin-bottom: 10px;
     margin-left: 20px; /* Adjust the left margin to move it more towards the center */
     margin-right: auto; /* Set right margin to auto for centering */
@@ -349,7 +350,7 @@
     <div id="{{ course['minor'] }}-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>{{ course['minor'] }}</h2>
+            <h2 class="modal-title">{{ course['minor'] }}</h2>
               
             <div class="grey-boxes" data-tree="{{course['tree_description']}}">
             </div>
@@ -381,6 +382,35 @@
         // Set the calculated font size to the node element
         node.style.fontSize = fontSize + '%';
       });
+    }
+
+    function adjustModalTitleSize() {
+        var modalTitle = document.querySelector('.modal-title');
+        var textLength = modalTitle.textContent.trim().length;
+
+        // Define a base font size and adjust based on text length
+        var baseFontSize = 35; // Base font size in pixels
+        var minFontSize = 25; // Minimum font size in pixels
+        var maxTextLength = 23; // Define a maximum text length to base font size on
+
+        // Calculate font size based on text length within the defined range
+        var fontSize;
+        
+        if (textLength <= maxTextLength) {
+            // Calculate font size linearly based on text length
+            fontSize = 35
+
+        } else {
+            // Apply additional scaling for longer text lengths
+            fontSize = baseFontSize - (baseFontSize - minFontSize) * 2* (textLength / maxTextLength);
+        }
+
+        // Ensure font size stays within the defined range
+        fontSize = Math.max(fontSize, minFontSize); // Ensure font size doesn't go below minFontSize
+        fontSize = Math.min(fontSize, baseFontSize); // Ensure font size doesn't exceed baseFontSize
+
+        // Apply the calculated font size to the modal title
+        modalTitle.style.fontSize = fontSize + 'px';
     }
 
   document.addEventListener("DOMContentLoaded", function() {
@@ -514,6 +544,8 @@ function openModal(minor, desc) {
     // You can populate modal content dynamically using the passed 'minor' and 'desc'
     var modalContent = modal.querySelector(".modal-content");
     modalContent.querySelector("h2").textContent = minor;
+
+   adjustModalTitleSize(); // Adjust the modal title font size
 
     // Retrieve the data-tree attribute (JSON string)
     var treeDescription = modalContent.querySelector(".grey-boxes").getAttribute("data-tree");
