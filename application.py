@@ -301,6 +301,21 @@ def set_profile():
     return flask.redirect('/classboard')
 
 #-----------------------------------------------------------------------
+@app.route('/allminors', methods=['GET'])
+def allminors():
+    success, username, _ = get_user_info()
+    if username is None:
+        return login_required(previous_page_url='/allminors')
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500
+    
+    minors = minors_database.get_all_minors()
+    html_code = flask.render_template("allminors.html", username=username, minors=minors)
+    response = flask.make_response(html_code)
+    return response
+
+#-----------------------------------------------------------------------
 #Routes for classboard. 
 
 @app.route('/classboard', methods=['GET'])
