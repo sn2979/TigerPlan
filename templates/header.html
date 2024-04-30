@@ -16,6 +16,12 @@
             margin-left: 40px;
         }
 
+        /*header hover*/
+        #header h1:hover, li a:hover {
+            color: #ffd699;
+            transform: translateY(-5px); /* raise the card slightly on hover */
+        }
+
         .dropdown {
             position: relative;
             display: inline-block;
@@ -54,10 +60,12 @@
             text-decoration: none;
             display: block;
         }
-        .dropdown-content a:hover {background-color: coral;}
+
+
+        .dropdown-content a:hover {color: white; background-color: coral;}
 
         /* Media Query */
-        @media (max-width: 1100px) {
+        @media (max-width: 1220px) {
             .dropdown {
                 display: block; /* Show dropdown at smaller screen sizes */
             }
@@ -81,6 +89,7 @@
             <ul>
                 <li><a href="/recommendations">Your Recommendations</a></li>
                 <li><a href="/classboard">Your Classes</a></li>
+                <li><a href="/allminors">All Minors</a></li>
                 <li class="dropdown">
                     <button onclick="toggleDropdown()" class="dropbtn" id="dropdownButton">{{username}}</button>
                     <div id="myDropdown" class="dropdown-content">
