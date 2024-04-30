@@ -23,7 +23,7 @@
         .card p {
             font-family: 'Roboto Serif', serif;
             font-size: 30px;
-            margin-top: 20%;
+            margin-top: 10%;
             flex: 1; /* Let the title take up space evenly */
         }
 
@@ -83,13 +83,14 @@
             background-color: #FF9B42; /* Light grey background */
             margin: 10% auto; /* Adjust vertical margin for centering */
             padding: 40px; /* Increase padding for content spacing */
+            padding-left: 25px;
+            padding-right: 45%;
             border: 0px solid #e0e0e0; /* card border */
             border-radius: 20px;
             width: 95%; /* Increase width to 90% of the viewport */
             max-width: 1100px; /* Set maximum width for larger screens */
             height: 70%; /* Increase width to 90% of the viewport */
             max-height: 600px; /* Set maximum width for larger screens */
-            text-align: center;
             font-family: 'Roboto Serif', serif;
             font-size: 30px; /* text font size */
             position: relative; /* Ensure relative positioning for absolute positioned close button */
@@ -123,6 +124,7 @@
             max-width: 450px; /* Set maximum width for larger screens */
             height: 85%; /* Increase width to 90% of the viewport */
             max-height: 700px; /* Set maximum width for larger screens */
+            overflow-y: auto; /* Enable vertical scrolling */
 
         }
         .modal-content .modal-descBox p {
@@ -130,13 +132,15 @@
         }
         .modal-content h2 {
             /*font-family: 'Caveat Brush', brush;*/
-            font-size: 55px; /* title font size */
+            font-size: 35px;
             margin-bottom: 10px;
-            margin-left: 20px; /* Adjust the left margin to move it more towards the center */
+            margin-left: 0px; /* Adjust the left margin to move it more towards the center */
             margin-right: auto; /* Set right margin to auto for centering */
-            text-align: left; /* Align the text to the left */
             /*wrap text if it's too long*/
             word-wrap: break-word;
+        }
+        .modal-header h2{
+            text-align: center;
         }
 
         .modal-content p {
@@ -149,8 +153,9 @@
             display: flex;
             flex-direction: column; /* Stack boxes vertically */
             align-items: flex-start; /* Align to the left */
+            /*align items to top*/
+            justify-content: flex-start;
             margin-top: 15px;
-
             background-color: #C6C6C6;
 
             /*margin-bottom: 10px;*/
@@ -165,11 +170,11 @@
             left: 20px; /* Align to the right */
             transform: translateY(-60%); /* Adjust for vertical centering */
             border-radius: 10px; /* Add rounded corners */
-
             width: 70%; /* Increase width to 90% of the viewport */
             max-width: 500px; /* Set maximum width for larger screens */
-            height: 70%; /* Increase width to 90% of the viewport */
-            max-height: 700px; /* Set maximum width for larger screens */
+            height: auto; /* Increase width to 90% of the viewport */
+            min-height: 370px; /* Set minimum width for larger screens */
+            max-height: 370px; /* Set maximum width for larger screens */
 
         }
 
@@ -187,11 +192,11 @@
         
         .node {
             font-size: 140%;
-            overflow-y: auto;  
             background-color: #ffd699;
             width: 90%; /* Set width to 45% of the modal */
             max-width: 500px;
-            height: auto; /* Set height to auto */
+            min-height: 70px;
+            /*height: auto; /* Set height to auto */
             margin-bottom: 20px; /* Add margin between boxes */
             margin-left: 0;
             margin-right: 0;
@@ -308,16 +313,12 @@
         /* Styles for description paragraph */
         .modal-content p {
             font-size: 20px;
-            overflow: hidden; /* Hide overflow content */
-            text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
-            /*white-space: nowrap; /* Prevent text wrapping */
-            cursor: pointer; /* Set cursor to pointer for clickable text */
         }
 
         /* Styles for scrolling description */
         .modal-content p.full-description {
-            overflow-y: auto; /* Hide vertical scrollbar initially */
-            max-height: 200px; /* Limit maximum height before scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            max-height: 200px; /* Set maximum height for description */
         }
         </style>
     </head>
@@ -331,9 +332,9 @@
                     {% if course['distance'] > 100 %}
                         <p class="card-text" style="line-height: 1.2;">You have no classes that count toward this minor!</p>
                     {% elif course['distance'] <= 100 %}
-                        <p class="card-text" style="line-height: 1.2;">You need</p>
+                        <p class="card-text" style="line-height: 1.2; margin-bottom: 10px">You need</p>
                         <h1 style="line-height: 1.2; font-size: 50px;">{{ course['distance'] }}</h1>
-                        <p style="line-height: 1.2;">more classes to fulfill this minor!</p>
+                        <p style="line-height: 1.2; margin-top: 10px">more classes to fulfill this minor!</p>
                     {% endif %}
                 {% else %}
                     <p class="card-text" style="line-height: 1.2;">Distance information not available.</p>
@@ -345,8 +346,9 @@
         <div id="{{ course['minor'] }}-modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <h2>{{ course['minor'] }}</h2>
-                
+                <div class="modal-header">
+                    <h2 class="modal-title">{{ course['minor'] }}</h2>
+                </div>
                 <div class="grey-boxes" data-tree="{{course['tree_description']}}">
                 </div>
                 <div id="modal-text"></div>

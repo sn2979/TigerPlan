@@ -200,6 +200,39 @@ body {
         });
     }
 
+    function adjustModalTitleSize() {
+        console.log('Adjusting modal title size');
+        var modalTitle = document.querySelector('.modal-title');
+        var textLength = modalTitle.textContent.trim().length;
+
+        // Define a base font size and adjust based on text length
+        var baseFontSize = 35; // Base font size in pixels
+        var minFontSize = 25; // Minimum font size in pixels
+        var maxTextLength = 23; // Define a maximum text length to base font size on
+
+        console.log('Text length:', textLength);
+
+        // Calculate font size based on text length within the defined range
+        var fontSize;
+        
+        if (textLength <= maxTextLength) {
+            // Calculate font size linearly based on text length
+            fontSize = 55
+
+        } else {
+            // Apply additional scaling for longer text lengths
+            fontSize = baseFontSize - (baseFontSize - minFontSize) * 2* (textLength / maxTextLength);
+        }
+
+        // Ensure font size stays within the defined range
+        fontSize = Math.max(fontSize, minFontSize); // Ensure font size doesn't go below minFontSize
+        fontSize = Math.min(fontSize, baseFontSize); // Ensure font size doesn't exceed baseFontSize
+
+        // Apply the calculated font size to the modal title
+        modalTitle.style.fontSize = fontSize + 'px';
+    }
+
+
     // Event listener for minor button click
     $(document).on('click', '.minor-button', function() {
         var minorCode = $(this).data('code');
@@ -292,7 +325,9 @@ body {
             modal.style.display = "block";
         }
         var modalContent = modal.querySelector(".modal-content");
-        modalContent.querySelector("h2").textContent = minor;
+        //modalContent.querySelector("h2").textContent = minor;
+        // Adjust the font size of the modal title based on text length
+        adjustModalTitleSize();
 
         // Retrieve the data-tree attribute (JSON string)
         var treeDescription = modalContent.querySelector(".grey-boxes").getAttribute("data-tree");
@@ -356,6 +391,7 @@ body {
     });
 
     adjustFontSize(); // Initial font size adjustment
+
 
 });
     
