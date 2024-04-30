@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TigerPlan</title>
+        <link rel="icon" href="static/images/icon.png" type="image/png">
+        <title>TigerPlan - Profile</title>
         <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 
     <style>
@@ -83,9 +84,9 @@
     <body>
         <center class="profile">
             <section id="main-content">
-                <p>Your Profile!</p>
+                <p>Your Profile</p>
               </section>
-            <p>Update your profile here!</p>
+            <p id="sub">Update your profile here!</p>
             <form action="/update_profile" method="POST">
                 <input type="hidden" id="username" name="username" value="{{ username }}"><br><br>
 

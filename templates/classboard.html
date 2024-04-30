@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="static/images/icon.png" type="image/png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TigerPlan</title>
-<style> * {
+<title>TigerPlan - Classboard</title>
+<style> 
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+
 #right-container {
   width: 65%; /* Adjust based on your layout */
   float: left; /* If you are using a float-based layout */
@@ -45,6 +49,8 @@
   color: #666666; /* A light text color that's easy on the eyes */
   font-size: 20px; /* Large enough to be easily readable */
 }
+
+
 
 #left-container {
   min-height: 450px;
@@ -117,6 +123,20 @@ body {
   margin-bottom: 50px;
 }
 
+.grid-item button {
+  padding: 5px 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4CAF50; /* Green background for add */
+  color: white;
+}
+
+.grid-item button:last-of-type {
+  background-color: #f44336; /* Red background for remove */
+}
+
 </style>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 </head>
@@ -129,45 +149,14 @@ body {
   <section id="main-content" ondrop="drop(event)" ondragover="allowDrop(event)">
     <p><span class="roboto">What's </span><span class="caveat">your </span><span class="roboto">best minor?</span></p>
   </section>
-  <p><center>Search for your classes and drag them to your class board!</center></p>
+  <p><center id="sub">Search for your classes and drag them to your class board!</center></p>
   <br>
   
   <section id="class-selection">
     <div id="left-container" ondrop="drop(event)" ondragover="allowDrop(event)">
       <input type="text" id="class-input" placeholder="Search classes...">
       <div id="class-list">
-        <!--<div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos333">
-          <h2>COS 333</h2>
-          <p>Advanced Programming Techniques</p>
-        </div>
-        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos445">
-          <h2>COS 445</h2>
-          <p>Economics and Computing</p>
-        </div>
-        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)"id="cos217">
-          <h2>COS 217</h2>
-          <p>Introduction to Programming Systems</p>
-        </div>
-        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos324">
-          <h2>COS 324</h2>
-          <p>Introduction to Machine Learning</p>
-        </div>
-        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos226">
-          <h2>COS 226</h2>
-          <p>Data Structures and Algorithms</p>
-        </div>
-        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos126">
-          <h2>COS 126</h2>
-          <p>Introduction to Computer Science</p>
-        </div>
-        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos316">
-          <h2>COS 316</h2>
-          <p>Systems and Networking</p>
-        </div>
-        <div class="course" class="grid-item" draggable="true" ondragstart="drag(event)" id="cos471">
-          <h2>COS 471</h2>
-          <p>DeFi</p>
-        </div>-->
+        
         <!-- Repeat for each class -->
       </div>
     </div> 
@@ -308,6 +297,8 @@ body {
     newCourseContainer.innerHTML = `
       <h2>${courseNum}</h2>
       <p>${courseTitle}</p>
+      <button onclick="addCourse('${courseId}')">+</button>
+      <button onclick="removeCourse('${courseId}')">-</button>
     `;
 
     // Append the new grid item container to the drop area
@@ -416,6 +407,20 @@ body {
     request.onerror = handleSearchError;
     request.open('GET', url);
     request.send();
+  }
+
+  function addCourse(courseId) {
+      console.log("Adding course: " + courseId);
+      drop(courseId)
+  }
+
+  function removeCourse(courseId) {
+      console.log("Removing course: " + courseId);
+      let element = document.getElementById(courseId + '-container');
+      if (element) {
+          element.parentNode.removeChild(element);
+          displayMessage(); // Refresh the display message
+      }
   }
 
   let timer = null;

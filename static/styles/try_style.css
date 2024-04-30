@@ -15,6 +15,7 @@
     font-family: 'Roboto Serif', serif; /* Example font, update as needed */
     background-color: #C8F6EB;
   }
+
   
   .roboto {
     font-family: 'Roboto Serif', serif; /* Ensure you have this font available */
@@ -60,7 +61,12 @@
     font-size: 40px;
     color: black;
     text-align: center;
-    padding-top: 10vh; /* Adjust as needed */
+    padding-top: 5vh; /* Adjust as needed */
+  }
+
+  #sub {
+    padding: 10px;
+    font-size: 20px; /* Large enough to be easily readable */
   }
   
   button {

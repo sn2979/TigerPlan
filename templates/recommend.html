@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="static/images/icon.png" type="image/png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TigerPlan</title>
+<title>TigerPlan - Recommendations</title>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 <style>
   
@@ -329,9 +330,9 @@
 {% include 'header.html' %}
 <main>
   <section id="main-content">
-    <p>Here are your most compatible minors!</p>
+    <p><span>Here are </span><span class="caveat">your </span><span>most compatible minors!</span></p>
   </section>
-  <center>
+  <center id="sub">
   <p>Click on a card to learn more!</p>
   </center>
   <div class="container">
