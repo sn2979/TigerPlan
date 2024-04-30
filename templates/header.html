@@ -10,16 +10,23 @@
         #header nav {
             margin-left: auto; /* Push nav to the right */
             margin-right: 20px;
+            align-content: center;
+            justify-content: center; /* Horizontally center items */
+            position: relative;  /* Allows absolute positioning relative to this container */
         }
 
         #header h1 {
             margin-left: 40px;
+            align-content: center;
+            justify-content: center; /* Horizontally center items */
+            position: absolute;  /* Allows absolute positioning relative to this container */
         }
 
         /*header hover*/
         #header h1:hover, li a:hover {
             color: #ffd699;
             transform: translateY(-5px); /* raise the card slightly on hover */
+            align-content: center;
         }
 
         .dropdown {
@@ -87,14 +94,15 @@
         <h1><a href="/index" class="custom-link"><span class="roboto">Tiger</span><span class="caveat">Plan</span></a></h1>
         <nav>
             <ul>
+                <!--
                 <li><a href="/recommendations">Your Recommendations</a></li>
                 <li><a href="/classboard">Your Classes</a></li>
-                <li><a href="/allminors">All Minors</a></li>
+                <li><a href="/allminors">All Minors</a></li>-->
                 <li class="dropdown">
                     <button onclick="toggleDropdown()" class="dropbtn" id="dropdownButton">{{username}}</button>
                     <div id="myDropdown" class="dropdown-content">
                         <a href="/classboard">Your Classes</a>
-                        <a href="/recommendations">Recommend...</a>
+                        <a href="/recommendations">Recommendations</a>
                         <a href="/allminors">All Minors</a>
                         <a href="/profile">Profile</a>
                         <a href="/about">About</a>
