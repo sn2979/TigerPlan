@@ -65,6 +65,13 @@
   float: left; /* Align it to the left */
 }
 
+#char-limit-warning {
+    display: none;
+    color: #ffe6b3; /* Set the color of the text */
+    font-size: 16px;
+    padding-left: 20px;
+}
+
 #class-input {
   width: 95%; /* Full width of the container */
   padding: 10px; /* Padding for aesthetic spacing inside the input */
@@ -155,7 +162,9 @@ body {
   
   <section id="class-selection">
     <div id="left-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <input type="text" id="class-input" placeholder="Search classes...">
+      <input type="text" id="class-input" placeholder="Search classes..." maxlength="60" oninput="checkInputLength()">
+      <div id="char-limit-warning">Character limit reached!</div>
+
       <div id="class-list">
         
         <!-- Repeat for each class -->
@@ -198,6 +207,21 @@ body {
         // Remove the placeholder message
         dropArea.removeChild(dropArea.children[0]);
       }
+    }
+  }
+
+  function checkInputLength() {
+    var input = document.getElementById("class-input");
+    var maxLength = parseInt(input.getAttribute("maxlength"));
+    var currentLength = input.value.length;
+    var warningMsg = document.getElementById("char-limit-warning");
+
+    if (currentLength >= maxLength) {
+        // Show warning message and truncate input value
+        input.value = input.value.slice(0, maxLength);
+        warningMsg.style.display = "block"; // Display warning message
+    } else {
+        warningMsg.style.display = "none"; // Hide warning message
     }
   }
 
