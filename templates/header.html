@@ -54,6 +54,23 @@
             display: block;
         }
         .dropdown-content a:hover {background-color: coral;}
+
+        /* Media Query */
+        @media (max-width: 1100px) {
+            .dropdown {
+                display: block; /* Show dropdown at smaller screen sizes */
+            }
+
+            nav > ul > li {
+                display: none; /* Hide regular nav items at smaller screen sizes */
+            }
+
+            .dropbtn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
