@@ -44,6 +44,8 @@ def get_desc(minorId):
 def get_all_minors():
     try:
         minors = minors_collection.find({})
+        # sort them alphabetically by code
+        minors = sorted(minors, key=lambda x: x['code'])
         return minors
     except Exception as e:
         print("An error occurred while getting all minors:", e)

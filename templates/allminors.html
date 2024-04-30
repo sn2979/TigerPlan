@@ -22,11 +22,13 @@
     width: 100%;
     padding: 10px;
     margin: 0px;
-    background-color: #ffd699;
+    background-color: #F7A072;
     /*color should be a good contrast to background color*/
-    color: #333333;
+    color: black;
     border: none;
     cursor: pointer;
+    text-align: left; /* align to left with padding*/
+    padding-left: 20px;
     font-size: 15px;
     border-radius: 0;
     box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
@@ -76,7 +78,7 @@
   height: auto; /* Set the maximum height for scrolling */
   overflow-y: auto; /* Enable vertical scrolling when content overflows */
   width: 20%; /* Adjust width as necessary */
-  background-color: #ffd699; /* For contrast against the class items */
+  background-color: #F7A072; /* For contrast against the class items */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
   margin-right: 120px; /* Spacing between this container and whatever is to the right */
   margin-left: 0px; /* Spacing between this container and whatever is to the right */
@@ -167,9 +169,9 @@ body {
 
   <div id="right-container">
     <section id="main-content">
-        <p><span class="roboto">All Minors</span></p>
+        <p><span class="roboto">What minors are </span><span class="caveat">you</span><span class="roboto"> closest to?</span></p>
       </section>
-      <p><center id = "sub">Click on a minor on the side to see how close you are to fulfilling it!</center></p>
+      <p><center id = "sub">Click on a minor to see how close you are to earning it!</center></p>
       <br>
     <div id="minor-card-container">
     </div>
@@ -278,17 +280,59 @@ body {
 
     // Function to open modal with specified minor and description
     function openModal(minor, desc) {
-        var modal = $('#' + minor + "-modal");
-        if (modal.length) {
-            modal.show();
-            modal.find("h2").text(minor);
-            var treeDescription = modal.find(".grey-boxes").attr("data-tree");
-            var generatedHTML = generateHTML(JSON.parse(treeDescription));
-            modal.find(".grey-boxes").html(generatedHTML);
-            modal.find("#description").text(desc);
-            modal.find(".modal-descBox").css("overflowY", "auto"); // Enable scrolling
+        var modalId = minor + "-modal";
+        var modal = document.getElementById(modalId);
+        console.log(modal);
+        if (modal) {
+            //modal background color should match card color
+            //var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
+            //modalContent.style.backgroundColor = cardBackgroundColor;
+
+            modal.style.display = "block";
         }
-        attachToggleListeners(); // Attach toggle listeners after modal content is loaded
+        var modalContent = modal.querySelector(".modal-content");
+        modalContent.querySelector("h2").textContent = minor;
+
+        // Retrieve the data-tree attribute (JSON string)
+        var treeDescription = modalContent.querySelector(".grey-boxes").getAttribute("data-tree");
+        
+        console.log('treeDescription', treeDescription);
+
+        if (!treeDescription) {
+            // fill the modal with the description
+            modalContent.querySelector("#description").textContent = desc;
+            // fill grey-boxes with message "you have no classes that count toward this minor!"
+            modalContent.querySelector(".grey-boxes").innerHTML = "<p>You have no classes that count toward this minor!</p>";
+
+            return;
+        }
+
+        // Use the new generateHTML function
+        var generatedHTML = generateHTML(JSON.parse(treeDescription));
+
+
+        // Insert the generated HTML into the modal content container
+        var htmlContainer = modalContent.querySelector(".grey-boxes");
+        console.log("here is the generated html")
+        console.log(generatedHTML)
+        htmlContainer.innerHTML = generatedHTML;
+        //htmlContainer.set('html', generatedHTML);
+
+        if (htmlContainer.childNodes.length) {
+            attachToggleListeners();
+        }
+
+        // Get the paragraph element to display the description
+        let descriptionParagraph = modalContent.querySelector("#description");
+        console.log('description paragraph', descriptionParagraph.textContent);
+
+        // Check if the description length exceeds the maximum length
+        
+        descriptionParagraph.textContent = desc; // Show full description
+        modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Enable scrolling
+
+        
+        modalContent.querySelector(".grey-boxes").style.overflowY = "auto"; // Enable scrolling
     }
 
     // Event delegation for dynamically added elements

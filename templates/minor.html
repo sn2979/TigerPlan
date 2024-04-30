@@ -5,8 +5,8 @@
         <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 
         <style>
-            .card {
-            background-color: #FF9B42; /* card background color */
+        .card {
+            background-color: #ffd699; /* card background color */
             margin-bottom: 10px;
             padding: 20px;
             text-align: center;
@@ -327,9 +327,17 @@
             <div id="{{ course['minor'] }}" class="card course-card" data-minor="{{ course['minor'] }}" data-desc="{{ course['desc'] }}">
                 <h3 class="card-title">{{ course['minor'] }}</h3>
                 <p>  </p>
-                <p class="card-text" style='line-height: 8px;'>You need</p>
-                <h1 style='line-height: 1px; font-size: 50px;'>{{ course['distance'] }} </h1>
-                <p>more classes to fulfill this minor!</p>
+                {% if course['distance'] is defined %}
+                    {% if course['distance'] > 100 %}
+                        <p class="card-text" style="line-height: 1.2;">You have no classes that count toward this minor!</p>
+                    {% elif course['distance'] <= 100 %}
+                        <p class="card-text" style="line-height: 1.2;">You need</p>
+                        <h1 style="line-height: 1.2; font-size: 50px;">{{ course['distance'] }}</h1>
+                        <p style="line-height: 1.2;">more classes to fulfill this minor!</p>
+                    {% endif %}
+                {% else %}
+                    <p class="card-text" style="line-height: 1.2;">Distance information not available.</p>
+                {% endif %}
             </div>
         </center>
     
