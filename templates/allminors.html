@@ -139,321 +139,6 @@ body {
   margin-bottom: 50px;
 }
 
-.card {
-    background-color: #FF9B42; /* card background color */
-    margin-bottom: 10px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    border: 0px solid black; /* card border */
-    border-radius: 20px;
-    transition: transform 0.2s; /* smooth transform on hover */
-    font-family: 'Caveat Brush', brush;
-    width: 325px;
-    height: 450px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3)
-  }
-
-  .card p {
-    font-family: 'Roboto Serif', serif;
-    font-size: 30px;
-    margin-top: 20%;
-    flex: 1; /* Let the title take up space evenly */
-  }
-
-  .card h3 {
-    word-wrap:break-word;
-
-  }
-  .card:hover {
-    transform: translateY(-5px); /* raise the card slightly on hover */
-  }
-
-  .card:nth-child(2) {
-    background-color: #F7A072; /* second card background color */
-  }
-
-  .card:nth-child(3) {
-    background-color: #ffd699; /* third card background color */
-  }
-
-  .card-title {
-    font-size: 40px; /* title font size */
-    margin-bottom: 5px;
-  }
-
-  .card-text {
-    font-size: 16px; /* text font size */
-    flex: 1; /* Let the title take up space evenly */
-    margin-bottom: 50px;
-  }
-
-  .container {
-    display: flex;
-    justify-content: center; /* Centers the cards in the container */
-    flex-wrap: wrap; /* Allows cards to wrap to next line on small screens */
-    gap: 20px; /* Adjust the space between cards */
-    padding: 20px;
-    justify-content: center; /* Centers the cards horizontally */
-    align-items: center; /* Centers the cards vertically */
-  }
-
-
-  /* Styles for the modal popup */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3)
-  }
-
-  .modal-content {
-    background-color: #FF9B42; /* Light grey background */
-    margin: 10% auto; /* Adjust vertical margin for centering */
-    padding: 40px; /* Increase padding for content spacing */
-    border: 0px solid #e0e0e0; /* card border */
-    border-radius: 20px;
-    width: 95%; /* Increase width to 90% of the viewport */
-    max-width: 1100px; /* Set maximum width for larger screens */
-    height: 70%; /* Increase width to 90% of the viewport */
-    max-height: 600px; /* Set maximum width for larger screens */
-    text-align: center;
-    font-family: 'Roboto Serif', serif;
-    font-size: 30px; /* text font size */
-    position: relative; /* Ensure relative positioning for absolute positioned close button */
-    word-wrap: break-word;
-
-  }
-
-  .modal-content:nth-child(2) {
-    background-color: #F7A072; 
-  }
-
-  .modal-content:nth-child(3) {
-    background-color: #ffd699; 
-  }
-
-
-  .modal-descBox {
-    background-color: #FFFFCC; /* Light yellow background */
-    /*margin-bottom: 10px;*/
-    padding: 20px;
-    text-align: center;
-    font-family: 'Caveat Brush', brush;
-    width: calc(50% - 40px); /* Set width to half of the modal width minus padding */
-    position: absolute; /* Position absolutely within the modal */
-    top: 50%; /* Align to the vertical center */
-    right: 20px; /* Align to the right */
-    transform: translateY(-50%); /* Adjust for vertical centering */
-    border-radius: 10px; /* Add rounded corners */
-
-    width: 50%; /* Increase width to 90% of the viewport */
-    max-width: 450px; /* Set maximum width for larger screens */
-    height: 85%; /* Increase width to 90% of the viewport */
-    max-height: 700px; /* Set maximum width for larger screens */
-
-  }
-  .modal-content .modal-descBox p {
-    font-size: 20px; /* Adjust the font size as needed */
-  }
-  .modal-content h2 {
-    /*font-family: 'Caveat Brush', brush;*/
-    font-size: 55px; /* title font size */
-    margin-bottom: 10px;
-    margin-left: 20px; /* Adjust the left margin to move it more towards the center */
-    margin-right: auto; /* Set right margin to auto for centering */
-    text-align: left; /* Align the text to the left */
-    /*wrap text if it's too long*/
-    word-wrap: break-word;
-  }
-
-  .modal-content p {
-    font-family: 'Roboto Serif', serif;
-    font-size: 30px; /* text font size */
-  }
-
-  .grey-boxes {
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column; /* Stack boxes vertically */
-    align-items: flex-start; /* Align to the left */
-    margin-top: 15px;
-
-    background-color: #C6C6C6;
-
-    /*margin-bottom: 10px;*/
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 0;
-    padding-right: 0;
-    text-align: center;
-    width: calc(50% - 30px); /* Set width to half of the modal width minus padding */
-    position: absolute; /* Position absolutely within the modal */
-    top: 60%; /* Align to the vertical center */
-    left: 20px; /* Align to the right */
-    transform: translateY(-60%); /* Adjust for vertical centering */
-    border-radius: 10px; /* Add rounded corners */
-
-    width: 70%; /* Increase width to 90% of the viewport */
-    max-width: 500px; /* Set maximum width for larger screens */
-    height: 70%; /* Increase width to 90% of the viewport */
-    max-height: 700px; /* Set maximum width for larger screens */
-
-  }
-
-  .root-container {
-    display: flex;
-    width: 100%;
-    height: 140%;
-    margin: 0;
-    flex-direction: column;
-    align-items: center;
-    padding:0px;
-    background-color: #C6C6C6;
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);*/
-  }
-  
-  .node {
-    font-size: 140%;
-    overflow-y: auto;  
-    background-color: #ffd699;
-    width: 90%; /* Set width to 45% of the modal */
-    max-width: 500px;
-    height: auto; /* Set height to auto */
-    margin-bottom: 20px; /* Add margin between boxes */
-    margin-left: 0;
-    margin-right: 0;
-    border-radius: 10px;
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
-    z-index: 2;
-    position: relative; /* Needed for absolute positioning of the arrow */
-    padding: 10px; /* Make space for the arrow */
-    align-items: left;
-
-  }
-
-  .reqname::before {
-    content: '▶'; /* Right-pointing arrow */
-    font-size: 12px; /* Smaller arrow size */
-    margin-right: 5px;
-    cursor: pointer; /* Change cursor to indicate this can be clicked */
-  }
-
-  .reqname {
-    /*weak bold*/
-    cursor: pointer;
-    font-family: 'Caveat Brush', brush;
-  }
-
-  /* Style for the toggle arrow when the container is open */
-  .reqname.open::before {
-    content: '▼'; /* Downward-pointing arrow when open */
-  }
-
-  .subreqname::before {
-    content: '▶'; /* Right-pointing arrow */
-    font-size: 12px; /* Smaller arrow size */
-    margin-right: 5px;
-    cursor: pointer; /* Change cursor to indicate this can be clicked */
-  }
-
-  .subreqname {
-    /*weak bold*/
-    cursor: pointer;
-    font-weight: bold; /* Make the label bold */
-  }
-
-  /* Style for the toggle arrow when the container is open */
-  .subreqname.open::before {
-    content: '▼'; /* Downward-pointing arrow when open */
-  }
-
-  /* Initially hide the details and child lists */
-  .details, .children-container {
-    display: none;
-    font-size: 15px;
-    text-align: left;
-    padding-left: 20px;
-  }
-
-  /* Show the details and child lists when their parent is open */
-  .reqname.open + .details, .children-container.open {
-    display: block;
-  }
-
-  /* Show the details and child lists when their parent is open */
-  .subreqname.open + .details, .children-container.open {
-    display: block;
-  }
-
-  /* Style for classlist */
-  .classlist {
-    margin-left: 0; /* Adjust margin to align with reqname */
-  }
-
-  .classlist_label {
-    font-weight: bold; /* Make the label bold */
-    cursor: pointer; /* Change cursor to indicate this can be clicked */
-  }
-
-  .classlist_label::before {
-    font-weight: bold; /* Make the label bold */
-    content: '▼'; /* Downward-pointing arrow when open */
-    font-size: 12px; /* Smaller arrow size */
-  }
-
-  /* Adjust the arrow direction for open state */
-  .classlist_label.open::before {
-    content: '▶'; /* Downward-pointing arrow when open */
-  }
-
-  /* Show classlist when its parent is open */
-  .reqname.open + .details .classlist {
-    display: block;
-  }
-
-  /* Ensure list items are displayed properly */
-  .classlist ul {
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Ensure list items have proper spacing */
-  .classlist ul li {
-    list-style-type: none; /* Remove default list style */
-    margin-left: 20px; /* Adjust margin to align with reqname and classlist */
-  }
-
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 30px;
-    cursor: pointer;
-    color: #000; /* Adjust color for visibility */
-  }
-
-  /* Styles for description paragraph */
-  .modal-content p {
-      font-size: 20px;
-      overflow: hidden; /* Hide overflow content */
-      text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
-      /*white-space: nowrap; /* Prevent text wrapping */
-      cursor: pointer; /* Set cursor to pointer for clickable text */
-  }
-
-  /* Styles for scrolling description */
-  .modal-content p.full-description {
-    overflow-y: auto; /* Hide vertical scrollbar initially */
-    max-height: 200px; /* Limit maximum height before scrolling */
-  }
-
 </style>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 </head>
@@ -468,7 +153,9 @@ body {
       <div id="minor-list">
         <!--Minor list buttons-->
         {% for minor in minors %}
-          <button class="minor-button" data-code="{{ minor['code'] }}">{{ minor['code'] }} - {{ minor['name'] }}</button>
+        <button class="minor-button" data-code="{{ minor['code'] }}">
+            {{ minor['code'] }} - {{ minor['name'] }}
+          </button>
         {% endfor %}
       </div>
     </div> 
@@ -495,6 +182,47 @@ body {
 
 <script>
   'use strict';
+  document.addEventListener('DOMContentLoaded', function() {
+  const minorButtons = document.querySelectorAll('.minor-button');
+  
+  minorButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const minorCode = this.getAttribute('data-code');
+      redirectToDistance(minorCode);
+    });
+  });
+
+  function redirectToDistance(minorCode) {
+    // Redirect to /distance with the provided minor code
+    window.location.href = '/distance?code=' + encodeURIComponent(minorCode);
+  }
+});
+
+$(document).ready(function() {
+        // Handle minor button click
+        $('.minor-button').on('click', function() {
+            var minorCode = $(this).data('code');
+            fetchMinorInformation(minorCode);
+        });
+
+        // Function to fetch updated minor information
+        function fetchMinorInformation(minorCode) {
+            $.ajax({
+                url: '/distance',
+                method: 'GET',
+                data: {
+                    code: minorCode
+                },
+                success: function(response) {
+                    // Update the minor card content with the fetched data
+                    $('#minor-card').html(response);
+                },
+                error: function(error) {
+                    console.error('Error fetching minor information:', error);
+                }
+            });
+        }
+    });
 </script>
 
 </body>

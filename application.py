@@ -11,6 +11,7 @@ import auth
 import recommendation
 import courses as course_dicts
 import recommender2
+import math
 
 app = flask.Flask(__name__,  template_folder='templates')
 app.secret_key = '12345'
@@ -211,6 +212,24 @@ def generate_and_store_recommendations(username):
     print("stored!")
 
     return recommended_courses
+
+def distance_to_minor(username, class_list, minor):
+    courses = recommendation.categorize_courses(class_list, course_dicts.get_courses(minor))
+    subrequirements = course_dicts.get_minor_requirements(minor)
+
+    _, combinations = recommender2.generate_combinations(courses, subrequirements)
+    if len(combinations) == 0:
+        best_combination = []
+        tree_description = ''
+        distance = math.inf
+    else:
+        best_combination, _, classes_taken_needed, _, tree_description = recommender2.find_best_combination(minor, combinations, subrequirements)
+        distance = classes_taken_needed[1] - classes_taken_needed[0]
+
+    course =  {'distance': distance, 'minor': minor, 'best_combination': best_combination, 'tree_description': tree_description}
+
+    return course
+    
         
 #-----------------------------------------------------------------------
 #Routes for authentication. 
@@ -301,6 +320,7 @@ def set_profile():
     return flask.redirect('/classboard')
 
 #-----------------------------------------------------------------------
+# Routes for All Minors page
 @app.route('/allminors', methods=['GET'])
 def allminors():
     success, username, _ = get_user_info()
@@ -314,6 +334,36 @@ def allminors():
     html_code = flask.render_template("allminors.html", username=username, minors=minors)
     response = flask.make_response(html_code)
     return response
+
+@app.route('/distance', methods=['GET'])
+def minor():
+    success, username, _ = get_user_info()
+    if username is None:
+        return login_required(previous_page_url='/minor')
+    if not success:
+        error_message = f"An error occurred: {str(username)}"
+        return flask.render_template("error.html", error=error_message), 500
+    
+    # find the distance to the clicked on minor
+    minor_code = request.args.get('code')
+    print(minor_code)
+
+    # recommendation logic using recommender2
+    class_list = student_database.get_student_coursenums(username)
+
+    recommendation = distance_to_minor(username, class_list, minor_code)
+
+
+    recommendation['minorid'] = recommendation['minor']
+    recommendation['minor'] = map_major_id_to_name(recommendation['minor'])
+    #reminder to self to add truncation of description if too long
+    recommendation['desc'] = minors_database.get_desc(recommendation['minorid'])
+    recommendation['urls'] = minors_database.get_urls(recommendation['minorid'])
+
+    return flask.render_template("minor.html", username=username, course=recommendation)
+
+    
+
 
 #-----------------------------------------------------------------------
 #Routes for classboard. 
