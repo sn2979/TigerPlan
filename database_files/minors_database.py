@@ -41,6 +41,14 @@ def get_desc(minorId):
         print("An error occurred while getting minor description:", e)
         return ""
 
+def get_all_minors():
+    try:
+        minors = minors_collection.find({})
+        return minors
+    except Exception as e:
+        print("An error occurred while getting all minors:", e)
+        return []
+
 #Function to get minor URLs
 def get_urls(minorId):
     try:
@@ -87,8 +95,13 @@ def main():
         name = get_name_from_code(minorID)
         id = get_code_from_name(name)
 
-        print(name)
-        print(id)
+        # test get_all_minors
+        minors = get_all_minors()
+
+        #print(name)
+        #print(id)
+        for minor in minors:
+            print(minor['code'])
     except Exception as e:
         print("An error occurred:", e)
 
