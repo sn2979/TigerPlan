@@ -30,12 +30,9 @@ def login_required(previous_page_url):
 @app.route('/index', methods=['GET'])
 def index():
     username = flask.session.get('username')
-    #if username is None:
     html_code = flask.render_template("homepage.html", username=username)
     response = flask.make_response(html_code)
     return response
-    #else:
-        #return flask.redirect('/classboard')
 
 #-----------------------------------------------------------------------
 #username and classes retrieval 
