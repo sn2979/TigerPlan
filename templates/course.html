@@ -2,5 +2,6 @@
    <div class="course" draggable="true" id="{{course['dept_num']}}" ondragstart="drag(event)">
       <h2 id="deptnum">{{course["dept_num"]}}</h2>
       <p id="title"> {{course["title"]}}</p>
+      <button class="add-course-btn" data-course-id="{{ course['dept_num'] }}">+</button>
    </div>
 {% endfor %}
