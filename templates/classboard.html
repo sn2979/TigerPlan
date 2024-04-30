@@ -123,19 +123,20 @@ body {
   margin-bottom: 50px;
 }
 
-.grid-item button {
-  padding: 5px 10px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #4CAF50; /* Green background for add */
-  color: white;
-}
-
-.grid-item button:last-of-type {
-  background-color: #f44336; /* Red background for remove */
-}
+.remove-course-btn {
+   background-color: coral;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+      text-align: center; /* Align text horizontally */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+   }
 
 </style>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
@@ -282,9 +283,13 @@ body {
 
     // Populate the new container with course details
     newCourseContainer.innerHTML = `
-      <h2>${courseNum}</h2>
-      <p>${courseTitle}</p>
-      <button class="remove-course-btn" data-course-id="${courseId}-container">-</button>
+    <div class="left-course-info">
+          <h2 id="deptnum">${courseNum}</h2>
+          <p id="title">${courseTitle}</p>
+        </div>
+        <div class="right-course-info">
+          <button class="remove-course-btn" data-course-id="${courseId}">-</button>
+        </div>
     `;
 
     // Append the new grid item container to the drop area
