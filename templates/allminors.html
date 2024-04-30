@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TigerPlan</title>
+ <!-- Include jQuery from a CDN -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <style> * {
   box-sizing: border-box;
   margin: 0;
@@ -26,7 +29,7 @@
     cursor: pointer;
     font-size: 15px;
     border-radius: 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
     transition: transform 0.2s ease-in-out; /* Add smooth transition on hover */
 
     /* 3D effect on hover */
@@ -168,61 +171,149 @@ body {
       </section>
       <p><center id = "sub">Click on a minor on the side to see how close you are to fulfilling it!</center></p>
       <br>
-    <div id="minor-card">
+    <div id="minor-card-container">
     </div>
-  </div>
-
-
-  <div id="button-container"> 
-    <center>
-      <button id="recommend-minors-btn" onclick="window.location.href='/recommend'">Recommend Minors</button>
-    </center>
   </div>
 </main>
 
 <script>
   'use strict';
-  document.addEventListener('DOMContentLoaded', function() {
-  const minorButtons = document.querySelectorAll('.minor-button');
-  
-  minorButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const minorCode = this.getAttribute('data-code');
-      redirectToDistance(minorCode);
-    });
-  });
+  $(document).ready(function() {
+    // Function to adjust font size based on text length
+    function adjustFontSize() {
+        // Select all elements with class 'node'
+        var nodes = document.querySelectorAll('.node');
 
-  function redirectToDistance(minorCode) {
-    // Redirect to /distance with the provided minor code
-    window.location.href = '/distance?code=' + encodeURIComponent(minorCode);
-  }
-});
+        // Loop through each node element
+        nodes.forEach(function(node) {
+            // Get the text content length
+            var textLength = node.textContent.trim().length;
 
-$(document).ready(function() {
-        // Handle minor button click
-        $('.minor-button').on('click', function() {
-            var minorCode = $(this).data('code');
-            fetchMinorInformation(minorCode);
+            // Calculate font size based on text length (example logic)
+            var fontSize = 100 - (textLength * 2); // Adjust as per your requirement
+
+            // Set the calculated font size to the node element
+            node.style.fontSize = fontSize + '%';
         });
+    }
 
-        // Function to fetch updated minor information
-        function fetchMinorInformation(minorCode) {
-            $.ajax({
-                url: '/distance',
-                method: 'GET',
-                data: {
-                    code: minorCode
-                },
-                success: function(response) {
-                    // Update the minor card content with the fetched data
-                    $('#minor-card').html(response);
-                },
-                error: function(error) {
-                    console.error('Error fetching minor information:', error);
+    // Event listener for minor button click
+    $(document).on('click', '.minor-button', function() {
+        var minorCode = $(this).data('code');
+        fetchMinorInformation(minorCode);
+    });
+
+    // Function to fetch and display minor information
+    function fetchMinorInformation(minorCode) {
+        $.ajax({
+            url: '/distance',
+            method: 'GET',
+            data: { code: minorCode },
+            success: function(response) {
+                $('#minor-card-container').html(response);
+                adjustFontSize(); // Adjust font size after content is loaded
+            },
+            error: function(error) {
+                console.error('Error fetching minor information:', error);
+            }
+        });
+    }
+
+    // Function to generate HTML based on JSON data
+    function generateHTML(jsonData) {
+        // Function to create HTML for a single node
+        function createNodeHtml(node) {
+            const nodeElement = document.createElement('div');
+            nodeElement.className = 'node';
+            nodeElement.innerHTML = `
+                <div class="reqname">${node.name} (${node.classes_taken}/${node.classes_needed})</div>
+                <div class="details">
+                    <div class="subreqname">Details</div>
+                    <div class="summary-info">
+                        <div>Classes taken: ${node.classes_taken}</div>
+                        <div>Classes needed: ${node.classes_needed}</div>
+                        <div>Classes remaining: ${node.classes_remaining}</div>
+                        <div class="classlist">
+                            <div class="classlist_label">Your Classes:</div>
+                            <ul>
+                                ${node.class_list.map(className => `<li>${className}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return nodeElement;
+        }
+
+        // Function to recursively append children
+        function appendChildren(parentElement, children) {
+            children.forEach(child => {
+                const childElement = createNodeHtml(child);
+                
+                if (child.children && child.children.length > 0) {
+                    childElement.querySelector('.details').innerHTML += `
+                        <div class="reqname">...</div>
+                        <div class="children-container"></div>
+                    `;
+                    const childrenContainer = childElement.querySelector('.children-container');
+                    appendChildren(childrenContainer, child.children);
+                    childElement.querySelector('.details').appendChild(childrenContainer);
                 }
+                parentElement.appendChild(childElement);
             });
         }
+
+        const rootElement = document.createElement('div');
+        rootElement.style.margin = 'auto';
+        rootElement.className = 'root-container';
+        
+        if (jsonData.children && jsonData.children.length > 0) {
+            appendChildren(rootElement, jsonData.children);
+        } else {
+            rootElement.appendChild(createNodeHtml(jsonData));
+        }
+
+        return rootElement.outerHTML;
+    }
+
+    // Function to open modal with specified minor and description
+    function openModal(minor, desc) {
+        var modal = $('#' + minor + "-modal");
+        if (modal.length) {
+            modal.show();
+            modal.find("h2").text(minor);
+            var treeDescription = modal.find(".grey-boxes").attr("data-tree");
+            var generatedHTML = generateHTML(JSON.parse(treeDescription));
+            modal.find(".grey-boxes").html(generatedHTML);
+            modal.find("#description").text(desc);
+            modal.find(".modal-descBox").css("overflowY", "auto"); // Enable scrolling
+        }
+        attachToggleListeners(); // Attach toggle listeners after modal content is loaded
+    }
+
+    // Event delegation for dynamically added elements
+    $(document).on('click', '.course-card', function() {
+        var minor = $(this).data('minor');
+        var desc = $(this).data('desc');
+        openModal(minor, desc);
     });
+
+    // Event delegation for modal close buttons
+    $(document).on('click', '.close', function() {
+        $(this).closest(".modal").hide();
+    });
+
+    // Event listener to close modals when clicking outside
+    $(document).on('click', function(event) {
+        if ($(event.target).hasClass("modal")) {
+            $(".modal").hide();
+        }
+    });
+
+    adjustFontSize(); // Initial font size adjustment
+
+});
+    
 </script>
 
 </body>

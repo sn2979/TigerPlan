@@ -323,33 +323,34 @@
     </head>
 
     <body>
-        <div id="{{ course['minor'] }}" class="card course-card" data-minor="{{ course['minor'] }}" data-desc="{{ course['desc'] }}">
-            <h3 class="card-title">{{ course['minor'] }}</h3>
-            <p>  </p>
-            <p class="card-text" style='line-height: 8px;'>You need</p>
-            <h1 style='line-height: 1px; font-size: 50px;'>{{ course['distance'] }} </h1>
-            <p>more classes to fulfill this minor!</p>
-        </div>
+        <center>
+            <div id="{{ course['minor'] }}" class="card course-card" data-minor="{{ course['minor'] }}" data-desc="{{ course['desc'] }}">
+                <h3 class="card-title">{{ course['minor'] }}</h3>
+                <p>  </p>
+                <p class="card-text" style='line-height: 8px;'>You need</p>
+                <h1 style='line-height: 1px; font-size: 50px;'>{{ course['distance'] }} </h1>
+                <p>more classes to fulfill this minor!</p>
+            </div>
+        </center>
     
         <!-- Modal for {{ course['minor'] }} -->
         <div id="{{ course['minor'] }}-modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>{{ course['minor'] }}</h2>
-                  
+                
                 <div class="grey-boxes" data-tree="{{course['tree_description']}}">
                 </div>
                 <div id="modal-text"></div>
                 <div class= "modal-descBox">
-                  <p id = "description" class = "modal-descText"></p>
+                    <p id = "description" class = "modal-descText"></p>
                 </div>
-          
             </div>
         </div>
     </body>
 
     <script>
-         // Function to adjust font size based on text length
+        // Function to adjust font size based on text length
         function adjustFontSize() {
         // Select all elements with class 'node'
         var nodes = document.querySelectorAll('.node');
@@ -369,27 +370,21 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         // Get all course cards
-        var courseCards = document.querySelectorAll(".course-card");
+        let card = document.querySelectorAll(".course-card");
+        let minor = card.getAttribute("data-minor");
+        let desc = card.getAttribute("data-desc")
 
-        // Loop through each course card
-        courseCards.forEach(function(card) {
-            // Add click event listener to each course card
-            let minor = card.getAttribute("data-minor");
-            let desc = card.getAttribute("data-desc");
-            // Get the data attributes from the clicked course card
-            card.addEventListener("click", function() {
+        console.log('card', card);
+
+        card.addEventListener("click", function() {
                 // Call the openModal function with the extracted data
                 openModal(minor, desc);
-            });
         });
 
         // Get all modal close buttons (assuming they have a class of "close")
-        var modalCloseButtons = document.querySelectorAll(".close");
+        var closeButton = document.querySelectorAll(".close");
 
-        // Loop through each modal close button
-        modalCloseButtons.forEach(function(button) {
-            // Add click event listener to each button
-            button.addEventListener("click", function() {
+        closeButton.addEventListener("click", function() {
                 // Get the closest modal (parent modal) to the button clicked
                 var modal = this.closest(".modal");
                 
@@ -398,17 +393,14 @@
                     modal.style.display = "none";
                 }
             });
-        });
 
         // When the user clicks anywhere outside of a modal, close it
         window.onclick = function(event) {
             // Check if click event occurred outside of any modal
             if (event.target.classList.contains("modal")) {
                 // Hide all modals (assuming modals have a class of "modal")
-                var modals = document.querySelectorAll(".modal");
-                modals.forEach(function(modal) {
-                    modal.style.display = "none";
-                });
+                let modal = document.querySelectorAll(".modal");
+                modal.style.display = "none";
             }
         };
         adjustFontSize(); // Initial font size adjustment
@@ -438,7 +430,7 @@
         </div>
         `;
         return nodeElement;
-        }
+    }
 
         // Function to recursively go through the tree and append children
         function appendChildren(parentElement, children) {
@@ -492,7 +484,7 @@
         //var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
         //modalContent.style.backgroundColor = cardBackgroundColor;
 
-        modal.style.display = "block";
+            modal.style.display = "block";
         }
 
         // You can populate modal content dynamically using the passed 'minor' and 'desc'
@@ -572,6 +564,7 @@
         });
     });
     }
+
     </script>
     
 
