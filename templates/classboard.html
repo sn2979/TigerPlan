@@ -389,7 +389,9 @@ body {
     let data = ev.dataTransfer.getData("text");
 
     let courseElement = document.getElementById(data);
-    if (courseElement) {
+    //only remove element if it contains "-container" in its id
+
+    if (courseElement && data.includes('container')) {
       // Extract course ID from the element ID
       let courseId = courseElement.id.slice(0, courseElement.id.indexOf('-container'));
 
