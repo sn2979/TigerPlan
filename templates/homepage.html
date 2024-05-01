@@ -10,12 +10,20 @@
 <body>
 
 {% set username = username %}
+{% if username %}
+{% include 'header.html' %}
+{% else %}
 {% include 'homepageheader.html' %}
+{% endif %}
 <main>
   <section id="main-content">
     <p>TigerPlan helps Princeton students find <br>minors that fit with their classes.</p>
     <div class="button-container">
+        {% if username %}
+        <button onclick="location.href='/classboard'">Click here to go to your classboard!</button>
+        {% else %}
         <button onclick="location.href='/login'">Login for your recommendations!</button>
+        {% endif %}
       </div>
   </section>
 
