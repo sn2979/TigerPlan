@@ -15,8 +15,9 @@
 
 #right-container {
   width: 65%; /* Adjust based on your layout */
-  float: left; /* If you are using a float-based layout */
+  float: right; /* If you are using a float-based layout */
   /* For Flexbox, you'd adjust accordingly */
+  margin-right: 20px; /* Spacing between this container and whatever is to the right */
 }
 
 #drop-area {
@@ -62,6 +63,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
   margin-right: 20px; /* Spacing between this container and whatever is to the right */
   margin-left: 20px; /* Spacing between this container and whatever is to the right */
+  margin-bottom: 20px;
   float: left; /* Align it to the left */
 }
 
@@ -128,6 +130,9 @@ body {
   width: 30%;
   align-items: center;
   margin-bottom: 50px;
+  margin-top: 0;
+  float: left;
+  margin-left: 20px;
 }
 
 .remove-course-btn {
@@ -144,6 +149,58 @@ body {
       align-items: center;
       cursor: pointer;
    }
+
+   @media (max-width: 1200px) and (min-width: 801px) {
+   #right-container {
+      float: left; /* Set float to left for right container */
+      margin-right: 0; /* Remove right margin */
+    }
+  }
+
+   /* Media query for smaller screens */
+  @media (max-width: 800px) {
+    body {
+      font-size: 14px; /* Reduce base font size for smaller screens */
+    }
+
+    #container {
+      width: 90%; /* Adjust container width for smaller screens */
+    }
+
+    #right-container {
+      width: 100%; /* Adjust container width for smaller screens */
+    }
+
+    #left-container {
+      width: 66%;
+      min-height: 200px;
+      max-height: 300px; /* Adjust the maximum height as needed */
+      margin-left: auto;
+      margin-right: auto;
+      
+
+    }
+
+    #right-container, #left-container,#recommend-minors-btn{
+      
+      float: none; /* Remove float to stack containers vertically */
+    }
+
+    #class-input {
+      width: 96%; /* Adjust input field width for smaller screens */
+      font-size: 0.9em; /* Reduce font size for input field on smaller screens */
+    }
+
+    .grid-item {
+      width: 100%; /* Adjust course item width for smaller screens */
+      font-size: 0.9em; /* Reduce font size for course items on smaller screens */
+    }
+    #recommend-minors-btn {
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1.5em; /* Reduce font size for button on smaller screens */
+    }
+  }
 
 </style>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
