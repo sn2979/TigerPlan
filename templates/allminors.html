@@ -157,6 +157,44 @@ body {
   margin-bottom: 50px;
 }
 
+@media (max-width: 1200px) and (min-width: 801px) {
+   #right-container {
+      float: left; /* Set float to left for right container */
+      margin-right: 0; /* Remove right margin */
+    }
+  }
+
+   /* Media query for smaller screens */
+  @media (max-width: 800px) {
+    body {
+      font-size: 14px; /* Reduce base font size for smaller screens */
+    }
+
+    #container {
+      width: 90%; /* Adjust container width for smaller screens */
+    }
+
+    #right-container {
+      width: 100%; /* Adjust container width for smaller screens */
+    }
+
+    #left-container {
+      width: 100%;
+      min-height: 200px;
+      max-height: 300px; /* Adjust the maximum height as needed */
+      margin-left: auto;
+      margin-right: auto;
+      
+
+    }
+
+    #right-container, #left-container,#recommend-minors-btn{
+      
+      float: none; /* Remove float to stack containers vertically */
+    }
+
+  }
+
 </style>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 </head>
