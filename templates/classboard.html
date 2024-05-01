@@ -127,28 +127,29 @@ body {
 
 #recommend-minors-btn {
   display: block;
-  width: 30%;
+  width: 40%;
   align-items: center;
   margin-bottom: 50px;
   margin-top: 0;
-  float: left;
-  margin-left: 20px;
+  margin-left: auto;
+  margin-right: 30%;
+  font-size: 2em;
 }
 
 .remove-course-btn {
    background-color: coral;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      font-size: 20px;
-      text-align: center; /* Align text horizontally */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-   }
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center; /* Align text horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 
    @media (max-width: 1200px) and (min-width: 801px) {
    #right-container {
@@ -234,14 +235,15 @@ body {
     <div id="drop-area" ondrop="drop_area(event)" ondragover="allowDrop(event)">
       <center id="placeholder"><p>Drag your classes here</p></center>
     </div>
+    <div id="button-container"> 
+      <center>
+        <button id="recommend-minors-btn" onclick="window.location.href='/recommend'">Recommend Minors</button>
+      </center>
+    </div>
   </div>
 
 
-  <div id="button-container"> 
-    <center>
-      <button id="recommend-minors-btn" onclick="window.location.href='/recommend'">Recommend Minors</button>
-    </center>
-  </div>
+  
 </main>
 
 <script>
