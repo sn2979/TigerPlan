@@ -79,27 +79,32 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3)
-  }
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5) /* Add shadow effect */
+}
+
+  .inner-modal {
+    width: 100%;
+    height: 100%;
+    }
 
   .modal-content {
     background-color: #FF9B42; /* Light grey background */
     margin: 10% auto; /* Adjust vertical margin for centering */
     padding: 40px; /* Increase padding for content spacing */
+    padding-left: 25px;
+    padding-right: 25px;
     border: 0px solid #e0e0e0; /* card border */
     border-radius: 20px;
     width: 95%; /* Increase width to 90% of the viewport */
     max-width: 1100px; /* Set maximum width for larger screens */
     height: 70%; /* Increase width to 90% of the viewport */
     max-height: 600px; /* Set maximum width for larger screens */
-    text-align: center;
     font-family: 'Roboto Serif', serif;
     font-size: 30px; /* text font size */
     position: relative; /* Ensure relative positioning for absolute positioned close button */
     word-wrap: break-word;
-    padding-right: 45%;
 
-  }
+}
 
   .modal-content:nth-child(2) {
     background-color: #F7A072; 
@@ -117,31 +122,36 @@
     text-align: center;
     font-family: 'Caveat Brush', brush;
     width: calc(50% - 40px); /* Set width to half of the modal width minus padding */
-    position: absolute; /* Position absolutely within the modal */
-    top: 50%; /* Align to the vertical center */
-    right: 20px; /* Align to the right */
-    transform: translateY(-50%); /* Adjust for vertical centering */
+    
+    float: right;/* Align to the right */
+      /* Align to the vertical center */
+    
     border-radius: 10px; /* Add rounded corners */
 
     width: 50%; /* Increase width to 90% of the viewport */
     max-width: 450px; /* Set maximum width for larger screens */
     height: 85%; /* Increase width to 90% of the viewport */
-    max-height: 700px; /* Set maximum width for larger screens */
+    min-height: 447px;
+    /*max-height: 700px; /* Set maximum width for larger screens */
+    overflow-y: auto; /* Enable vertical scrolling */
 
-  }
+}
   .modal-content .modal-descBox p {
     font-size: 20px; /* Adjust the font size as needed */
   }
   .modal-content h2 {
     /*font-family: 'Caveat Brush', brush;*/
-    font-size: 35px; /* title font size */
+    font-size: 35px;
     margin-bottom: 10px;
-    margin-left: 20px; /* Adjust the left margin to move it more towards the center */
+    margin-left: 0px; /* Adjust the left margin to move it more towards the center */
     margin-right: auto; /* Set right margin to auto for centering */
-    text-align: left; /* Align the text to the left */
     /*wrap text if it's too long*/
     word-wrap: break-word;
   }
+
+  .modal-header h2{
+            text-align: center;
+        }
 
   .modal-content p {
     font-family: 'Roboto Serif', serif;
@@ -153,8 +163,9 @@
     display: flex;
     flex-direction: column; /* Stack boxes vertically */
     align-items: flex-start; /* Align to the left */
+    /*align items to top*/
+    justify-content: flex-start;
     margin-top: 15px;
-
     background-color: #C6C6C6;
 
     /*margin-bottom: 10px;*/
@@ -163,18 +174,22 @@
     padding-left: 0;
     padding-right: 0;
     text-align: center;
-    width: calc(50% - 30px); /* Set width to half of the modal width minus padding */
-    position: absolute; /* Position absolutely within the modal */
+
     top: 60%; /* Align to the vertical center */
-    left: 20px; /* Align to the right */
-    transform: translateY(-60%); /* Adjust for vertical centering */
+    
     border-radius: 10px; /* Add rounded corners */
+    width: 100%; /* Increase width to 90% of the viewport */
+    min-width: 300px; /* Set minimum width for larger screens */
+    height: auto; /* Increase width to 90% of the viewport */
+    min-height: 370px; /* Set minimum width for larger screens */
+    max-height: 370px; /* Set maximum width for larger screens */
 
-    width: 70%; /* Increase width to 90% of the viewport */
-    max-width: 500px; /* Set maximum width for larger screens */
-    height: 70%; /* Increase width to 90% of the viewport */
-    max-height: 700px; /* Set maximum width for larger screens */
+  }
 
+  .left-side {
+    display: grid;
+    float: left;
+    width: 50%;
   }
 
   .root-container {
@@ -323,6 +338,50 @@
     overflow-y: auto; /* Hide vertical scrollbar initially */
     max-height: 200px; /* Limit maximum height before scrolling */
   }
+
+  @media screen and (max-width: 1044px) {
+  .modal-content {
+      /* Adjusted styles for modal content on smaller screens */
+      padding: 20px;
+      width: 80%;
+      max-width: 584px;
+      min-height: 80%; /* Adjusted height for smaller screens */
+      height: auto; /* Adjusted height for smaller screens */
+      overflow-y: auto;
+  }
+
+  .modal-descBox {
+      /* Adjusted styles for modal description box on smaller screens */
+      width: 100%;
+      margin-top: 20px;
+      height: auto;
+      /*max-height: 447px; /* Set maximum height for description */
+      margin-left: auto;
+      margin-right: auto;
+      float: none;
+  }
+
+  .left-side {
+      /* Adjusted styles for left side content on smaller screens */
+      width: 100%;
+      height: auto;
+      float: none;
+  }
+
+  .grey-boxes {
+      /* Adjusted styles for grey boxes on smaller screens */
+      /* no scrolling. Make sure the box is the right height to fit all elements*/
+      overflow-y: hidden;
+      height: auto;
+      max-width: 450px;
+      min-width: 362px;
+      /*make width based off of the range above*/
+      width: 100%;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+}
 </style>
 </head>
 <body>
@@ -349,17 +408,21 @@
     <!-- Modal for {{ course['minor'] }} -->
     <div id="{{ course['minor'] }}-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 class="modal-title">{{ course['minor'] }}</h2>
-              
-            <div class="grey-boxes" data-tree="{{course['tree_description']}}">
+                <span class="close">&times;</span>
+                <div class="inner-modal">
+                    <div class="left-side">
+                        <div class="modal-header">
+                            <h2 class="modal-title">{{ course['minor'] }}</h2>
+                        </div>
+                        <div class="grey-boxes" data-tree="{{course['tree_description']}}">
+                        </div>
+                    </div>
+                    <div class= "modal-descBox">
+                        <h3>Description</h3>
+                        <p id = "description" class = "modal-descText"></p>
+                    </div>
+                </div>
             </div>
-            <div id="modal-text"></div>
-            <div class= "modal-descBox">
-              <p id = "description" class = "modal-descText"></p>
-            </div>
-      
-        </div>
     </div>
     {% endfor %}
   </div>
