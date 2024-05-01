@@ -378,6 +378,9 @@ body {
     // Append the new grid item container to the drop area
     dropArea.appendChild(newCourseContainer);
     displayMessage();
+
+    // Scroll the drop area to the bottom
+    dropArea.scrollTop = dropArea.scrollHeight;
   }
 
   // Function to handle dropping elements into the drop area
