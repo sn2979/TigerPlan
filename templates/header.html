@@ -89,7 +89,7 @@
             padding-right: 20px;
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 800px) {
             /* Hide the username button at smaller screen sizes */
             #dropdownButton {
                 display: none;
@@ -148,7 +148,7 @@
             var dropdownButton = document.getElementById("dropdownButton");
             var hamburgerIcon = document.getElementById("hamburger-icon");
 
-            if (window.innerWidth <= 480) {
+            if (window.innerWidth <= 800) {
                 // Show hamburger icon, hide username button
                 dropdownButton.style.display = "none";
                 hamburgerIcon.style.display = "block";
