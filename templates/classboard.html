@@ -308,6 +308,11 @@ body {
     
 
     // Check if the course is already in the drop area
+    if (data.includes('container')) {
+      // If the course is already in the drop area, don't add it again
+      return;
+    }
+
     let id = data + '-container';
     console.log(`ID is ${id}`);
     let existingElement = document.getElementById(id);
@@ -394,6 +399,7 @@ body {
     if (courseElement && data.includes('container')) {
       // Extract course ID from the element ID
       let courseId = courseElement.id.slice(0, courseElement.id.indexOf('-container'));
+      console.log(`Removing course: ${courseId}`)
 
       // Remove the course from the UI
       courseElement.parentNode.removeChild(courseElement);
