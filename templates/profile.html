@@ -76,6 +76,31 @@
             background-color: white; 
             cursor: pointer;
         }
+
+        @media (max-width: 600px) {
+        form {
+            width: 90%; /* Make form width 90% of the viewport width */
+            max-width: 400px; /* Set a maximum width to prevent stretching */
+            margin: 20px auto; /* Center the form horizontally */
+            padding: 20px; /* Add padding for spacing */
+            height: auto;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%; /* Make inputs and selects full width */
+        }
+
+
+        /* Adjust font sizes for smaller screens */
+        .profile h1 {
+            font-size: 32px;
+        }
+
+        h3 {
+            font-size: 16px;
+        }
+    }
     </style>
     </head>
     
