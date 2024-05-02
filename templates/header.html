@@ -105,7 +105,7 @@
 </head>
 <body>
     <div id="header">
-        <h1><a href="/classboard" class="custom-link"><span class="roboto">Tiger</span><span class="caveat">Plan</span></a></h1>
+        <h1><a href="/index" class="custom-link"><span class="roboto">Tiger</span><span class="caveat">Plan</span></a></h1>
         <nav>
             <ul>
                 <!--
@@ -113,7 +113,8 @@
                 <li><a href="/classboard">Your Classes</a></li>
                 <li><a href="/allminors">All Minors</a></li>-->
                 <li class="dropdown">
-                    <a href="javascript:void(0)" onclick="toggleDropdown()" class="dropbtn" id="dropdownButton">{{username}}</a>
+                    <a href="javascript:void(0)" onclick="toggleDropdown()" class="dropbtn" id="dropdownButton">{{username}} 
+                        <span style="font-size: small; vertical-align: middle;">▼</span></a>
                     <a href="javascript:void(0)" id="hamburger-icon" onclick="toggleDropdown()">☰</a>
                     <div id="myDropdown" class="dropdown-content">
                         <a href="/classboard">Your Classes</a>
