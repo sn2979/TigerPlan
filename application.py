@@ -29,7 +29,7 @@ def login_required(previous_page_url):
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
-def index():
+def home():
     username = flask.session.get('username')
     html_code = flask.render_template("homepage.html", username=username)
     response = flask.make_response(html_code)
@@ -278,7 +278,7 @@ def profile():
         return login_required(previous_page_url='/profile')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message)
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message)
     name = student_database.get_student_name(username)
     major = map_major_id_to_name(student_database.get_student_major(username))
     html_code = flask.render_template("profile.html", username=username
@@ -328,7 +328,7 @@ def allminors():
         return login_required(previous_page_url='/allminors')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
     
     minors = minors_database.get_all_minors()
     html_code = flask.render_template("allminors.html", username=username, minors=minors)
@@ -342,7 +342,7 @@ def minor():
         return login_required(previous_page_url='/minor')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
     
     # find the distance to the clicked on minor
     minor_code = request.args.get('code')
@@ -375,7 +375,7 @@ def classboard():
         return login_required(previous_page_url='/classboard')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500  # Return a 500 Internal Server Error status code
 
     html_code = flask.render_template("classboard.html", username=username, classes=classes)
     response = flask.make_response(html_code)
@@ -402,7 +402,7 @@ def search_results():
         return response
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500  # Return a 500 Internal Server Error status code
 
 @app.route('/addcourse', methods=['POST'])
 def add_course():
@@ -411,7 +411,7 @@ def add_course():
         return login_required(previous_page_url='/addcourse')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
 
     id = request.args.get('courseId')
     print(id)
@@ -426,7 +426,7 @@ def add_course():
         return flask.redirect('/loadarea')
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
-        return flask.render_template("error.html", error=error_message), 500
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
 
 
 @app.route('/removecourse', methods=['POST'])
@@ -437,7 +437,7 @@ def remove_course():
         return login_required(previous_page_url='/removecourse')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
 
     id = request.args.get('courseId')
 
@@ -446,7 +446,7 @@ def remove_course():
         return flask.redirect('/loadarea')
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
-        return flask.render_template("error.html", error=error_message), 500
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
 
 @app.route('/loadarea', methods=['GET'])
 def load_area():
@@ -455,7 +455,7 @@ def load_area():
         return login_required(previous_page_url='/loadarea')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500  # Return a 500 Internal Server Error status code
 
     html_code = flask.render_template("droparea.html", classes=classes)
     response = flask.make_response(html_code)
@@ -473,7 +473,7 @@ def recommend():
         return login_required(previous_page_url='/recommend')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
     
     _ = generate_and_store_recommendations(username)
     # reroute to recommendations page
@@ -486,7 +486,7 @@ def recommendations():
         return login_required(previous_page_url='/recommendations')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
     
     stored_recommendations = student_database.get_stored_recommendations(username)
 
@@ -517,7 +517,7 @@ def details():
         return login_required(previous_page_url='/details')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500  # Return a 500 Internal Server Error status code
 
     minor = flask.request.args.get('minor')
     print(minor)
@@ -534,7 +534,7 @@ def about():
         return login_required(previous_page_url='/about')
     if not success:
         error_message = f"An error occurred: {str(username)}"
-        return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
+        return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500  # Return a 500 Internal Server Error status code
 
     html_code = flask.render_template("about.html", username = username)
     response = flask.make_response(html_code)
