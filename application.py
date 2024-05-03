@@ -28,7 +28,7 @@ def login_required(previous_page_url):
 
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
-@app.route('/index', methods=['GET'])
+@app.route('/home', methods=['GET'])
 def index():
     username = flask.session.get('username')
     html_code = flask.render_template("homepage.html", username=username)
