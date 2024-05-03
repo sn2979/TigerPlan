@@ -383,6 +383,12 @@
       margin-left: auto;
       margin-right: auto;
   }
+  #main-content p {
+    font-size: 40px;
+    color: black;
+    text-align: center;
+    padding-top: 0vh; /* Adjust as needed */
+  }
 }
 </style>
 </head>
@@ -392,6 +398,9 @@
 {% include 'header.html' %}
 <main>
   <section id="main-content">
+    <left>
+    <button id="back-btn" onclick="window.location.href='/classboard'" style="margin-bottom: 0px; margin-left: 10px; margin-top: 10px; background-color: coral; display: inline-block; padding: 5px 10px; font-size: smaller;">&#8592; Back to classboard</button>
+    </left>
     <p><span>Here are </span><span class="caveat">your </span><span>most compatible minors!</span></p>
   </section>
   <center id="sub">
@@ -427,12 +436,13 @@
             </div>
     </div>
     {% endfor %}
+    <div id="button-container"> 
+      <center>
+        <button id="classboard-btn" onclick="window.location.href='/allminors'" style="margin-bottom: 20px; background-color: coral;">Click here to see all minors</button>
+      </center>
+    </div>
   </div>
-  <div id="button-container"> 
-    <center>
-      <button id="classboard-btn" onclick="window.location.href='/classboard'" style="margin-bottom: 20px; background-color: coral;">Go back to classboard</button>
-    </center>
-  </div>
+  
 </main>
 <script>
 
