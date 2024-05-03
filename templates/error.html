@@ -7,9 +7,14 @@
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 </head>
 <body>
-    
+
 {% set username = username %}
+{% if username %}
 {% include 'header.html' %}
+{% else %}
+{% include 'homepageheader.html' %}
+{% endif %}
+
 <main>
   <section id="main-content">
     <p>There's been an error, uwu!!</p>

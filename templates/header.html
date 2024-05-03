@@ -7,26 +7,34 @@
     <link rel="icon" href="static/images/icon.png" type="image/png">
     <style>
 
+        #header {
+            padding-right: 0;
+        }
+
         #header nav {
             margin-left: auto; /* Push nav to the right */
-            margin-right: 20px;
             align-content: center;
             justify-content: center; /* Horizontally center items */
             position: relative;  /* Allows absolute positioning relative to this container */
         }
 
         #header h1 {
-            margin-left: 40px;
             align-content: center;
             justify-content: center; /* Horizontally center items */
             position: absolute;  /* Allows absolute positioning relative to this container */
         }
 
         /*header hover*/
-        #header h1:hover, li a:hover {
+        #header h1:hover{
             color: #ffd699;
             transform: translateY(-5px); /* raise the card slightly on hover */
             align-content: center;
+        }
+
+        #header li a:hover, #header li a:active {
+            transform: translateY(-5px); /* raise the card slightly on hover */
+            align-content: center;
+            background-color: #FF9B42;
         }
 
         .dropdown {
@@ -43,15 +51,10 @@
           align-items: center;
           justify-content: space-around;
           padding: 0 5px;
+          padding-right: 20px;
           border: none; /* Remove border */
-          border-radius: 0; /* Remove border radius */
-          transition: background-color 0s; /* Smooth transition for color change */
+          border-radius: 5px; /* Rounded corners */
         }
-
-        .dropbtn.clicked {
-            background-color: #FF9B42; /* New background color when clicked */
-        }
-
         .dropdown-content {
             display: none;
             position: absolute;
@@ -69,29 +72,40 @@
         }
 
 
-        .dropdown-content a:hover {color: white; background-color: coral;}
+        /* Hover effect for dropdown button and hamburger icon */
+        #dropdownButton:hover, #hamburger-icon:hover {
+            background-color: #FF9B42;
+            color: white;
+        }
+        .dropbtn.clicked {
+            background-color: #FF9B42; /* New background color when clicked */
+        }
 
-        /* Media Query */
-        @media (max-width: 1220px) {
-            .dropdown {
-                display: block; /* Show dropdown at smaller screen sizes */
+
+        /* Hamburger menu icon */
+        #hamburger-icon {
+            display: none; /* Initially hide the hamburger icon */
+            cursor: pointer;
+            font-size: 35px;
+            padding-right: 20px;
+        }
+
+        @media (max-width: 800px) {
+            /* Hide the username button at smaller screen sizes */
+            #dropdownButton {
+                display: none;
             }
 
-            nav > ul > li {
-                display: none; /* Hide regular nav items at smaller screen sizes */
-            }
-
-            .dropbtn {
-                display: flex;
-                justify-content: center;
-                align-items: center;
+            /* Show the hamburger icon at smaller screen sizes */
+            #hamburger-icon {
+                display: block;
             }
         }
     </style>
 </head>
 <body>
     <div id="header">
-        <h1><a href="/index" class="custom-link"><span class="roboto">Tiger</span><span class="caveat">Plan</span></a></h1>
+        <h1><a href="/home" class="custom-link"><span class="roboto">Tiger</span><span class="caveat">Plan</span></a></h1>
         <nav>
             <ul>
                 <!--
@@ -99,7 +113,9 @@
                 <li><a href="/classboard">Your Classes</a></li>
                 <li><a href="/allminors">All Minors</a></li>-->
                 <li class="dropdown">
-                    <button onclick="toggleDropdown()" class="dropbtn" id="dropdownButton">{{username}}</button>
+                    <a href="javascript:void(0)" onclick="toggleDropdown()" class="dropbtn" id="dropdownButton">{{username}} 
+                        <span style="font-size: small; vertical-align: middle;">▼</span></a>
+                    <a href="javascript:void(0)" id="hamburger-icon" onclick="toggleDropdown()">☰</a>
                     <div id="myDropdown" class="dropdown-content">
                         <a href="/classboard">Your Classes</a>
                         <a href="/recommendations">Recommendations</a>
@@ -116,27 +132,52 @@
     <!-- Your web app content goes here -->
 
     <script>
-        function toggleDropdown() {
+       function toggleDropdown() {
             var dropdownContent = document.getElementById("myDropdown");
+            var hamburgerIcon = document.getElementById("hamburger-icon");
+
             if (dropdownContent.style.display === "block") {
                 dropdownContent.style.display = "none";
+                hamburgerIcon.classList.remove("clicked"); // Remove the "clicked" class from hamburger icon
             } else {
                 dropdownContent.style.display = "block";
-                dropdownButton.classList.add("clicked"); // Add the "clicked" class to change button color
+                hamburgerIcon.classList.add("clicked"); // Add the "clicked" class to hamburger icon
             }
         }
+
+        // Update visibility of elements based on window size
+        function updateLayout() {
+            var dropdownButton = document.getElementById("dropdownButton");
+            var hamburgerIcon = document.getElementById("hamburger-icon");
+
+            if (window.innerWidth <= 800) {
+                // Show hamburger icon, hide username button
+                dropdownButton.style.display = "none";
+                hamburgerIcon.style.display = "block";
+            } else {
+                // Show username button, hide hamburger icon
+                dropdownButton.style.display = "block";
+                hamburgerIcon.style.display = "none";
+            }
+        }
+
+        // Add event listener for window resize
+        window.addEventListener("resize", updateLayout);
+
+        // Initialize layout on page load
+        window.addEventListener("load", updateLayout);
+
         // Add event listener to detect clicks outside of dropdown
         document.addEventListener("click", function(event) {
             var dropdownContent = document.getElementById("myDropdown");
-            var dropdownButton = document.querySelector(".dropbtn");
+            var dropdownButton = document.getElementById("dropdownButton");
+            var hamburgerIcon = document.getElementById("hamburger-icon");
 
             // Check if the clicked element is not inside the dropdown
-            if (event.target !== dropdownButton && !dropdownContent.contains(event.target)) {
+            if (event.target !== dropdownButton && event.target !== hamburgerIcon && !dropdownContent.contains(event.target)) {
                 // Hide the dropdown if it is currently visible
-                if (dropdownContent.style.display === "block") {
-                    dropdownContent.style.display = "none";
-                    dropdownButton.classList.remove("clicked"); // Remove the "clicked" class
-                }
+                dropdownContent.style.display = "none";
+                dropdownButton.classList.remove("clicked");
             }
         });
     </script>

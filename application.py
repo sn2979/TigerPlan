@@ -28,7 +28,7 @@ def login_required(previous_page_url):
 
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
-@app.route('/index', methods=['GET'])
+@app.route('/home', methods=['GET'])
 def index():
     username = flask.session.get('username')
     html_code = flask.render_template("homepage.html", username=username)
@@ -506,6 +506,9 @@ def recommendations():
 
     return flask.render_template("recommend.html", username=username, courses=stored_recommendations)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return flask.render_template('error.html', username=flask.session.get('username')), 404
 
 @app.route('/details', methods = ['GET'])
 def details():

@@ -24,12 +24,16 @@ def _put_connection(conn):
 # Connect to MongoDB
 # Define a function to determine the sorting key
 def sorting_key(course, search_query):
-    # Extract the dept_num from the course dictionary
+       # Extract the dept_num from the course dictionarys
+    # print(search_query)
     dept_num = course['dept_num']
-    
+    # Remove extra spaces from the search query and escape special characters
+    cleaned_search_query = re.sub(r'\s+', ' ', search_query.strip())
+    escaped_search_query = re.escape(cleaned_search_query)
+    # print(escaped_search_query)
     # Regex pattern to match "Subject" or "Subject + ' ' + course_num"
-    pattern_startswith = fr"^{re.escape(search_query)}\s?(\d*)\s*(.*)"
-    pattern_contains = fr".*{re.escape(search_query)}.*"
+    pattern_startswith = fr"^{escaped_search_query}(\d*)\s*(.*)"
+    pattern_contains = fr".*{escaped_search_query}.*"
 
     # Check if the dept_num matches the regex patterns
     match_startswith = re.search(pattern_startswith, dept_num, re.IGNORECASE)
@@ -41,19 +45,20 @@ def sorting_key(course, search_query):
 
         # Return a tuple to sort courses:
         # 0 - Courses that start with the search query
+        # 0 - Priority for matches at the beginning of the dept_num
         # course_number (as int) - Sort by the course number (convert to integer)
         # course_suffix - Sort by the rest of the dept_num after course number
-        return (0, int(course_number) if course_number.isdigit() else 0, course_suffix)
+        return (0, 0, int(course_number) if course_number.isdigit() else 0, course_suffix)
     
     elif match_contains:
         # Return a tuple to sort courses:
         # 1 - Courses that contain the search query but do not start with it
-        return (1, None, None)
+        return (1, None, None, None)
     
     else:
         # Return a tuple to sort courses:
         # 2 - Courses that do not match the patterns
-        return (2, None, None)
+        return (2, None, None, None)
 
 def search_courses(search_query):
     if len(search_query) == 0 or len(search_query) > 60:
@@ -64,7 +69,7 @@ def search_courses(search_query):
         # Get connection
         client = _get_connection()
         db = client['TigerPlanData']
-        courses_collection = db['CoursesData']
+        courses_collection = db['CrossDump']
         print("Connected to MongoDB successfully!")
         # Query database
         collation_options = {
@@ -76,30 +81,38 @@ def search_courses(search_query):
         }
         no_spaces_title = re.sub(r'\s+', ' ', search_query)
         no_spaces_dept_num = re.sub(r'\s+', '', search_query)
-        escaped_query = re.escape(search_query)
+        escaped_no_spaces_dept_num = re.escape(no_spaces_dept_num)
+        escaped_no_spaces_dept_num = "\s*".join(map(re.escape, escaped_no_spaces_dept_num))
         query = {
         '$or': [
-            {'subject': {'$regex': f"^{escaped_query}", '$options': 'i'}},  # Caseinsensitive regex match on subject
-            {'subject': re.escape(no_spaces_dept_num)[:3], 'catalog_number': {'$regex': rf"^{re.escape(no_spaces_dept_num[3:])}(\d*)?", '$options': 'i'}}, # Match combined subject+catalog_number (e.g., "COS126")
-            {'catalog_number': {'$regex': f"^{escaped_query}"}},  # Case-insensitive sensitive match on catalog_number
+            # {'subject': {'$regex': f"{escaped_query}", '$options': 'i'}},  # Caseinsensitive regex match on subject
+            # {'subject': {'$regex': f"{escaped_query}", '$options': 'i'}}, # Match combined subject+catalog_number (e.g., "COS126")
+            {'code': {'$regex': f"{escaped_no_spaces_dept_num}", '$options': 'i'}},  # Case-insensitive sensitive match on catalog_number
             {'title':{'$regex': re.escape(no_spaces_title), '$options': 'i'}}  # Case-insensitive regex match on title
         ]
     }
-        projection = {
-            'course_id': 1
-        }
+        # projection = {
+        #     'course_id': 1
+        # }
     # Execute the aggregation pipeline
         # Execute query and retrieve matching courses
-        courses = courses_collection.find(query, projection=projection, collation=collation_options)
-        course_ids_list = [course['course_id'] for course in courses]
-        cross_courses_collection = db['CrossDump']
-        # Prepare query to find documents with course_id in the provided list
-        query = {'id': {'$in': course_ids_list}}
-        # Execute query to find matching documents
-        matching_courses = cross_courses_collection.find(query)
+        # courses = courses_collection.find(query, projection=projection, collation=collation_options)
+        courses = courses_collection.find(query, collation=collation_options)
+
+        # course_ids_list = [course['course_id'] for course in courses]
+        # cross_courses_collection = db['CrossDump']
+        # # Prepare query to find documents with course_id in the provided list
+        # query = {'id': {'$in': course_ids_list}}
+        # # Execute query to find matching documents
+        # matching_courses = cross_courses_collection.find(query)
+        # all_courses = []
+        # for course in matching_courses:
+        #     if course is not None:
+        #         all_courses.append({'dept_num': course['code'], 'title': course['title']})
         all_courses = []
-        for course in matching_courses:
+        for course in courses:
             if course is not None:
+                # print(course)
                 all_courses.append({'dept_num': course['code'], 'title': course['title']})
         
     except Exception as e:

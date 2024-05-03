@@ -15,8 +15,9 @@
 
 #right-container {
   width: 65%; /* Adjust based on your layout */
-  float: left; /* If you are using a float-based layout */
+  float: right; /* If you are using a float-based layout */
   /* For Flexbox, you'd adjust accordingly */
+  margin-right: 20px; /* Spacing between this container and whatever is to the right */
 }
 
 #drop-area {
@@ -62,6 +63,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
   margin-right: 20px; /* Spacing between this container and whatever is to the right */
   margin-left: 20px; /* Spacing between this container and whatever is to the right */
+  margin-bottom: 20px;
   float: left; /* Align it to the left */
 }
 
@@ -125,25 +127,81 @@ body {
 
 #recommend-minors-btn {
   display: block;
-  width: 30%;
+  width: 40%;
   align-items: center;
   margin-bottom: 50px;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: 30%;
+  font-size: 2em;
 }
 
 .remove-course-btn {
    background-color: coral;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      font-size: 20px;
-      text-align: center; /* Align text horizontally */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-   }
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center; /* Align text horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+   @media (max-width: 1200px) and (min-width: 801px) {
+   #right-container {
+      float: left; /* Set float to left for right container */
+      margin-right: 0; /* Remove right margin */
+    }
+  }
+
+   /* Media query for smaller screens */
+  @media (max-width: 800px) {
+    body {
+      font-size: 14px; /* Reduce base font size for smaller screens */
+    }
+
+    #container {
+      width: 90%; /* Adjust container width for smaller screens */
+    }
+
+    #right-container {
+      width: 100%; /* Adjust container width for smaller screens */
+    }
+
+    #left-container {
+      width: 75%;
+      min-height: 200px;
+      max-height: 300px; /* Adjust the maximum height as needed */
+      margin-left: auto;
+      margin-right: auto;
+      
+
+    }
+
+    #right-container, #left-container,#recommend-minors-btn{
+      
+      float: none; /* Remove float to stack containers vertically */
+    }
+
+    #class-input {
+      width: 96%; /* Adjust input field width for smaller screens */
+      font-size: 0.9em; /* Reduce font size for input field on smaller screens */
+    }
+
+    .grid-item {
+      width: 100%; /* Adjust course item width for smaller screens */
+      font-size: 0.9em; /* Reduce font size for course items on smaller screens */
+    }
+    #recommend-minors-btn {
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1.5em; /* Reduce font size for button on smaller screens */
+    }
+  }
 
 </style>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
@@ -177,14 +235,15 @@ body {
     <div id="drop-area" ondrop="drop_area(event)" ondragover="allowDrop(event)">
       <center id="placeholder"><p>Drag your classes here</p></center>
     </div>
+    <div id="button-container"> 
+      <center>
+        <button id="recommend-minors-btn" onclick="window.location.href='/recommend'">Recommend Minors</button>
+      </center>
+    </div>
   </div>
 
 
-  <div id="button-container"> 
-    <center>
-      <button id="recommend-minors-btn" onclick="window.location.href='/recommend'">Recommend Minors</button>
-    </center>
-  </div>
+  
 </main>
 
 <script>
@@ -249,6 +308,11 @@ body {
     
 
     // Check if the course is already in the drop area
+    if (data.includes('container')) {
+      // If the course is already in the drop area, don't add it again
+      return;
+    }
+
     let id = data + '-container';
     console.log(`ID is ${id}`);
     let existingElement = document.getElementById(id);
@@ -319,6 +383,9 @@ body {
     // Append the new grid item container to the drop area
     dropArea.appendChild(newCourseContainer);
     displayMessage();
+
+    // Scroll the drop area to the bottom
+    dropArea.scrollTop = dropArea.scrollHeight;
   }
 
   // Function to handle dropping elements into the drop area
@@ -327,9 +394,12 @@ body {
     let data = ev.dataTransfer.getData("text");
 
     let courseElement = document.getElementById(data);
-    if (courseElement) {
+    //only remove element if it contains "-container" in its id
+
+    if (courseElement && data.includes('container')) {
       // Extract course ID from the element ID
       let courseId = courseElement.id.slice(0, courseElement.id.indexOf('-container'));
+      console.log(`Removing course: ${courseId}`)
 
       // Remove the course from the UI
       courseElement.parentNode.removeChild(courseElement);
