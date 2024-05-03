@@ -508,7 +508,7 @@ def recommendations():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return flask.render_template('error.html', username=flask.session.get('username')), 404
+    return flask.render_template('error.html', username=flask.session.get('username'), error="The requested page does not exist"), 404
 
 @app.route('/details', methods = ['GET'])
 def details():
