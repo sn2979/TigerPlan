@@ -6,8 +6,68 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TigerPlan - Home</title>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  #class-board img {
+    float: left;
+    margin-left: 30px; /* Optional: Add some margin to the right for spacing */
+    margin-bottom: 0;
+  }
+
+  #progress img {
+    float: right;
+    margin-right: 30px; /* Optional: Add some margin to the right for spacing */
+  }
+
+  #class-board {
+    background-color: #f0f0f0; /* Light grey */
+    margin-top: 0; /* Remove margin bottom */
+    padding-top: 0; /* Remove padding bottom */
+    margin-bottom: 0; /* Remove margin bottom */
+    padding-bottom: 0; /* Remove padding bottom */
+  }
+
+  #progress {
+    background-color: #e0e0e0; /* Lighter grey */
+    margin-top: 0; /* Remove margin bottom */
+    padding-top: 0; /* Remove padding bottom */
+    margin-bottom: 0; /* Remove margin bottom */
+    padding-bottom: 0; /* Remove padding bottom */
+  }
+
+  .section {
+    flex-grow: 1;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    margin:0;
+  }
+
+  .section img {
+    max-width: 15%;
+    max-height:15%;
+    display: block;
+    margin-top:10px;
+    margin-bottom:10px;
+  }
+
+  .section h1{
+    font-size:30px;
+  }
+
+ 
+</style>
+
 </head>
 <body>
+
 
 {% set username = username %}
 {% if username %}
@@ -15,6 +75,7 @@
 {% else %}
 {% include 'homepageheader.html' %}
 {% endif %}
+
 <main>
   <section id="main-content">
     <p>TigerPlan helps Princeton students find <br>minors that fit with their classes.</p>
@@ -27,24 +88,40 @@
       </div>
   </section>
 
-  <div class="container">
+      <!-- stacked info divs start here -->
+
+  <div class = "container">
+
     <div class="section" id="class-board">
       <img src="static/images/Class Selection.png" alt="Class Selection">
-      <h2 class="roboto">1. Build your Class Board</h2>
-      <!-- Class cards would be populated here -->
+
+      <br>
+      <div>
+        <h1>Search for the classes you've taken so far.</h1>
+      </div>
     </div>
-  
-    <div class="section" id="minors">
-      <img src="static/images/Recommendation Card.png" alt="Recommendation Card">
-      <h2 class="roboto">2. View your Best Minors</h2>
-    </div>
-  
+
     <div class="section" id="progress">
-      <img src="static/images/Progress Card.png" alt="Progress Card">
-      <h2 class="roboto">3. See Your Progress</h2>
+      <img src="static/images/Recommendation Card.png" alt="Progress Card">
+      <br>
+      <div>
+        <h1>See which minors you've made progress on.</h1>
+      </div>
+      
     </div>
+
+    <div class="section" id="class-board">
+      <img src="static/images/Progress Card.png" alt="Progress Card">
+
+      <br/>
+      <div>
+        <h1>View your progress on your minors.</h1>
+      </div>
+
+    </div>
+
+    
   </div>
-  
 </main>
 
 </body>
