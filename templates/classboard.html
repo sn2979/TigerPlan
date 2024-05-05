@@ -51,8 +51,6 @@
   font-size: 20px; /* Large enough to be easily readable */
 }
 
-
-
 #left-container {
   min-height: 450px;
   max-height: 450px; /* Set the maximum height for scrolling */
@@ -433,15 +431,41 @@ body {
   }
 
   // Function to handle search response
-  function handleSearchResponse() {
+function handleSearchResponse() {
     if (this.status !== 200) {
-      alert('Error: Failed to fetch data from server');
-      return;
+        alert('Error: Failed to fetch data from server');
+        return;
     }
     let resultsDiv = document.getElementById('class-list');
-    //console.log(this.responseText);
     resultsDiv.innerHTML = this.responseText;
-  }
+
+    // Get all course containers in the results area
+    let resultsCourses = resultsDiv.querySelectorAll('.course');
+
+    // Get all course containers in the drop area
+    let dropArea = document.getElementById('drop-area');
+    let dropCourses = dropArea.querySelectorAll('.grid-item');
+
+    // Loop through each course container in the results area
+    resultsCourses.forEach(courseContainer => {
+        // Extract the course ID from the container ID
+        let courseId = courseContainer.id.split('-')[0];
+
+        // Check if the course is already in the drop area
+        let alreadyInDropArea = Array.from(dropCourses).some(dropCourse => {
+            return dropCourse.id.startsWith(courseId + '-');
+        });
+        
+        // If the course is already in the drop area, change its background color
+        if (alreadyInDropArea) {
+            courseContainer.style.backgroundColor = '#ffd699'; // Change background color to green
+        }
+        else {
+            courseContainer.style.backgroundColor = '#F7A072'; // Change background color to #F7A072
+        }
+    });
+}
+
 
   // Function to handle search error
   function handleSearchError() {
@@ -531,6 +555,7 @@ body {
           if (request.status >= 200 && request.status < 400) {
             console.log('Course successfully added to database');
             load_area();
+            courseElement.style.backgroundColor = '#ffd699';
             // Optionally handle success response
           } else {
             console.error('Error: Failed to add course to database');
@@ -570,6 +595,8 @@ body {
         if (request.status >= 200 && request.status < 400) {
           console.log('Course successfully removed from database');
           load_area();
+          let resultsElement = document.getElementById(id);
+          resultsElement.style.backgroundColor = '#f7a072';
           // Optionally handle success response
         } else {
           console.error('Error: Failed to remove course from database');
