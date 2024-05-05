@@ -40,7 +40,25 @@
     border-radius: 10px; /* Rounded corners */
     padding: 10px;
     margin: 5px;
+    text-align: center; /* Center align text */
+
   }
+  .team-members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .team-member img {
+    width: 50%; /* Set fixed width */
+    height: 100px; /* Set fixed height */
+    object-fit: contain; /* Maintain aspect ratio */
+    margin-bottom: 10px; /* Add space below image */
+    border: 2px solid #e6893e; /* Border for image */
+
+  }
+
+
 </style>
 
 </head>
@@ -60,11 +78,35 @@
 
   <div class="text-section">
     <h4>Team Members</h4>
-    <div class="team-member" style="background-color: #FF9B42;">Samyukta Neeraj - sn2979@princeton.edu </div>
-    <div class="team-member" style="background-color: #F7A072;">Tara Shukla - ts6796@princeton.edu</div>
-    <div class="team-member" style="background-color: #ffd699;">Abani Ahmed - abani.ahmed@princeton.edu</div>
-    <div class="team-member" style="background-color: #FF9B42;">Josh Schoenberg - jschoenberg@princeton.edu</div>
+
+    <div class = "team-members">
+      <div class="team-member" style="background-color: #FF9B42;">
+        <img src="static/images/samyukta.jpeg" alt="Samyukta">
+        <p>Samyukta Neeraj</p>
+        <a href="mailto:sn2979@princeton.edu">Email</a>
+      </div>
+      <div class="team-member" style="background-color: #F7A072;">
+        <img src="static/images/tara.jpeg" alt="Tara">
+        <p>Tara Shukla</p>
+        <a href="mailto:ts6796@princeton.edu">Email</a>
+      </div>
+
+      <div class="team-member" style="background-color: #ffd699;">
+        <img src="static/images/abani.jpeg" alt="Abani">
+        <p>Abani Ahmed</p>
+        <a href="abani.ahmed@princeton.edu">Email</a>
+      </div>
+
+      <div class="team-member" style="background-color: #FF9B42;">
+        <img src="static/images/josh.jpeg" alt="Josh">
+
+        <p>Josh Schoenberg</p>
+        <a href="jschoenberg@princeton.edu">Email</a>
+      </div>
+    </div>
   </div>
+
+  
   <div class="text-section">
     <h4>Acknowledgments</h4>
     <p class="team-member" style="background-color: #F7A072;">Creston Brooks - COS 333 Spring 2024 Advisor</p>
