@@ -11,15 +11,30 @@
     .container {
       display: flex; /* Use flexbox */
       justify-content: center; /* Horizontally center items */
+
     }
     
     .section img {
-      max-height: 400px; /* Set a maximum height */
-    width: auto; /* Ensure aspect ratio is maintained */
-    object-fit: contain; /* Maintain aspect ratio while fitting within the container */
+      height: 400px; /* Set a maximum height */
+      object-fit: contain; /* Maintain aspect ratio while fitting within the container */
   }
-    </style>
 
+  h2 {
+    font-family: 'Roboto Serif', serif; /* Ensure you have this font available */
+    font-size:40px;
+  }
+
+  @media screen and (max-width: 768px) {
+  .section {
+    width: 100%; /* Make sections take full width */
+  }
+
+  .section img {
+    width: 100%; /* Make images take full width of their container */
+    height: auto; /* Allow images to maintain aspect ratio */
+  }
+}
+    </style>
 
   </head>
   <body>
@@ -44,19 +59,20 @@
 
     <div class="container">
       <div class="section" id="class-board">
-        <h2 class="roboto">1. Build your Class Board</h2>
+        <h2 class="roboto">2. Build <span class="caveat">your </span>classboard</h2>
+
         <img src="static/images/Class Selection.png" alt="Class Selection">
         <!-- Class cards would be populated here -->
       </div>
     
       <div class="section" id="class-board">
-        <h2 class="roboto">2. View Your Recommended Minors</h2>
+        <h2 class="roboto">2.View <span class="caveat">your </span>best minors!</h2>
         <img src="static/images/Recommendation Card.png" alt="Rec Card">
       </div>
 
       <div class="section" id="progress">
-        <h2 class="roboto">3. See Your Progress</h2>
-        <img src="static/images/minordesc.png" alt="Progress Card">
+        <h2 class="roboto">3. See <span class="caveat">your </span>progress</h2>
+        <img src="static/images/minordescription.png" alt="Progress Card">
       </div>
     </div>
     
