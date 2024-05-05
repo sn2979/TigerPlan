@@ -23,6 +23,7 @@
     margin-top:25px;
     margin-bottom: 20px; /* Add space below h2 */
     font-size: 40px; /* Larger font size for h2 */
+    color: #e6893e;
   }
 
   h4 {
@@ -32,6 +33,32 @@
     color: #e6893e;
 
   }
+
+  /* CSS for cute boxes */
+  .team-member {
+    border: 2px solid #e6893e;
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px;
+    margin: 5px;
+    text-align: center; /* Center align text */
+
+  }
+  .team-members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .team-member img {
+    width: 100px; /* Set fixed width */
+    height: 100px; /* Set fixed height */
+    object-fit: contain; /* Maintain aspect ratio */
+    margin-bottom: 10px; /* Add space below image */
+    border: 2px solid #e6893e; /* Border for image */
+
+  }
+
+
 </style>
 
 </head>
@@ -46,21 +73,44 @@
   <h2 class="text-center mb-4">About TigerPlan</h2>
 
   <div class="text-section">
-    <p>TigerPlan is a web application that helps Princeton University students choose their minors.</p>   
+    <p style = "color: #FF9B42;">TigerPlan is a web application that helps Princeton University students choose their minors.</p>   
   </div>
 
   <div class="text-section">
     <h4>Team Members</h4>
-    <div>Samyukta Neeraj - sn2979@princeton.edu </div>
-    <div>Tara Shukla - ts6796@princeton.edu</div>
-    <div>Abani Ahmed - abani.ahmed@princeton.edu</div>
-    <div>Josh Schoenberg - jschoenberg@princeton.edu</div>
+
+    <div class = "team-members">
+      <div class="team-member" style="background-color: #FF9B42;">
+        <img src="static/images/samyukta.jpeg" alt="Samyukta">
+        <p>Samyukta Neeraj</p>
+        <a href="mailto:sn2979@princeton.edu">Email</a>
+      </div>
+      <div class="team-member" style="background-color: #F7A072;">
+        <img src="static/images/tara.jpeg" alt="Tara">
+        <p>Tara Shukla</p>
+        <a href="mailto:ts6796@princeton.edu">Email</a>
+      </div> 
+
+      <div class="team-member" style="background-color: #ffd699;">
+        <img src="static/images/abani.jpeg" alt="Abani">
+        <p>Abani Ahmed</p>
+        <a href="abani.ahmed@princeton.edu">Email</a>
+      </div>
+
+      <div class="team-member" style="background-color: #FF9B42;">
+        <img src="static/images/josh.jpeg" alt="Josh">
+        <p>Josh Schoenberg</p>
+        <a href="jschoenberg@princeton.edu">Email</a>
+      </div>
+
+    </div>
   </div>
 
+  
   <div class="text-section">
     <h4>Acknowledgments</h4>
-    <p class="mb-0">Creston Brooks - COS 333 Spring 2024 Advisor</p>
-    <p>Prof. Robert Dondero- COS 333 Spring 2024 Professor</p>
+    <p class="team-member" style="background-color: #F7A072;">Creston Brooks - COS 333 Spring 2024 Advisor</p>
+    <p class = "team-member"style="background-color: #ffd699;" >Prof. Robert Dondero- COS 333 Spring 2024 Professor</p>
   </div>
 
 </section>
