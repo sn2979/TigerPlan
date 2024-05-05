@@ -327,7 +327,7 @@ body {
 
     // Add the course to the drop area
     addCourseToDropArea(courseId, courseNum, courseTitle);
-
+    
     // Encode course data into URL parameters
     let encodedCourseId = encodeURIComponent(courseId);
     let encodedCourseNum = encodeURIComponent(courseNum);
@@ -343,6 +343,7 @@ body {
       if (request.status >= 200 && request.status < 400) {
         console.log('Course successfully added to database');
         load_area();
+        courseElement.style.backgroundColor = '#ffd699';
         // Optionally handle success response
       } else {
         console.error('Error: Failed to add course to database');
