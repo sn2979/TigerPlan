@@ -6,6 +6,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TigerPlan - Home</title>
 <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
+
+<style>
+  
+  video {
+    display: block;
+    margin: 0 auto;
+  }
+  .container video {
+    display: flex;
+    justify-content: center;
+    text-align:center;
+  }
+
+
+</style>
+
 </head>
 <body>
 
@@ -27,22 +43,12 @@
       </div>
   </section>
 
-  <div class="container">
-    <div class="section" id="class-board">
-      <img src="static/images/Class Selection.png" alt="Class Selection">
-      <h2 class="roboto">1. Build your Class Board</h2>
-      <!-- Class cards would be populated here -->
-    </div>
-  
-    <div class="section" id="minors">
-      <img src="static/images/Recommendation Card.png" alt="Recommendation Card">
-      <h2 class="roboto">2. View your Best Minors</h2>
-    </div>
-  
-    <div class="section" id="progress">
-      <img src="static/images/Progress Card.png" alt="Progress Card">
-      <h2 class="roboto">3. See Your Progress</h2>
-    </div>
+  <div class = "container"> 
+    <br>
+    <video width="640" height="360"  controls autoplay muted style="margin: 0 auto;">
+      <source src="{{ url_for('static', filename='video/tigerplan_tutorial_vid.mp4') }}" type="video/mp4">
+      Your browser does not support the video tag.
+  </video>
   </div>
   
 </main>
