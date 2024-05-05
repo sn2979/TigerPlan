@@ -26,7 +26,7 @@ try:
     print("Connected to MongoDB successfully!")
 except Exception as e:
     print("Failed to connect to MongoDB:", e, file=sys.stderr)
-    sys.exit(1)
+    raise e
 finally:
     _put_connection(client)
 
