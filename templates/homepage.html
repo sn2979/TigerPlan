@@ -1,51 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<link rel="icon" href="static/images/icon.png" type="image/png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TigerPlan - Home</title>
-<link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
-</head>
-<body>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <link rel="icon" href="static/images/icon.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TigerPlan - Home</title>
+  <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
 
-{% set username = username %}
-{% if username %}
-{% include 'header.html' %}
-{% else %}
-{% include 'homepageheader.html' %}
-{% endif %}
-<main>
-  <section id="main-content">
-    <p>TigerPlan helps Princeton students find <br>minors that fit with their classes.</p>
-    <div class="button-container">
-        {% if username %}
-        <button onclick="location.href='/classboard'">Click here to go to your classboard!</button>
-        {% else %}
-        <button onclick="location.href='/login'">Login for your recommendations!</button>
-        {% endif %}
+  <style>
+    .container {
+      display: flex; /* Use flexbox */
+      justify-content: center; /* Horizontally center items */
+
+    }
+    
+    .section img {
+      height: 400px; /* Set a maximum height */
+      object-fit: contain; /* Maintain aspect ratio while fitting within the container */
+  }
+
+  h2 {
+    font-family: 'Roboto Serif', serif; /* Ensure you have this font available */
+    font-size:40px;
+  }
+
+  @media screen and (max-width: 768px) {
+  .section {
+    width: 100%; /* Make sections take full width */
+  }
+
+  .section img {
+    width: 100%; /* Make images take full width of their container */
+    height: auto; /* Allow images to maintain aspect ratio */
+  }
+}
+    </style>
+
+  </head>
+  <body>
+
+  {% set username = username %}
+  {% if username %}
+  {% include 'header.html' %}
+  {% else %}
+  {% include 'homepageheader.html' %}
+  {% endif %}
+  <main>
+    <section id="main-content">
+      <p>TigerPlan helps Princeton students find <br>minors that fit with their classes.</p>
+      <div class="button-container">
+          {% if username %}
+          <button onclick="location.href='/classboard'">Click here to go to your classboard!</button>
+          {% else %}
+          <button onclick="location.href='/login'">Login for your recommendations!</button>
+          {% endif %}
+        </div>
+    </section>
+
+    <div class="container">
+      <div class="section" id="class-board">
+        <h2 class="roboto">2. Build <span class="caveat">your </span>classboard</h2>
+
+        <img src="static/images/Class Selection.png" alt="Class Selection">
+        <!-- Class cards would be populated here -->
       </div>
-  </section>
+    
+      <div class="section" id="class-board">
+        <h2 class="roboto">2.View <span class="caveat">your </span>best minors!</h2>
+        <img src="static/images/Recommendation Card.png" alt="Rec Card">
+      </div>
 
-  <div class="container">
-    <div class="section" id="class-board">
-      <img src="static/images/Class Selection.png" alt="Class Selection">
-      <h2 class="roboto">1. Build your Class Board</h2>
-      <!-- Class cards would be populated here -->
+      <div class="section" id="progress">
+        <h2 class="roboto">3. See <span class="caveat">your </span>progress</h2>
+        <img src="static/images/minordescription.png" alt="Progress Card">
+      </div>
     </div>
-  
-    <div class="section" id="minors">
-      <img src="static/images/Recommendation Card.png" alt="Recommendation Card">
-      <h2 class="roboto">2. View your Best Minors</h2>
-    </div>
-  
-    <div class="section" id="progress">
-      <img src="static/images/Progress Card.png" alt="Progress Card">
-      <h2 class="roboto">3. See Your Progress</h2>
-    </div>
-  </div>
-  
-</main>
+    
+  </main>
 
-</body>
-</html>
+  </body>
+  </html>

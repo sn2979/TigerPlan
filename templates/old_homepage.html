@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="static/images/icon.png" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TigerPlan - Home</title>
+<link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/try_style.css') }}" >
+
+<style>
+  .section img{
+    .img{
+      width:100px;
+      height:100px;
+   
+   /*Scale down will take the necessary specified space that is 100px x 100px without stretching the image*/
+       object-fit:scale-down;
+  }
+</style>
+
+
+</head>
+<body>
+
+{% set username = username %}
+{% if username %}
+{% include 'header.html' %}
+{% else %}
+{% include 'homepageheader.html' %}
+{% endif %}
+<main>
+  <section id="main-content">
+    <p>TigerPlan helps Princeton students find <br>minors that fit with their classes.</p>
+    <div class="button-container">
+        {% if username %}
+        <button onclick="location.href='/classboard'">Click here to go to your classboard!</button>
+        {% else %}
+        <button onclick="location.href='/login'">Login for your recommendations!</button>
+        {% endif %}
+      </div>
+  </section>
+
+  <div class="container">
+    <div class="section" id="class-board">
+      <img src="static/images/Class Selection.png" alt="Class Selection">
+      <h2 class="roboto">1. Build your Class Board</h2>
+      <!-- Class cards would be populated here -->
+    </div>
+  
+    <div class="section" id="minors">
+      <img src="static/images/Recommendation Card.png" alt="Recommendation Card">
+      <h2 class="roboto">2. View your Best Minors</h2>
+    </div>
+  
+    <div class="section" id="progress">
+      <img src="static/images/Progress Card.png" alt="Progress Card">
+      <h2 class="roboto">3. See Your Progress</h2>
+    </div>
+  </div>
+  
+</main>
+
+</body>
+</html>

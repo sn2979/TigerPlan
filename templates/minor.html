@@ -511,7 +511,7 @@
             // to the childelement add a div <div class="reqname">Subrequirements</div>
             // and then a div <div class="children"></div> that will actually contain the children
             childElement.querySelector('.details').innerHTML += `
-            <div class="reqname">...</div>
+            <div class="reqname">More Requirements:</div>
             <div class="children-container"></div>
             `;
             const childrenContainer = childElement.querySelector('.children-container');
@@ -606,7 +606,6 @@
         var details = this.nextElementSibling; // Assuming the details follow immediately after
         details.style.display = details.style.display === "block" ? "none" : "block";
         console.log('display called!');
-
         // reqname has to be toggled open
         this.classList.toggle('open');
         });
