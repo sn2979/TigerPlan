@@ -351,6 +351,34 @@
       font-size: 15px;
     }
 
+    .info-icon {
+  cursor: help;
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 280px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -140px; /* Use half of the width (width/2) to center the tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.info-icon:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
   @media screen and (max-width: 1044px) {
   .close {
       float: right;
@@ -418,7 +446,7 @@
     <p style="padding-top: 0vh"><span>Here are </span><span class="caveat">your </span><span>most compatible minors!</span></p>
   </section>
   <center id="sub">
-  <p>Click on a card to learn more!</p>
+  <p>Click on a card to learn more! <span class="info-icon">ⓘ<span class="tooltip-text">Recommendations look incorrect? Make sure to click the "Recommend Minors" button on your class board for up-to-date recommendations!</span></span></p>
   </center>
   <div class="container">
     {% for course in courses %}
