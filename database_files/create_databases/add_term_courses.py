@@ -6,7 +6,7 @@ import sys
 import os
 import queue
 from pymongo import MongoClient
-from database_files.create_databases.req_lib import ReqLib
+from req_lib import ReqLib
 
 #-----------------------------------------------------------------------
 # _DATABASE_URL = os.environ.get('DATABASE_URL')
@@ -62,10 +62,11 @@ def get_courses_json_list(term_info, subj):
             for term in term_info["term"]:
                 if term['code'] is not None:
                     for subject in term["subjects"]:
+                        subject_name = subject['code']
                         for course in subject["courses"]:
                             extracted_data = {
                             "term_code": term['code'],
-                            "subject": subj,
+                            "subject": subject_name,
                             "guid": course["guid"],
                             "course_id": course["course_id"],
                             "catalog_number": course["catalog_number"],
@@ -106,50 +107,42 @@ if __name__ == "__main__":
     new_courseids = set()
     client = _get_connection()
     db = client['TigerPlanData']
-    # for subj in subjs:
-    #     print(f"Adding {subj} courses for term {new_term}")
-    #     term_info = get_term_info_for_subject(new_term, subj)
-    #     courses_json_list = get_courses_json_list(term_info, subj)
-    #         # print(courses_json_list)
-    #     if courses_json_list is not None:
-    #         for course in courses_json_list:
-    #             matching_course = list(db['CoursesData'].find({"subject": course['subject'], 
-    #                                                           "catalog_number": course['catalog_number'],
-    #                                                           "course_id": course['course_id']}))
-    #             if len(matching_course) == 0:
-    #                 new_courseids.add(course['course_id'])
-    #                 print(f"added new courseid {course['course_id']}" )
-    #                 all_jsons.append(course)
-    #             else:
-    #                 print(f"No new courses for {subj} in term {new_term}")
-    #     else:
-    #         print(f"No courses in {subj} in term {new_term}")
-    # input_all_items_into_db(all_jsons)
+    for subj in subjs:
+        print(f"Adding {subj} courses for term {new_term}")
+        term_info = get_term_info_for_subject(new_term, subj)
+        courses_json_list = get_courses_json_list(term_info, subj)
+            # print(courses_json_list)
+        if courses_json_list is not None:
+            for course in courses_json_list:
+                matching_course = list(db['CoursesData'].find({"subject": course['subject'], 
+                                                              "catalog_number": course['catalog_number'],
+                                                              "course_id": course['course_id']}))
+                if len(matching_course) == 0:
+                    new_courseids.add(course['course_id'])
+                    print(f"added new courseid {course['course_id']}" )
+                    all_jsons.append(course)
+                else:
+                    print(f"No new courses for {subj} in term {new_term}")
+        else:
+            print(f"No courses in {subj} in term {new_term}")
+    input_all_items_into_db(all_jsons)
 
-    new_term = "1252"
+    # new_term = "1252"
     new_courseids = [course['course_id'] for course in list(db['CoursesData'].find({"term_code": new_term})) ]
     print(new_courseids)
     for new_courseid in new_courseids:
-        matching_course = list(db['CrossDump'].find({"id": new_courseid}))
-        if len(matching_course) == 0:
-            matching_courses = db['CoursesData'].find({"course_id": new_courseid})
-            matching_dept_nums = []
-            for course in matching_courses:
-                title = ""
-                this_course = (course['subject'], course['catalog_number'])
-                is_primary_listing = True
-                cross_lists = []
-                for cross in course['crosslistings']:             
-                    if (cross['subject'], cross['catalog_number']) in matching_dept_nums:
-                        is_primary_listing = False
-                    else:
-                        matching_dept_nums.append((cross['subject'], cross['catalog_number']))
-                if is_primary_listing:
-                    code = f"{course['subject']}" + ' ' + f"{course['catalog_number']}"
-                    title = course['title']
-                    term = course['term_code']
-            for item in matching_dept_nums:
-                code += f" / {item[0]}" + " " + f"{item[1]}"
+        matching_course_in_crossDump = list(db['CrossDump'].find({"id": new_courseid}))
+        if len(matching_course_in_crossDump) == 0:
+            matching_course_in_coursesData = db['CoursesData'].find_one({"course_id": new_courseid})
+                # title = ""
+            code = f"{matching_course_in_coursesData['subject']}" + ' ' + f"{matching_course_in_coursesData['catalog_number']}"            
+            cross_lists = []
+            for cross in matching_course_in_coursesData['crosslistings']:
+                code += f" / {cross['subject']}" + " " + f"{cross['catalog_number']}"
+            
+            title = matching_course_in_coursesData['title']
+            term = int(matching_course_in_coursesData['term_code'])
             db['CrossDump'].insert_one({'code': code, 'id': new_courseid, 'term': term, 'title': title})    
             print("added ", {'code': code, 'id': new_courseid, 'term': term, 'title': title})
+
 
