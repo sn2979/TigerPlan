@@ -27,6 +27,18 @@ def login_required(previous_page_url):
         return flask.redirect('/login')
 
 #-----------------------------------------------------------------------
+def restricted_access(func):
+    def wrapper(*args, **kwargs):
+        # Check if the request comes from a form submission
+        if flask.request.referrer is None:
+            # If not, redirect the user to the error page
+            return flask.redirect('/error')
+        # If the request comes from a form submission, proceed to the original function
+        return func(*args, **kwargs)
+    wrapper.__name__ = func.__name__
+    return wrapper
+#-----------------------------------------------------------------------
+
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
 def home():
@@ -300,6 +312,7 @@ def profile():
         return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
 
 @app.route('/update_profile', methods=['POST'])
+@restricted_access
 def reset_profile():
     try:
         username = flask.session.get('username')
@@ -412,6 +425,7 @@ def classboard():
         return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
 
 @app.route('/searchresults', methods=['GET'])
+@restricted_access
 def search_results():
     try:
         course = flask.request.args.get('course')
@@ -437,10 +451,8 @@ def search_results():
         error_message = f"An error occurred: {str(e)}"
         return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
 
-@app.route('/addcourse', methods=['GET', 'POST'])
+@app.route('/addcourse', methods=['POST'])
 def add_course():
-    if request.method != 'POST':
-        return flask.render_template("error.html", username=flask.session.get('username'), error="Invalid request method"), 405  # Return a 405 Method Not Allowed status code
     try:
         success, username, _ = get_user_info()
         if username is None:
@@ -467,10 +479,8 @@ def add_course():
         error_message = f"An error occurred: {str(e)}"
         return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
 
-@app.route('/removecourse', methods=['GET', 'POST'])
+@app.route('/removecourse', methods=['POST'])
 def remove_course():
-    if request.method != 'POST':
-        return flask.render_template("error.html", username=flask.session.get('username'), error="Invalid request method"), 405  # Return a 405 Method Not Allowed status code
     try:
         print("remove course")
         success, username, _ = get_user_info()
@@ -492,16 +502,6 @@ def remove_course():
         error_message = f"An error occurred: {str(e)}"
         return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
     
-def restricted_access(func):
-    def wrapper(*args, **kwargs):
-        # Check if the request comes from a form submission
-        if flask.request.referrer is None:
-            # If not, redirect the user to the error page
-            return flask.redirect('/error')
-        # If the request comes from a form submission, proceed to the original function
-        return func(*args, **kwargs)
-    return wrapper
-
 @app.route('/loadarea', methods=['GET'])
 @restricted_access
 def load_area():
@@ -571,12 +571,17 @@ def recommendations():
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
         return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
+    
+@app.errorhandler(405)
+def access_not_allowed(e):
+    return flask.render_template('error.html', username=flask.session.get('username'), error="You do not have access to this page"), 405
 
 @app.errorhandler(404)
 def page_not_found(e):
     return flask.render_template('error.html', username=flask.session.get('username'), error="The requested page does not exist"), 404
 
 @app.route('/details', methods = ['GET'])
+@restricted_access
 def details():
     try:
         success, username, _ = get_user_info()
@@ -587,7 +592,7 @@ def details():
             return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500  # Return a 500 Internal Server Error status code
 
         minor = flask.request.args.get('minor')
-        print(minor)
+        # print(minor)
         return flask.render_template("minor.html", username=username, minor = minor)
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
