@@ -343,6 +343,10 @@ body {
       if (request.status >= 200 && request.status < 400) {
         console.log('Course successfully added to database');
         load_area();
+        let resultsElements = document.querySelectorAll('[id="' + id + '"]');
+          resultsElements.forEach(resultsElement =>
+            resultsElement.style.backgroundColor = '#ffd699'
+        );
         courseElement.style.backgroundColor = '#ffd699';
         // Optionally handle success response
       } else {
@@ -596,8 +600,10 @@ function handleSearchResponse() {
         if (request.status >= 200 && request.status < 400) {
           console.log('Course successfully removed from database');
           load_area();
-          let resultsElement = document.getElementById(id);
-          resultsElement.style.backgroundColor = '#f7a072';
+          let resultsElements = document.querySelectorAll('[id="' + id + '"]');
+          resultsElements.forEach(resultsElement =>
+            resultsElement.style.backgroundColor = '#f7a072'
+        );
           // Optionally handle success response
         } else {
           console.error('Error: Failed to remove course from database');
