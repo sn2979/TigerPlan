@@ -12,7 +12,6 @@ def arg_parser():
 
 def main(arg_port):
     try:
-        print("TEST")
         application.app.run(host='0.0.0.0', port=arg_port, debug=True)
     except Exception as ex:
         # print(ex, file=sys.stderr)

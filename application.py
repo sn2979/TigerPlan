@@ -437,8 +437,10 @@ def search_results():
         error_message = f"An error occurred: {str(e)}"
         return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
 
-@app.route('/addcourse', methods=['POST'])
+@app.route('/addcourse', methods=['GET', 'POST'])
 def add_course():
+    if request.method != 'POST':
+        return flask.render_template("error.html", username=flask.session.get('username'), error="Invalid request method"), 405  # Return a 405 Method Not Allowed status code
     try:
         success, username, _ = get_user_info()
         if username is None:
@@ -465,8 +467,10 @@ def add_course():
         error_message = f"An error occurred: {str(e)}"
         return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
 
-@app.route('/removecourse', methods=['POST'])
+@app.route('/removecourse', methods=['GET', 'POST'])
 def remove_course():
+    if request.method != 'POST':
+        return flask.render_template("error.html", username=flask.session.get('username'), error="Invalid request method"), 405  # Return a 405 Method Not Allowed status code
     try:
         print("remove course")
         success, username, _ = get_user_info()
@@ -488,7 +492,18 @@ def remove_course():
         error_message = f"An error occurred: {str(e)}"
         return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
     
+def restricted_access(func):
+    def wrapper(*args, **kwargs):
+        # Check if the request comes from a form submission
+        if flask.request.referrer is None:
+            # If not, redirect the user to the error page
+            return flask.redirect('/error')
+        # If the request comes from a form submission, proceed to the original function
+        return func(*args, **kwargs)
+    return wrapper
+
 @app.route('/loadarea', methods=['GET'])
+@restricted_access
 def load_area():
     try:
         success, username, classes = get_user_info()
