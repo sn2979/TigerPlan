@@ -5,26 +5,17 @@ import math
 import json
     
 def generate_combinations(class_list, subrequirements):
-    #print("Generating combinations...")
-    # Generate all possible combinations of classes
     all_combinations = {}
     for category, classes in class_list.items():
         
-        # Determine the number of classes required for this category
         num_required_classes = min(len(classes), subrequirements[category])
 
-        # Generate combinations of required length for this category
         category_combinations = [()]
         if num_required_classes > 0:
             category_combinations.extend((combinations(classes, 
                                                   num_required_classes)))
 
-        #print(f"Category combinations: {category_combinations}")
         all_combinations[category] = category_combinations
-
-    '''print("All combinations:")
-    for category, combo in all_combinations.items():
-        print(f"{category}: {combo}")'''
     
     all_combinations_product = list(product(*list(all_combinations.values())))
 
@@ -42,19 +33,12 @@ def generate_combinations(class_list, subrequirements):
     return all_combinations_product, combined_combinations
 
 def best_path(node):
-    '''print(f"Node: {node.get_name()}")
-    print(f"Marked: {node.get_marked()}")
-    for child in node.get_children():
-        print(f"Child: {child.get_name()}")'''
     if node.get_children() == []:
         return node
     
     if node.get_node_type() == 'OR':
-        #print(f"Winner: {node.get_winner().get_name()}")
         node.children = [node.get_winner()]
-        '''print(f"Winner: {node.get_winner().get_name()}")
-        for child in node.get_children():
-            print(f"Child: {child.get_name()}")'''
+
 
     marked_children = []
     for child in node.get_children():
@@ -65,31 +49,20 @@ def best_path(node):
     return node
 
 def extract_node_information(node, parent_name=None):
-    # Initialize dictionary to store node information
     node_info = {}
 
-    # Extract node information
     node_name = node.get_name()
     class_list = node.get_node_classes()
     
-    # Store node name and associated class list
     node_info['name'] = node_name
     node_info['class_list'] = list(class_list)
-    
-    # Store parent's name if available
-    '''if parent_name is not None:
-        node_info['parent'] = parent_name'''
-    
-    # store classes taken at node
+
     node_info['classes_taken'] = node.classes_taken
 
-    # store classes needed at node
     node_info['classes_needed'] = node.classes_needed
 
-    # store classes remaining at node
     node_info['classes_remaining'] = node.classes_needed - node.classes_taken
     
-    # Recursively process children nodes
     if node.get_children():
         node_info['children'] = []
         for child in node.get_children():
@@ -107,14 +80,11 @@ def best_path_node_info(node):
 def traverse_tree(node, combination_dict, 
                   subrequirements, used):
     if node.get_parent():
-        #if node.get_parent().get_node_type() == 'AND':
         node.class_list = node.get_parent().class_list.copy()
+
     # Base case: child node with no children
     if node.get_children() == []:
-        # Get classes taken for this requirement
-
-        # First section checks to make sure if the parent is an AND node, 
-        # the classes are not repeated
+        
         combination = combination_dict.get(node.get_name(), [])
         courses = list(combination).copy()
         taken = len(combination)
@@ -129,37 +99,21 @@ def traverse_tree(node, combination_dict,
         node.clases_needed = subrequirements.get(node.get_name(), 0)
         node.class_list = set(courses)
         node.node_classes = set(courses)
-        '''print(f"Classes taken for {node.get_name()}: {node.classes_taken}")
-        print(f"Classes needed for {node.get_name()}: {node.classes_needed}")
-        print()'''
+
         return used, node.classes_taken, node.classes_needed, node.classes_taken / node.classes_needed, node.class_list#, winning_classes
 
-    # print node's children
-    '''for child in node.get_children():
-        print(f"Node: {child.get_name()}")'''
-
-    # Recursive case: node with children
     for child_node in node.get_children():
-        '''print(f"Used at {child_node.get_name()}: {node.class_list}")
-        print()'''
         curr_used, _, _, _, class_list = traverse_tree(child_node, combination_dict, 
                              subrequirements, set(node.class_list))
         if node.get_node_type() == 'AND':
             node.class_list.update(child_node.class_list)
             node.node_classes.update(child_node.node_classes)
-    
-    # Compute classes taken for this node
     _, _, winner = node.compute_classes_taken_needed()
 
     if node.get_node_type() == 'OR':
         if winner:
-            #print(f"Winner: {winner.get_name()}")
             node.class_list.update(winner.class_list)
             node.node_classes.update(winner.node_classes)
-
-    '''print(f"Classes taken for {node.get_name()}: {node.classes_taken}")
-    print(f"Classes needed for {node.get_name()}: {node.classes_needed}")
-    print()'''
 
     return used, node.classes_taken, node.classes_needed, node.classes_taken / node.classes_needed, node.class_list
 
@@ -171,39 +125,20 @@ def find_best_combination(key, all_combinations, subrequirements):
     best_tree = None
 
     for combination_dict in all_combinations:
-        #print(f"Combination: {combination_dict}")
-        # Traverse the tree with the current combination
         root_node = minors.create_tree(key, subrequirements)
         used = set()
-        _, taken, needed, fraction_completion, _ = traverse_tree(root_node, 
+        _, taken, needed, _, _ = traverse_tree(root_node, 
                                                   combination_dict,
                                                   subrequirements,
                                                   used)
-        '''print(f"Classes taken: {taken}")
-        print(f"Classes needed: {needed}")
-        print(f"Fraction of completion: {fraction_completion}")
-        print(f"Class list: {class_list}")'''
-        
-        #print(f"Fraction of completion: {fraction_completion}")
-
-        # Update best combination based on fraction of completion
-        # fraction_completion >= best_fraction
         if taken_needed[1] == 0:
             taken_needed = (taken, needed)
         if needed - taken < difference:
-            '''if fraction_completion == best_fraction and (needed - taken) >= difference:
-                continue'''
-            #best_fraction = fraction_completion
             difference =  needed - taken
             best_combination = combination_dict
             taken_needed = (taken, needed)
             best_tree = root_node
-        
-        # remove duplicates from winning classes after flattening
-        '''winning_classes = [course for sublist in winning_classes for course in sublist]
-        winning_classes = list(set(winning_classes))'''
-    #print(f"Best tree and children: {best_tree.get_children()}")
-    #best_tree = best_path(best_tree)
+
     best_tree, best_tree_info = best_path_node_info(best_tree)
 
     return best_combination, best_fraction, taken_needed, best_tree, best_tree_info

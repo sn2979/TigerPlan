@@ -407,26 +407,17 @@ body {
         var modal = document.getElementById(modalId);
         console.log(modal);
         if (modal) {
-            //modal background color should match card color
-            //var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
-            //modalContent.style.backgroundColor = cardBackgroundColor;
-
             modal.style.display = "block";
         }
         var modalContent = modal.querySelector(".modal-content");
-        //modalContent.querySelector("h2").textContent = minor;
-        // Adjust the font size of the modal title based on text length
         adjustModalTitleSize();
 
-        // Retrieve the data-tree attribute (JSON string)
         var treeDescription = modalContent.querySelector(".grey-boxes").getAttribute("data-tree");
         
         console.log('treeDescription', treeDescription);
 
         if (!treeDescription) {
-            // fill the modal with the description
             modalContent.querySelector("#description").textContent = desc;
-            // fill grey-boxes with message "you have no classes that count toward this minor!"
             modalContent.querySelector(".grey-boxes").innerHTML = "<p>You have no classes that count toward this minor!</p>";
 
             return;

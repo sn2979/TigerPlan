@@ -369,7 +369,7 @@
   z-index: 1;
   bottom: 125%;
   left: 50%;
-  margin-left: -140px; /* Use half of the width (width/2) to center the tooltip */
+  margin-left: -140px;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -384,40 +384,33 @@
       float: right;
   }
   .modal-content {
-      /* Adjusted styles for modal content on smaller screens */
       padding: 20px;
       width: 100%;
       max-width: 584px;
-      min-height: 80%; /* Adjusted height for smaller screens */
-      height: auto; /* Adjusted height for smaller screens */
+      min-height: 80%;
+      height: auto;
       overflow-y: auto;
   }
 
   .modal-descBox {
-      /* Adjusted styles for modal description box on smaller screens */
       width: 100%;
       margin-top: 20px;
       height: auto;
-      /*max-height: 447px; /* Set maximum height for description */
       margin-left: auto;
       margin-right: auto;
       float: none;
   }
 
   .left-side {
-      /* Adjusted styles for left side content on smaller screens */
       width: 100%;
       height: auto;
       float: none;
   }
 
   .grey-boxes {
-      /* Adjusted styles for grey boxes on smaller screens */
-      /* no scrolling. Make sure the box is the right height to fit all elements*/
       overflow-y: hidden;
       height: auto;
       max-width: 450px;
-      /*make width based off of the range above*/
       width: 100%;
       margin-top: 20px;
       margin-left: auto;
@@ -425,7 +418,6 @@
   }
 
   #class-btn {
-      /* center it */
       margin-left: 40%;
       margin-bottom: 20px;
   }
@@ -488,20 +480,14 @@
 </main>
 <script>
 
-    // Function to adjust font size based on text length
     function adjustFontSize() {
       // Select all elements with class 'node'
       var nodes = document.querySelectorAll('.node');
 
-      // Loop through each node element
+      
       nodes.forEach(function(node) {
-        // Get the text content length
         var textLength = node.textContent.trim().length;
-
-        // Calculate font size based on text length (example logic)
-        var fontSize = 100 - (textLength * 2); // Adjust as per your requirement
-
-        // Set the calculated font size to the node element
+        var fontSize = 100 - (textLength * 2); 
         node.style.fontSize = fontSize + '%';
       });
     }
@@ -510,80 +496,68 @@
         var modalTitle = document.querySelector('.modal-title');
         var textLength = modalTitle.textContent.trim().length;
 
-        // Define a base font size and adjust based on text length
-        var baseFontSize = 35; // Base font size in pixels
-        var minFontSize = 25; // Minimum font size in pixels
-        var maxTextLength = 23; // Define a maximum text length to base font size on
+        
+        var baseFontSize = 35;
+        var minFontSize = 25;
+        var maxTextLength = 23; 
 
-        // Calculate font size based on text length within the defined range
         var fontSize;
         
         if (textLength <= maxTextLength) {
-            // Calculate font size linearly based on text length
             fontSize = 35
-
         } else {
-            // Apply additional scaling for longer text lengths
             fontSize = baseFontSize - (baseFontSize - minFontSize) * 2* (textLength / maxTextLength);
         }
 
-        // Ensure font size stays within the defined range
-        fontSize = Math.max(fontSize, minFontSize); // Ensure font size doesn't go below minFontSize
-        fontSize = Math.min(fontSize, baseFontSize); // Ensure font size doesn't exceed baseFontSize
+       
+        fontSize = Math.max(fontSize, minFontSize);
+        fontSize = Math.min(fontSize, baseFontSize);
 
-        // Apply the calculated font size to the modal title
+        
         modalTitle.style.fontSize = fontSize + 'px';
     }
 
   document.addEventListener("DOMContentLoaded", function() {
-    // Get all course cards
+    
     var courseCards = document.querySelectorAll(".course-card");
 
-    // Loop through each course card
+    
     courseCards.forEach(function(card) {
-        // Add click event listener to each course card
         let minor = card.getAttribute("data-minor");
         let desc = card.getAttribute("data-desc");
-        // Get the data attributes from the clicked course card
+        
         card.addEventListener("click", function() {
-            // Call the openModal function with the extracted data
             openModal(minor, desc);
         });
     });
 
-    // Get all modal close buttons (assuming they have a class of "close")
+   
     var modalCloseButtons = document.querySelectorAll(".close");
 
-    // Loop through each modal close button
     modalCloseButtons.forEach(function(button) {
-        // Add click event listener to each button
+        
         button.addEventListener("click", function() {
-            // Get the closest modal (parent modal) to the button clicked
             var modal = this.closest(".modal");
-            
-            // If modal element exists, hide it
             if (modal) {
                 modal.style.display = "none";
             }
         });
     });
 
-    // When the user clicks anywhere outside of a modal, close it
+    
     window.onclick = function(event) {
-        // Check if click event occurred outside of any modal
+        
         if (event.target.classList.contains("modal")) {
-            // Hide all modals (assuming modals have a class of "modal")
             var modals = document.querySelectorAll(".modal");
             modals.forEach(function(modal) {
                 modal.style.display = "none";
             });
         }
     };
-    adjustFontSize(); // Initial font size adjustment
+    adjustFontSize();
 });
 
   function generateHTML(jsonData) {
-    // Function to create HTML for a single node
     function createNodeHtml(node) {
       const nodeElement = document.createElement('div');
       nodeElement.className = 'node';
@@ -608,14 +582,12 @@
       return nodeElement;
     }
 
-    // Function to recursively go through the tree and append children
     function appendChildren(parentElement, children) {
       children.forEach(child => {
         const childElement = createNodeHtml(child);
         
         if (child.children && child.children.length > 0) {
-          // to the childelement add a div <div class="reqname">Subrequirements</div>
-          // and then a div <div class="children"></div> that will actually contain the children
+          
           childElement.querySelector('.details').innerHTML += `
           <div class="reqname">...</div>
           <div class="children-container"></div>
@@ -623,120 +595,94 @@
           const childrenContainer = childElement.querySelector('.children-container');
           appendChildren(childrenContainer, child.children);
 
-          // append to the child element details div
+          
           childElement.querySelector('.details').appendChild(childrenContainer);
         }
         parentElement.appendChild(childElement);
       });
     }
 
-    // Start with the root element and call appendChildren if children are present
     const rootElement = document.createElement('div');
-    // center the root element
     rootElement.style.margin = 'auto';
     rootElement.className = 'root-container';
     if (jsonData.children && jsonData.children.length > 0) {
       console.log("heres a child")
       appendChildren(rootElement, jsonData.children);
     } else {
-      // If there are no children, just append the root node
+      
       console.log("im the last child")
       rootElement.appendChild(createNodeHtml(jsonData));
     }
-
-    // Return the outer HTML of the root element
     return rootElement.outerHTML;
   }
 
 
-// Function to open the modal with specified minor and desc
 function openModal(minor, desc) {
-    // Get the corresponding modal element by ID
     var modal = document.getElementById(minor + "-modal");
     
-    // If modal element exists, display it
     if (modal) {
-      //modal background color should match card color
-      //var cardBackgroundColor = window.getComputedStyle(card).getPropertyValue("background-color");
-      //modalContent.style.backgroundColor = cardBackgroundColor;
 
       modal.style.display = "block";
     }
 
-    // You can populate modal content dynamically using the passed 'minor' and 'desc'
+    
     var modalContent = modal.querySelector(".modal-content");
     modalContent.querySelector("h2").textContent = minor;
 
-   adjustModalTitleSize(); // Adjust the modal title font size
-
-    // Retrieve the data-tree attribute (JSON string)
+    adjustModalTitleSize();
     var treeDescription = modalContent.querySelector(".grey-boxes").getAttribute("data-tree");
     
     console.log('treeDescription', treeDescription);
 
-    // Use the new generateHTML function
     var generatedHTML = generateHTML(JSON.parse(treeDescription));
 
-
-    // Insert the generated HTML into the modal content container
     var htmlContainer = modalContent.querySelector(".grey-boxes");
     console.log("here is the generated html")
     console.log(generatedHTML)
     htmlContainer.innerHTML = generatedHTML;
-    //htmlContainer.set('html', generatedHTML);
 
     if (htmlContainer.childNodes.length) {
           attachToggleListeners();
       }
 
-    // Get the paragraph element to display the description
     let descriptionParagraph = modalContent.querySelector("#description");
     console.log('description paragraph', descriptionParagraph.textContent);
-
-    // Check if the description length exceeds the maximum length
     
-    descriptionParagraph.textContent = desc; // Show full description
-    modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Enable scrolling
+    descriptionParagraph.textContent = desc; 
+    modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; 
 
     
-    modalContent.querySelector(".grey-boxes").style.overflowY = "auto"; // Enable scrolling
-
-    // Add toggle functionality to grey boxes
+    modalContent.querySelector(".grey-boxes").style.overflowY = "auto"; 
     
 
 
 }
 function attachToggleListeners() {
-  // Toggle functionality for the requirement names
+ 
   document.querySelectorAll(".reqname").forEach(function(reqname) {
     reqname.addEventListener("click", function() {
-      // Toggle visibility of this requirement's details
-      var details = this.nextElementSibling; // Assuming the details follow immediately after
+      var details = this.nextElementSibling; 
       details.style.display = details.style.display === "block" ? "none" : "block";
       console.log('display called!');
 
-      // reqname has to be toggled open
       this.classList.toggle('open');
     });
   });
 
   document.querySelectorAll(".subreqname").forEach(function(reqname) {
     reqname.addEventListener("click", function() {
-      // Toggle visibility of this requirement's details
-      var details = this.nextElementSibling; // Assuming the details follow immediately after
-      // reqname has to be toggled open
+      var details = this.nextElementSibling;
+      
       this.classList.toggle('open');
       details.style.display = details.style.display === "block" ? "none" : "block";
-      console.log('display called!');
     });
   });
 
-  // Toggle functionality for the class list
+  
   document.querySelectorAll(".classlist").forEach(function(classlist) {
     classlist.addEventListener("click", function() {
-      // Toggle visibility of this class list's details
-      var ulElement = this.querySelector('ul'); // Assuming the details follow immediately after
-      // toggle open for the classlist_label
+      
+      var ulElement = this.querySelector('ul'); 
       this.querySelector('.classlist_label').classList.toggle('open');
       ulElement.style.display = (ulElement.style.display === 'none') ? 'block' : 'none';
     });
