@@ -581,8 +581,11 @@ function handleSearchResponse() {
   function removeCourse(courseId) {
     console.log(`Removing course: ${courseId}`)
     let courseElement = document.getElementById(courseId);
-    courseElement.style.backgroundColor = '#F7A072'; 
-    if (courseElement) {
+    let resultsElements = document.querySelectorAll('[id="' + id + '"]');
+          resultsElements.forEach(resultsElement =>
+            resultsElement.style.backgroundColor = '#f7a072'
+        );    
+        if (courseElement) {
       // Extract course ID from the element ID
       let id = courseId.slice(0, courseId.indexOf('-container'));
 
