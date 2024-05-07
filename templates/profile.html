@@ -109,8 +109,17 @@
     <body>
         <center class="profile">
             <section id="main-content">
-                <p>Your Profile</p>
+            {% if name %}
+                {% set first_name = name.split(' ')[0] %}
+                {% if first_name|length > 10 %}
+                    <p>Hi, {{ first_name[:10] }}...!</p>
+                {% else %}
+                    <p>Hi, {{ first_name }}!</p>
+                {% endif %}
+            {% endif %}
               </section>
+              
+
             <p id="sub">Update your profile here!</p>
             <form action="/update_profile" method="POST">
                 <input type="hidden" id="username" name="username" value="{{ username }}"><br><br>
