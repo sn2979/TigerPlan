@@ -7,17 +7,13 @@ import database_files.student_database as student_database
 
 def categorize_courses(course_list, minor_requirements):
     categorized_courses = {}
-
-    # Iterate over each category of requirements in the minor
     for category, courses_needed in minor_requirements.items():
         categorized_courses[category] = []
-
-        # Check each course in the course list against the regular expression patterns
         for course in course_list:
             for pattern in courses_needed:
                 if re.match(pattern, course):
                     categorized_courses[category].append(course)
-                    break  # Move to the next course once matched
+                    break 
 
     return categorized_courses
 
@@ -64,14 +60,12 @@ def recommend(class_list, username):
               'MPP', 'MQE', 'MSE', 'MUS', 'NEU', 'PHI', 'RES', 'SAS',
               'SLA', 'SML', 'TMT', 'TRA', 'VIS', 'VPL']
 
-    # Initialize champions dictionary with proper structure
     champions = {
         'champion1': {'distance': math.inf, 'minor': '', 'best_combination': [], 'tree_description': ''},
         'champion2': {'distance': math.inf, 'minor': '', 'best_combination': [],  'tree_description': ''},
         'champion3': {'distance': math.inf, 'minor': '', 'best_combination': [],  'tree_description': ''}
     }
 
-    # Create a lock for thread synchronization
     lock = threading.Lock()
 
     threads = []
@@ -83,24 +77,20 @@ def recommend(class_list, username):
     for t in threads:
         t.join()
 
-    # Extract top 3 champions
     top_champions = [
         champions['champion1'],
         champions['champion2'],
         champions['champion3']
     ]
 
-    # Create a new list to store the filtered champions
+    
     filtered_champions = []
 
-    # Iterate over each champion in top_champions
+    
     for champion in top_champions:
-        # Check the condition to decide whether to keep the champion
         if champion['distance'] != 100:
-            # If the condition is met, add the champion to the filtered list
             filtered_champions.append(champion)
 
-    # Update top_champions to contain only the filtered champions
     top_champions = filtered_champions
 
     return top_champions

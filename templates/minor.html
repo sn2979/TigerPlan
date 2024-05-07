@@ -394,26 +394,21 @@
     </body>
 
     <script>
-        // Function to adjust font size based on text length
         function adjustFontSize() {
 
-        // Select all elements with class 'node'
         var nodes = document.querySelectorAll('.node');
 
-        // Loop through each node element
         nodes.forEach(function(node) {
-            // Get the text content length
             var textLength = node.textContent.trim().length;
 
             var fontSize = 100 - (textLength * 2); 
 
-            // Set the calculated font size to the node element
             node.style.fontSize = fontSize + '%';
         });
         }
 
     document.addEventListener("DOMContentLoaded", function() {
-        // Get all course cards
+        
         let card = document.querySelectorAll(".course-card");
         let minor = card.getAttribute("data-minor");
         let desc = card.getAttribute("data-desc")
@@ -421,26 +416,19 @@
         console.log('card', card);
 
         card.addEventListener("click", function() {
-                // Call the openModal function with the extracted data
                 openModal(minor, desc);
         });
 
-        // Get all modal close buttons (assuming they have a class of "close")
         var closeButton = document.querySelectorAll(".close");
 
         closeButton.addEventListener("click", function() {
-                // Get the closest modal (parent modal) to the button clicked
                 var modal = this.closest(".modal");
-                
-                // If modal element exists, hide it
                 if (modal) {
                     modal.style.display = "none";
                 }
             });
 
-        // When the user clicks anywhere outside of a modal, close it
         window.onclick = function(event) {
-            // Check if click event occurred outside of any modal
             if (event.target.classList.contains("modal")) {
                 let modal = document.querySelectorAll(".modal");
                 modal.style.display = "none";
@@ -450,7 +438,6 @@
     });
 
     function generateHTML(jsonData) {
-        // Function to create HTML for a single node
         function createNodeHtml(node) {
         const nodeElement = document.createElement('div');
         nodeElement.className = 'node';
@@ -475,7 +462,6 @@
         return nodeElement;
     }
 
-        // Function to recursively go through the tree and append children
         function appendChildren(parentElement, children) {
         children.forEach(child => {
             const childElement = createNodeHtml(child);
@@ -487,39 +473,29 @@
             `;
             const childrenContainer = childElement.querySelector('.children-container');
             appendChildren(childrenContainer, child.children);
-
-            // append to the child element details div
             childElement.querySelector('.details').appendChild(childrenContainer);
             }
             parentElement.appendChild(childElement);
         });
         }
 
-        // Start with the root element and call appendChildren if children are present
         const rootElement = document.createElement('div');
-        // center the root element
         rootElement.style.margin = 'auto';
         rootElement.className = 'root-container';
         if (jsonData.children && jsonData.children.length > 0) {
-        console.log("heres a child")
         appendChildren(rootElement, jsonData.children);
         } else {
-        // If there are no children, just append the root node
-        console.log("im the last child")
         rootElement.appendChild(createNodeHtml(jsonData));
         }
 
-        // Return the outer HTML of the root element
         return rootElement.outerHTML;
     }
 
 
-    // Function to open the modal with specified minor and desc
     function openModal(minor, desc) {
-        // Get the corresponding modal element by ID
+        
         var modal = document.getElementById(minor + "-modal");
         
-        // If modal element exists, display it
         if (modal) {
 
             modal.style.display = "block";
@@ -528,16 +504,13 @@
         var modalContent = modal.querySelector(".modal-content");
         modalContent.querySelector("h2").textContent = minor;
 
-        // Retrieve the data-tree attribute (JSON string)
         var treeDescription = modalContent.querySelector(".grey-boxes").getAttribute("data-tree");
         
         console.log('treeDescription', treeDescription);
 
-        // Use the new generateHTML function
+
         var generatedHTML = generateHTML(JSON.parse(treeDescription));
 
-
-        // Insert the generated HTML into the modal content container
         var htmlContainer = modalContent.querySelector(".grey-boxes");
         console.log("here is the generated html")
         console.log(generatedHTML)
@@ -547,13 +520,10 @@
             attachToggleListeners();
         }
 
-        // Get the paragraph element to display the description
         let descriptionParagraph = modalContent.querySelector("#description");
         console.log('description paragraph', descriptionParagraph.textContent);
-
-        // Check if the description length exceeds the maximum length
         
-        descriptionParagraph.textContent = desc; // Show full description
+        descriptionParagraph.textContent = desc; 
         modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; 
 
         
@@ -562,35 +532,27 @@
 
     }
     function attachToggleListeners() {
-    // Toggle functionality for the requirement names
     document.querySelectorAll(".reqname").forEach(function(reqname) {
         reqname.addEventListener("click", function() {
-        // Toggle visibility of this requirement's details
         var details = this.nextElementSibling; 
         details.style.display = details.style.display === "block" ? "none" : "block";
         console.log('display called!');
-        // reqname has to be toggled open
         this.classList.toggle('open');
         });
     });
 
     document.querySelectorAll(".subreqname").forEach(function(reqname) {
         reqname.addEventListener("click", function() {
-        // Toggle visibility of this requirement's details
         var details = this.nextElementSibling; 
-        // reqname has to be toggled open
         this.classList.toggle('open');
         details.style.display = details.style.display === "block" ? "none" : "block";
         console.log('display called!');
         });
     });
 
-    // Toggle functionality for the class list
     document.querySelectorAll(".classlist").forEach(function(classlist) {
         classlist.addEventListener("click", function() {
-        // Toggle visibility of this class list's details
         var ulElement = this.querySelector('ul'); 
-        // toggle open for the classlist_label
         this.querySelector('.classlist_label').classList.toggle('open');
         ulElement.style.display = (ulElement.style.display === 'none') ? 'block' : 'none';
         });

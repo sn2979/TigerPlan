@@ -14,9 +14,8 @@
   padding: 0;
 }
 #right-container {
-  width: 65%; /* Adjust based on your layout */
-  float: left; /* If you are using a float-based layout */
-  /* For Flexbox, you'd adjust accordingly */
+  width: 65%; 
+  float: left;
 }
 
 .minor-button {
@@ -24,53 +23,51 @@
     padding: 10px;
     margin: 0px;
     background-color: #F7A072;
-    /*color should be a good contrast to background color*/
     color: black;
     border: none;
     cursor: pointer;
-    text-align: left; /* align to left with padding*/
+    text-align: left;
     padding-left: 20px;
     font-size: 15px;
     border-radius: 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
-    transition: transform 0.2s ease-in-out; /* Add smooth transition on hover */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
 
-    /* 3D effect on hover */
+    
     &:hover {
-        transform: translateY(-2px); /* Move button up slightly on hover */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow size on hover */
+        transform: translateY(-2px); 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     }
 }
 
-/* Apply styles to even-indexed (2n) buttons */
 .minor-button:nth-child(even) {
-    background-color: coral; /* Background color for even-indexed buttons */
-    color: black; /* Text color for even-indexed buttons */
+    background-color: coral;
+    color: black;
 }
 
-/* Apply styles to odd-indexed (2n+1) buttons */
+
 .minor-button:nth-child(odd) {
-    background-color: #FF9B42; /* Background color for odd-indexed buttons */
-    color: black; /* Text color for odd-indexed buttons */
+    background-color: #FF9B42;
+    color: black;
 }
 
 #drop-area {
   min-height: 450px;
-  max-height: 450px; /* Set the maximum height for scrolling */
-  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  max-height: 450px;
+  overflow-y: auto;
   background-color:  #ADD7cd; 
   border: 2px dashed #CCCCCC;
   border-radius: 5px;
   padding: 20px;
   display: flex;
-  flex-wrap: wrap; /* Enable wrapping of items */
-  justify-content: space-between; /* Distribute items evenly between columns */
-  margin-bottom: 20px; /* Spacing between this container and the button */
+  flex-wrap: wrap; 
+  justify-content: space-between; 
+  margin-bottom: 20px; 
 }
 
 .grid-item {
-  width: calc(50% - 10px); /* Calculate width for two columns with gap */
-  height: auto; /* Set a fixed height for each item */
+  width: calc(50% - 10px); 
+  height: auto;
   margin-bottom: 10px;
   padding: 20px;
   background-color: #ffd699;
@@ -81,35 +78,34 @@
 }
 
 #drop-area p {
-  color: #666666; /* A light text color that's easy on the eyes */
-  font-size: 20px; /* Large enough to be easily readable */
+  color: #666666; 
+  font-size: 20px; 
 }
 
 #left-container {
-  /* height should be length of the window */
   max-height: 764px;
-  height: auto; /* Set the maximum height for scrolling */
-  overflow-y: auto; /* Enable vertical scrolling when content overflows */
-  width: 20%; /* Adjust width as necessary */
-  background-color: #F7A072; /* For contrast against the class items */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-  margin-right: 120px; /* Spacing between this container and whatever is to the right */
-  margin-left: 0px; /* Spacing between this container and whatever is to the right */
-  float: left; /* Align it to the left */
+  height: auto; 
+  overflow-y: auto; 
+  width: 20%;
+  background-color: #F7A072; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  margin-right: 120px;
+  margin-left: 0px; 
+  float: left;
   border-radius: 5px;
 }
 
 #class-input {
-  width: 95%; /* Full width of the container */
-  padding: 10px; /* Padding for aesthetic spacing inside the input */
-  border: none; /* Removes border */
-  border-bottom: 1px solid #ccc; /* Adds a light border to the bottom edge */
-  font-size: 16px; /* Increases font size for readability */
-  margin: 10px; /* Spacing around the input */
+  width: 95%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  margin: 10px;
 }
 
 #class-list {
-  padding: 10px; /* Padding inside the container around the class items */
+  padding: 10px;
 }
 
 body {
@@ -130,7 +126,7 @@ body {
   margin-bottom: 20px;
   background-color: #F7A072;
   border-radius: 20px;
-  cursor: move; /* Indicate draggable items */
+  cursor: move;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -140,8 +136,8 @@ body {
 
 
 .custom-link {
-  text-decoration: none; /* This removes the underline */
-  color: inherit; /* This will make the text use the color of its parent elements, or you can set a specific color */
+  text-decoration: none; 
+  color: inherit; 
 }
 
 .clearfix::after {
@@ -159,29 +155,28 @@ body {
 
 @media (max-width: 1200px) and (min-width: 801px) {
    #right-container {
-      float: left; /* Set float to left for right container */
-      margin-right: 0; /* Remove right margin */
+      float: left;
+      margin-right: 0; 
     }
   }
 
-   /* Media query for smaller screens */
   @media (max-width: 800px) {
     body {
-      font-size: 14px; /* Reduce base font size for smaller screens */
+      font-size: 14px; 
     }
 
     #container {
-      width: 90%; /* Adjust container width for smaller screens */
+      width: 90%; 
     }
 
     #right-container {
-      width: 100%; /* Adjust container width for smaller screens */
+      width: 100%; 
     }
 
     #left-container {
       width: 100%;
       min-height: 200px;
-      max-height: 300px; /* Adjust the maximum height as needed */
+      max-height: 300px; 
       margin-left: auto;
       margin-right: auto;
       
@@ -190,7 +185,7 @@ body {
 
     #right-container, #left-container,#recommend-minors-btn{
       
-      float: none; /* Remove float to stack containers vertically */
+      float: none;
     }
 
   }
@@ -207,7 +202,6 @@ body {
   <section id="allminors">
     <div id="left-container">
       <div id="minor-list">
-        <!--Minor list buttons-->
         {% for minor in minors %}
         <button class="minor-button" data-code="{{ minor['code'] }}">
             {{ minor['code'] }} - {{ minor['name'] }}
@@ -232,9 +226,9 @@ body {
 <script>
   'use strict';
   $(document).ready(function() {
-    var lastXHR; // Variable to store the last XMLHttpRequest
+    var lastXHR;
     
-    // Debounce function to delay execution of a function
+    
     function debounce(func, wait, immediate) {
         var timeout;
         return function() {
@@ -250,42 +244,34 @@ body {
         };
     }
 
-    // Function to fetch and display minor information
+    
     var debouncedFetchMinorInformation = debounce(function(minorCode) {
-        // Cancel any pending AJAX request
+        
         if (lastXHR && lastXHR.readyState !== 4) {
             lastXHR.abort();
         }
 
-        // Send AJAX request for the current minor
+        
         lastXHR = $.ajax({
             url: '/distance',
             method: 'GET',
             data: { code: minorCode },
             success: function(response) {
                 $('#minor-card-container').html(response);
-                adjustFontSize(); // Adjust font size after content is loaded
+                adjustFontSize(); 
             },
             error: function(error) {
                 console.error('Error fetching minor information:', error);
             }
         });
-    }, 300); // Set debounce delay to 300 milliseconds
+    }, 300);
 
-    // Function to adjust font size based on text length
     function adjustFontSize() {
-        // Select all elements with class 'node'
         var nodes = document.querySelectorAll('.node');
 
-        // Loop through each node element
         nodes.forEach(function(node) {
-            // Get the text content length
             var textLength = node.textContent.trim().length;
-
-            // Calculate font size based on text length (example logic)
-            var fontSize = 100 - (textLength * 2); // Adjust as per your requirement
-
-            // Set the calculated font size to the node element
+            var fontSize = 100 - (textLength * 2);
             node.style.fontSize = fontSize + '%';
         });
     }
@@ -295,59 +281,33 @@ body {
         var modalTitle = document.querySelector('.modal-title');
         var textLength = modalTitle.textContent.trim().length;
 
-        // Define a base font size and adjust based on text length
-        var baseFontSize = 35; // Base font size in pixels
-        var minFontSize = 25; // Minimum font size in pixels
-        var maxTextLength = 23; // Define a maximum text length to base font size on
+        var baseFontSize = 35; 
+        var minFontSize = 25;
+        var maxTextLength = 23; 
 
         console.log('Text length:', textLength);
-
-        // Calculate font size based on text length within the defined range
         var fontSize;
         
         if (textLength <= maxTextLength) {
-            // Calculate font size linearly based on text length
             fontSize = 55
 
         } else {
-            // Apply additional scaling for longer text lengths
             fontSize = baseFontSize - (baseFontSize - minFontSize) * 2* (textLength / maxTextLength);
         }
 
-        // Ensure font size stays within the defined range
-        fontSize = Math.max(fontSize, minFontSize); // Ensure font size doesn't go below minFontSize
-        fontSize = Math.min(fontSize, baseFontSize); // Ensure font size doesn't exceed baseFontSize
+        fontSize = Math.max(fontSize, minFontSize);
+        fontSize = Math.min(fontSize, baseFontSize);
 
-        // Apply the calculated font size to the modal title
+        
         modalTitle.style.fontSize = fontSize + 'px';
     }
 
-
-    // Event listener for minor button click
     $(document).on('click', '.minor-button', function() {
         var minorCode = $(this).data('code');
         debouncedFetchMinorInformation(minorCode);
     });
 
-    // Function to fetch and display minor information
-    // function fetchMinorInformation(minorCode) {
-    //     $.ajax({
-    //         url: '/distance',
-    //         method: 'GET',
-    //         data: { code: minorCode },
-    //         success: function(response) {
-    //             $('#minor-card-container').html(response);
-    //             adjustFontSize(); // Adjust font size after content is loaded
-    //         },
-    //         error: function(error) {
-    //             console.error('Error fetching minor information:', error);
-    //         }
-    //     });
-    // }
-
-    // Function to generate HTML based on JSON data
     function generateHTML(jsonData) {
-        // Function to create HTML for a single node
         function createNodeHtml(node) {
             const nodeElement = document.createElement('div');
             nodeElement.className = 'node';
@@ -371,14 +331,13 @@ body {
             return nodeElement;
         }
 
-        // Function to recursively append children
         function appendChildren(parentElement, children) {
             children.forEach(child => {
                 const childElement = createNodeHtml(child);
                 
                 if (child.children && child.children.length > 0) {
                     childElement.querySelector('.details').innerHTML += `
-                        <div class="reqname">...</div>
+                        <div class="reqname" style="font-size: 20px">More requirements:</div>
                         <div class="children-container"></div>
                     `;
                     const childrenContainer = childElement.querySelector('.children-container');
@@ -401,7 +360,6 @@ body {
         return rootElement.outerHTML;
     }
 
-    // Function to open modal with specified minor and description
     function openModal(minor, desc) {
         var modalId = minor + "-modal";
         var modal = document.getElementById(modalId);
@@ -423,54 +381,45 @@ body {
             return;
         }
 
-        // Use the new generateHTML function
         var generatedHTML = generateHTML(JSON.parse(treeDescription));
 
-
-        // Insert the generated HTML into the modal content container
         var htmlContainer = modalContent.querySelector(".grey-boxes");
         console.log("here is the generated html")
         console.log(generatedHTML)
         htmlContainer.innerHTML = generatedHTML;
-        //htmlContainer.set('html', generatedHTML);
 
         if (htmlContainer.childNodes.length) {
             attachToggleListeners();
         }
 
-        // Get the paragraph element to display the description
         let descriptionParagraph = modalContent.querySelector("#description");
         console.log('description paragraph', descriptionParagraph.textContent);
-
-        // Check if the description length exceeds the maximum length
         
-        descriptionParagraph.textContent = desc; // Show full description
-        modalContent.querySelector(".modal-descBox").style.overflowY = "auto"; // Enable scrolling
+        descriptionParagraph.textContent = desc;
+        modalContent.querySelector(".modal-descBox").style.overflowY = "auto";
 
         
-        modalContent.querySelector(".grey-boxes").style.overflowY = "auto"; // Enable scrolling
+        modalContent.querySelector(".grey-boxes").style.overflowY = "auto";
     }
 
-    // Event delegation for dynamically added elements
     $(document).on('click', '.course-card', function() {
         var minor = $(this).data('minor');
         var desc = $(this).data('desc');
         openModal(minor, desc);
     });
 
-    // Event delegation for modal close buttons
     $(document).on('click', '.close', function() {
         $(this).closest(".modal").hide();
     });
 
-    // Event listener to close modals when clicking outside
+    
     $(document).on('click', function(event) {
         if ($(event.target).hasClass("modal")) {
             $(".modal").hide();
         }
     });
 
-    adjustFontSize(); // Initial font size adjustment
+    adjustFontSize();
 
 
 });

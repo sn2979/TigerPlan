@@ -14,29 +14,28 @@
 
 
 #right-container {
-  width: 65%; /* Adjust based on your layout */
-  float: right; /* If you are using a float-based layout */
-  /* For Flexbox, you'd adjust accordingly */
-  margin-right: 20px; /* Spacing between this container and whatever is to the right */
+  width: 65%;
+  float: right;
+  margin-right: 20px;
 }
 
 #drop-area {
   min-height: 450px;
-  max-height: 450px; /* Set the maximum height for scrolling */
-  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  max-height: 450px;
+  overflow-y: auto; 
   background-color:  #ADD7cd; 
   border: 2px dashed #CCCCCC;
   border-radius: 5px;
   padding: 20px;
   display: flex;
-  flex-wrap: wrap; /* Enable wrapping of items */
-  justify-content: space-between; /* Distribute items evenly between columns */
-  margin-bottom: 20px; /* Spacing between this container and the button */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .grid-item {
-  width: calc(50% - 10px); /* Calculate width for two columns with gap */
-  height: auto; /* Set a fixed height for each item */
+  width: calc(50% - 10px);
+  height: auto;
   margin-bottom: 10px;
   padding: 20px;
   background-color: #ffd699;
@@ -47,42 +46,42 @@
 }
 
 #drop-area p {
-  color: #666666; /* A light text color that's easy on the eyes */
-  font-size: 20px; /* Large enough to be easily readable */
+  color: #666666;
+  font-size: 20px;
 }
 
 #left-container {
   min-height: 450px;
-  max-height: 450px; /* Set the maximum height for scrolling */
-  overflow-y: auto; /* Enable vertical scrolling when content overflows */
-  width: 30%; /* Adjust width as necessary */
-  background-color: #0FA3B1; /* For contrast against the class items */
-  border-radius: 5px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-  margin-right: 20px; /* Spacing between this container and whatever is to the right */
-  margin-left: 20px; /* Spacing between this container and whatever is to the right */
+  max-height: 450px;
+  overflow-y: auto;
+  width: 30%;
+  background-color: #0FA3B1;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-right: 20px;
+  margin-left: 20px;
   margin-bottom: 20px;
-  float: left; /* Align it to the left */
+  float: left;
 }
 
 #char-limit-warning {
     display: none;
-    color: #ffe6b3; /* Set the color of the text */
+    color: #ffe6b3;
     font-size: 16px;
     padding-left: 20px;
 }
 
 #class-input {
-  width: 95%; /* Full width of the container */
-  padding: 10px; /* Padding for aesthetic spacing inside the input */
-  border: none; /* Removes border */
-  border-bottom: 1px solid #ccc; /* Adds a light border to the bottom edge */
-  font-size: 16px; /* Increases font size for readability */
-  margin: 10px; /* Spacing around the input */
+  width: 95%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  margin: 10px; 
 }
 
 #class-list {
-  padding: 10px; /* Padding inside the container around the class items */
+  padding: 10px;
 }
 
 body {
@@ -103,7 +102,7 @@ body {
   margin-bottom: 20px;
   background-color: #F7A072;
   border-radius: 20px;
-  cursor: move; /* Indicate draggable items */
+  cursor: move;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -113,8 +112,8 @@ body {
 
 
 .custom-link {
-  text-decoration: none; /* This removes the underline */
-  color: inherit; /* This will make the text use the color of its parent elements, or you can set a specific color */
+  text-decoration: none;
+  color: inherit;
 }
 
 .clearfix::after {
@@ -142,7 +141,7 @@ body {
     width: 30px;
     height: 30px;
     font-size: 20px;
-    text-align: center; /* Align text horizontally */
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -151,29 +150,28 @@ body {
 
    @media (max-width: 1200px) and (min-width: 801px) {
    #right-container {
-      float: left; /* Set float to left for right container */
-      margin-right: 0; /* Remove right margin */
+      float: left;
+      margin-right: 0;
     }
   }
 
-   /* Media query for smaller screens */
   @media (max-width: 800px) {
     body {
-      font-size: 14px; /* Reduce base font size for smaller screens */
+      font-size: 14px;
     }
 
     #container {
-      width: 90%; /* Adjust container width for smaller screens */
+      width: 90%;
     }
 
     #right-container {
-      width: 100%; /* Adjust container width for smaller screens */
+      width: 100%;
     }
 
     #left-container {
       width: 75%;
       min-height: 200px;
-      max-height: 300px; /* Adjust the maximum height as needed */
+      max-height: 300px;
       margin-left: auto;
       margin-right: auto;
       
@@ -182,22 +180,22 @@ body {
 
     #right-container, #left-container,#recommend-minors-btn{
       
-      float: none; /* Remove float to stack containers vertically */
+      float: none;
     }
 
     #class-input {
-      width: 96%; /* Adjust input field width for smaller screens */
-      font-size: 0.9em; /* Reduce font size for input field on smaller screens */
+      width: 96%;
+      font-size: 0.9em; 
     }
 
     .grid-item {
-      width: 100%; /* Adjust course item width for smaller screens */
-      font-size: 0.9em; /* Reduce font size for course items on smaller screens */
+      width: 100%;
+      font-size: 0.9em; 
     }
     #recommend-minors-btn {
       margin-left: auto;
       margin-right: auto;
-      font-size: 1.5em; /* Reduce font size for button on smaller screens */
+      font-size: 1.5em;
     }
   }
 
@@ -222,8 +220,6 @@ body {
       <div id="char-limit-warning">Character limit reached!</div>
 
       <div id="class-list">
-        
-        <!-- Repeat for each class -->
       </div>
     </div> 
   </section>
@@ -247,21 +243,17 @@ body {
 <script>
 
   'use strict';
-
-  // Function to display a placeholder message in the drop area if it's empty
   function displayMessage() {
     let dropArea = document.getElementById('drop-area');
     console.log(`Drop area has ${dropArea.children.length} children`);
 
     if (dropArea.children.length === 0) {
-      // Add the placeholder message
       console.log(`Placeholder not found!`);
       dropArea.innerHTML = '<center id="placeholder"><p>Drag your classes here</p></center>';
     } else {
       console.log(`Child 0 id is ${dropArea.children[0].id}`);
       if (dropArea.children[0].id === 'placeholder') {
         console.log(`Placeholder found!`);
-        // Remove the placeholder message
         dropArea.removeChild(dropArea.children[0]);
       }
     }
@@ -274,25 +266,22 @@ body {
     var warningMsg = document.getElementById("char-limit-warning");
 
     if (currentLength >= maxLength) {
-        // Show warning message and truncate input value
         input.value = input.value.slice(0, maxLength);
-        warningMsg.style.display = "block"; // Display warning message
+        warningMsg.style.display = "block";
     } else {
-        warningMsg.style.display = "none"; // Hide warning message
+        warningMsg.style.display = "none";
     }
   }
 
-  // Function to allow dropping elements into the drop area
   function allowDrop(ev) {
     ev.preventDefault();
   }
 
-  // Function to handle the start of a drag operation
+
   function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
   }
 
-  // Function to handle dropping elements into the drop area
   function drop_area(ev) {
     ev.preventDefault();
     console.log(`Drop area called!`);
@@ -302,9 +291,7 @@ body {
     console.log(`Drop area has ${dropArea.children.length} children`)
     console.log(`Data is ${data}`)
 
-    // Check if the course is already in the drop area
     if (data.includes('container')) {
-      // If the course is already in the drop area, don't add it again
       return;
     }
 
@@ -312,11 +299,10 @@ body {
     console.log(`ID is ${id}`);
     let existingElement = document.getElementById(id);
     if (existingElement) {
-        // If the course is already in the drop area, don't add it again
         return;
     }
 
-    // Get course details from the dragged element
+    
     let courseElement = document.getElementById(data);
     courseElement.style.backgroundColor = '#ffd699';
     let courseId = courseElement.id;
@@ -324,18 +310,15 @@ body {
     let courseNum = courseElement.querySelector('h2').textContent;
     let courseTitle = courseElement.querySelector('p').textContent;
 
-    // Add the course to the drop area
     addCourseToDropArea(courseId, courseNum, courseTitle);
-    
-    // Encode course data into URL parameters
+
     let encodedCourseId = encodeURIComponent(courseId);
     let encodedCourseNum = encodeURIComponent(courseNum);
     let encodedCourseTitle = encodeURIComponent(courseTitle);
 
-    // Construct the URL for adding the course to the database
     let url = `/addcourse?courseId=${encodedCourseId}&courseNum=${encodedCourseNum}&title=${encodedCourseTitle}`;
 
-    // Send a POST request to the server
+
     let request = new XMLHttpRequest();
     request.open('POST', url);
     request.onload = function() {
@@ -343,32 +326,29 @@ body {
         console.log('Course successfully added to database');
         load_area();
         let courseElement = document.getElementById(data);
-        courseElement.style.backgroundColor = '#ffd699';        // Optionally handle success response
+        courseElement.style.backgroundColor = '#ffd699';
       } else {
         console.error('Error: Failed to add course to database');
         courseElement.style.backgroundColor = '#F7A072';
-        // Optionally handle error response
       }
     };
     request.onerror = function() {
       console.error('Error: Request to add course failed');
-      // Optionally handle request error
     };
     request.send();
   }
 
-  // Function to add a course to the drop area
+
   function addCourseToDropArea(courseId, courseNum, courseTitle) {
     let dropArea = document.getElementById('drop-area');
 
-    // Create a new grid item container for the dropped course
     const newCourseContainer = document.createElement('div');
     newCourseContainer.classList.add('grid-item');
     newCourseContainer.id = courseId + '-container';
     newCourseContainer.draggable = true;
     newCourseContainer.ondragstart = function() { drag(event); };
 
-    // Populate the new container with course details
+
     newCourseContainer.innerHTML = `
     <div class="left-course-info">
           <h2 id="deptnum">${courseNum}</h2>
@@ -379,39 +359,32 @@ body {
         </div>
     `;
 
-    // Append the new grid item container to the drop area
     dropArea.appendChild(newCourseContainer);
     displayMessage();
 
-    // Scroll the drop area to the bottom
     dropArea.scrollTop = dropArea.scrollHeight;
   }
 
-  // Function to handle dropping elements into the drop area
+
   function drop(ev) {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("text");
     let courseElement = document.getElementById(data);
     let resultsId = data.slice(0, data.indexOf('-container'));
     let resultsElement = document.getElementById(resultsId);
-    resultsElement.style.backgroundColor = '#F7A072';     //only remove element if it contains "-container" in its id
+    resultsElement.style.backgroundColor = '#F7A072';
 
     if (courseElement && data.includes('container')) {
-      // Extract course ID from the element ID
       let courseId = courseElement.id.slice(0, courseElement.id.indexOf('-container'));
       console.log(`Removing course: ${courseId}`)
 
-      // Remove the course from the UI
       courseElement.parentNode.removeChild(courseElement);
       displayMessage();
 
-      // Encode course data into URL parameters
       let encodedCourseId = encodeURIComponent(courseId);
 
-      // Construct the URL for removing the course from the database
       let url = `/removecourse?courseId=${encodedCourseId}`;
 
-      // Send a POST request to the server
       let request = new XMLHttpRequest();
       request.open('POST', url);
       request.onload = function() {
@@ -421,22 +394,18 @@ body {
           let resultsElements = document.querySelectorAll('[id="' + courseId + '"]');
           resultsElements.forEach(resultsElement =>
             resultsElement.style.backgroundColor = '#f7a072'
-          // Optionally handle success response
         )} else {
           console.error('Error: Failed to remove course from database');
           resultsElement.style.backgroundColor = '#ffd699';
-          // Optionally handle error response
         }
       };
       request.onerror = function() {
         console.error('Error: Request to remove course failed');
-        // Optionally handle request error
       };
       request.send();
     }
   }
 
-  // Function to handle search response
 function handleSearchResponse() {
     if (this.status !== 200) {
         alert('Error: Failed to fetch data from server');
@@ -445,40 +414,31 @@ function handleSearchResponse() {
     let resultsDiv = document.getElementById('class-list');
     resultsDiv.innerHTML = this.responseText;
 
-    // Get all course containers in the results area
     let resultsCourses = resultsDiv.querySelectorAll('.course');
-
-    // Get all course containers in the drop area
     let dropArea = document.getElementById('drop-area');
     let dropCourses = dropArea.querySelectorAll('.grid-item');
 
-    // Loop through each course container in the results area
     resultsCourses.forEach(courseContainer => {
-        // Extract the course ID from the container ID
         let courseId = courseContainer.id.split('-')[0];
-
-        // Check if the course is already in the drop area
         let alreadyInDropArea = Array.from(dropCourses).some(dropCourse => {
             return dropCourse.id.startsWith(courseId + '-');
         });
         
-        // If the course is already in the drop area, change its background color
         if (alreadyInDropArea) {
-            courseContainer.style.backgroundColor = '#ffd699'; // Change background color to green
+            courseContainer.style.backgroundColor = '#ffd699';
         }
         else {
-            courseContainer.style.backgroundColor = '#F7A072'; // Change background color to #F7A072
+            courseContainer.style.backgroundColor = '#F7A072';
         }
     });
 }
 
 
-  // Function to handle search error
   function handleSearchError() {
     alert('Error: Failed to fetch data from server');
   }
 
-  // Function to perform a search and display results
+
   function getResults() {
     let courseInput = document.getElementById('class-input');
     let course = courseInput.value;
@@ -492,20 +452,18 @@ function handleSearchResponse() {
     request.send();
   }
 
-  // Function to debounce search input
+
   let timer = null;
   function debouncedGetResults() {
     clearTimeout(timer);
     timer = setTimeout(getResults, 500);
   }
 
-  // Function to initialize event listeners
   function setup() {
     let courseInput = document.getElementById('class-input');
     courseInput.addEventListener('input', debouncedGetResults);
   }
 
-  // Function to load initial area content
   function load_area() {
     let dropArea = document.getElementById('drop-area');
     let url = '/loadarea';
@@ -526,36 +484,30 @@ function handleSearchResponse() {
   }
 
   function addCourse(courseId) {
-    // Find the course element in the search results using the courseId
     let courseElement = document.getElementById(courseId);
     courseElement.style.backgroundColor = '#ffd699';
     if (courseElement) {
 
       let dropArea = document.getElementById('drop-area');
 
-      // Check if the course is already in the drop area
       let id = courseId + '-container';
       let existingElement = document.getElementById(id);
       if (existingElement) {
-          // If the course is already in the drop area, don't add it again
           return;
       }
       else {
-        // Create a new course item in the drop area
         let courseNum = courseElement.querySelector('h2').textContent;
         let courseTitle = courseElement.querySelector('p').textContent;
 
         addCourseToDropArea(courseId, courseNum, courseTitle);
 
-        // Encode course data into URL parameters
+
         let encodedCourseId = encodeURIComponent(courseId);
         let encodedCourseNum = encodeURIComponent(courseNum);
         let encodedCourseTitle = encodeURIComponent(courseTitle);
 
-        // Construct the URL for adding the course to the database
         let url = `/addcourse?courseId=${encodedCourseId}&courseNum=${encodedCourseNum}&title=${encodedCourseTitle}`;
 
-        // Send a POST request to the server
         let request = new XMLHttpRequest();
         request.open('POST', url);
         request.onload = function() {
@@ -564,16 +516,13 @@ function handleSearchResponse() {
             load_area();
             let courseElement = document.getElementById(courseId);
             courseElement.style.backgroundColor = '#ffd699';
-            // Optionally handle success response
           } else {
             console.error('Error: Failed to add course to database');
             courseElement.style.backgroundColor = '#F7A072';
-            // Optionally handle error response
           }
         };
         request.onerror = function() {
           console.error('Error: Request to add course failed');
-          // Optionally handle request error
         };
         request.send();
       }
@@ -588,20 +537,15 @@ function handleSearchResponse() {
     resultsElement.style.backgroundColor = '#F7A072'; 
 
     if (courseElement) {
-      // Extract course ID from the element ID
       let id = courseId.slice(0, courseId.indexOf('-container'));
 
-      // Remove the course from the UI
       courseElement.parentNode.removeChild(courseElement);
       displayMessage();
 
-      // Encode course data into URL parameters
       let encodedCourseId = encodeURIComponent(id);
 
-      // Construct the URL for removing the course from the database
       let url = `/removecourse?courseId=${encodedCourseId}`;
 
-      // Send a POST request to the server
       let request = new XMLHttpRequest();
       request.open('POST', url);
       request.onload = function() {
@@ -610,43 +554,32 @@ function handleSearchResponse() {
           load_area();
           let resultsElement = document.getElementById(resultsId);
           resultsElement.style.backgroundColor = '#f7a072';
-          // Optionally handle success response
         } else {
           console.error('Error: Failed to remove course from database');
           resultsElement.style.backgroundColor = '#ffd699';
-          // Optionally handle error response
         }
       };
       request.onerror = function() {
         console.error('Error: Request to remove course failed');
-        // Optionally handle request error
       };
       request.send();
     }
   }
 
-  // Add event listeners once the DOM content is loaded
+  
   document.addEventListener('DOMContentLoaded', setup);
   document.addEventListener('DOMContentLoaded', load_area);
-  // Add event listener to the document to handle clicks on add-course buttons
-  document.addEventListener('click', function(event) {
-    // Check if the clicked element is a button with the class 'add-course-btn'
-    if (event.target && event.target.classList.contains('add-course-btn')) {
-      // Get the course ID from the data-course-id attribute of the clicked button
-      let courseId = event.target.getAttribute('data-course-id');
 
-      // Call the addCourse function with the courseId
+  document.addEventListener('click', function(event) {
+    if (event.target && event.target.classList.contains('add-course-btn')) {
+      let courseId = event.target.getAttribute('data-course-id');
       addCourse(courseId);
     }
   });
 
   document.addEventListener('click', function(event) {
-    // Check if the clicked element is a button with the class 'add-course-btn'
     if (event.target && event.target.classList.contains('remove-course-btn')) {
-      // Get the course ID from the data-course-id attribute of the clicked button
       let courseId = event.target.getAttribute('data-course-id');
-
-      // Call the addCourse function with the courseId
       removeCourse(courseId);
     }
   });

@@ -29,11 +29,8 @@ def login_required(previous_page_url):
 #-----------------------------------------------------------------------
 def restricted_access(func):
     def wrapper(*args, **kwargs):
-        # Check if the request comes from a form submission
         if flask.request.referrer is None:
-            # If not, redirect the user to the error page
             return flask.redirect('/error')
-        # If the request comes from a form submission, proceed to the original function
         return func(*args, **kwargs)
     wrapper.__name__ = func.__name__
     return wrapper
@@ -54,26 +51,20 @@ def home():
 #-----------------------------------------------------------------------
 #username and classes retrieval 
 def get_user_info():
-    # Retrieve the username from the session
     username = flask.session.get('username')
     if username is None:
-        # Handle case where username is not in session (e.g., user not logged in)
-        return False, None, []  # Redirect to login page
+        return False, None, []
     
     try:
-        # Retrieve other data using the username from the session
         classes = student_database.get_student_classes(username)
         name = student_database.get_student_name(username)
         if name == '':
             name = username
         return True, username, classes
     except Exception as e:
-        # Handle database retrieval or rendering errors
         return False, e, []
 
 def map_major_name_to_id(major):
-    # Implement this function to map major_id to the corresponding major name
-    # Example: This is a simplified mapping, you should replace this with your logic
     majors_mapping = {
         'African American Studies': 'AAS',
         'African Studies': 'AFS',
@@ -145,7 +136,6 @@ def map_major_name_to_id(major):
     return majors_mapping.get(major, '')
 
 def map_major_id_to_name(major):
-    # Create a reverse mapping dictionary from major name to major id
     reverse_mapping = {
     'AAS': 'African American Studies',
     'AFS': 'African Studies',
@@ -261,7 +251,6 @@ def login():
     username = auth.authenticate()
     success, first_time = student_database.handle_student_login(username)
     if success:
-        # Store the username in the session
         flask.session['username'] = username
         
         if first_time:
@@ -276,17 +265,16 @@ def login():
             else:
                 return flask.redirect(flask.session['previous_page']) 
     else:
-        # Handle authentication failure
-        return flask.abort(401)  # Unauthorized
+        return flask.abort(401)
 
 @app.route('/logoutapp', methods=['GET'])
 def logoutapp():
-    flask.session.pop('username', None)  # Remove username from session
+    flask.session.pop('username', None)
     return auth.logoutapp()
 
 @app.route('/logoutcas', methods=['GET'])
 def logoutcas():
-    flask.session.pop('username', None)  # Remove username from session
+    flask.session.pop('username', None)
     return auth.logoutcas()
 
 #-----------------------------------------------------------------------
@@ -435,8 +423,6 @@ def search_results():
 
         if course == '':
             result = []
-    
-        #let's do more exception handling with database on backend too later
         try:
             result = courses_database.search_courses(course) 
             if result is None: 
@@ -618,18 +604,3 @@ def about():
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
         return flask.render_template("error.html", username=flask.session.get('username'), error=error_message), 500
-
-
-#route to a testing page; delete later
-# @app.route('/test', methods=['GET'])
-# def test():
-#     success, username, _ = get_user_info()
-#     if username is None:
-#         return login_required(previous_page_url='/test')
-#     if not success:
-#         error_message = f"An error occurred: {str(username)}"
-#         return flask.render_template("error.html", error=error_message), 500  # Return a 500 Internal Server Error status code
-
-#     html_code = flask.render_template("tester.html", username = username)
-#     response = flask.make_response(html_code)
-#     return response

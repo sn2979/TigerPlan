@@ -3,31 +3,31 @@
         #header h1 {
           margin-left: 40px;
           align-content: center;
-          justify-content: center; /* Horizontally center items */
-          position: absolute;  /* Allows absolute positioning relative to this container */
+          justify-content: center; 
+          position: absolute;
           display: flex;
         }
         #header nav {
-            margin-left: auto; /* Push nav to the right */
+            margin-left: auto;
             margin-right: 20px;
             align-content: center;
-            justify-content: center; /* Horizontally center items */
-            position: relative;  /* Allows absolute positioning relative to this container */
+            justify-content: center;
+            position: relative;
             display: flex;
         }
-      /*header hover*/
+      
         #header h1:hover, li a:hover {
             color: #ffd699;
-            transform: translateY(-5px); /* raise the card slightly on hover */
+            transform: translateY(-5px); 
             align-content: center;
         }
 
-        /* Responsive adjustments */
+       
         @media (max-width: 600px) {
-  #header nav ul li a[href="/login"] {
-    display: none;
-  }
-}
+          #header nav ul li a[href="/login"] {
+            display: none;
+          }
+        }
   </style>
 </head>
 
@@ -35,11 +35,6 @@
     <h1><a href="/home" class="custom-link"><span class="roboto">Tiger</span><span class="caveat">Plan</span></a></h1>
     <nav>
       <ul>
-        <!--
-        <li><a href="/recommendations">Your Recommendations</a></li>
-        <li><a href="/classboard">Your Classes</a></li>
-        <li><a href="/allminors">All Minors</a></li>
-        <li><a href="/about">About TigerPlan</a></li> -->   
         <li><a href="/login">Login</a></li>
       </ul>
     </nav>
