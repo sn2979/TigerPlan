@@ -286,17 +286,17 @@ let timer = null;
 let lastXHR = null;
 function debouncedFetchMinorInformation(minorCode) {
     // Cancel the previous AJAX request if it exists
+    clearTimeout(timer); // clear the timer
     if (lastXHR && lastXHR.readyState !== 4) {
         lastXHR.abort();
     }
     
     // Reset the timer
-    clearTimeout(timer);
 
     // Initiate a new timer and AJAX request
     timer = setTimeout(function() {
         fetchMinorInformation(minorCode);
-    }, 50);
+    }, 100);
 }
 
 // Event listener for minor button click
