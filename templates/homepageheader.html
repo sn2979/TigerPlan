@@ -5,6 +5,7 @@
           align-content: center;
           justify-content: center; /* Horizontally center items */
           position: absolute;  /* Allows absolute positioning relative to this container */
+          display: flex;
         }
         #header nav {
             margin-left: auto; /* Push nav to the right */
@@ -12,6 +13,7 @@
             align-content: center;
             justify-content: center; /* Horizontally center items */
             position: relative;  /* Allows absolute positioning relative to this container */
+            display: flex;
         }
       /*header hover*/
         #header h1:hover, li a:hover {
@@ -19,6 +21,13 @@
             transform: translateY(-5px); /* raise the card slightly on hover */
             align-content: center;
         }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+  #header nav ul li a[href="/login"] {
+    display: none;
+  }
+}
   </style>
 </head>
 
