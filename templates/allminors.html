@@ -232,6 +232,34 @@ body {
 <script>
   'use strict';
   $(document).ready(function() {
+    function debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    }
+    var debouncedFetchMinorInformation = debounce(function(minorCode) {
+        $.ajax({
+            url: '/distance',
+            method: 'GET',
+            data: { code: minorCode },
+            success: function(response) {
+                $('#minor-card-container').html(response);
+                adjustFontSize(); // Adjust font size after content is loaded
+            },
+            error: function(error) {
+                console.error('Error fetching minor information:', error);
+            }
+        });
+    }, 300); // Set debounce delay to 300 milliseconds
     // Function to adjust font size based on text length
     function adjustFontSize() {
         // Select all elements with class 'node'
@@ -286,7 +314,7 @@ body {
     // Event listener for minor button click
     $(document).on('click', '.minor-button', function() {
         var minorCode = $(this).data('code');
-        fetchMinorInformation(minorCode);
+        debouncedFetchMinorInformation(minorCode);
     });
 
     // Function to fetch and display minor information
