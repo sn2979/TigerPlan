@@ -297,13 +297,10 @@ body {
     ev.preventDefault();
     console.log(`Drop area called!`);
     
-
     let data = ev.dataTransfer.getData("text");
     let dropArea = document.getElementById('drop-area');
     console.log(`Drop area has ${dropArea.children.length} children`)
     console.log(`Data is ${data}`)
-
-    
 
     // Check if the course is already in the drop area
     if (data.includes('container')) {
@@ -321,6 +318,7 @@ body {
 
     // Get course details from the dragged element
     let courseElement = document.getElementById(data);
+    courseElement.style.backgroundColor = '#ffd699';
     let courseId = courseElement.id;
     let courseNum = courseElement.querySelector('h2').textContent;
     let courseTitle = courseElement.querySelector('p').textContent;
@@ -343,14 +341,11 @@ body {
       if (request.status >= 200 && request.status < 400) {
         console.log('Course successfully added to database');
         load_area();
-        let resultsElements = document.querySelectorAll('[id="' + id + '"]');
-          resultsElements.forEach(resultsElement =>
-            resultsElement.style.backgroundColor = '#ffd699'
-        );
         courseElement.style.backgroundColor = '#ffd699';
         // Optionally handle success response
       } else {
         console.error('Error: Failed to add course to database');
+        courseElement.style.backgroundColor = '#F7A072';
         // Optionally handle error response
       }
     };
@@ -397,6 +392,7 @@ body {
     let data = ev.dataTransfer.getData("text");
 
     let courseElement = document.getElementById(data);
+    courseElement.style.backgroundColor = '#f7a072';
     //only remove element if it contains "-container" in its id
 
     if (courseElement && data.includes('container')) {
@@ -421,9 +417,13 @@ body {
         if (request.status >= 200 && request.status < 400) {
           console.log('Course successfully removed from database');
           load_area();
-          // Optionally handle success response
+          let resultsElements = document.querySelectorAll('[id="' + courseId + '"]');
+          resultsElements.forEach(resultsElement =>
+            resultsElement.style.backgroundColor = '#f7a072'
+            );          // Optionally handle success response
         } else {
           console.error('Error: Failed to remove course from database');
+          courseElement.style.backgroundColor = '#ffd699';
           // Optionally handle error response
         }
       };
@@ -527,6 +527,7 @@ function handleSearchResponse() {
   function addCourse(courseId) {
     // Find the course element in the search results using the courseId
     let courseElement = document.getElementById(courseId);
+    courseElement.style.backgroundColor = '#ffd699';
     if (courseElement) {
 
       let dropArea = document.getElementById('drop-area');
@@ -564,6 +565,7 @@ function handleSearchResponse() {
             // Optionally handle success response
           } else {
             console.error('Error: Failed to add course to database');
+            courseElement.style.backgroundColor = '#F7A072';
             // Optionally handle error response
           }
         };
@@ -579,6 +581,7 @@ function handleSearchResponse() {
   function removeCourse(courseId) {
     console.log(`Removing course: ${courseId}`)
     let courseElement = document.getElementById(courseId);
+    courseElement.style.backgroundColor = '#F7A072'; 
     if (courseElement) {
       // Extract course ID from the element ID
       let id = courseId.slice(0, courseId.indexOf('-container'));
@@ -607,6 +610,7 @@ function handleSearchResponse() {
           // Optionally handle success response
         } else {
           console.error('Error: Failed to remove course from database');
+          courseElement.style.backgroundColor = '#ffd699';
           // Optionally handle error response
         }
       };
