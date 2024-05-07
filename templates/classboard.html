@@ -341,8 +341,8 @@ body {
       if (request.status >= 200 && request.status < 400) {
         console.log('Course successfully added to database');
         load_area();
-        courseElement.style.backgroundColor = '#ffd699';
-        // Optionally handle success response
+        let courseElement = document.getElementById(data);
+        courseElement.style.backgroundColor = '#ffd699';        // Optionally handle success response
       } else {
         console.error('Error: Failed to add course to database');
         courseElement.style.backgroundColor = '#F7A072';
@@ -390,10 +390,10 @@ body {
   function drop(ev) {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("text");
-
     let courseElement = document.getElementById(data);
-    courseElement.style.backgroundColor = '#f7a072';
-    //only remove element if it contains "-container" in its id
+    let resultsId = data.slice(0, data.indexOf('-container'));
+    let resultsElement = document.getElementById(resultsId);
+    resultsElement.style.backgroundColor = '#F7A072';     //only remove element if it contains "-container" in its id
 
     if (courseElement && data.includes('container')) {
       // Extract course ID from the element ID
@@ -420,10 +420,10 @@ body {
           let resultsElements = document.querySelectorAll('[id="' + courseId + '"]');
           resultsElements.forEach(resultsElement =>
             resultsElement.style.backgroundColor = '#f7a072'
-            );          // Optionally handle success response
-        } else {
+          // Optionally handle success response
+        )} else {
           console.error('Error: Failed to remove course from database');
-          courseElement.style.backgroundColor = '#ffd699';
+          resultsElement.style.backgroundColor = '#ffd699';
           // Optionally handle error response
         }
       };
@@ -561,6 +561,7 @@ function handleSearchResponse() {
           if (request.status >= 200 && request.status < 400) {
             console.log('Course successfully added to database');
             load_area();
+            let courseElement = document.getElementById(courseId);
             courseElement.style.backgroundColor = '#ffd699';
             // Optionally handle success response
           } else {
@@ -581,7 +582,10 @@ function handleSearchResponse() {
   function removeCourse(courseId) {
     console.log(`Removing course: ${courseId}`)
     let courseElement = document.getElementById(courseId);
-    courseElement.style.backgroundColor = '#F7A072'; 
+    let resultsId = courseId.slice(0, courseId.indexOf('-container'));
+    let resultsElement = document.getElementById(resultsId);
+    resultsElement.style.backgroundColor = '#F7A072'; 
+
     if (courseElement) {
       // Extract course ID from the element ID
       let id = courseId.slice(0, courseId.indexOf('-container'));
@@ -603,14 +607,12 @@ function handleSearchResponse() {
         if (request.status >= 200 && request.status < 400) {
           console.log('Course successfully removed from database');
           load_area();
-          let resultsElements = document.querySelectorAll('[id="' + id + '"]');
-          resultsElements.forEach(resultsElement =>
-            resultsElement.style.backgroundColor = '#f7a072'
-        );
+          let resultsElement = document.getElementById(resultsId);
+          resultsElement.style.backgroundColor = '#f7a072';
           // Optionally handle success response
         } else {
           console.error('Error: Failed to remove course from database');
-          courseElement.style.backgroundColor = '#ffd699';
+          resultsElement.style.backgroundColor = '#ffd699';
           // Optionally handle error response
         }
       };
