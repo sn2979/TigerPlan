@@ -19,6 +19,18 @@
             transform: translateY(-5px); /* raise the card slightly on hover */
             align-content: center;
         }
+
+        /* Responsive adjustments */
+    @media (max-width: 600px) {
+      #header {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #header nav ul {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 
